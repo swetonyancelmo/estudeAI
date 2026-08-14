@@ -1,13 +1,15 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WIZARD_STEPS, TOTAL_STEPS } from "@/lib/wizard/steps";
 import { isComplete, useWizardStore } from "@/lib/wizard/store";
 import { useGenerateRoadmap } from "@/lib/wizard/api";
+import { roadmapKeys } from "@/lib/roadmaps/api";
 import { WizardProgress } from "./wizard-progress";
 import { WizardStep } from "./wizard-step";
-import { RoadmapResult } from "./roadmap-result";
 import { RoadmapResultSkeleton } from "./roadmap-result-skeleton";
 import { RoadmapError } from "./roadmap-error";
 
@@ -16,11 +18,21 @@ type StepOptions = ReadonlyArray<{ value: string; label: string; hint: string }>
 export function WizardFlow() {
   const { stepIndex, answers, direction, select, next, back, reset } =
     useWizardStore();
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const mutation = useGenerateRoadmap();
 
   function handleSubmit() {
     if (isComplete(answers)) {
-      mutation.mutate(answers);
+      mutation.mutate(answers, {
+        // Etapa 6: o roadmap já nasce persistido e com id — a tela de resultado
+        // virou o detalhe (/roadmaps/:id), onde o progresso é marcável.
+        onSuccess: (roadmap) => {
+          void queryClient.invalidateQueries({ queryKey: roadmapKeys.list() });
+          reset();
+          router.replace(`/roadmaps/${roadmap.id}`);
+        },
+      });
     }
   }
 
@@ -30,7 +42,8 @@ export function WizardFlow() {
   }
 
   // A geração real (Gemini) demora — enquanto pende, mostramos o skeleton.
-  if (mutation.isPending) {
+  // Segue exibido depois do sucesso, durante a navegação para o detalhe.
+  if (mutation.isPending || mutation.isSuccess) {
     return <RoadmapResultSkeleton />;
   }
 
@@ -43,11 +56,6 @@ export function WizardFlow() {
         onRestart={restart}
       />
     );
-  }
-
-  // Fase de resultado: a mutation retornou o roadmap.
-  if (mutation.data) {
-    return <RoadmapResult roadmap={mutation.data} onRestart={restart} />;
   }
 
   const step = WIZARD_STEPS[stepIndex];

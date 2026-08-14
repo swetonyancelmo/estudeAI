@@ -4,11 +4,24 @@ import { RoadmapController } from './roadmap.controller';
 import { RoadmapService } from './roadmap.service';
 import { RoadmapAiService } from './roadmap-ai.service';
 import { RoadmapCacheService } from './roadmap-cache.service';
+import { UserRoadmapService } from './user-roadmap.service';
 import { RoadmapTemplate } from './entities/roadmap-template.entity';
+import { Roadmap } from './entities/roadmap.entity';
+// A entidade se chama Module (ARCHITETURE.md §4) e colide com o decorator
+// @Module do Nest — só aqui, então o alias fica local a este arquivo.
+import { Module as ModuleEntity } from './entities/module.entity';
+import { Topic } from './entities/topic.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RoadmapTemplate])],
+  imports: [
+    TypeOrmModule.forFeature([RoadmapTemplate, Roadmap, ModuleEntity, Topic]),
+  ],
   controllers: [RoadmapController],
-  providers: [RoadmapService, RoadmapAiService, RoadmapCacheService],
+  providers: [
+    RoadmapService,
+    RoadmapAiService,
+    RoadmapCacheService,
+    UserRoadmapService,
+  ],
 })
 export class RoadmapModule {}
