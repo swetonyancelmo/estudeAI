@@ -62,7 +62,7 @@ export function AuthForm({
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-xl font-bold">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <form onSubmit={submit} noValidate>
@@ -107,7 +107,11 @@ export function AuthForm({
         </CardContent>
 
         <CardFooter className="mt-2 flex flex-col gap-3">
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            className="h-10 w-full rounded-md font-semibold"
+            disabled={isSubmitting}
+          >
             {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
             {submitLabel}
           </Button>
