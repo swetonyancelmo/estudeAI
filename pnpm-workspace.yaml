@@ -1,0 +1,16 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+allowBuilds:
+  unrs-resolver: true
+  sharp: true
+  bcrypt: true
+  # SDK do Gemini e sua dependência: JS puro, sem build nativo necessário.
+  '@google/genai': false
+  protobufjs: false
+
+onlyBuiltDependencies:
+  - unrs-resolver
+  - sharp
+  - bcrypt

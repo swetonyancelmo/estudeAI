@@ -1,0 +1,9 @@
+{
+  "name": "estudeai",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @estudeai/shared-types build && pnpm --parallel --filter @estudeai/shared-types --filter api --filter web run dev",
+    "build": "pnpm -r run build"
+  }
+}
