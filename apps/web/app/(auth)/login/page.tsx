@@ -8,22 +8,20 @@ import { login } from "@/lib/auth/actions";
 
 export default function LoginPage() {
   return (
-    <div className="flex flex-1 items-center justify-center p-6">
-      <AuthForm
-        title="Entrar"
-        description="Acesse sua conta para continuar seu roadmap."
-        submitLabel="Entrar"
-        resolver={zodResolver(loginSchema)}
-        onSubmit={login}
-        footer={
-          <>
-            Não tem conta?{" "}
-            <Link href="/register" className="text-primary hover:underline">
-              Criar conta
-            </Link>
-          </>
-        }
-      />
-    </div>
+    <AuthForm
+      title="Entrar"
+      description="Acesse sua conta para continuar seu roadmap."
+      submitLabel="Entrar"
+      resolver={zodResolver(loginSchema)}
+      onSubmit={login}
+      footer={
+        <>
+          Não tem conta?{" "}
+          <Link href="/register" className="text-primary hover:underline">
+            Criar conta
+          </Link>
+        </>
+      }
+    />
   );
 }

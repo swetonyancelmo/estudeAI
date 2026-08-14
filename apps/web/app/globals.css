@@ -7,9 +7,19 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+  --font-heading: var(--font-bricolage);
+  /* Tokens da identidade (ver design-system abaixo) — o acento da marca é o
+     `primary` do shadcn; estes cobrem os usos que o shadcn não tem token. */
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-line: var(--brand-line);
+  --color-ink-faint: var(--ink-faint);
+  --color-line-soft: var(--line-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -48,73 +58,102 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/**
+ * Identidade visual do estudeAI.
+ * Neutros com viés frio (azulado) + um único acento laranja — o acento é
+ * gasto em uma coisa só: a ação principal e o traçado percorrido da rota.
+ * Os nomes do shadcn são mantidos (primary/muted/border/...) para que os
+ * componentes de `components/ui` herdem a identidade sem serem reescritos.
+ */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --background: oklch(0.9757 0.0017 247.84); /* paper   #F6F7F8 */
+  --foreground: oklch(0.2008 0.0124 270.73); /* ink     #14161C */
+  --card: oklch(1 0 0); /* paper elevado #FFFFFF */
+  --card-foreground: oklch(0.2008 0.0124 270.73);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.2008 0.0124 270.73);
+  --primary: oklch(0.655 0.1969 35.27); /* acento  #F0562E */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9542 0.0034 247.86); /* line-soft #EEF0F2 */
+  --secondary-foreground: oklch(0.2008 0.0124 270.73);
+  --muted: oklch(0.9542 0.0034 247.86);
+  --muted-foreground: oklch(0.4313 0.0209 267.54); /* ink-soft #4B505C */
+  /* `accent` do shadcn = fundo sutil de hover (neutro), NÃO o acento da marca. */
+  --accent: oklch(0.9542 0.0034 247.86);
+  --accent-foreground: oklch(0.2008 0.0124 270.73);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --border: oklch(0.9246 0.0058 264.53); /* line    #E4E6EA */
+  --input: oklch(0.9246 0.0058 264.53);
+  --ring: oklch(0.655 0.1969 35.27);
+  --chart-1: oklch(0.655 0.1969 35.27);
+  --chart-2: oklch(0.6167 0.1363 157.61);
+  --chart-3: oklch(0.4313 0.0209 267.54);
+  --chart-4: oklch(0.6491 0.016 264.46);
+  --chart-5: oklch(0.9246 0.0058 264.53);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Tokens próprios da marca (sem equivalente no shadcn). */
+  --brand: oklch(0.655 0.1969 35.27);
+  --brand-foreground: oklch(1 0 0);
+  --brand-soft: oklch(0.9503 0.0228 41.41); /* #FDEAE3 */
+  --brand-line: oklch(0.8572 0.0648 42.46); /* #F6C3AF */
+  --ink-faint: oklch(0.6491 0.016 264.46); /* #8A8F99 */
+  --line-soft: oklch(0.9542 0.0034 247.86); /* #EEF0F2 */
+  --success: oklch(0.6167 0.1363 157.61); /* #1F9D64 */
+  --success-soft: oklch(0.9524 0.0256 161.94); /* #E1F5EA */
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.2008 0.0124 270.73);
+  --sidebar-primary: oklch(0.655 0.1969 35.27);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.9542 0.0034 247.86);
+  --sidebar-accent-foreground: oklch(0.2008 0.0124 270.73);
+  --sidebar-border: oklch(0.9246 0.0058 264.53);
+  --sidebar-ring: oklch(0.655 0.1969 35.27);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.1686 0.011 268.03); /* paper   #0D0F14 */
+  --foreground: oklch(0.967 0.0029 264.54); /* ink     #F3F4F6 */
+  --card: oklch(0.2155 0.018 275.01); /* paper elevado #171922 */
+  --card-foreground: oklch(0.967 0.0029 264.54);
+  --popover: oklch(0.2155 0.018 275.01);
+  --popover-foreground: oklch(0.967 0.0029 264.54);
+  --primary: oklch(0.7053 0.1904 37.23); /* acento  #FF6B3E */
+  --primary-foreground: oklch(0.1829 0.0377 96.89);
+  --secondary: oklch(0.2492 0.0195 271.87); /* line-soft #1E212B */
+  --secondary-foreground: oklch(0.967 0.0029 264.54);
+  --muted: oklch(0.2492 0.0195 271.87);
+  --muted-foreground: oklch(0.7441 0.0212 267.23); /* ink-soft #A6ACBA */
+  --accent: oklch(0.2492 0.0195 271.87);
+  --accent-foreground: oklch(0.967 0.0029 264.54);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: oklch(0.2899 0.0209 269.38); /* line    #272B36 */
+  --input: oklch(0.2899 0.0209 269.38);
+  --ring: oklch(0.7053 0.1904 37.23);
+  --chart-1: oklch(0.7053 0.1904 37.23);
+  --chart-2: oklch(0.7365 0.1615 156.32);
+  --chart-3: oklch(0.7441 0.0212 267.23);
+  --chart-4: oklch(0.5488 0.0244 268.24);
+  --chart-5: oklch(0.2899 0.0209 269.38);
+
+  --brand: oklch(0.7053 0.1904 37.23);
+  --brand-foreground: oklch(0.1829 0.0377 96.89);
+  --brand-soft: oklch(0.235 0.0326 44.68); /* #2B1911 */
+  --brand-line: oklch(0.3613 0.0658 42.86); /* #5A3120 */
+  --ink-faint: oklch(0.5488 0.0244 268.24); /* #6B7180 */
+  --line-soft: oklch(0.2492 0.0195 271.87); /* #1E212B */
+  --success: oklch(0.7365 0.1615 156.32); /* #34C77E */
+  --success-soft: oklch(0.2546 0.0354 160.67); /* #12281D */
+
+  --sidebar: oklch(0.2155 0.018 275.01);
+  --sidebar-foreground: oklch(0.967 0.0029 264.54);
+  --sidebar-primary: oklch(0.7053 0.1904 37.23);
+  --sidebar-primary-foreground: oklch(0.1829 0.0377 96.89);
+  --sidebar-accent: oklch(0.2492 0.0195 271.87);
+  --sidebar-accent-foreground: oklch(0.967 0.0029 264.54);
+  --sidebar-border: oklch(0.2899 0.0209 269.38);
+  --sidebar-ring: oklch(0.7053 0.1904 37.23);
 }
 
 @layer base {
@@ -126,5 +165,33 @@
   }
   html {
     @apply font-sans;
+  }
+  /* Tipografia display precisa de entrelinha própria: o 1.5 do corpo deixa
+     títulos grandes soltos demais. */
+  h1,
+  h2,
+  h3 {
+    @apply font-heading leading-[1.15] tracking-tight;
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  /* Eyebrow monoespaçada — usada acima dos títulos de seção e nos labels de dado. */
+  .eyebrow {
+    @apply font-mono text-[11.5px] tracking-[0.04em] uppercase;
+  }
+  /* Malha de pontos do hero: some para baixo, para o conteúdo seguinte respirar. */
+  .dot-grid {
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: -11px -11px;
+    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black 55%,
+      transparent 100%
+    );
   }
 }
