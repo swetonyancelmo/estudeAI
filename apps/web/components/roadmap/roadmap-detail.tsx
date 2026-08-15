@@ -1,24 +1,33 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { AlertCircle, ArrowLeft } from "lucide-react";
+import { AlertCircle, ArrowLeft, ShieldCheck } from "lucide-react";
+import type { AdjustmentChangesDto } from "@estudeai/shared-types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRoadmap, useToggleTopic } from "@/lib/roadmaps/api";
 import { AREA_LABELS } from "@/lib/roadmaps/labels";
+import { DeleteRoadmapButton } from "./delete-roadmap-button";
 import { ProgressBar } from "./progress-bar";
-import { TopicCheckbox } from "./topic-checkbox";
+import { RoadmapAdjustPanel } from "./roadmap-adjust-panel";
+import { TopicCheckbox, type TopicHighlight } from "./topic-checkbox";
 
 /**
  * Detalhe do roadmap persistido (FR-03.2 + FR-03.3): módulos, tópicos com
  * checkbox e a barra geral. A barra lê o mesmo `progress` do cache que a
  * mutation otimista recalcula, então ela sobe junto com o check — sem esperar
  * o servidor e sem um segundo cálculo próprio aqui.
+ *
+ * FR-04: o painel de reajuste devolve o que mudou; guardamos isso em estado
+ * local (some ao sair da tela, como convém a um destaque) para diferenciar
+ * visualmente o que a IA reorganizou do que continua concluído e intacto.
  */
 export function RoadmapDetail({ roadmapId }: { roadmapId: string }) {
   const { data: roadmap, isPending, isError, error } = useRoadmap(roadmapId);
   const toggle = useToggleTopic(roadmapId);
+  const [changes, setChanges] = useState<AdjustmentChangesDto | null>(null);
 
   if (isPending) {
     return <DetailSkeleton />;
@@ -26,6 +35,13 @@ export function RoadmapDetail({ roadmapId }: { roadmapId: string }) {
 
   if (isError) {
     return <DetailError error={error} />;
+  }
+
+  function highlightOf(topicId: string): TopicHighlight | undefined {
+    if (!changes) return undefined;
+    if (changes.addedTopicIds.includes(topicId)) return "added";
+    if (changes.updatedTopicIds.includes(topicId)) return "updated";
+    return undefined;
   }
 
   return (
@@ -52,6 +68,19 @@ export function RoadmapDetail({ roadmapId }: { roadmapId: string }) {
         <div className="border-border bg-card rounded-2xl border p-5">
           <ProgressBar progress={roadmap.progress} showCount />
         </div>
+
+        <RoadmapAdjustPanel roadmapId={roadmapId} onAdjusted={setChanges} />
+
+        {changes && changes.preservedTopicIds.length > 0 && (
+          <p className="text-muted-foreground flex items-center gap-2 text-xs">
+            <ShieldCheck className="text-success size-4 shrink-0" />
+            {changes.preservedTopicIds.length}{" "}
+            {changes.preservedTopicIds.length === 1
+              ? "tópico concluído foi preservado"
+              : "tópicos concluídos foram preservados"}{" "}
+            no reajuste.
+          </p>
+        )}
 
         {toggle.isError && (
           <p className="text-destructive flex items-center gap-2 text-sm">
@@ -82,12 +111,19 @@ export function RoadmapDetail({ roadmapId }: { roadmapId: string }) {
                     key={topic.id}
                     topic={topic}
                     onToggle={toggle.mutate}
+                    highlight={highlightOf(topic.id)}
                   />
                 ))}
               </div>
             </CardContent>
           </Card>
         ))}
+      </div>
+
+      {/* Ação destrutiva no fim da página: fora do caminho de quem só veio
+          estudar, e sem competir com o reajuste lá em cima. */}
+      <div className="border-border/60 flex justify-end border-t pt-6">
+        <DeleteRoadmapButton roadmapId={roadmapId} />
       </div>
     </div>
   );

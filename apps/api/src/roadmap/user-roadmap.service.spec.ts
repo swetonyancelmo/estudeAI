@@ -82,6 +82,7 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
     create: jest.Mock;
     save: jest.Mock;
     findOne: jest.Mock;
+    delete: jest.Mock;
     createQueryBuilder: jest.Mock;
   };
   let topics: { save: jest.Mock };
@@ -93,6 +94,7 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
         Promise.resolve({ ...value, id: 'roadmap-1' }),
       ),
       findOne: jest.fn(),
+      delete: jest.fn().mockResolvedValue({ affected: 1 }),
       createQueryBuilder: jest.fn(),
     };
     topics = { save: jest.fn((value: unknown) => Promise.resolve(value)) };
@@ -189,6 +191,15 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
       );
     });
 
+    it('remove devolve 403 e não apaga nada', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      await expect(service.remove(INTRUDER, 'roadmap-1')).rejects.toThrow(
+        ForbiddenException,
+      );
+      expect(roadmaps.delete).not.toHaveBeenCalled();
+    });
+
     it('topicId que não pertence ao roadmap devolve 404', async () => {
       roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
 
@@ -254,6 +265,27 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
         totalTopics: 0,
         percent: 0,
       });
+    });
+  });
+
+  describe('remove', () => {
+    it('apaga só a linha do roadmap — módulos e tópicos vão pelo cascade', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      await service.remove(OWNER, 'roadmap-1');
+
+      expect(roadmaps.delete).toHaveBeenCalledWith({ id: 'roadmap-1' });
+      // Nada de apagar tópico a tópico na aplicação: a regra é do banco.
+      expect(topics.save).not.toHaveBeenCalled();
+    });
+
+    it('roadmap inexistente devolve 404 (não 204 silencioso)', async () => {
+      roadmaps.findOne.mockResolvedValue(null);
+
+      await expect(service.remove(OWNER, 'roadmap-x')).rejects.toThrow(
+        NotFoundException,
+      );
+      expect(roadmaps.delete).not.toHaveBeenCalled();
     });
   });
 

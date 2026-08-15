@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -11,6 +12,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import type {
+  AdjustRoadmapResponseDto,
   RoadmapDetailDto,
   RoadmapListItemDto,
   ToggleTopicResponseDto,
@@ -18,8 +20,10 @@ import type {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/strategies/jwt.strategy';
+import { AdjustRoadmapDto } from './dto/adjust-roadmap.dto';
 import { WizardAnswersDto } from './dto/wizard-answers.dto';
 import { RoadmapService } from './roadmap.service';
+import { RoadmapAdjustService } from './roadmap-adjust.service';
 import { UserRoadmapService } from './user-roadmap.service';
 
 /**
@@ -33,6 +37,7 @@ export class RoadmapController {
   constructor(
     private readonly roadmapService: RoadmapService,
     private readonly userRoadmaps: UserRoadmapService,
+    private readonly adjustService: RoadmapAdjustService,
   ) {}
 
   /**
@@ -63,6 +68,19 @@ export class RoadmapController {
     return this.userRoadmaps.findDetail(user.id, id);
   }
 
+  /**
+   * Exclui o roadmap (com módulos e tópicos, via cascade). 204 sem corpo: não
+   * há o que devolver, e o cliente já sabe qual id removeu.
+   */
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<void> {
+    return this.userRoadmaps.remove(user.id, id);
+  }
+
   /** FR-03.3 — marca/desmarca um tópico e devolve o progresso recalculado. */
   @Patch(':id/topics/:topicId')
   @HttpCode(HttpStatus.OK)
@@ -72,5 +90,20 @@ export class RoadmapController {
     @Param('topicId', ParseUUIDPipe) topicId: string,
   ): Promise<ToggleTopicResponseDto> {
     return this.userRoadmaps.toggleTopic(user.id, id, topicId);
+  }
+
+  /**
+   * FR-04.1/FR-04.2 — reajusta ESTE roadmap (mesmo id) a partir de um pedido em
+   * linguagem natural. 422 quando a IA devolve algo que alteraria progresso já
+   * concluído: nesse caso nada é gravado.
+   */
+  @Post(':id/adjust')
+  @HttpCode(HttpStatus.OK)
+  adjust(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: AdjustRoadmapDto,
+  ): Promise<AdjustRoadmapResponseDto> {
+    return this.adjustService.adjust(user.id, id, dto.adjustmentRequest);
   }
 }
