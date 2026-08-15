@@ -4,8 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import type {
+  AdjustRoadmapResponseDto,
+  AdjustedRoadmapDto,
   RoadmapDetailDto,
   RoadmapListItemDto,
   RoadmapProgressDto,
@@ -13,7 +15,11 @@ import type {
   ToggleTopicResponseDto,
 } from '@estudeai/shared-types';
 import { Roadmap } from './entities/roadmap.entity';
+// A entidade se chama Module (ARCHITETURE.md §4); o alias evita ler como o
+// decorator @Module do Nest, mesmo padrão de roadmap.module.ts.
+import { Module as ModuleEntity } from './entities/module.entity';
 import { Topic } from './entities/topic.entity';
+import { buildAdjustmentPlan } from './roadmap-adjust.validator';
 
 /** Linha crua da query agregada da lista (COUNT volta como string no pg). */
 interface RoadmapListRow {
@@ -157,15 +163,150 @@ export class UserRoadmapService {
   }
 
   /**
+   * Exclui o roadmap do usuário. Só a linha de `roadmaps` é apagada: módulos e
+   * tópicos vão junto pelo ON DELETE CASCADE da migration (regra no banco, não
+   * na aplicação), e `roadmap_templates` não é tocado — o cache é molde
+   * compartilhado, não pertence a este usuário.
+   *
+   * Passa pelo mesmo `loadOwned` do resto: 404 se não existe, 403 se é de outra
+   * pessoa. Excluir é irreversível, então distinguir os dois importa mais aqui
+   * do que em qualquer outra rota.
+   */
+  async remove(userId: string, roadmapId: string): Promise<void> {
+    const roadmap = await this.loadOwned(userId, roadmapId);
+    await this.roadmaps.delete({ id: roadmap.id });
+  }
+
+  /**
+   * FR-04.2 — aplica um reajuste já produzido pela IA. É o MESMO roadmap: o id,
+   * a targetArea e a justification não são tocados; muda só a árvore de módulos
+   * e tópicos.
+   *
+   * Tudo numa transação, e o plano de escrita é (re)construído AQUI DENTRO,
+   * contra o estado recém-lido: se o usuário marcou um tópico enquanto a IA
+   * pensava (a chamada leva segundos), a validação de integridade roda de novo
+   * sobre a realidade atual e rejeita o ajuste em vez de gravar por cima.
+   *
+   * Além disso, as escritas destrutivas carregam a regra no próprio SQL
+   * (`is_completed = false`, `NOT EXISTS (... concluído ...)`). Assim nem uma
+   * corrida na janela entre o SELECT e o DELETE consegue remover progresso: o
+   * banco simplesmente não apaga a linha. É a terceira camada, depois do prompt
+   * e do validador.
+   */
+  async applyAdjustment(
+    userId: string,
+    roadmapId: string,
+    ai: AdjustedRoadmapDto,
+  ): Promise<AdjustRoadmapResponseDto> {
+    return this.roadmaps.manager.transaction(async (manager) => {
+      const before = await this.loadOwned(userId, roadmapId, manager);
+      const plan = buildAdjustmentPlan(this.toDetailDto(before), ai);
+
+      if (plan.topicIdsToDelete.length > 0) {
+        await manager
+          .createQueryBuilder()
+          .delete()
+          .from(Topic)
+          .where('id IN (:...ids)', { ids: plan.topicIdsToDelete })
+          .andWhere('is_completed = false')
+          .execute();
+      }
+
+      if (plan.moduleIdsToDelete.length > 0) {
+        await manager
+          .createQueryBuilder()
+          .delete()
+          .from(ModuleEntity)
+          .where('id IN (:...ids)', { ids: plan.moduleIdsToDelete })
+          .andWhere(
+            `NOT EXISTS (
+               SELECT 1 FROM "roadmap_topics" t
+               WHERE t."module_id" = "roadmap_modules"."id" AND t."is_completed"
+             )`,
+          )
+          .execute();
+      }
+
+      if (plan.moduleInserts.length > 0) {
+        await manager.insert(
+          ModuleEntity,
+          plan.moduleInserts.map((module) => ({ ...module, roadmapId })),
+        );
+      }
+
+      for (const module of plan.moduleUpdates) {
+        await manager.update(ModuleEntity, module.id, {
+          title: module.title,
+          description: module.description,
+          order: module.order,
+        });
+      }
+
+      if (plan.topicInserts.length > 0) {
+        await manager.insert(
+          Topic,
+          plan.topicInserts.map((topic) => ({
+            id: topic.id,
+            moduleId: topic.moduleId,
+            title: topic.title,
+            order: topic.order,
+            isCompleted: false,
+            estimatedHours: this.toIntHours(topic.estimatedHours),
+          })),
+        );
+      }
+
+      // Só tópicos PENDENTES têm conteúdo reescrito — e o `is_completed = false`
+      // no WHERE garante isso mesmo se o estado mudar no meio da transação.
+      for (const topic of plan.topicUpdates) {
+        await manager
+          .createQueryBuilder()
+          .update(Topic)
+          .set({
+            moduleId: topic.moduleId,
+            title: topic.title,
+            order: topic.order,
+            estimatedHours: this.toIntHours(topic.estimatedHours),
+          })
+          .where('id = :id', { id: topic.id })
+          .andWhere('is_completed = false')
+          .execute();
+      }
+
+      // Concluídos: só a posição. Nenhuma coluna de conteúdo entra neste UPDATE.
+      for (const { id, order } of plan.completedTopicOrders) {
+        await manager.update(Topic, id, { order });
+      }
+
+      const after = await this.loadOwned(userId, roadmapId, manager);
+      return {
+        roadmap: this.toDetailDto(after),
+        adjustmentSummary: ai.adjustmentSummary,
+        changes: plan.changes,
+      };
+    });
+  }
+
+  /** `estimated_hours` é integer no banco; a IA pode mandar 4.5. */
+  private toIntHours(hours: number | null): number | null {
+    return hours === null ? null : Math.round(hours);
+  }
+
+  /**
    * Carrega o roadmap pelo id e só então compara o dono. Buscar por
    * `{ id, userId }` seria mais curto, mas devolveria 404 para roadmap de
    * outra pessoa — queremos distinguir "não existe" (404) de "não é seu" (403).
+   *
+   * `manager` presente = leitura dentro de uma transação (reajuste); ausente =
+   * repositório normal. A regra de ownership é a mesma nos dois caminhos.
    */
   private async loadOwned(
     userId: string,
     roadmapId: string,
+    manager?: EntityManager,
   ): Promise<Roadmap> {
-    const roadmap = await this.roadmaps.findOne({
+    const repository = manager ? manager.getRepository(Roadmap) : this.roadmaps;
+    const roadmap = await repository.findOne({
       where: { id: roadmapId },
       relations: { modules: { topics: true } },
     });

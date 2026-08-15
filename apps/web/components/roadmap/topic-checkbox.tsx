@@ -3,11 +3,21 @@
 import { Checkbox } from "@base-ui/react/checkbox";
 import { Check } from "lucide-react";
 import type { PersistedTopicDto } from "@estudeai/shared-types";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+
+/** Marcação pós-reajuste (FR-04.2), só até o usuário sair da tela. */
+export type TopicHighlight = "added" | "updated";
+
+const HIGHLIGHT_LABELS: Record<TopicHighlight, string> = {
+  added: "novo",
+  updated: "ajustado",
+};
 
 interface TopicCheckboxProps {
   topic: PersistedTopicDto;
   onToggle: (topicId: string) => void;
+  highlight?: TopicHighlight;
 }
 
 /**
@@ -15,8 +25,16 @@ interface TopicCheckboxProps {
  * a mutation já atualizou de forma otimista — por isso não há estado local nem
  * `disabled` durante o request: o clique é instantâneo, e um erro reverte o
  * cache (rollback), fazendo o check voltar sozinho.
+ *
+ * `highlight` (FR-04.2) marca o que o último reajuste mexeu. Quem foi concluído
+ * nunca recebe marca: ele continua com o visual de sempre, e é justamente esse
+ * contraste que mostra que o progresso passou intacto pelo recálculo.
  */
-export function TopicCheckbox({ topic, onToggle }: TopicCheckboxProps) {
+export function TopicCheckbox({
+  topic,
+  onToggle,
+  highlight,
+}: TopicCheckboxProps) {
   return (
     <label className="group/topic flex cursor-pointer items-center gap-3 border-b border-border/60 py-2.5 text-sm last:border-0">
       <Checkbox.Root
@@ -41,6 +59,12 @@ export function TopicCheckbox({ topic, onToggle }: TopicCheckboxProps) {
       >
         {topic.title}
       </span>
+
+      {highlight && (
+        <Badge variant="outline" className="shrink-0 text-[10px]">
+          {HIGHLIGHT_LABELS[highlight]}
+        </Badge>
+      )}
 
       {topic.estimatedHours !== undefined && (
         <span className="text-ink-faint shrink-0 font-mono text-xs">

@@ -4,7 +4,12 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import type { ConfigService } from '@nestjs/config';
-import type { RoadmapResponseDto, WizardAnswers } from '@estudeai/shared-types';
+import type {
+  AdjustedRoadmapDto,
+  RoadmapDetailDto,
+  RoadmapResponseDto,
+  WizardAnswers,
+} from '@estudeai/shared-types';
 
 // Mock do SDK: o construtor GoogleGenAI passa a devolver um objeto cujo
 // models.generateContent controlamos por teste. Nada bate na API real.
@@ -182,5 +187,126 @@ describe('RoadmapAiService (Gemini mockado — Etapa 4)', () => {
     );
     await jest.advanceTimersByTimeAsync(20000);
     await assertion;
+  });
+});
+
+/** Detalhe persistido mínimo para alimentar o reajuste. */
+function persistedRoadmap(): RoadmapDetailDto {
+  return {
+    id: 'roadmap-1',
+    targetArea: 'frontend',
+    justification: 'justificativa',
+    status: 'active',
+    createdAt: '2026-01-01T12:00:00.000Z',
+    progress: { completedTopics: 1, totalTopics: 2, percent: 50 },
+    modules: [
+      {
+        id: 'm-1',
+        title: 'Fundamentos',
+        description: 'HTML e CSS',
+        order: 0,
+        topics: [
+          {
+            id: 't-1',
+            title: 'HTML semântico',
+            order: 0,
+            isCompleted: true,
+            estimatedHours: 4,
+          },
+          { id: 't-2', title: 'CSS layout', order: 1, isCompleted: false },
+        ],
+      },
+    ],
+  };
+}
+
+function validAdjustmentJson(): string {
+  const adjusted: AdjustedRoadmapDto = {
+    adjustmentSummary: 'Enxuguei o pendente; o concluído continua lá.',
+    modules: [
+      {
+        id: 'm-1',
+        title: 'Fundamentos',
+        description: 'HTML e CSS',
+        topics: [
+          {
+            id: 't-1',
+            title: 'HTML semântico',
+            isCompleted: true,
+            estimatedHours: 4,
+          },
+          { title: 'CSS essencial', isCompleted: false },
+        ],
+      },
+    ],
+  };
+  return JSON.stringify(adjusted);
+}
+
+describe('RoadmapAiService.adjustRoadmap (Etapa 7)', () => {
+  const baseEnv = {
+    GEMINI_API_KEY: 'test-key',
+    GEMINI_MODEL: 'gemini-flash-latest',
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.useRealTimers();
+  });
+
+  it('usa system instruction e schema PRÓPRIOS, diferentes dos da geração', async () => {
+    generateContent.mockResolvedValue({ text: validAdjustmentJson() });
+    const service = buildService(baseEnv);
+
+    await service.adjustRoadmap(persistedRoadmap(), 'tenho menos tempo');
+    const adjustCall = generateContent.mock.calls[0][0];
+
+    generateContent.mockResolvedValue({ text: validRoadmapJson() });
+    await service.generate(answers);
+    const generateCall = generateContent.mock.calls[1][0];
+
+    expect(adjustCall.config.systemInstruction).not.toBe(
+      generateCall.config.systemInstruction,
+    );
+    expect(adjustCall.config.responseSchema).not.toBe(
+      generateCall.config.responseSchema,
+    );
+    // A área não entra no schema do reajuste — a IA não tem como trocá-la.
+    expect(
+      Object.keys(adjustCall.config.responseSchema.properties),
+    ).toEqual(['adjustmentSummary', 'modules']);
+  });
+
+  it('preserva o id ausente como "tópico novo" ao normalizar', async () => {
+    generateContent.mockResolvedValue({ text: validAdjustmentJson() });
+    const service = buildService(baseEnv);
+
+    const adjusted = await service.adjustRoadmap(
+      persistedRoadmap(),
+      'tenho menos tempo',
+    );
+
+    expect(adjusted.modules[0].topics[0].id).toBe('t-1');
+    expect(adjusted.modules[0].topics[1].id).toBeUndefined();
+  });
+
+  it('502 (BadGateway) quando a resposta do reajuste foge do contrato', async () => {
+    generateContent.mockResolvedValue({
+      text: JSON.stringify({ adjustmentSummary: 'ok', modules: [] }),
+    });
+    const service = buildService(baseEnv);
+
+    await expect(
+      service.adjustRoadmap(persistedRoadmap(), 'tenho menos tempo'),
+    ).rejects.toBeInstanceOf(BadGatewayException);
+  });
+
+  it('502 (BadGateway) quando o reajuste vem com JSON malformado', async () => {
+    generateContent.mockResolvedValue({ text: '{ nope' });
+    const service = buildService(baseEnv);
+
+    await expect(
+      service.adjustRoadmap(persistedRoadmap(), 'tenho menos tempo'),
+    ).rejects.toBeInstanceOf(BadGatewayException);
   });
 });

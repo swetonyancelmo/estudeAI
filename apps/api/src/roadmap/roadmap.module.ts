@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoadmapController } from './roadmap.controller';
 import { RoadmapService } from './roadmap.service';
+import { RoadmapAdjustService } from './roadmap-adjust.service';
 import { RoadmapAiService } from './roadmap-ai.service';
 import { RoadmapCacheService } from './roadmap-cache.service';
 import { UserRoadmapService } from './user-roadmap.service';
@@ -19,6 +20,7 @@ import { Topic } from './entities/topic.entity';
   controllers: [RoadmapController],
   providers: [
     RoadmapService,
+    RoadmapAdjustService,
     RoadmapAiService,
     RoadmapCacheService,
     UserRoadmapService,

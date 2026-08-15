@@ -4,6 +4,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import type {
+  AdjustRoadmapResponseDto,
   RoadmapDetailDto,
   RoadmapListItemDto,
   ToggleTopicResponseDto,
@@ -32,6 +33,23 @@ export async function listRoadmaps(): Promise<RoadmapListItemDto[]> {
 export async function getRoadmap(id: string): Promise<RoadmapDetailDto> {
   const { data } = await api.get<RoadmapDetailDto>(`/roadmap/${id}`);
   return data;
+}
+
+/** POST /roadmap/:id/adjust — reajuste do roadmap ativo pela IA (FR-04.1). */
+export async function adjustRoadmap(
+  roadmapId: string,
+  adjustmentRequest: string,
+): Promise<AdjustRoadmapResponseDto> {
+  const { data } = await api.post<AdjustRoadmapResponseDto>(
+    `/roadmap/${roadmapId}/adjust`,
+    { adjustmentRequest },
+  );
+  return data;
+}
+
+/** DELETE /roadmap/:id — exclui o roadmap do usuário (204, sem corpo). */
+export async function deleteRoadmap(roadmapId: string): Promise<void> {
+  await api.delete(`/roadmap/${roadmapId}`);
 }
 
 /** PATCH /roadmap/:id/topics/:topicId — alterna a conclusão (FR-03.3). */
@@ -104,6 +122,51 @@ export function useToggleTopic(roadmapId: string) {
     onSettled: () => {
       void queryClient.invalidateQueries({ queryKey: detailKey });
       // O % dos cards da lista depende dos mesmos tópicos.
+      void queryClient.invalidateQueries({ queryKey: roadmapKeys.list() });
+    },
+  });
+}
+
+/**
+ * Exclusão. Sem atualização otimista de propósito: apagar é irreversível, então
+ * a tela só muda depois que o servidor confirmou. No sucesso, o cache do detalhe
+ * é REMOVIDO (não invalidado — refetchar um roadmap apagado daria 404) e a lista
+ * é invalidada; quem navega é o chamador, que sabe para onde voltar.
+ */
+export function useDeleteRoadmap(roadmapId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => deleteRoadmap(roadmapId),
+
+    onSuccess: () => {
+      queryClient.removeQueries({ queryKey: roadmapKeys.detail(roadmapId) });
+      void queryClient.invalidateQueries({ queryKey: roadmapKeys.list() });
+    },
+  });
+}
+
+/**
+ * Reajuste (FR-04.1). Ao contrário do toggle, aqui NÃO há atualização otimista:
+ * o cliente não tem como adivinhar o que a IA vai devolver, e o servidor pode
+ * recusar o ajuste (422) sem alterar nada. O estado só muda com a resposta.
+ *
+ * A resposta já traz o roadmap final, então gravamos direto no cache do detalhe
+ * em vez de refetchar. A lista é invalidada porque o total de tópicos muda e,
+ * com ele, o percentual mostrado no card.
+ */
+export function useAdjustRoadmap(roadmapId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (adjustmentRequest: string) =>
+      adjustRoadmap(roadmapId, adjustmentRequest),
+
+    onSuccess: (response) => {
+      queryClient.setQueryData<RoadmapDetailDto>(
+        roadmapKeys.detail(roadmapId),
+        response.roadmap,
+      );
       void queryClient.invalidateQueries({ queryKey: roadmapKeys.list() });
     },
   });

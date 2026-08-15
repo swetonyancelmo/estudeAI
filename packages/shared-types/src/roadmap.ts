@@ -140,6 +140,12 @@ export interface RoadmapDetailDto {
 }
 
 /**
+ * DELETE /roadmap/:id não tem tipo próprio de propósito: não recebe corpo e
+ * responde 204 sem corpo. O registro fica aqui para este arquivo continuar
+ * sendo o inventário completo do contrato entre web e api (CLAUDE.md §7).
+ */
+
+/**
  * Resposta de PATCH /roadmap/:id/topics/:topicId. Devolve o estado final do
  * tópico (o servidor é a autoridade — o cliente aplicou um palpite otimista) e
  * o progresso recalculado, para reconciliar card e barra sem um refetch.
@@ -148,4 +154,72 @@ export interface ToggleTopicResponseDto {
   topicId: string;
   isCompleted: boolean;
   progress: RoadmapProgressDto;
+}
+
+// ---------------------------------------------------------------------------
+// Etapa 7 (FR-04.1 / FR-04.2) — reajuste dinâmico do roadmap ATIVO.
+//
+// Diferença essencial para a geração: aqui não nasce roadmap nenhum. É o MESMO
+// `Roadmap` (mesmo id, mesma targetArea, mesma justification) sendo recalculado,
+// e o progresso já feito é intocável. Por isso os tipos abaixo carregam ids: o
+// reajuste é uma operação sobre linhas que já existem, não sobre um molde solto.
+// ---------------------------------------------------------------------------
+
+/** Payload de POST /roadmap/:id/adjust — o pedido em linguagem natural (FR-04.1). */
+export interface AdjustRoadmapRequestDto {
+  /** Ex.: "tenho menos tempo esta semana", "quero acelerar o módulo atual". */
+  adjustmentRequest: string;
+}
+
+/**
+ * FORMA que a IA devolve no reajuste. Contrato INTERNO da API (como
+ * `RoadmapResponseDto`): nunca chega ao frontend, e nunca é persistido direto —
+ * passa antes pelo validador de integridade.
+ *
+ * `id` ausente = item NOVO (a IA não inventa ids). `isCompleted` vem de volta em
+ * todo tópico de propósito: é o eco que o validador confere contra o banco.
+ * Não há `order`: a ordem é a posição no array, reindexada pelo servidor.
+ */
+export interface AdjustedTopicDto {
+  id?: string;
+  title: string;
+  isCompleted: boolean;
+  estimatedHours?: number;
+}
+
+export interface AdjustedModuleDto {
+  id?: string;
+  title: string;
+  description: string;
+  topics: AdjustedTopicDto[];
+}
+
+export interface AdjustedRoadmapDto {
+  /** Resumo em PT-BR do que mudou — exibido ao usuário, não persistido. */
+  adjustmentSummary: string;
+  modules: AdjustedModuleDto[];
+}
+
+/**
+ * O que o reajuste mexeu. A UI usa para distinguir visualmente o que foi
+ * reorganizado do que continua concluído e intacto (`preservedTopicIds`).
+ */
+export interface AdjustmentChangesDto {
+  /** Tópicos criados pelo reajuste (ids já reais, pós-persistência). */
+  addedTopicIds: string[];
+  /** Tópicos pendentes que tiveram título/estimativa/módulo alterados. */
+  updatedTopicIds: string[];
+  /** Tópicos concluídos, devolvidos intactos — a prova de que o progresso ficou. */
+  preservedTopicIds: string[];
+  removedTopicCount: number;
+  addedModuleIds: string[];
+  removedModuleCount: number;
+}
+
+/** Resposta de POST /roadmap/:id/adjust. */
+export interface AdjustRoadmapResponseDto {
+  /** Estado final, relido pelo mesmo caminho do GET /roadmap/:id. */
+  roadmap: RoadmapDetailDto;
+  adjustmentSummary: string;
+  changes: AdjustmentChangesDto;
 }
