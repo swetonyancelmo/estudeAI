@@ -7,14 +7,35 @@ import { join } from 'node:path';
 // A aplicação em si configura o TypeORM via buildTypeOrmConfig (typeorm.config.ts).
 loadEnv();
 
-export default new DataSource({
-  type: 'postgres',
-  host: process.env.DB_HOST ?? 'localhost',
-  port: Number(process.env.DB_PORT ?? 5432),
-  username: process.env.DB_USERNAME ?? 'postgres',
-  password: process.env.DB_PASSWORD ?? 'postgres',
-  database: process.env.DB_NAME ?? 'estudeai',
-  entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
-  migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
-  synchronize: false,
-});
+const dbUrl = process.env.DATABASE_URL;
+const isProd = process.env.NODE_ENV === 'production';
+const ssl =
+  process.env.DB_SSL === 'true' ||
+  (dbUrl !== undefined && !dbUrl.includes('localhost')) ||
+  (isProd && process.env.DB_HOST !== 'localhost');
+
+export default new DataSource(
+  dbUrl
+    ? {
+        type: 'postgres',
+        url: dbUrl,
+        ssl: ssl ? { rejectUnauthorized: false } : false,
+        extra: ssl ? { ssl: { rejectUnauthorized: false } } : undefined,
+        entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
+        migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
+        synchronize: false,
+      }
+    : {
+        type: 'postgres',
+        host: process.env.DB_HOST ?? 'localhost',
+        port: Number(process.env.DB_PORT ?? 5432),
+        username: process.env.DB_USERNAME ?? 'postgres',
+        password: process.env.DB_PASSWORD ?? 'postgres',
+        database: process.env.DB_NAME ?? 'estudeai',
+        ssl: ssl ? { rejectUnauthorized: false } : false,
+        extra: ssl ? { ssl: { rejectUnauthorized: false } } : undefined,
+        entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
+        migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
+        synchronize: false,
+      },
+);

@@ -84,7 +84,13 @@ export class AuthController {
   ): Promise<void> {
     const rawToken = req.cookies?.[REFRESH_COOKIE] as string | undefined;
     await this.authService.logout(rawToken);
-    res.clearCookie(REFRESH_COOKIE, { path: REFRESH_COOKIE_PATH });
+    const isProd = this.config.get<string>('NODE_ENV') === 'production';
+    res.clearCookie(REFRESH_COOKIE, {
+      path: REFRESH_COOKIE_PATH,
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
+    });
   }
 
   @Get('me')
@@ -106,10 +112,11 @@ export class AuthController {
   }
 
   private refreshCookieOptions(expires: Date): CookieOptions {
+    const isProd = this.config.get<string>('NODE_ENV') === 'production';
     return {
       httpOnly: true,
-      secure: this.config.get<string>('NODE_ENV') === 'production',
-      sameSite: 'lax',
+      secure: isProd,
+      sameSite: isProd ? 'none' : 'lax',
       path: REFRESH_COOKIE_PATH,
       expires,
     };
