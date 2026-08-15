@@ -4,10 +4,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository } from 'typeorm';
+import { EntityManager, In, Repository } from 'typeorm';
 import type {
   AdjustRoadmapResponseDto,
   AdjustedRoadmapDto,
+  ResourceContentDto,
   RoadmapDetailDto,
   RoadmapListItemDto,
   RoadmapProgressDto,
@@ -18,6 +19,7 @@ import { Roadmap } from './entities/roadmap.entity';
 // A entidade se chama Module (ARCHITETURE.md §4); o alias evita ler como o
 // decorator @Module do Nest, mesmo padrão de roadmap.module.ts.
 import { Module as ModuleEntity } from './entities/module.entity';
+import { Resource } from './entities/resource.entity';
 import { Topic } from './entities/topic.entity';
 import { buildAdjustmentPlan } from './roadmap-adjust.validator';
 
@@ -29,6 +31,19 @@ interface RoadmapListRow {
   createdAt: Date;
   totalTopics: string;
   completedTopics: string;
+}
+
+/**
+ * O que `applyAdjustment` devolve internamente: a resposta do endpoint MAIS a
+ * lista de tópicos que precisam de recursos novos (Etapa 8).
+ *
+ * O segundo campo não faz parte do contrato com o frontend — é recado de um
+ * service para o outro, e o `RoadmapAdjustService` o consome sem repassar. Por
+ * isso o tipo mora aqui, e não em `@estudeai/shared-types`.
+ */
+export interface AppliedAdjustment {
+  response: AdjustRoadmapResponseDto;
+  topicsNeedingResources: { id: string; title: string }[];
 }
 
 /**
@@ -56,6 +71,9 @@ export class UserRoadmapService {
    * chega pode ser o jsonb de um `RoadmapTemplate` compartilhado por vários
    * usuários — nada dele pode ser referenciado nem mutado aqui. Todo tópico
    * nasce com isCompleted=false, então o progresso é sempre individual.
+   *
+   * Os recursos (Etapa 8) seguem a mesma regra: viram linhas próprias em
+   * `topic_resources`, copiadas do molde, na mesma transação.
    */
   async createFrom(
     userId: string,
@@ -75,11 +93,13 @@ export class UserRoadmapService {
           order: topic.order,
           isCompleted: false,
           estimatedHours: topic.estimatedHours ?? null,
+          resources: this.toResourceRows(topic.resources),
         })),
       })),
     });
 
-    // cascade:['insert'] grava roadmap + módulos + tópicos numa transação só.
+    // cascade:['insert'] grava roadmap + módulos + tópicos + recursos numa
+    // transação só.
     const saved = await this.roadmaps.save(roadmap);
 
     // Relemos pelo caminho normal: a resposta do POST fica byte a byte igual à
@@ -197,7 +217,7 @@ export class UserRoadmapService {
     userId: string,
     roadmapId: string,
     ai: AdjustedRoadmapDto,
-  ): Promise<AdjustRoadmapResponseDto> {
+  ): Promise<AppliedAdjustment> {
     return this.roadmaps.manager.transaction(async (manager) => {
       const before = await this.loadOwned(userId, roadmapId, manager);
       const plan = buildAdjustmentPlan(this.toDetailDto(before), ai);
@@ -280,10 +300,77 @@ export class UserRoadmapService {
 
       const after = await this.loadOwned(userId, roadmapId, manager);
       return {
-        roadmap: this.toDetailDto(after),
-        adjustmentSummary: ai.adjustmentSummary,
-        changes: plan.changes,
+        response: {
+          roadmap: this.toDetailDto(after),
+          adjustmentSummary: ai.adjustmentSummary,
+          changes: plan.changes,
+        },
+        // A descoberta de recursos NÃO acontece aqui: ela leva segundos por
+        // tópico e manteria esta transação aberta o tempo todo. O orquestrador
+        // faz isso depois do commit (Etapa 8).
+        topicsNeedingResources: plan.topicsNeedingResources,
       };
+    });
+  }
+
+  /**
+   * Etapa 8 — troca os recursos de tópicos que mudaram de assunto no reajuste.
+   *
+   * Apaga os antigos de TODOS os `topicIds` informados, mesmo os que não
+   * receberam substitutos: se o título mudou, os links velhos falam de outra
+   * coisa e ficar sem recurso é melhor do que ficar com o recurso errado.
+   */
+  async replaceTopicResources(
+    topicIds: string[],
+    resourcesByTopicId: Map<string, ResourceContentDto[]>,
+  ): Promise<void> {
+    if (topicIds.length === 0) {
+      return;
+    }
+
+    await this.roadmaps.manager.transaction(async (manager) => {
+      await manager.delete(Resource, { topicId: In(topicIds) });
+
+      const rows = topicIds.flatMap((topicId) =>
+        this.toResourceRows(resourcesByTopicId.get(topicId)).map(
+          (resource) => ({
+            ...resource,
+            topicId,
+          }),
+        ),
+      );
+
+      if (rows.length > 0) {
+        await manager.insert(Resource, rows);
+      }
+    });
+  }
+
+  /**
+   * Molde → linhas de `topic_resources`. Deduplica por URL porque a tabela tem
+   * UNIQUE (topic_id, url): um template gravado por uma versão anterior poderia
+   * trazer repetição e derrubar o insert inteiro.
+   */
+  private toResourceRows(resources: ResourceContentDto[] | undefined) {
+    if (!resources || resources.length === 0) {
+      return [];
+    }
+
+    const seen = new Set<string>();
+    return resources.flatMap((resource) => {
+      if (seen.has(resource.url)) {
+        return [];
+      }
+      seen.add(resource.url);
+      return [
+        {
+          title: resource.title,
+          url: resource.url,
+          type: resource.type,
+          thumbnailUrl: resource.thumbnailUrl ?? null,
+          source: resource.source,
+        },
+      ];
     });
   }
 
@@ -308,7 +395,7 @@ export class UserRoadmapService {
     const repository = manager ? manager.getRepository(Roadmap) : this.roadmaps;
     const roadmap = await repository.findOne({
       where: { id: roadmapId },
-      relations: { modules: { topics: true } },
+      relations: { modules: { topics: { resources: true } } },
     });
 
     if (!roadmap) {
@@ -343,9 +430,36 @@ export class UserRoadmapService {
               order: topic.order,
               isCompleted: topic.isCompleted,
               estimatedHours: topic.estimatedHours ?? undefined,
+              resources: this.toResourceDtos(topic.resources),
             })),
         })),
     };
+  }
+
+  /**
+   * Recursos do tópico, sempre como array (a relação pode nem ter sido
+   * carregada) e em ordem estável: YouTube antes de web, depois por título.
+   *
+   * A ordenação não vem do banco de propósito — `created_at` é o mesmo para
+   * todas as linhas gravadas na mesma transação, então não serve de critério.
+   */
+  private toResourceDtos(resources: Resource[] | undefined) {
+    return [...(resources ?? [])]
+      .sort(
+        (a, b) =>
+          Number(a.source === 'web') - Number(b.source === 'web') ||
+          a.title.localeCompare(b.title),
+      )
+      .map((resource) => ({
+        id: resource.id,
+        title: resource.title,
+        url: resource.url,
+        type: resource.type,
+        source: resource.source,
+        ...(resource.thumbnailUrl
+          ? { thumbnailUrl: resource.thumbnailUrl }
+          : {}),
+      }));
   }
 
   private progressOf(roadmap: Roadmap): RoadmapProgressDto {

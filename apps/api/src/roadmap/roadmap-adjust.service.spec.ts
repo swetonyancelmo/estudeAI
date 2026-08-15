@@ -18,6 +18,7 @@ jest.mock('@google/genai', () => ({
 
 import { RoadmapAiService } from './roadmap-ai.service';
 import { RoadmapAdjustService } from './roadmap-adjust.service';
+import type { ResourceDiscoveryService } from './resource-discovery.service';
 import type { UserRoadmapService } from './user-roadmap.service';
 
 const OWNER = 'user-owner';
@@ -45,9 +46,22 @@ function currentRoadmap(): RoadmapDetailDto {
             order: 0,
             isCompleted: true,
             estimatedHours: 4,
+            resources: [],
           },
-          { id: 't-2', title: 'CSS layout', order: 1, isCompleted: false },
-          { id: 't-3', title: 'JS básico', order: 2, isCompleted: false },
+          {
+            id: 't-2',
+            title: 'CSS layout',
+            order: 1,
+            isCompleted: false,
+            resources: [],
+          },
+          {
+            id: 't-3',
+            title: 'JS básico',
+            order: 2,
+            isCompleted: false,
+            resources: [],
+          },
         ],
       },
     ],
@@ -63,7 +77,9 @@ describe('RoadmapAdjustService (FR-04 — Etapa 7)', () => {
   let userRoadmaps: {
     findDetail: jest.Mock;
     applyAdjustment: jest.Mock;
+    replaceTopicResources: jest.Mock;
   };
+  let resources: { discoverForTopics: jest.Mock };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -76,22 +92,33 @@ describe('RoadmapAdjustService (FR-04 — Etapa 7)', () => {
 
     userRoadmaps = {
       findDetail: jest.fn().mockResolvedValue(currentRoadmap()),
+      // Etapa 8: applyAdjustment devolve a resposta MAIS os tópicos que
+      // precisam de recursos novos (recado interno, fora do contrato).
       applyAdjustment: jest.fn().mockResolvedValue({
-        roadmap: currentRoadmap(),
-        adjustmentSummary: 'ok',
-        changes: {
-          addedTopicIds: [],
-          updatedTopicIds: [],
-          preservedTopicIds: ['t-1'],
-          removedTopicCount: 0,
-          addedModuleIds: [],
-          removedModuleCount: 0,
+        response: {
+          roadmap: currentRoadmap(),
+          adjustmentSummary: 'ok',
+          changes: {
+            addedTopicIds: [],
+            updatedTopicIds: [],
+            preservedTopicIds: ['t-1'],
+            removedTopicCount: 0,
+            addedModuleIds: [],
+            removedModuleCount: 0,
+          },
         },
+        topicsNeedingResources: [],
       }),
+      replaceTopicResources: jest.fn().mockResolvedValue(undefined),
+    };
+
+    resources = {
+      discoverForTopics: jest.fn().mockResolvedValue(new Map()),
     };
 
     service = new RoadmapAdjustService(
       new RoadmapAiService(config),
+      resources as unknown as ResourceDiscoveryService,
       userRoadmaps as unknown as UserRoadmapService,
     );
   });
@@ -276,6 +303,109 @@ describe('RoadmapAdjustService (FR-04 — Etapa 7)', () => {
       );
       // Prompt do reajuste, não o da geração.
       expect(call.config.systemInstruction).toContain('JÁ EM ANDAMENTO');
+    });
+  });
+
+  describe('recursos de estudo pós-reajuste (Etapa 8)', () => {
+    /** Reajuste válido mínimo — o que interessa aqui é o pós-commit. */
+    function adjustValidly() {
+      geminiReturns({
+        adjustmentSummary: 'ok',
+        modules: [
+          {
+            id: 'm-1',
+            title: 'Fundamentos',
+            description: 'HTML, CSS e JS',
+            topics: [
+              {
+                id: 't-1',
+                title: 'HTML semântico',
+                isCompleted: true,
+                estimatedHours: 4,
+              },
+            ],
+          },
+        ],
+      });
+      return service.adjust(OWNER, ROADMAP_ID, 'tenho menos tempo');
+    }
+
+    it('não busca recursos quando nada novo nem renomeado saiu do reajuste', async () => {
+      await adjustValidly();
+
+      // Só concluídos/preservados: rebuscar aqui seria queimar cota à toa.
+      expect(resources.discoverForTopics).not.toHaveBeenCalled();
+      expect(userRoadmaps.replaceTopicResources).not.toHaveBeenCalled();
+    });
+
+    it('busca só os tópicos novos/renomeados e relê o detalhe já com os links', async () => {
+      const pending = [{ id: 't-9', title: 'Flexbox na prática' }];
+      userRoadmaps.applyAdjustment.mockResolvedValue({
+        response: {
+          roadmap: currentRoadmap(),
+          adjustmentSummary: 'ok',
+          changes: {
+            addedTopicIds: ['t-9'],
+            updatedTopicIds: [],
+            preservedTopicIds: ['t-1'],
+            removedTopicCount: 0,
+            addedModuleIds: [],
+            removedModuleCount: 0,
+          },
+        },
+        topicsNeedingResources: pending,
+      });
+      const discovered = new Map([
+        [
+          't-9',
+          [
+            {
+              title: 'Flexbox',
+              url: 'https://exemplo.dev/flexbox',
+              type: 'article' as const,
+              source: 'web' as const,
+            },
+          ],
+        ],
+      ]);
+      resources.discoverForTopics.mockResolvedValue(discovered);
+      const relido = currentRoadmap();
+      userRoadmaps.findDetail.mockResolvedValueOnce(currentRoadmap());
+      userRoadmaps.findDetail.mockResolvedValueOnce(relido);
+
+      const response = await adjustValidly();
+
+      expect(resources.discoverForTopics).toHaveBeenCalledWith(pending);
+      expect(userRoadmaps.replaceTopicResources).toHaveBeenCalledWith(
+        ['t-9'],
+        discovered,
+      );
+      // A resposta sai com o estado relido, para o frontend não precisar refetch.
+      expect(response.roadmap).toBe(relido);
+    });
+
+    it('devolve o reajuste normalmente quando a busca de recursos falha', async () => {
+      userRoadmaps.applyAdjustment.mockResolvedValue({
+        response: {
+          roadmap: currentRoadmap(),
+          adjustmentSummary: 'ok',
+          changes: {
+            addedTopicIds: ['t-9'],
+            updatedTopicIds: [],
+            preservedTopicIds: ['t-1'],
+            removedTopicCount: 0,
+            addedModuleIds: [],
+            removedModuleCount: 0,
+          },
+        },
+        topicsNeedingResources: [{ id: 't-9', title: 'Flexbox na prática' }],
+      });
+      resources.discoverForTopics.mockRejectedValue(new Error('quota'));
+
+      // O reajuste JÁ foi gravado: falhar em achar links não pode virar erro.
+      const response = await adjustValidly();
+
+      expect(response.changes.addedTopicIds).toEqual(['t-9']);
     });
   });
 

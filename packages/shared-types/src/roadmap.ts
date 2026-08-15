@@ -35,6 +35,41 @@ export interface WizardAnswers {
   learningStyle: LearningStyle;
 }
 
+// ---------------------------------------------------------------------------
+// Etapa 8 — recursos gratuitos de estudo por tópico (vídeos/playlists do
+// YouTube + artigos da web).
+//
+// Fora do escopo do REQUIREMENTS.md, mas com a mesma divisão do resto deste
+// arquivo: `ResourceContentDto` é MOLDE (o que a descoberta produz e o que fica
+// no jsonb do template em cache) e `ResourceDto` é a linha PERSISTIDA.
+// ---------------------------------------------------------------------------
+
+/** Natureza do recurso — decide o ícone e se há thumbnail a exibir. */
+export const RESOURCE_TYPES = ["video", "playlist", "article"] as const;
+export type ResourceType = (typeof RESOURCE_TYPES)[number];
+
+/** De onde o link veio: YouTube Data API ou grounding do Google Search. */
+export const RESOURCE_SOURCES = ["youtube", "web"] as const;
+export type ResourceSource = (typeof RESOURCE_SOURCES)[number];
+
+/**
+ * Recurso ainda sem id. Toda URL aqui já passou por validação HTTP e é a URL
+ * FINAL (pós-redirect) — nada é aproveitado do texto livre da IA.
+ */
+export interface ResourceContentDto {
+  title: string;
+  url: string;
+  type: ResourceType;
+  /** Só existe para YouTube (vídeo/playlist). */
+  thumbnailUrl?: string;
+  source: ResourceSource;
+}
+
+/** Recurso persistido, ligado a um Topic real. */
+export interface ResourceDto extends ResourceContentDto {
+  id: string;
+}
+
 /**
  * FORMA FINAL esperada do Gemini (Structured Output — NFR-01).
  *
@@ -51,6 +86,16 @@ export interface RoadmapTopicDto {
   /** Ordem dentro do módulo (0-based). */
   order: number;
   estimatedHours?: number;
+  /**
+   * Etapa 8. NÃO vem do Structured Output do Gemini: é anexado depois, pela
+   * descoberta de recursos, antes de gravar no cache.
+   *
+   * Opcional de propósito — a AUSÊNCIA do campo é o que distingue um template
+   * gravado antes da Etapa 8 de um já enriquecido, e é o sinal que dispara o
+   * backfill no primeiro cache hit. Presente e vazio = já buscamos e não
+   * sobrou nada válido; não adianta buscar de novo.
+   */
+  resources?: ResourceContentDto[];
 }
 
 export interface RoadmapModuleDto {
@@ -106,6 +151,12 @@ export interface PersistedTopicDto {
   order: number;
   isCompleted: boolean;
   estimatedHours?: number;
+  /**
+   * Etapa 8. SEMPRE presente (vazio quando a busca falhou ou não sobrou link
+   * válido), ao contrário do molde: aqui o array é o estado real das linhas em
+   * `topic_resources`, e a UI tem um caso só a tratar — lista vazia, some.
+   */
+  resources: ResourceDto[];
 }
 
 export interface PersistedModuleDto {
@@ -179,6 +230,10 @@ export interface AdjustRoadmapRequestDto {
  * `id` ausente = item NOVO (a IA não inventa ids). `isCompleted` vem de volta em
  * todo tópico de propósito: é o eco que o validador confere contra o banco.
  * Não há `order`: a ordem é a posição no array, reindexada pelo servidor.
+ *
+ * Não há `resources` (Etapa 8) e isso é deliberado: a IA do reajuste não vê nem
+ * opina sobre links — quem descobre recursos é o ResourceDiscoveryService,
+ * depois do reajuste aplicado, e só para tópicos novos ou renomeados.
  */
 export interface AdjustedTopicDto {
   id?: string;
