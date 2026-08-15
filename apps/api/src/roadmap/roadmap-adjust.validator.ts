@@ -54,6 +54,16 @@ export interface AdjustmentPlan {
   /** Tópicos CONCLUÍDOS: apenas a posição muda, nunca o conteúdo. */
   completedTopicOrders: { id: string; order: number }[];
   topicIdsToDelete: string[];
+  /**
+   * Etapa 8 — tópicos cujos recursos precisam ser (re)descobertos: os NOVOS e os
+   * pendentes que mudaram de TÍTULO (os links antigos falam de outro assunto).
+   *
+   * Deliberadamente mais estreito que `changes.updatedTopicIds`: um tópico que
+   * só mudou de posição, de módulo ou de estimativa continua sendo o mesmo
+   * assunto, e rebuscá-lo gastaria cota do YouTube à toa. Tópico concluído
+   * nunca entra aqui — seu conteúdo é intocável, os links dele também.
+   */
+  topicsNeedingResources: { id: string; title: string }[];
   changes: AdjustmentChangesDto;
 }
 
@@ -107,6 +117,7 @@ export function buildAdjustmentPlan(
     topicUpdates: [],
     completedTopicOrders: [],
     topicIdsToDelete: [],
+    topicsNeedingResources: [],
     changes: {
       addedTopicIds: [],
       updatedTopicIds: [],
@@ -185,6 +196,7 @@ export function buildAdjustmentPlan(
           estimatedHours: aiTopic.estimatedHours ?? null,
         });
         plan.changes.addedTopicIds.push(id);
+        plan.topicsNeedingResources.push({ id, title: aiTopic.title });
         return;
       }
 
@@ -257,6 +269,15 @@ export function buildAdjustmentPlan(
         moduleId !== originalModuleId
       ) {
         plan.changes.updatedTopicIds.push(topic.id);
+      }
+
+      // Só o TÍTULO invalida os links: mudar de módulo ou de estimativa não
+      // muda o assunto estudado (Etapa 8).
+      if (aiTopic.title !== topic.title) {
+        plan.topicsNeedingResources.push({
+          id: topic.id,
+          title: aiTopic.title,
+        });
       }
     });
   });

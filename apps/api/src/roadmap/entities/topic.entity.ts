@@ -4,9 +4,11 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Module } from './module.entity';
+import { Resource } from './resource.entity';
 
 /**
  * Tópico do roadmap do usuário. `is_completed` é o ÚNICO dado de progresso do
@@ -38,4 +40,14 @@ export class Topic {
   /** Estimativa opcional da IA — o Gemini pode omitir (ver RoadmapTopicDto). */
   @Column({ type: 'int', name: 'estimated_hours', nullable: true })
   estimatedHours: number | null;
+
+  /**
+   * Recursos gratuitos de estudo (Etapa 8). `cascade: ['insert']` faz com que
+   * eles entrem na MESMA transação que grava roadmap + módulos + tópicos: ou o
+   * tópico nasce com seus links, ou não nasce.
+   */
+  @OneToMany(() => Resource, (resource) => resource.topic, {
+    cascade: ['insert'],
+  })
+  resources: Resource[];
 }

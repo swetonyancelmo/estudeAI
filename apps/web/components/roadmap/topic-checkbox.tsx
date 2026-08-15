@@ -5,6 +5,7 @@ import { Check } from "lucide-react";
 import type { PersistedTopicDto } from "@estudeai/shared-types";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { TopicResources } from "./topic-resources";
 
 /** Marcação pós-reajuste (FR-04.2), só até o usuário sair da tela. */
 export type TopicHighlight = "added" | "updated";
@@ -29,6 +30,11 @@ interface TopicCheckboxProps {
  * `highlight` (FR-04.2) marca o que o último reajuste mexeu. Quem foi concluído
  * nunca recebe marca: ele continua com o visual de sempre, e é justamente esse
  * contraste que mostra que o progresso passou intacto pelo recálculo.
+ *
+ * Etapa 8: os recursos ficam FORA do <label>, como irmãos dele. Dentro, cada
+ * clique num link também alternaria o checkbox — é o comportamento nativo do
+ * label, não um detalhe de estilo. A borda de separação migrou para o wrapper
+ * pelo mesmo motivo: ela delimita o tópico inteiro, links inclusive.
  */
 export function TopicCheckbox({
   topic,
@@ -36,41 +42,45 @@ export function TopicCheckbox({
   highlight,
 }: TopicCheckboxProps) {
   return (
-    <label className="group/topic flex cursor-pointer items-center gap-3 border-b border-border/60 py-2.5 text-sm last:border-0">
-      <Checkbox.Root
-        checked={topic.isCompleted}
-        onCheckedChange={() => onToggle(topic.id)}
-        className={cn(
-          "border-border flex size-[18px] shrink-0 items-center justify-center rounded-[5px] border transition-colors",
-          "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
-          "data-[checked]:border-success data-[checked]:bg-success",
-        )}
-      >
-        <Checkbox.Indicator className="flex text-white">
-          <Check className="size-3" strokeWidth={3} />
-        </Checkbox.Indicator>
-      </Checkbox.Root>
+    <div className="border-border/60 border-b last:border-0">
+      <label className="group/topic flex cursor-pointer items-center gap-3 py-2.5 text-sm">
+        <Checkbox.Root
+          checked={topic.isCompleted}
+          onCheckedChange={() => onToggle(topic.id)}
+          className={cn(
+            "border-border flex size-[18px] shrink-0 items-center justify-center rounded-[5px] border transition-colors",
+            "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+            "data-[checked]:border-success data-[checked]:bg-success",
+          )}
+        >
+          <Checkbox.Indicator className="flex text-white">
+            <Check className="size-3" strokeWidth={3} />
+          </Checkbox.Indicator>
+        </Checkbox.Root>
 
-      <span
-        className={cn(
-          "flex-1 transition-colors",
-          topic.isCompleted && "text-muted-foreground line-through",
-        )}
-      >
-        {topic.title}
-      </span>
-
-      {highlight && (
-        <Badge variant="outline" className="shrink-0 text-[10px]">
-          {HIGHLIGHT_LABELS[highlight]}
-        </Badge>
-      )}
-
-      {topic.estimatedHours !== undefined && (
-        <span className="text-ink-faint shrink-0 font-mono text-xs">
-          ~{topic.estimatedHours}h
+        <span
+          className={cn(
+            "flex-1 transition-colors",
+            topic.isCompleted && "text-muted-foreground line-through",
+          )}
+        >
+          {topic.title}
         </span>
-      )}
-    </label>
+
+        {highlight && (
+          <Badge variant="outline" className="shrink-0 text-[10px]">
+            {HIGHLIGHT_LABELS[highlight]}
+          </Badge>
+        )}
+
+        {topic.estimatedHours !== undefined && (
+          <span className="text-ink-faint shrink-0 font-mono text-xs">
+            ~{topic.estimatedHours}h
+          </span>
+        )}
+      </label>
+
+      <TopicResources resources={topic.resources} />
+    </div>
   );
 }

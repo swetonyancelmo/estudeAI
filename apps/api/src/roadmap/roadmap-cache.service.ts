@@ -65,6 +65,29 @@ export class RoadmapCacheService {
     }
   }
 
+  /**
+   * Regrava o `payload` do template já existente para estes critérios (Etapa 8).
+   *
+   * Existe só para o backfill preguiçoso: templates gravados antes da descoberta
+   * de recursos não têm links, e o primeiro cache hit os enriquece. Um UPDATE
+   * pelos critérios, não um upsert — se a linha sumiu no meio do caminho, não há
+   * o que consertar e o roadmap do usuário já saiu completo de qualquer forma.
+   */
+  async refresh(
+    answers: WizardAnswers,
+    roadmap: RoadmapResponseDto,
+  ): Promise<void> {
+    await this.templates.update(
+      {
+        goal: answers.goal,
+        weeklyTime: answers.weeklyTime,
+        affinity: answers.affinity,
+        learningStyle: answers.learningStyle,
+      },
+      { payload: roadmap },
+    );
+  }
+
   /** Serializa os 4 critérios para uso em logs. */
   keyOf(answers: WizardAnswers): string {
     return `${answers.goal}/${answers.weeklyTime}/${answers.affinity}/${answers.learningStyle}`;

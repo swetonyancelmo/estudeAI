@@ -33,8 +33,15 @@ function currentRoadmap(): RoadmapDetailDto {
             order: 0,
             isCompleted: true,
             estimatedHours: 4,
+            resources: [],
           },
-          { id: 't-2', title: 'CSS layout', order: 1, isCompleted: false },
+          {
+            id: 't-2',
+            title: 'CSS layout',
+            order: 1,
+            isCompleted: false,
+            resources: [],
+          },
         ],
       },
       {
@@ -43,8 +50,20 @@ function currentRoadmap(): RoadmapDetailDto {
         description: 'Componentes e estado',
         order: 1,
         topics: [
-          { id: 't-3', title: 'JSX', order: 0, isCompleted: false },
-          { id: 't-4', title: 'Hooks', order: 1, isCompleted: false },
+          {
+            id: 't-3',
+            title: 'JSX',
+            order: 0,
+            isCompleted: false,
+            resources: [],
+          },
+          {
+            id: 't-4',
+            title: 'Hooks',
+            order: 1,
+            isCompleted: false,
+            resources: [],
+          },
         ],
       },
     ],
@@ -273,6 +292,48 @@ describe('buildAdjustmentPlan (FR-04.2 — integridade do progresso)', () => {
         description: 'Só o necessário para esta semana',
         order: 1,
       });
+    });
+  });
+
+  describe('quais tópicos precisam de recursos novos (Etapa 8)', () => {
+    it('marca os NOVOS e os pendentes RENOMEADOS — e mais ninguém', () => {
+      const ai = validAdjustment();
+      ai.modules[1].topics.push({
+        title: 'Context API',
+        isCompleted: false,
+      });
+
+      const plan = buildAdjustmentPlan(currentRoadmap(), ai);
+
+      // t-2 foi renomeado no molde válido; t-3 só mudou de posição.
+      expect(plan.topicsNeedingResources).toEqual([
+        { id: 't-2', title: 'CSS layout essencial' },
+        { id: plan.topicInserts[0].id, title: 'Context API' },
+      ]);
+    });
+
+    it('nunca inclui tópico concluído nem tópico apenas reordenado', () => {
+      const ai = validAdjustment();
+      // Devolve t-2 com o título original: nada mudou de assunto no roadmap.
+      ai.modules[0].topics[1].title = 'CSS layout';
+
+      const plan = buildAdjustmentPlan(currentRoadmap(), ai);
+
+      expect(plan.topicsNeedingResources).toEqual([]);
+      // ...ainda que o concluído tenha mudado de posição.
+      expect(plan.completedTopicOrders).toHaveLength(1);
+    });
+
+    it('ignorar mudança só de estimativa evita gastar cota do YouTube à toa', () => {
+      const ai = validAdjustment();
+      ai.modules[1].topics[0].estimatedHours = 12;
+
+      const plan = buildAdjustmentPlan(currentRoadmap(), ai);
+
+      expect(plan.changes.updatedTopicIds).toContain('t-3');
+      expect(
+        plan.topicsNeedingResources.some((topic) => topic.id === 't-3'),
+      ).toBe(false);
     });
   });
 });
