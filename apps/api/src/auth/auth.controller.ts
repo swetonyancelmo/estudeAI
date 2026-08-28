@@ -16,7 +16,8 @@ import type { CookieOptions, Request, Response } from 'express';
 import type { AuthResponse, UserDto } from '@estudeai/shared-types';
 import { AuthService, IssuedSession } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
+
+import { Throttle } from '@nestjs/throttler';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
@@ -36,6 +37,7 @@ export class AuthController {
     private readonly config: ConfigService,
   ) {}
 
+  @Throttle({ default: { limit: 10, ttl: 900000 } })
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   async register(
@@ -47,6 +49,7 @@ export class AuthController {
     return session.response;
   }
 
+  @Throttle({ default: { limit: 10, ttl: 900000 } })
   @Post('login')
   @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
@@ -60,6 +63,7 @@ export class AuthController {
     return session.response;
   }
 
+  @Throttle({ default: { limit: 10, ttl: 900000 } })
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   async refresh(
@@ -108,7 +112,11 @@ export class AuthController {
   }
 
   private setRefreshCookie(res: Response, session: IssuedSession): void {
-    res.cookie(REFRESH_COOKIE, session.refreshToken, this.refreshCookieOptions(session.refreshTokenExpiresAt));
+    res.cookie(
+      REFRESH_COOKIE,
+      session.refreshToken,
+      this.refreshCookieOptions(session.refreshTokenExpiresAt),
+    );
   }
 
   private refreshCookieOptions(expires: Date): CookieOptions {

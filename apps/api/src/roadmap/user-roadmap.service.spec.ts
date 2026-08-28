@@ -254,9 +254,7 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
     });
 
     it('roadmap sem tópicos é 0%, não NaN', async () => {
-      roadmaps.findOne.mockResolvedValue(
-        makePersistedRoadmap({ modules: [] }),
-      );
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap({ modules: [] }));
 
       const detail = await service.findDetail(OWNER, 'roadmap-1');
 

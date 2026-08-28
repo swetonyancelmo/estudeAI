@@ -150,7 +150,9 @@ export class RoadmapAiService {
     }
     const apiKey = this.config.get<string>('GEMINI_API_KEY');
     if (!apiKey) {
-      this.logger.error('GEMINI_API_KEY ausente — não é possível chamar o Gemini.');
+      this.logger.error(
+        'GEMINI_API_KEY ausente — não é possível chamar o Gemini.',
+      );
       throw new ServiceUnavailableException(USER_MESSAGES.unavailable);
     }
     this.client = new GoogleGenAI({ apiKey });
@@ -179,9 +181,7 @@ export class RoadmapAiService {
         reject(new GeminiTimeoutError());
       }, timeoutMs);
     });
-    return Promise.race([promise, timeout]).finally(() =>
-      clearTimeout(timer),
-    ) as Promise<T>;
+    return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
   }
 
   /** Mapeia qualquer falha da chamada ao Gemini para um HttpException apropriado. */
@@ -216,7 +216,9 @@ export class RoadmapAiService {
     }
 
     if (!this.isRoadmapResponse(parsed)) {
-      this.logger.error('Resposta do Gemini fora do contrato RoadmapResponseDto.');
+      this.logger.error(
+        'Resposta do Gemini fora do contrato RoadmapResponseDto.',
+      );
       throw new BadGatewayException(USER_MESSAGES.badResponse);
     }
 
@@ -313,7 +315,9 @@ export class RoadmapAiService {
     }
 
     if (!this.isAdjustedRoadmap(parsed)) {
-      this.logger.error('Resposta do reajuste fora do contrato AdjustedRoadmapDto.');
+      this.logger.error(
+        'Resposta do reajuste fora do contrato AdjustedRoadmapDto.',
+      );
       throw new BadGatewayException(USER_MESSAGES.badResponse);
     }
 

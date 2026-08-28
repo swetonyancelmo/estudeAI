@@ -121,10 +121,7 @@ export class UserRoadmapService {
       .addSelect('r.status', 'status')
       .addSelect('r.createdAt', 'createdAt')
       .addSelect('COUNT(t.id)', 'totalTopics')
-      .addSelect(
-        'COUNT(t.id) FILTER (WHERE t.is_completed)',
-        'completedTopics',
-      )
+      .addSelect('COUNT(t.id) FILTER (WHERE t.is_completed)', 'completedTopics')
       .where('r.userId = :userId', { userId })
       .groupBy('r.id')
       .orderBy('r.createdAt', 'DESC')

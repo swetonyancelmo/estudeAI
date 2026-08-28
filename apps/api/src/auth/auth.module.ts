@@ -22,10 +22,9 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         secret: config.getOrThrow<string>('JWT_ACCESS_SECRET'),
         signOptions: {
           // TTL vem de env como string (ex.: '15m'); o tipo do jsonwebtoken é um template literal.
-          expiresIn: config.get<string>(
-            'JWT_ACCESS_TTL',
-            '15m',
-          ) as NonNullable<JwtModuleOptions['signOptions']>['expiresIn'],
+          expiresIn: config.get<string>('JWT_ACCESS_TTL', '15m') as NonNullable<
+            JwtModuleOptions['signOptions']
+          >['expiresIn'],
         },
       }),
     }),

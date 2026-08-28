@@ -1,13 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
+import hpp from 'hpp';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  if (process.env.TRUST_PROXY === 'true') {
+    app.set('trust proxy', 1);
+  }
 
   app.setGlobalPrefix('api/v1');
+  app.use(helmet());
+  app.use(hpp());
   app.use(cookieParser());
   app.useGlobalPipes(
     new ValidationPipe({
@@ -27,4 +36,4 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3001;
   await app.listen(port);
 }
-bootstrap();
+void bootstrap();

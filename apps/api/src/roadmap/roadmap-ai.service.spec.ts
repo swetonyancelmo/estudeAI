@@ -35,7 +35,8 @@ const answers: WizardAnswers = {
 function validRoadmapJson(): string {
   const roadmap: RoadmapResponseDto = {
     targetArea: 'frontend',
-    justification: 'Perfil visual, foco no mercado, 15h por semana, estilo prático.',
+    justification:
+      'Perfil visual, foco no mercado, 15h por semana, estilo prático.',
     modules: [
       {
         title: 'Fundamentos da Web',
@@ -57,7 +58,9 @@ function validRoadmapJson(): string {
   return JSON.stringify(roadmap);
 }
 
-function buildService(env: Record<string, string | undefined>): RoadmapAiService {
+function buildService(
+  env: Record<string, string | undefined>,
+): RoadmapAiService {
   const config = {
     get: jest.fn((key: string) => env[key]),
   } as unknown as ConfigService;
@@ -279,9 +282,10 @@ describe('RoadmapAiService.adjustRoadmap (Etapa 7)', () => {
       generateCall.config.responseSchema,
     );
     // A área não entra no schema do reajuste — a IA não tem como trocá-la.
-    expect(
-      Object.keys(adjustCall.config.responseSchema.properties),
-    ).toEqual(['adjustmentSummary', 'modules']);
+    expect(Object.keys(adjustCall.config.responseSchema.properties)).toEqual([
+      'adjustmentSummary',
+      'modules',
+    ]);
   });
 
   it('preserva o id ausente como "tópico novo" ao normalizar', async () => {

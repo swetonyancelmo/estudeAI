@@ -14,7 +14,9 @@ const sha256 = (v: string) => createHash('sha256').update(v).digest('hex');
 
 describe('AuthService', () => {
   let service: AuthService;
-  let usersService: jest.Mocked<Pick<UsersService, 'findByEmail' | 'findById' | 'create'>>;
+  let usersService: jest.Mocked<
+    Pick<UsersService, 'findByEmail' | 'findById' | 'create'>
+  >;
   let refreshRepo: {
     findOne: jest.Mock;
     delete: jest.Mock;
@@ -22,15 +24,14 @@ describe('AuthService', () => {
     create: jest.Mock;
   };
 
-  const buildUser = (over: Partial<User> = {}): User =>
-    ({
-      id: 'user-1',
-      email: 'dev@estude.ai',
-      passwordHash: 'hash',
-      createdAt: new Date('2026-01-01T00:00:00.000Z'),
-      refreshTokens: [],
-      ...over,
-    }) as User;
+  const buildUser = (over: Partial<User> = {}): User => ({
+    id: 'user-1',
+    email: 'dev@estude.ai',
+    passwordHash: 'hash',
+    createdAt: new Date('2026-01-01T00:00:00.000Z'),
+    refreshTokens: [],
+    ...over,
+  });
 
   beforeEach(async () => {
     usersService = {
@@ -76,7 +77,9 @@ describe('AuthService', () => {
       expect(usersService.create).toHaveBeenCalledTimes(1);
       const [, storedHash] = usersService.create.mock.calls[0];
       expect(storedHash).not.toBe('supersecret');
-      await expect(bcrypt.compare('supersecret', storedHash)).resolves.toBe(true);
+      await expect(bcrypt.compare('supersecret', storedHash)).resolves.toBe(
+        true,
+      );
 
       expect(session.response.accessToken).toBe('access.jwt');
       expect(session.response.user.email).toBe('dev@estude.ai');
@@ -86,9 +89,9 @@ describe('AuthService', () => {
 
     it('lança Conflict quando o e-mail já existe', async () => {
       usersService.findByEmail.mockResolvedValue(buildUser());
-      await expect(service.register('dev@estude.ai', 'x')).rejects.toBeInstanceOf(
-        ConflictException,
-      );
+      await expect(
+        service.register('dev@estude.ai', 'x'),
+      ).rejects.toBeInstanceOf(ConflictException);
       expect(usersService.create).not.toHaveBeenCalled();
     });
   });

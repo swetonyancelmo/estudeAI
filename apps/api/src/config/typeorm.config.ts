@@ -2,7 +2,9 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'node:path';
 
-export function buildTypeOrmConfig(config: ConfigService): TypeOrmModuleOptions {
+export function buildTypeOrmConfig(
+  config: ConfigService,
+): TypeOrmModuleOptions {
   const databaseUrl = config.get<string>('DATABASE_URL');
   const isProd = config.get<string>('NODE_ENV') === 'production';
   const sslEnabled =

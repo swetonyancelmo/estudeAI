@@ -11,6 +11,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import type {
   AdjustRoadmapResponseDto,
   RoadmapDetailDto,
@@ -44,6 +45,7 @@ export class RoadmapController {
    * FR-01/FR-02.1 — recebe as respostas do wizard, resolve o conteúdo (cache ou
    * Gemini) e devolve o roadmap JÁ PERSISTIDO no usuário, com ids reais.
    */
+  @Throttle({ default: { limit: 5, ttl: 900000 } }) // Máximo 5 gerações a cada 15 min
   @Post('generate')
   @HttpCode(HttpStatus.OK)
   generate(
@@ -97,6 +99,7 @@ export class RoadmapController {
    * linguagem natural. 422 quando a IA devolve algo que alteraria progresso já
    * concluído: nesse caso nada é gravado.
    */
+  @Throttle({ default: { limit: 5, ttl: 900000 } }) // Máximo 5 ajustes a cada 15 min
   @Post(':id/adjust')
   @HttpCode(HttpStatus.OK)
   adjust(
