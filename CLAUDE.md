@@ -25,7 +25,7 @@ Não pule etapas — cada uma deve ter testes básicos passando antes de avança
 
 | Decisão | Escolha | Motivo |
 |---|---|---|
-| ORM | **TypeORM** | Consistência com stack usado no e-SUS Analytics (contexto de trabalho do dev) |
+| ORM | **TypeORM** | Consistência com a stack que o dev usa no estágio |
 | Gerenciador de workspace | pnpm | Mais rápido e eficiente em disco para monorepo |
 | Estratégia de cache (FR-02.2) | **Match exato** dos critérios do wizard (targetArea + faixa de tempo semanal + preferência de afinidade + estilo de aprendizado) | Simplicidade: uma constraint composta/hash dos critérios na tabela de roadmaps pré-gerados, sem necessidade de embeddings/similaridade nessa fase |
 | Auth | JWT + Passport (email/senha no MVP; social provider fica como extensão, não bloqueia o resto) | Reduz escopo da primeira entrega de auth sem violar FR-03.1 |
