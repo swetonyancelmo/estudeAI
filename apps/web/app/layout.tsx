@@ -26,9 +26,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "estudeAI — seu roadmap de estudos em programação",
+  title: "estudeAI: seu roadmap de estudos em programação",
   description:
-    "Responda 4 perguntas e receba um roadmap de estudos personalizado em Frontend, Backend ou Fullstack, gerado por IA e reajustado conforme você avança.",
+    "Responda 4 perguntas e receba um roadmap de estudos em Frontend, Backend ou Fullstack, dividido em módulos, com horas estimadas e materiais gratuitos para cada tópico.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

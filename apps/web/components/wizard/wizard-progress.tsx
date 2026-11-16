@@ -1,30 +1,29 @@
+import { RouteLine } from "@/components/brand/route-line";
 import { TOTAL_STEPS } from "@/lib/wizard/steps";
 
-/** Indicador de progresso dos steps (FR-01.1): "Passo X de N" + barra. */
+/**
+ * Progresso do diagnóstico (FR-01.1) como mini rota de 4 estações: as
+ * respondidas ficam preenchidas, a pergunta atual é o anel. O número grande
+ * "2/4" é o mesmo dado em texto.
+ */
 export function WizardProgress({ stepIndex }: { stepIndex: number }) {
   const current = stepIndex + 1;
-  const percent = (current / TOTAL_STEPS) * 100;
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="text-muted-foreground flex items-center justify-between text-xs">
-        <span>
-          Passo {current} de {TOTAL_STEPS}
-        </span>
-        <span>{Math.round(percent)}%</span>
-      </div>
-      <div
-        className="bg-muted h-1.5 w-full overflow-hidden rounded-full"
-        role="progressbar"
-        aria-valuenow={current}
-        aria-valuemin={1}
-        aria-valuemax={TOTAL_STEPS}
-      >
-        <div
-          className="bg-primary h-full rounded-full transition-[width] duration-300 ease-out"
-          style={{ width: `${percent}%` }}
-        />
-      </div>
+    <div
+      className="flex items-center gap-5"
+      role="progressbar"
+      aria-label="Progresso do diagnóstico"
+      aria-valuenow={current}
+      aria-valuemin={1}
+      aria-valuemax={TOTAL_STEPS}
+      aria-valuetext={`Pergunta ${current} de ${TOTAL_STEPS}`}
+    >
+      <span className="font-heading text-3xl leading-none font-extrabold">
+        {current}
+        <span className="text-ink-faint text-xl">/{TOTAL_STEPS}</span>
+      </span>
+      <RouteLine stops={TOTAL_STEPS} reached={stepIndex} />
     </div>
   );
 }

@@ -10,14 +10,14 @@ export default function LoginPage() {
   return (
     <AuthForm
       title="Entrar"
-      description="Acesse sua conta para continuar seu roadmap."
+      description="Sua rota está onde você deixou."
       submitLabel="Entrar"
       resolver={zodResolver(loginSchema)}
       onSubmit={login}
       footer={
         <>
           Não tem conta?{" "}
-          <Link href="/register" className="text-primary hover:underline">
+          <Link href="/register" className="text-brand-ink font-semibold underline-offset-4 hover:underline">
             Criar conta
           </Link>
         </>

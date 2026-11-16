@@ -4,8 +4,7 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import type { RoadmapListItemDto } from "@estudeai/shared-types";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { RoadmapRouteEmpty } from "@/components/brand/roadmap-route";
+import { RouteLine } from "@/components/brand/route-line";
 import { RoadmapCard } from "@/components/roadmap/roadmap-card";
 import { useRoadmaps } from "@/lib/roadmaps/api";
 
@@ -18,11 +17,11 @@ export default function DashboardPage() {
   const { data: roadmaps, isPending, isError } = useRoadmaps();
 
   return (
-    <div className="flex flex-1 flex-col px-6 py-11 sm:px-10">
-      <div className="mx-auto w-full max-w-[880px]">
+    <div className="flex flex-1 flex-col px-5 py-10 sm:px-10 sm:py-14">
+      <div className="mx-auto w-full max-w-4xl">
         {isPending && <ListSkeleton />}
         {isError && (
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground" role="alert">
             Não foi possível carregar seus roadmaps. Recarregue a página.
           </p>
         )}
@@ -34,26 +33,32 @@ export default function DashboardPage() {
 }
 
 function List({ roadmaps }: { roadmaps: RoadmapListItemDto[] }) {
+  // Sem nenhum roadmap em andamento, criar um novo vira a ação principal.
+  const hasActive = roadmaps.some(
+    (roadmap) => roadmap.status === "active" && roadmap.progress.percent < 100,
+  );
+
   return (
-    <div className="flex flex-col gap-7 duration-300 animate-in fade-in-0">
+    <div className="flex flex-col gap-8 duration-300 animate-in fade-in-0">
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <span className="eyebrow text-muted-foreground">Seus estudos</span>
-          <h1 className="mt-2.5 text-[26px] font-bold">Meus roadmaps</h1>
+        <div className="flex flex-col gap-2">
+          <h1>Meus roadmaps</h1>
+          <p className="text-muted-foreground">
+            {roadmaps.length === 1
+              ? "Uma rota no seu mapa. Siga de onde parou."
+              : `${roadmaps.length} rotas no seu mapa. Siga de onde parou.`}
+          </p>
         </div>
         <Link
           href="/wizard"
-          className={cn(
-            buttonVariants({ variant: "outline" }),
-            "h-10 rounded-md px-4 text-[14.5px] font-semibold",
-          )}
+          className={buttonVariants({ variant: hasActive ? "outline" : "default" })}
         >
           <Plus className="size-4" />
           Novo roadmap
         </Link>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         {roadmaps.map((roadmap) => (
           <RoadmapCard key={roadmap.id} roadmap={roadmap} />
         ))}
@@ -65,49 +70,40 @@ function List({ roadmaps }: { roadmaps: RoadmapListItemDto[] }) {
 /** Estado inicial: ninguém tem roadmap antes de fazer o diagnóstico. */
 function EmptyState() {
   return (
-    <>
-      <span className="eyebrow text-muted-foreground">Bem-vindo(a) de volta</span>
-      <h1 className="mt-2.5 mb-2.5 text-[26px] font-bold">
-        Vamos montar seu primeiro roadmap?
-      </h1>
-      <p className="text-muted-foreground max-w-[460px] text-[14.5px]">
-        Você ainda não fez o diagnóstico. Leva uns 2 minutos e a IA já monta seu
-        roadmap completo em seguida.
-      </p>
+    <div className="flex flex-col gap-10 duration-300 animate-in fade-in-0">
+      <div className="flex flex-col gap-3">
+        <h1>Seu mapa ainda está em branco.</h1>
+        <p className="text-muted-foreground max-w-md text-lg">
+          São 4 perguntas sobre seu objetivo e seu tempo. Em uns 2 minutos você
+          sai com a rota completa, módulo por módulo.
+        </p>
+      </div>
 
-      <div className="border-border bg-card mt-8 flex flex-wrap items-center justify-between gap-6 rounded-2xl border p-9">
-        <div className="min-w-[280px] flex-1 opacity-90">
-          <RoadmapRouteEmpty />
-        </div>
-        <div className="flex min-w-[200px] flex-col items-start gap-3">
-          <Link
-            href="/wizard"
-            className={cn(
-              buttonVariants(),
-              "h-11 rounded-md px-5 text-[15px] font-semibold",
-            )}
-          >
+      <div className="border-border bg-card flex flex-col gap-8 rounded-lg border p-6 sm:p-10">
+        <RouteLine
+          stops={5}
+          reached={0}
+          startLabel="você está aqui"
+          endLabel="1º projeto"
+        />
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <Link href="/wizard" className={buttonVariants()}>
             Montar meu roadmap
           </Link>
-          <span className="text-ink-faint text-[12.5px]">
-            4 perguntas rápidas
-          </span>
+          <span className="data-label text-ink-faint">4 perguntas · ~2 min</span>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
 function ListSkeleton() {
   return (
-    <div className="flex flex-col gap-7" aria-busy="true">
-      <div className="bg-muted h-9 w-56 animate-pulse rounded-md" />
-      <div className="grid gap-4 sm:grid-cols-2">
+    <div className="flex flex-col gap-8" aria-busy="true">
+      <div className="bg-muted h-10 w-64 animate-pulse rounded-lg" />
+      <div className="grid gap-5 sm:grid-cols-2">
         {[0, 1].map((index) => (
-          <div
-            key={index}
-            className="bg-muted h-36 animate-pulse rounded-2xl"
-          />
+          <div key={index} className="bg-muted h-52 animate-pulse rounded-lg" />
         ))}
       </div>
     </div>

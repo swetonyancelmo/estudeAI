@@ -11,6 +11,14 @@ import type {
  * Cada step mapeia para exatamente um campo de WizardAnswers; renderização,
  * navegação e barra de progresso derivam deste array — sem lógica por-tela.
  */
+/** Nome curto de cada parada do diagnóstico (landing e linha do wizard). */
+export const STEP_SHORT_LABELS: Record<keyof WizardAnswers, string> = {
+  goal: "Objetivo",
+  weeklyTime: "Tempo",
+  affinity: "Afinidade",
+  learningStyle: "Estilo",
+};
+
 export interface StepOption<V extends string> {
   value: V;
   label: string;
@@ -44,7 +52,7 @@ export const WIZARD_STEPS = [
       {
         value: "startup" satisfies LearningGoal,
         label: "Construir meu produto",
-        hint: "Tirar uma ideia/startup do papel por conta própria.",
+        hint: "Tirar uma ideia do papel por conta própria.",
       },
     ],
   }),
@@ -55,13 +63,13 @@ export const WIZARD_STEPS = [
     options: [
       { value: "5h" satisfies WeeklyTime, label: "Cerca de 5h", hint: "Ritmo leve, encaixando nos intervalos." },
       { value: "15h" satisfies WeeklyTime, label: "Cerca de 15h", hint: "Ritmo consistente durante a semana." },
-      { value: "30h+" satisfies WeeklyTime, label: "30h ou mais", hint: "Dedicação intensiva / tempo integral." },
+      { value: "30h+" satisfies WeeklyTime, label: "30h ou mais", hint: "Dedicação intensiva, quase tempo integral." },
     ],
   }),
   step<"affinity">({
     field: "affinity",
     title: "Com o que você mais se identifica?",
-    subtitle: "Não existe resposta errada — é só a sua preferência.",
+    subtitle: "Não existe resposta errada, é só a sua preferência.",
     options: [
       {
         value: "visual" satisfies Affinity,

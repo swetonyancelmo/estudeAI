@@ -3,7 +3,6 @@
 import { Checkbox } from "@base-ui/react/checkbox";
 import { Check } from "lucide-react";
 import type { PersistedTopicDto } from "@estudeai/shared-types";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { TopicResources } from "./topic-resources";
 
@@ -22,19 +21,21 @@ interface TopicCheckboxProps {
 }
 
 /**
- * Tópico com checkbox (FR-03.3). `checked` vem do cache do TanStack Query, que
- * a mutation já atualizou de forma otimista — por isso não há estado local nem
+ * Tópico como PARADA da linha (FR-03.3): um marcador redondo de 24px que
+ * acende na cor da trilha ao concluir. A linha inteira é o alvo de toque
+ * (mín. 44px de altura). `checked` vem do cache do TanStack Query, que a
+ * mutation já atualizou de forma otimista — por isso não há estado local nem
  * `disabled` durante o request: o clique é instantâneo, e um erro reverte o
  * cache (rollback), fazendo o check voltar sozinho.
  *
- * `highlight` (FR-04.2) marca o que o último reajuste mexeu. Quem foi concluído
- * nunca recebe marca: ele continua com o visual de sempre, e é justamente esse
- * contraste que mostra que o progresso passou intacto pelo recálculo.
+ * `highlight` (FR-04.2) marca o que o último reajuste mexeu com um filete
+ * lateral na cor da marca. Quem foi concluído nunca recebe marca: ele continua
+ * com o visual de sempre, e é esse contraste que mostra que o progresso passou
+ * intacto pelo recálculo.
  *
  * Etapa 8: os recursos ficam FORA do <label>, como irmãos dele. Dentro, cada
  * clique num link também alternaria o checkbox — é o comportamento nativo do
- * label, não um detalhe de estilo. A borda de separação migrou para o wrapper
- * pelo mesmo motivo: ela delimita o tópico inteiro, links inclusive.
+ * label, não um detalhe de estilo.
  */
 export function TopicCheckbox({
   topic,
@@ -42,19 +43,25 @@ export function TopicCheckbox({
   highlight,
 }: TopicCheckboxProps) {
   return (
-    <div className="border-border/60 border-b last:border-0">
-      <label className="group/topic flex cursor-pointer items-center gap-3 py-2.5 text-sm">
+    <div
+      className={cn(
+        "border-border border-b last:border-b-0",
+        highlight && "border-l-brand -ml-3 border-l-[3px] pl-[9px]",
+      )}
+    >
+      <label className="group/topic flex min-h-11 cursor-pointer items-center gap-3 py-2">
         <Checkbox.Root
           checked={topic.isCompleted}
           onCheckedChange={() => onToggle(topic.id)}
           className={cn(
-            "border-border flex size-[18px] shrink-0 items-center justify-center rounded-[5px] border transition-colors",
+            "border-input bg-card flex size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+            "group-hover/topic:border-line",
             "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
-            "data-[checked]:border-success data-[checked]:bg-success",
+            "data-[checked]:border-line data-[checked]:bg-line data-[checked]:animate-[station-pop_0.3s_ease-out]",
           )}
         >
           <Checkbox.Indicator className="flex text-white">
-            <Check className="size-3" strokeWidth={3} />
+            <Check className="size-3.5" strokeWidth={3.5} />
           </Checkbox.Indicator>
         </Checkbox.Root>
 
@@ -68,13 +75,13 @@ export function TopicCheckbox({
         </span>
 
         {highlight && (
-          <Badge variant="outline" className="shrink-0 text-[10px]">
+          <span className="text-brand-ink bg-brand-soft shrink-0 rounded-sm px-1.5 py-0.5 text-xs font-medium">
             {HIGHLIGHT_LABELS[highlight]}
-          </Badge>
+          </span>
         )}
 
         {topic.estimatedHours !== undefined && (
-          <span className="text-ink-faint shrink-0 font-mono text-xs">
+          <span className="data-label text-ink-faint shrink-0">
             ~{topic.estimatedHours}h
           </span>
         )}

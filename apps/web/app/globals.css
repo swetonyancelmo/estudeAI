@@ -49,111 +49,167 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Raios: dois valores de superfície (8 interno, 12 cartão/controle) + pílula
+     só para estações e marcadores. Os degraus maiores do shadcn colapsam em 12. */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 12px;
+  --radius-2xl: 12px;
+  --radius-3xl: 12px;
+  --radius-4xl: 12px;
+
+  /* Escala tipográfica FECHADA (docs/REDESIGN.md §3.2). Os degraus padrão do
+     Tailwind são sobrescritos de propósito: qualquer `text-*` cai na escala,
+     e tamanho arbitrário (`text-[13.5px]`) deixa de ser necessário. */
+  --text-xs: 0.75rem; /* 12 — mono/dados */
+  --text-xs--line-height: 1.4;
+  --text-sm: 0.8125rem; /* 13 — apoio */
+  --text-sm--line-height: 1.45;
+  --text-base: 0.9375rem; /* 15 — corpo */
+  --text-base--line-height: 1.55;
+  --text-lg: 1.125rem; /* 18 — lead */
+  --text-lg--line-height: 1.55;
+  --text-xl: 1.25rem; /* 20 — h3 */
+  --text-xl--line-height: 1.2;
+  --text-2xl: 1.75rem; /* 28 — h2 */
+  --text-2xl--line-height: 1.1;
+  --text-3xl: 2.5rem; /* 40 — h1 */
+  --text-3xl--line-height: 1.05;
+  --text-display: clamp(2.75rem, 7.5vw, 5.5rem); /* hero */
+  --text-display--line-height: 0.95;
+  /* Campos de formulário: 16px evita o zoom automático do iOS ao focar. */
+  --text-field: 1rem;
+  --text-field--line-height: 1.5;
+
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-deep: var(--brand-deep);
+  --color-success-ink: var(--success-ink);
+  --color-line: var(--line);
+  --color-line-front: var(--line-front);
+  --color-line-back: var(--line-back);
+  --color-line-full: var(--line-full);
 }
 
 /**
- * Identidade visual do estudeAI.
- * Neutros com viés frio (azulado) + um único acento laranja — o acento é
- * gasto em uma coisa só: a ação principal e o traçado percorrido da rota.
+ * Identidade visual do estudeAI — conceito "mapa de linhas" (docs/REDESIGN.md).
+ * Neutros QUENTES (papel e tinta) + laranja da marca. Cada trilha é uma linha
+ * com cor própria (front/back/full), usada só no traçado, nas estações e nos
+ * marcadores — fundo e texto continuam neutros.
  * Os nomes do shadcn são mantidos (primary/muted/border/...) para que os
- * componentes de `components/ui` herdem a identidade sem serem reescritos.
+ * componentes de `components/ui` herdem a identidade.
+ *
+ * Contraste (WCAG AA) conferido para cada par texto/fundo:
+ *  - o botão primário usa TINTA sobre laranja (5.2:1); branco daria 3.5:1;
+ *  - laranja como TEXTO pequeno usa `brand-ink` (5.1:1), não `brand` (3.2:1);
+ *  - `ink-faint` é o piso para metadados (≥ 4.9:1 em qualquer superfície).
  */
 :root {
-  --background: oklch(0.9757 0.0017 247.84); /* paper   #F6F7F8 */
-  --foreground: oklch(0.2008 0.0124 270.73); /* ink     #14161C */
-  --card: oklch(1 0 0); /* paper elevado #FFFFFF */
-  --card-foreground: oklch(0.2008 0.0124 270.73);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2008 0.0124 270.73);
-  --primary: oklch(0.655 0.1969 35.27); /* acento  #F0562E */
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.9542 0.0034 247.86); /* line-soft #EEF0F2 */
-  --secondary-foreground: oklch(0.2008 0.0124 270.73);
-  --muted: oklch(0.9542 0.0034 247.86);
-  --muted-foreground: oklch(0.4313 0.0209 267.54); /* ink-soft #4B505C */
+  --background: #faf7f2; /* papel */
+  --foreground: #1a1714; /* tinta */
+  --card: #ffffff;
+  --card-foreground: #1a1714;
+  --popover: #ffffff;
+  --popover-foreground: #1a1714;
+  --primary: #f0562e;
+  --primary-foreground: #1a1714;
+  --secondary: #f1ece4;
+  --secondary-foreground: #1a1714;
+  --muted: #f1ece4;
+  --muted-foreground: #5c5650;
   /* `accent` do shadcn = fundo sutil de hover (neutro), NÃO o acento da marca. */
-  --accent: oklch(0.9542 0.0034 247.86);
-  --accent-foreground: oklch(0.2008 0.0124 270.73);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9246 0.0058 264.53); /* line    #E4E6EA */
-  --input: oklch(0.9246 0.0058 264.53);
-  --ring: oklch(0.655 0.1969 35.27);
-  --chart-1: oklch(0.655 0.1969 35.27);
-  --chart-2: oklch(0.6167 0.1363 157.61);
-  --chart-3: oklch(0.4313 0.0209 267.54);
-  --chart-4: oklch(0.6491 0.016 264.46);
-  --chart-5: oklch(0.9246 0.0058 264.53);
-  --radius: 0.625rem;
+  --accent: #f1ece4;
+  --accent-foreground: #1a1714;
+  --destructive: #c4281c;
+  --border: #e8e2d9;
+  --input: #d9d1c5;
+  --ring: #f0562e;
+  --chart-1: #f0562e;
+  --chart-2: #2f6feb;
+  --chart-3: #7a3fd1;
+  --chart-4: #1f9d64;
+  --chart-5: #6b655e;
+  --radius: 0.75rem;
 
-  /* Tokens próprios da marca (sem equivalente no shadcn). */
-  --brand: oklch(0.655 0.1969 35.27);
-  --brand-foreground: oklch(1 0 0);
-  --brand-soft: oklch(0.9503 0.0228 41.41); /* #FDEAE3 */
-  --brand-line: oklch(0.8572 0.0648 42.46); /* #F6C3AF */
-  --ink-faint: oklch(0.6491 0.016 264.46); /* #8A8F99 */
-  --line-soft: oklch(0.9542 0.0034 247.86); /* #EEF0F2 */
-  --success: oklch(0.6167 0.1363 157.61); /* #1F9D64 */
-  --success-soft: oklch(0.9524 0.0256 161.94); /* #E1F5EA */
+  /* Marca. */
+  --brand: #f0562e; /* traçado, preenchimentos, botão */
+  --brand-foreground: #1a1714;
+  --brand-ink: #bf3a12; /* laranja legível como texto */
+  --brand-deep: #b23a14; /* "espessura" do botão (sombra sólida) */
+  --brand-soft: #fce9e1;
+  --brand-line: #f6c3af;
+  --ink-faint: #6b655e;
+  --line-soft: #f1ece4;
+  --success: #1f9d64;
+  --success-ink: #157a4c;
+  --success-soft: #e1f5ea;
 
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.2008 0.0124 270.73);
-  --sidebar-primary: oklch(0.655 0.1969 35.27);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.9542 0.0034 247.86);
-  --sidebar-accent-foreground: oklch(0.2008 0.0124 270.73);
-  --sidebar-border: oklch(0.9246 0.0058 264.53);
-  --sidebar-ring: oklch(0.655 0.1969 35.27);
+  /* Linhas do mapa — uma por trilha. */
+  --line-front: #f0562e;
+  --line-back: #2f6feb;
+  --line-full: #7a3fd1;
+  /* Linha "corrente": quem estiver dentro de `.track-*` herda a cor da trilha. */
+  --line: var(--brand);
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1714;
+  --sidebar-primary: #f0562e;
+  --sidebar-primary-foreground: #1a1714;
+  --sidebar-accent: #f1ece4;
+  --sidebar-accent-foreground: #1a1714;
+  --sidebar-border: #e8e2d9;
+  --sidebar-ring: #f0562e;
 }
 
 .dark {
-  --background: oklch(0.1686 0.011 268.03); /* paper   #0D0F14 */
-  --foreground: oklch(0.967 0.0029 264.54); /* ink     #F3F4F6 */
-  --card: oklch(0.2155 0.018 275.01); /* paper elevado #171922 */
-  --card-foreground: oklch(0.967 0.0029 264.54);
-  --popover: oklch(0.2155 0.018 275.01);
-  --popover-foreground: oklch(0.967 0.0029 264.54);
-  --primary: oklch(0.7053 0.1904 37.23); /* acento  #FF6B3E */
-  --primary-foreground: oklch(0.1829 0.0377 96.89);
-  --secondary: oklch(0.2492 0.0195 271.87); /* line-soft #1E212B */
-  --secondary-foreground: oklch(0.967 0.0029 264.54);
-  --muted: oklch(0.2492 0.0195 271.87);
-  --muted-foreground: oklch(0.7441 0.0212 267.23); /* ink-soft #A6ACBA */
-  --accent: oklch(0.2492 0.0195 271.87);
-  --accent-foreground: oklch(0.967 0.0029 264.54);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(0.2899 0.0209 269.38); /* line    #272B36 */
-  --input: oklch(0.2899 0.0209 269.38);
-  --ring: oklch(0.7053 0.1904 37.23);
-  --chart-1: oklch(0.7053 0.1904 37.23);
-  --chart-2: oklch(0.7365 0.1615 156.32);
-  --chart-3: oklch(0.7441 0.0212 267.23);
-  --chart-4: oklch(0.5488 0.0244 268.24);
-  --chart-5: oklch(0.2899 0.0209 269.38);
+  --background: #121110;
+  --foreground: #f4f0ea;
+  --card: #1b1917;
+  --card-foreground: #f4f0ea;
+  --popover: #1b1917;
+  --popover-foreground: #f4f0ea;
+  --primary: #ff6b3e;
+  --primary-foreground: #1a1714;
+  --secondary: #24211e;
+  --secondary-foreground: #f4f0ea;
+  --muted: #24211e;
+  --muted-foreground: #a8a097;
+  --accent: #24211e;
+  --accent-foreground: #f4f0ea;
+  --destructive: #ff7b6b;
+  --border: #2c2825;
+  --input: #3a3531;
+  --ring: #ff6b3e;
+  --chart-1: #ff6b3e;
+  --chart-2: #5b8cff;
+  --chart-3: #a47bff;
+  --chart-4: #34c77e;
+  --chart-5: #968e85;
 
-  --brand: oklch(0.7053 0.1904 37.23);
-  --brand-foreground: oklch(0.1829 0.0377 96.89);
-  --brand-soft: oklch(0.235 0.0326 44.68); /* #2B1911 */
-  --brand-line: oklch(0.3613 0.0658 42.86); /* #5A3120 */
-  --ink-faint: oklch(0.5488 0.0244 268.24); /* #6B7180 */
-  --line-soft: oklch(0.2492 0.0195 271.87); /* #1E212B */
-  --success: oklch(0.7365 0.1615 156.32); /* #34C77E */
-  --success-soft: oklch(0.2546 0.0354 160.67); /* #12281D */
+  --brand: #ff6b3e;
+  --brand-foreground: #1a1714;
+  --brand-ink: #ff7a52;
+  --brand-deep: #a8391a;
+  --brand-soft: #2b1911;
+  --brand-line: #5a3120;
+  --ink-faint: #968e85;
+  --line-soft: #24211e;
+  --success: #34c77e;
+  --success-ink: #34c77e;
+  --success-soft: #12281d;
 
-  --sidebar: oklch(0.2155 0.018 275.01);
-  --sidebar-foreground: oklch(0.967 0.0029 264.54);
-  --sidebar-primary: oklch(0.7053 0.1904 37.23);
-  --sidebar-primary-foreground: oklch(0.1829 0.0377 96.89);
-  --sidebar-accent: oklch(0.2492 0.0195 271.87);
-  --sidebar-accent-foreground: oklch(0.967 0.0029 264.54);
-  --sidebar-border: oklch(0.2899 0.0209 269.38);
-  --sidebar-ring: oklch(0.7053 0.1904 37.23);
+  --line-front: #ff6b3e;
+  --line-back: #5b8cff;
+  --line-full: #a47bff;
+
+  --sidebar: #1b1917;
+  --sidebar-foreground: #f4f0ea;
+  --sidebar-primary: #ff6b3e;
+  --sidebar-primary-foreground: #1a1714;
+  --sidebar-accent: #24211e;
+  --sidebar-accent-foreground: #f4f0ea;
+  --sidebar-border: #2c2825;
+  --sidebar-ring: #ff6b3e;
 }
 
 @layer base {
@@ -161,37 +217,107 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground text-base;
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
-  /* Tipografia display precisa de entrelinha própria: o 1.5 do corpo deixa
-     títulos grandes soltos demais. */
+  /* Títulos em Bricolage pesada, em toda tela — wizard e produto falam a mesma
+     língua da landing. */
   h1,
   h2,
   h3 {
-    @apply font-heading leading-[1.15] tracking-tight;
+    @apply font-heading tracking-tight;
     text-wrap: balance;
+  }
+  h1 {
+    @apply text-3xl font-extrabold;
+  }
+  h2 {
+    @apply text-2xl font-bold;
+  }
+  h3 {
+    @apply text-xl font-bold;
+  }
+  /* Foco visível e consistente para links e botões "crus" (fora do Button). */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }
 
 @layer utilities {
-  /* Eyebrow monoespaçada — usada acima dos títulos de seção e nos labels de dado. */
-  .eyebrow {
-    @apply font-mono text-[11.5px] tracking-[0.04em] uppercase;
+  /* Rótulo de DADO (horas, datas, contagens) — mono, sem caixa alta. Não é
+     prefixo de seção: use onde há número ou metadado. */
+  .data-label {
+    @apply font-mono text-xs font-medium;
+    font-variant-numeric: tabular-nums;
   }
-  /* Malha de pontos do hero: some para baixo, para o conteúdo seguinte respirar. */
-  .dot-grid {
-    background-image: radial-gradient(var(--border) 1px, transparent 1px);
-    background-size: 22px 22px;
-    background-position: -11px -11px;
-    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      black 0%,
-      black 55%,
-      transparent 100%
-    );
+
+  /* Cor da linha por trilha: tudo que usa `var(--line)` dentro herda. */
+  .track-frontend {
+    --line: var(--line-front);
+  }
+  .track-backend {
+    --line: var(--line-back);
+  }
+  .track-fullstack {
+    --line: var(--line-full);
+  }
+
+  /* Traçado SVG que se desenha: o path precisa de `pathLength="1"`. */
+  .route-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: route-draw 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+  .route-draw-loop {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: route-draw 3.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+  /* Trilho vertical da landing crescendo a partir do topo. */
+  .rail-grow {
+    transform-origin: top;
+    animation: rail-grow 1.1s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  /* Estação que "acende" ao ser alcançada. */
+  .station-pop {
+    animation: station-pop 0.3s ease-out;
+  }
+}
+
+@keyframes route-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes rail-grow {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes station-pop {
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+/* Movimento é enfeite: quem pede menos movimento recebe o estado final. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .route-draw,
+  .route-draw-loop {
+    stroke-dashoffset: 0;
   }
 }

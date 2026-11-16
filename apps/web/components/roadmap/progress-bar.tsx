@@ -1,48 +1,54 @@
 import type { RoadmapProgressDto } from "@estudeai/shared-types";
+import { RouteLine } from "@/components/brand/route-line";
 import { cn } from "@/lib/utils";
 
-interface ProgressBarProps {
+interface RouteProgressProps {
   progress: RoadmapProgressDto;
-  /** Mostra "X de Y tópicos" acima da barra (tela de detalhe). */
-  showCount?: boolean;
+  /** Estações desenhadas na linha. No detalhe, o número real de módulos. */
+  stops?: number;
+  /** Estações já alcançadas; sem isso, a linha é preenchida pelo percentual. */
+  reached?: number;
   className?: string;
 }
 
 /**
- * Barra de progresso do roadmap (FR-03.3). Mesma linguagem visual da barra do
- * wizard; a transição de largura é o que dá a sensação de "subiu na hora"
- * quando o toggle otimista recalcula o percentual.
+ * Progresso do roadmap (FR-03.3) como LINHA com estações, na cor da trilha.
+ * O número grande é o dado; a linha é a leitura rápida. O `role="progressbar"`
+ * fica no wrapper porque a RouteLine em si é decorativa.
  */
-export function ProgressBar({
+export function RouteProgress({
   progress,
-  showCount = false,
+  stops = 5,
+  reached,
   className,
-}: ProgressBarProps) {
+}: RouteProgressProps) {
   const { percent, completedTopics, totalTopics } = progress;
+  const safeStops = Math.max(stops, 2);
 
   return (
-    <div className={cn("flex flex-col gap-1.5", className)}>
-      <div className="text-muted-foreground flex items-center justify-between text-xs">
-        <span>
-          {showCount
-            ? `${completedTopics} de ${totalTopics} tópicos`
-            : "Progresso"}
+    <div
+      className={cn("flex flex-col gap-3", className)}
+      role="progressbar"
+      aria-label="Progresso do roadmap"
+      aria-valuenow={percent}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuetext={`${completedTopics} de ${totalTopics} tópicos concluídos`}
+    >
+      <div className="flex items-end justify-between gap-3">
+        <span className="font-heading text-3xl leading-none font-extrabold">
+          {percent}
+          <span className="text-xl">%</span>
         </span>
-        <span className="font-mono tabular-nums">{percent}%</span>
+        <span className="data-label text-ink-faint pb-0.5">
+          {completedTopics}/{totalTopics} tópicos
+        </span>
       </div>
-      <div
-        className="bg-muted h-1.5 w-full overflow-hidden rounded-full"
-        role="progressbar"
-        aria-label="Progresso do roadmap"
-        aria-valuenow={percent}
-        aria-valuemin={0}
-        aria-valuemax={100}
-      >
-        <div
-          className="bg-primary h-full rounded-full transition-[width] duration-300 ease-out"
-          style={{ width: `${percent}%` }}
-        />
-      </div>
+      <RouteLine
+        stops={safeStops}
+        reached={reached ?? (percent / 100) * (safeStops - 1)}
+        size="sm"
+      />
     </div>
   );
 }
