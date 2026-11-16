@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LogoMark } from "@/components/brand/logo-mark";
 import { cn } from "@/lib/utils";
 
 interface WordmarkProps {
@@ -8,18 +9,22 @@ interface WordmarkProps {
 }
 
 /**
- * Logotipo tipográfico: "estude" em tom de texto + "AI" no acento da marca.
+ * Logotipo: símbolo da rota + "estude" em tom de texto + "AI" no acento da marca.
  * O acento aqui é intencional — é o único lugar da navegação que recebe cor.
+ * O texto é real (não SVG) para seguir tema e fonte.
  */
 export function Wordmark({ href, className }: WordmarkProps) {
   const content = (
     <span
       className={cn(
-        "font-heading text-xl font-extrabold tracking-tight",
+        "inline-flex items-center gap-2 font-heading text-xl font-extrabold tracking-tight",
         className,
       )}
     >
-      estude<span className="text-brand-ink">AI</span>
+      <LogoMark />
+      <span>
+        estude<span className="text-brand-ink">AI</span>
+      </span>
     </span>
   );
 
