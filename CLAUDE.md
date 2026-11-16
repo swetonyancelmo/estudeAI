@@ -5,6 +5,8 @@
 
 ## 1. O que é o projeto
 
+> **Atualização (nov/2026):** o conteúdo do roadmap passou a vir de trilhas curadas (Frontend, Backend, Fullstack, DevOps) em vez de ser gerado pelo Gemini. `docs/TRILHAS.md` é a fonte de verdade dessa parte e prevalece sobre o que este arquivo diz de geração por IA e cache (§3, §5 e §6). O Gemini continua na justificativa da trilha e no reajuste.
+
 Plataforma que aplica um wizard de diagnóstico (objetivo, tempo semanal, afinidade, estilo de aprendizado) e usa a API do Gemini para gerar um roadmap de estudos personalizado (Frontend, Backend ou Fullstack), organizado em módulos e tópicos. Usuário autenticado acompanha progresso e pode pedir reajuste dinâmico do roadmap.
 
 ## 2. Escopo desta fase

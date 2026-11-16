@@ -5,6 +5,8 @@ import { RoadmapService } from './roadmap.service';
 import { RoadmapAdjustService } from './roadmap-adjust.service';
 import { RoadmapAiService } from './roadmap-ai.service';
 import { RoadmapCacheService } from './roadmap-cache.service';
+import { TrackJustificationService } from './track-justification.service';
+import { Track } from '../tracks/entities/track.entity';
 import { ResourceDiscoveryService } from './resource-discovery.service';
 import { UserRoadmapService } from './user-roadmap.service';
 import { RoadmapTemplate } from './entities/roadmap-template.entity';
@@ -23,12 +25,19 @@ import { Topic } from './entities/topic.entity';
       ModuleEntity,
       Topic,
       Resource,
+      // Só leitura: quem escreve nas trilhas é o TracksModule (que depende
+      // deste, e por isso a geração lê o catálogo direto pelo repositório).
+      Track,
     ]),
   ],
   controllers: [RoadmapController],
   providers: [
     RoadmapService,
     RoadmapAdjustService,
+    TrackJustificationService,
+    // Geração completa pelo Gemini + cache por critério: fora do fluxo desde
+    // as trilhas curadas (docs/TRILHAS.md §7). Ficam registrados até a remoção
+    // num PR próprio.
     RoadmapAiService,
     RoadmapCacheService,
     ResourceDiscoveryService,

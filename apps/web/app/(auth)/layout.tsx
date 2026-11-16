@@ -3,7 +3,7 @@ import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 /** Estações do painel lateral: a mesma linha que o usuário vai percorrer. */
 const STATIONS = [
-  { label: "Diagnóstico", hint: "4 perguntas, 2 minutos", state: "done" },
+  { label: "Diagnóstico", hint: "até 6 perguntas, 2 minutos", state: "done" },
   { label: "Sua trilha", hint: "Frontend, Backend ou Fullstack", state: "current" },
   { label: "Módulos e tópicos", hint: "com horas e materiais", state: "upcoming" },
   { label: "1º projeto", hint: "o destino da rota", state: "destination" },

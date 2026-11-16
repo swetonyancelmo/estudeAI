@@ -5,6 +5,7 @@ export const AREA_LABELS: Record<TargetArea, string> = {
   frontend: "Frontend",
   backend: "Backend",
   fullstack: "Fullstack",
+  devops: "DevOps",
 };
 
 export const STATUS_LABELS: Record<RoadmapStatus, string> = {

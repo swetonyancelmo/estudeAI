@@ -2,15 +2,17 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import type { KnownSkill } from "@estudeai/shared-types";
 import { useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ForkIcon } from "@/components/brand/icons";
 import { Button } from "@/components/ui/button";
-import { WIZARD_STEPS, TOTAL_STEPS } from "@/lib/wizard/steps";
-import { isComplete, useWizardStore } from "@/lib/wizard/store";
+import { visibleSteps } from "@/lib/wizard/steps";
+import { toWizardAnswers, useWizardStore } from "@/lib/wizard/store";
 import { useGenerateRoadmap } from "@/lib/wizard/api";
 import { roadmapKeys } from "@/lib/roadmaps/api";
 import { WizardProgress } from "./wizard-progress";
+import { WizardMultiStep } from "./wizard-multi-step";
 import { WizardStep } from "./wizard-step";
 import { RoadmapGenerating } from "./roadmap-generating";
 import { RoadmapError } from "./roadmap-error";
@@ -21,15 +23,25 @@ type StepOptions = ReadonlyArray<{ value: string; label: string; hint: string }>
 const AUTO_ADVANCE_MS = 250;
 
 export function WizardFlow() {
-  const { stepIndex, answers, direction, select, next, back, reset } =
-    useWizardStore();
+  const {
+    stepIndex,
+    answers,
+    direction,
+    select,
+    toggleSkill,
+    clearSkills,
+    next,
+    back,
+    reset,
+  } = useWizardStore();
   const router = useRouter();
   const queryClient = useQueryClient();
   const mutation = useGenerateRoadmap();
 
   function handleSubmit() {
-    if (isComplete(answers)) {
-      mutation.mutate(answers, {
+    const payload = toWizardAnswers(answers);
+    if (payload) {
+      mutation.mutate(payload, {
         // Etapa 6: o roadmap já nasce persistido e com id — a tela de resultado
         // virou o detalhe (/roadmaps/:id), onde o progresso é marcável.
         onSuccess: (roadmap) => {
@@ -56,11 +68,14 @@ export function WizardFlow() {
     [],
   );
 
-  const step = WIZARD_STEPS[stepIndex];
-  const isLastStep = stepIndex === TOTAL_STEPS - 1;
+  // As perguntas dependem das respostas: quem escolhe a área pula a afinidade.
+  const steps = visibleSteps(answers);
+  const step = steps[Math.min(stepIndex, steps.length - 1)];
+  const isLastStep = stepIndex >= steps.length - 1;
 
   const handleSelect = useCallback(
     (value: string) => {
+      if (step.kind !== "single") return;
       // `as never`: correlaciona o campo (union) com seu valor no store tipado.
       select(step.field, value as never);
       if (advanceTimer.current) clearTimeout(advanceTimer.current);
@@ -69,11 +84,10 @@ export function WizardFlow() {
         advanceTimer.current = setTimeout(next, AUTO_ADVANCE_MS);
       }
     },
-    [select, next, step.field, isLastStep],
+    [select, next, step, isLastStep],
   );
 
-  // A geração real (Gemini) demora — enquanto pende, a rota vai sendo traçada.
-  // Segue exibida depois do sucesso, durante a navegação para o detalhe. As
+  // Enquanto a geração pende, a rota vai sendo traçada. Segue exibida depois do sucesso, durante a navegação para o detalhe. As
   // respostas vêm de `mutation.variables` porque o store já foi resetado.
   if ((mutation.isPending || mutation.isSuccess) && mutation.variables) {
     return <RoadmapGenerating answers={mutation.variables} />;
@@ -90,23 +104,36 @@ export function WizardFlow() {
     );
   }
 
-  const currentValue = answers[step.field];
-  const canAdvance = currentValue !== undefined;
+  const canAdvance = answers[step.field] !== undefined;
 
   return (
     <div className="flex flex-col gap-10">
-      <WizardProgress stepIndex={stepIndex} />
+      <WizardProgress stepIndex={stepIndex} total={steps.length} />
 
-      <WizardStep
-        // key remonta o componente por step → redispara a animação de entrada.
-        key={step.field}
-        direction={direction}
-        title={step.title}
-        subtitle={step.subtitle}
-        options={step.options as StepOptions}
-        selected={currentValue}
-        onSelect={handleSelect}
-      />
+      {step.kind === "single" ? (
+        <WizardStep
+          // key remonta o componente por step → redispara a animação de entrada.
+          key={step.field}
+          direction={direction}
+          title={step.title}
+          subtitle={step.subtitle}
+          options={step.options as StepOptions}
+          selected={answers[step.field]}
+          onSelect={handleSelect}
+        />
+      ) : (
+        <WizardMultiStep
+          key={step.field}
+          direction={direction}
+          title={step.title}
+          subtitle={step.subtitle}
+          options={step.options}
+          none={step.none}
+          selected={answers.knownSkills}
+          onToggle={(value) => toggleSkill(value as KnownSkill)}
+          onNone={clearSkills}
+        />
+      )}
 
       <div className="flex items-center justify-between gap-3">
         <Button
@@ -140,13 +167,18 @@ export function WizardFlow() {
         )}
       </div>
 
-      <p className="text-ink-faint hidden text-sm sm:block">
-        Dica: use as teclas{" "}
-        <kbd className="data-label border-input rounded-sm border px-1.5 py-0.5">1</kbd>{" "}
-        <kbd className="data-label border-input rounded-sm border px-1.5 py-0.5">2</kbd>{" "}
-        <kbd className="data-label border-input rounded-sm border px-1.5 py-0.5">3</kbd>{" "}
-        para responder.
-      </p>
+      {/* Os atalhos numéricos só existem nas perguntas de escolha única. */}
+      {step.kind === "single" && (
+        <p className="text-ink-faint hidden text-sm sm:block">
+          Dica: use as teclas de{" "}
+          <kbd className="data-label border-input rounded-sm border px-1.5 py-0.5">1</kbd>{" "}
+          a{" "}
+          <kbd className="data-label border-input rounded-sm border px-1.5 py-0.5">
+            {step.options.length}
+          </kbd>{" "}
+          para responder.
+        </p>
+      )}
     </div>
   );
 }

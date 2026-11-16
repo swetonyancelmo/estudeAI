@@ -21,7 +21,7 @@ interface RouteLineProps {
  * A peça central da identidade: uma linha de mapa com estações.
  * Trecho percorrido na cor da linha (`--line`, herdada de `.track-*`; laranja
  * da marca por padrão), trecho pendente tracejado, estação atual com anel.
- * Reaparece no wizard (4 perguntas), nos cards do dashboard e no estado vazio.
+ * Reaparece no wizard (uma estação por pergunta), nos cards do dashboard e no estado vazio.
  *
  * É decorativa por padrão (`aria-hidden`): quem a usa já expõe o mesmo dado em
  * texto ou num `role="progressbar"` próprio.

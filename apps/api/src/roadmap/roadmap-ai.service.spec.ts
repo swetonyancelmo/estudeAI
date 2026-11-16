@@ -26,6 +26,8 @@ import { RoadmapAiService } from './roadmap-ai.service';
 
 const answers: WizardAnswers = {
   goal: 'mercado',
+  area: 'nao-sei',
+  knownSkills: [],
   weeklyTime: '15h',
   affinity: 'visual',
   learningStyle: 'pratico',

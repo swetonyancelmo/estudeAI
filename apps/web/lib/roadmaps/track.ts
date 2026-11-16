@@ -8,6 +8,7 @@ export const TRACK_CLASS: Record<TargetArea, string> = {
   frontend: "track-frontend",
   backend: "track-backend",
   fullstack: "track-fullstack",
+  devops: "track-devops",
 };
 
 export type ModuleState = "done" | "current" | "upcoming";
