@@ -278,3 +278,37 @@ export interface AdjustRoadmapResponseDto {
   adjustmentSummary: string;
   changes: AdjustmentChangesDto;
 }
+
+// ---------------------------------------------------------------------------
+// Trilhas curadas (docs/TRILHAS.md).
+//
+// Vocabulário fechado usado pelo conteúdo das trilhas (`knownSkill`, `level`)
+// e, a partir do wizard novo, pela pergunta "o que você já sabe?". Mora aqui
+// porque as duas pontas precisam concordar: um valor fora desta lista num JSON
+// de trilha é erro de conteúdo, e a API recusa a carga.
+// ---------------------------------------------------------------------------
+
+/** Habilidades que, se já dominadas, dispensam tópicos da trilha. */
+export const KNOWN_SKILLS = [
+  "logica-programacao",
+  "html-css",
+  "javascript",
+  "typescript",
+  "git",
+  "terminal-linux",
+  "sql",
+  "http-apis",
+  "react",
+  "nodejs",
+  "docker",
+  "cloud",
+] as const;
+export type KnownSkill = (typeof KNOWN_SKILLS)[number];
+
+/** Nível de um tópico dentro da trilha. */
+export const TRACK_TOPIC_LEVELS = [
+  "iniciante",
+  "intermediario",
+  "avancado",
+] as const;
+export type TrackTopicLevel = (typeof TRACK_TOPIC_LEVELS)[number];

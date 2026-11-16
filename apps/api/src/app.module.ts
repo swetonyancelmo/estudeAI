@@ -8,6 +8,7 @@ import { HealthModule } from './health/health.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { RoadmapModule } from './roadmap/roadmap.module';
+import { TracksModule } from './tracks/tracks.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { RoadmapModule } from './roadmap/roadmap.module';
     UsersModule,
     AuthModule,
     RoadmapModule,
+    TracksModule,
   ],
   providers: [
     {

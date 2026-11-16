@@ -1,0 +1,645 @@
+{
+  "slug": "backend",
+  "title": "Desenvolvimento Backend",
+  "description": "Trilha completa do zero absoluto até o nível de vaga júnior em backend, usando Node.js com TypeScript, NestJS e PostgreSQL. Ao final, você será capaz de projetar e construir APIs REST seguras e testadas, modelar bancos de dados relacionais e colocar sua aplicação no ar em containers na nuvem.",
+  "modules": [
+    {
+      "slug": "fundamentos-e-ferramentas",
+      "title": "Fundamentos da Web e Ferramentas",
+      "description": "Como a web funciona e as ferramentas básicas de todo desenvolvedor backend: editor, terminal, Git e GitHub.",
+      "topics": [
+        {
+          "slug": "como-a-web-funciona",
+          "title": "Como a web funciona: cliente, servidor e HTTP",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "http-apis",
+          "prerequisites": [],
+          "searchQuery": "como a internet funciona cliente servidor http"
+        },
+        {
+          "slug": "ambiente-de-desenvolvimento",
+          "title": "Configurando o ambiente: VS Code, Node.js e extensões essenciais",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 2,
+          "knownSkill": null,
+          "prerequisites": [],
+          "searchQuery": "instalar node.js e configurar vs code para iniciantes"
+        },
+        {
+          "slug": "terminal-basico",
+          "title": "Terminal básico: navegar em pastas, arquivos e executar comandos",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "terminal-linux",
+          "prerequisites": [],
+          "searchQuery": "terminal linha de comando para iniciantes comandos básicos"
+        },
+        {
+          "slug": "git-fundamentos",
+          "title": "Git: commits, histórico e branches",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "git",
+          "prerequisites": ["terminal-basico"],
+          "searchQuery": "git para iniciantes commit branch merge tutorial"
+        },
+        {
+          "slug": "github-repositorios-remotos",
+          "title": "GitHub: repositórios remotos, push, pull e pull requests",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "git",
+          "prerequisites": ["git-fundamentos"],
+          "searchQuery": "github push pull request tutorial iniciante"
+        },
+        {
+          "slug": "linux-permissoes-processos",
+          "title": "Linux para backend: permissões, processos e variáveis de ambiente",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": "terminal-linux",
+          "prerequisites": ["terminal-basico"],
+          "searchQuery": "linux permissões processos variáveis de ambiente tutorial"
+        }
+      ],
+      "project": {
+        "title": "Diário de estudos no GitHub",
+        "description": "Crie um repositório público com um README em Markdown que registre sua trilha de estudos, usando branches e pull requests para cada atualização. Exercita terminal, Git e GitHub, e vira o ponto de partida do seu portfólio.",
+        "estimatedHours": 4
+      }
+    },
+    {
+      "slug": "logica-com-javascript",
+      "title": "Lógica de Programação com JavaScript",
+      "description": "Os fundamentos da programação usando JavaScript: variáveis, decisões, repetições, funções, arrays, objetos e a sintaxe moderna da linguagem.",
+      "topics": [
+        {
+          "slug": "js-variaveis-tipos-operadores",
+          "title": "JavaScript: variáveis, tipos de dados e operadores",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "logica-programacao",
+          "prerequisites": ["ambiente-de-desenvolvimento"],
+          "searchQuery": "javascript para iniciantes variáveis tipos operadores"
+        },
+        {
+          "slug": "js-condicionais-lacos",
+          "title": "Condicionais e laços de repetição em JavaScript",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "logica-programacao",
+          "prerequisites": ["js-variaveis-tipos-operadores"],
+          "searchQuery": "javascript if else for while exercícios lógica"
+        },
+        {
+          "slug": "js-funcoes-escopo",
+          "title": "Funções, arrow functions, escopo e closures",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-condicionais-lacos"],
+          "searchQuery": "javascript funções arrow function escopo closure"
+        },
+        {
+          "slug": "js-arrays-objetos",
+          "title": "Arrays e objetos em JavaScript",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-funcoes-escopo"],
+          "searchQuery": "javascript arrays e objetos tutorial iniciante"
+        },
+        {
+          "slug": "js-metodos-de-array",
+          "title": "Métodos de array: map, filter, reduce, find e sort",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-arrays-objetos"],
+          "searchQuery": "javascript map filter reduce explicado"
+        },
+        {
+          "slug": "js-moderno-modulos",
+          "title": "JavaScript moderno: desestruturação, spread, classes e módulos ES",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-metodos-de-array"],
+          "searchQuery": "javascript es6 desestruturação spread classes import export"
+        }
+      ],
+      "project": {
+        "title": "Controle de gastos no terminal",
+        "description": "Escreva um programa em JavaScript que cadastra gastos em uma lista de objetos e calcula total por categoria, maior gasto e média mensal, organizado em módulos. Exercita funções, arrays, objetos, map/filter/reduce e módulos ES.",
+        "estimatedHours": 6
+      }
+    },
+    {
+      "slug": "node-e-typescript",
+      "title": "Node.js e TypeScript",
+      "description": "Programação assíncrona, o runtime do Node.js, gerenciamento de pacotes e tipagem estática com TypeScript.",
+      "topics": [
+        {
+          "slug": "js-assincrono-promises",
+          "title": "JavaScript assíncrono: callbacks, promises e async/await",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-funcoes-escopo"],
+          "searchQuery": "javascript promises async await explicado"
+        },
+        {
+          "slug": "node-runtime-event-loop",
+          "title": "Node.js por dentro: event loop, módulos nativos e sistema de arquivos",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "nodejs",
+          "prerequisites": ["js-assincrono-promises", "js-moderno-modulos"],
+          "searchQuery": "node.js event loop módulos nativos fs tutorial"
+        },
+        {
+          "slug": "npm-pacotes-scripts",
+          "title": "npm: package.json, dependências e scripts",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "nodejs",
+          "prerequisites": ["node-runtime-event-loop", "terminal-basico"],
+          "searchQuery": "npm package.json dependências scripts tutorial"
+        },
+        {
+          "slug": "typescript-tipos-basicos",
+          "title": "TypeScript: tipos primitivos, arrays, objetos e funções tipadas",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "typescript",
+          "prerequisites": ["npm-pacotes-scripts"],
+          "searchQuery": "typescript para iniciantes tipos básicos node"
+        },
+        {
+          "slug": "typescript-interfaces-generics",
+          "title": "TypeScript: interfaces, classes, enums e generics",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "typescript",
+          "prerequisites": ["typescript-tipos-basicos"],
+          "searchQuery": "typescript interface classes generics tutorial"
+        },
+        {
+          "slug": "typescript-utility-types-decorators",
+          "title": "TypeScript avançado: utility types, narrowing e decorators",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": "typescript",
+          "prerequisites": ["typescript-interfaces-generics"],
+          "searchQuery": "typescript utility types decorators narrowing"
+        }
+      ],
+      "project": {
+        "title": "CLI de cotações em TypeScript",
+        "description": "Crie uma ferramenta de linha de comando em Node.js com TypeScript que consulta uma API pública de cotações, salva o histórico em arquivo JSON e exibe um resumo. Exercita async/await, módulos nativos, scripts npm e tipagem com interfaces.",
+        "estimatedHours": 6
+      }
+    },
+    {
+      "slug": "http-e-apis-rest",
+      "title": "HTTP e APIs REST",
+      "description": "O protocolo HTTP em detalhe, boas práticas de design REST e a construção das primeiras APIs com Express.",
+      "topics": [
+        {
+          "slug": "http-metodos-status-headers",
+          "title": "HTTP a fundo: métodos, status codes, headers e JSON",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "http-apis",
+          "prerequisites": ["como-a-web-funciona"],
+          "searchQuery": "http métodos status code headers explicado"
+        },
+        {
+          "slug": "rest-boas-praticas",
+          "title": "Design de APIs REST: recursos, rotas e boas práticas",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "http-apis",
+          "prerequisites": ["http-metodos-status-headers"],
+          "searchQuery": "api rest boas práticas design de rotas"
+        },
+        {
+          "slug": "express-rotas-crud",
+          "title": "Primeira API com Express e TypeScript: rotas e CRUD",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["rest-boas-praticas", "typescript-tipos-basicos"],
+          "searchQuery": "api rest express typescript crud do zero"
+        },
+        {
+          "slug": "express-middlewares-erros",
+          "title": "Middlewares e tratamento de erros no Express",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["express-rotas-crud"],
+          "searchQuery": "express middleware tratamento de erros tutorial"
+        },
+        {
+          "slug": "validacao-dados-zod",
+          "title": "Validação de dados de entrada com Zod",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["express-rotas-crud"],
+          "searchQuery": "zod validação de dados node typescript"
+        },
+        {
+          "slug": "documentacao-openapi-swagger",
+          "title": "Documentação de APIs com OpenAPI e Swagger",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["rest-boas-praticas"],
+          "searchQuery": "documentar api com swagger openapi node"
+        }
+      ],
+      "project": {
+        "title": "API de tarefas em memória",
+        "description": "Construa uma API REST de tarefas com Express e TypeScript, com CRUD completo, códigos de status corretos, middleware de log e tratamento centralizado de erros, testada por um cliente HTTP. Exercita HTTP, design REST, rotas e middlewares.",
+        "estimatedHours": 8
+      }
+    },
+    {
+      "slug": "bancos-de-dados-sql",
+      "title": "Bancos de Dados com PostgreSQL",
+      "description": "Modelagem relacional e SQL na prática com PostgreSQL rodando em container, das consultas básicas a índices e transações.",
+      "topics": [
+        {
+          "slug": "modelagem-relacional",
+          "title": "Modelagem de dados relacional: tabelas, chaves e relacionamentos",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "sql",
+          "prerequisites": [],
+          "searchQuery": "modelagem de banco de dados relacional chave primária estrangeira"
+        },
+        {
+          "slug": "docker-postgres-local",
+          "title": "Docker básico: subindo o PostgreSQL em um container",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "docker",
+          "prerequisites": ["terminal-basico"],
+          "searchQuery": "docker para iniciantes postgres container"
+        },
+        {
+          "slug": "sql-crud-consultas",
+          "title": "SQL: CREATE, INSERT, SELECT, UPDATE e DELETE",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "sql",
+          "prerequisites": ["modelagem-relacional", "docker-postgres-local"],
+          "searchQuery": "sql postgresql para iniciantes select insert update delete"
+        },
+        {
+          "slug": "sql-joins-agregacoes",
+          "title": "SQL: JOINs, GROUP BY e funções de agregação",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "sql",
+          "prerequisites": ["sql-crud-consultas"],
+          "searchQuery": "sql joins group by agregação postgresql"
+        },
+        {
+          "slug": "postgres-indices-transacoes",
+          "title": "PostgreSQL: índices, constraints e transações",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "sql",
+          "prerequisites": ["sql-joins-agregacoes"],
+          "searchQuery": "postgresql índices transações constraints"
+        },
+        {
+          "slug": "sql-views-funcoes-janela",
+          "title": "SQL avançado: subconsultas, views e funções de janela",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": "sql",
+          "prerequisites": ["sql-joins-agregacoes"],
+          "searchQuery": "sql subquery views window functions postgresql"
+        }
+      ],
+      "project": {
+        "title": "Banco de dados de uma biblioteca",
+        "description": "Modele e crie no PostgreSQL o banco de uma biblioteca com livros, autores, leitores e empréstimos, populando dados de exemplo e escrevendo consultas de relatório. Exercita modelagem, Docker, CRUD em SQL, JOINs, agregações e índices.",
+        "estimatedHours": 8
+      }
+    },
+    {
+      "slug": "nestjs-e-orm",
+      "title": "APIs com NestJS e Prisma",
+      "description": "Construção de APIs organizadas com NestJS, acesso ao PostgreSQL via Prisma ORM, validação e configuração por ambiente.",
+      "topics": [
+        {
+          "slug": "nestjs-modulos-controllers-providers",
+          "title": "NestJS: módulos, controllers, providers e injeção de dependência",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["express-middlewares-erros", "typescript-interfaces-generics"],
+          "searchQuery": "nestjs do zero módulos controllers providers"
+        },
+        {
+          "slug": "nestjs-dtos-validacao",
+          "title": "DTOs e validação com class-validator e pipes no NestJS",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["nestjs-modulos-controllers-providers"],
+          "searchQuery": "nestjs dto validação class-validator pipes"
+        },
+        {
+          "slug": "prisma-schema-migrations",
+          "title": "Prisma ORM: schema, migrations e relacionamentos",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["postgres-indices-transacoes", "npm-pacotes-scripts"],
+          "searchQuery": "prisma orm postgresql migrations relacionamentos"
+        },
+        {
+          "slug": "nestjs-prisma-crud",
+          "title": "CRUD com NestJS e Prisma: paginação, filtros e ordenação",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["nestjs-dtos-validacao", "prisma-schema-migrations"],
+          "searchQuery": "nestjs prisma crud paginação api rest"
+        },
+        {
+          "slug": "nestjs-configuracao-ambiente",
+          "title": "Configuração e variáveis de ambiente no NestJS",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["nestjs-modulos-controllers-providers"],
+          "searchQuery": "nestjs config module variáveis de ambiente env"
+        },
+        {
+          "slug": "nestjs-filtros-interceptors",
+          "title": "Exception filters, interceptors e Swagger no NestJS",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["nestjs-prisma-crud"],
+          "searchQuery": "nestjs exception filter interceptor swagger"
+        }
+      ],
+      "project": {
+        "title": "API de e-commerce com NestJS",
+        "description": "Desenvolva a API de uma loja com produtos, categorias e pedidos usando NestJS, Prisma e PostgreSQL, com validação de entrada, paginação e configuração por variáveis de ambiente. Exercita módulos, DTOs, Prisma, migrations e CRUD completo.",
+        "estimatedHours": 12
+      }
+    },
+    {
+      "slug": "autenticacao-e-seguranca",
+      "title": "Autenticação, Autorização e Segurança",
+      "description": "Cadastro e login seguros, autenticação com JWT, controle de acesso por papéis e proteção da API contra ataques comuns.",
+      "topics": [
+        {
+          "slug": "hash-senhas-bcrypt",
+          "title": "Armazenando senhas com segurança: hash com bcrypt",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["nestjs-prisma-crud"],
+          "searchQuery": "hash de senha bcrypt node explicado"
+        },
+        {
+          "slug": "jwt-autenticacao-nestjs",
+          "title": "Autenticação com JWT no NestJS: login e rotas protegidas",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["hash-senhas-bcrypt"],
+          "searchQuery": "nestjs autenticação jwt passport tutorial"
+        },
+        {
+          "slug": "guards-autorizacao-roles",
+          "title": "Autorização com guards e papéis (roles) no NestJS",
+          "level": "avancado",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["jwt-autenticacao-nestjs"],
+          "searchQuery": "nestjs guards roles autorização"
+        },
+        {
+          "slug": "refresh-token-sessoes",
+          "title": "Refresh tokens, logout e expiração de sessão",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["jwt-autenticacao-nestjs"],
+          "searchQuery": "refresh token jwt nestjs implementação"
+        },
+        {
+          "slug": "seguranca-owasp-api",
+          "title": "Segurança de APIs: OWASP, CORS, Helmet e rate limiting",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["guards-autorizacao-roles"],
+          "searchQuery": "segurança api owasp cors helmet rate limit node"
+        },
+        {
+          "slug": "oauth-login-social",
+          "title": "Login social com OAuth 2.0 (Google e GitHub)",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["jwt-autenticacao-nestjs"],
+          "searchQuery": "oauth 2.0 login google nestjs"
+        }
+      ],
+      "project": {
+        "title": "Autenticação na API de e-commerce",
+        "description": "Adicione à API da loja cadastro e login de usuários com senhas em hash, tokens JWT e separação entre clientes e administradores, de forma que só administradores gerenciem produtos. Exercita bcrypt, JWT, guards e papéis.",
+        "estimatedHours": 8
+      }
+    },
+    {
+      "slug": "testes-e-qualidade",
+      "title": "Testes e Qualidade de Código",
+      "description": "Testes automatizados em vários níveis e integração contínua para entregar código confiável.",
+      "topics": [
+        {
+          "slug": "testes-unitarios-jest",
+          "title": "Testes unitários com Jest e mocks no NestJS",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["nestjs-prisma-crud"],
+          "searchQuery": "nestjs testes unitários jest mock"
+        },
+        {
+          "slug": "testes-e2e-supertest",
+          "title": "Testes end-to-end de API com Supertest",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["testes-unitarios-jest"],
+          "searchQuery": "nestjs testes e2e supertest"
+        },
+        {
+          "slug": "testes-integracao-banco",
+          "title": "Testes de integração com banco de dados de teste",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["testes-e2e-supertest"],
+          "searchQuery": "testes de integração banco de dados node prisma docker"
+        },
+        {
+          "slug": "eslint-prettier",
+          "title": "Padronização de código com ESLint e Prettier",
+          "level": "iniciante",
+          "required": false,
+          "estimatedHours": 2,
+          "knownSkill": null,
+          "prerequisites": ["npm-pacotes-scripts"],
+          "searchQuery": "configurar eslint prettier projeto node typescript"
+        },
+        {
+          "slug": "github-actions-ci",
+          "title": "Integração contínua com GitHub Actions",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["testes-unitarios-jest", "github-repositorios-remotos"],
+          "searchQuery": "github actions ci rodar testes node"
+        }
+      ],
+      "project": {
+        "title": "E-commerce testado com CI",
+        "description": "Escreva testes unitários para os serviços e testes end-to-end para os fluxos de login e pedidos da API da loja, rodando automaticamente a cada push no GitHub Actions. Exercita Jest, mocks, Supertest e integração contínua.",
+        "estimatedHours": 8
+      }
+    },
+    {
+      "slug": "producao-e-arquitetura",
+      "title": "Deploy, Escalabilidade e Arquitetura",
+      "description": "Empacotar a aplicação com Docker, publicar na nuvem e conhecer as técnicas que tornam um backend observável, rápido e sustentável.",
+      "topics": [
+        {
+          "slug": "dockerfile-docker-compose",
+          "title": "Dockerfile e Docker Compose para aplicações Node.js",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "docker",
+          "prerequisites": ["docker-postgres-local", "nestjs-configuracao-ambiente"],
+          "searchQuery": "dockerfile docker compose nestjs postgres"
+        },
+        {
+          "slug": "deploy-api-nuvem",
+          "title": "Deploy de API e banco PostgreSQL em uma plataforma de nuvem",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "cloud",
+          "prerequisites": ["dockerfile-docker-compose"],
+          "searchQuery": "deploy api nestjs postgres nuvem gratuito"
+        },
+        {
+          "slug": "logs-observabilidade",
+          "title": "Logs estruturados, health checks e monitoramento",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["deploy-api-nuvem"],
+          "searchQuery": "logs estruturados node pino health check monitoramento"
+        },
+        {
+          "slug": "cache-redis",
+          "title": "Cache com Redis para acelerar a API",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["dockerfile-docker-compose"],
+          "searchQuery": "redis cache nestjs tutorial"
+        },
+        {
+          "slug": "filas-processamento-bullmq",
+          "title": "Filas e processamento em segundo plano com BullMQ",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["cache-redis"],
+          "searchQuery": "filas bullmq nestjs jobs segundo plano"
+        },
+        {
+          "slug": "solid-arquitetura-camadas",
+          "title": "SOLID e arquitetura em camadas no backend",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["nestjs-prisma-crud"],
+          "searchQuery": "solid clean architecture node typescript explicado"
+        }
+      ],
+      "project": {
+        "title": "E-commerce em produção",
+        "description": "Containerize a API da loja com Docker Compose, publique API e banco na nuvem com variáveis de ambiente seguras e documente o processo no README. Para quem fez os opcionais, adicione cache Redis, envio de e-mail de confirmação via fila e logs estruturados.",
+        "estimatedHours": 10
+      }
+    }
+  ]
+}

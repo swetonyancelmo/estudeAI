@@ -1,0 +1,635 @@
+{
+  "slug": "devops",
+  "title": "DevOps e Cloud",
+  "description": "Trilha completa do zero absoluto até o nível de vaga júnior em DevOps, cobrindo Linux, redes, Git, Docker, CI/CD, AWS, Terraform, Kubernetes e observabilidade. Ao final, você será capaz de automatizar a entrega de aplicações, provisionar infraestrutura na nuvem como código e operar sistemas em produção com monitoramento.",
+  "modules": [
+    {
+      "slug": "linux",
+      "title": "Linux para DevOps",
+      "description": "O sistema operacional dos servidores: terminal, arquivos, permissões, processos, serviços e pacotes.",
+      "topics": [
+        {
+          "slug": "linux-introducao-ambiente",
+          "title": "Introdução ao Linux: distribuições e ambiente com WSL ou máquina virtual",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "terminal-linux",
+          "prerequisites": [],
+          "searchQuery": "linux para iniciantes instalar ubuntu wsl máquina virtual"
+        },
+        {
+          "slug": "terminal-navegacao-arquivos",
+          "title": "Terminal Linux: navegação, arquivos, redirecionamento e pipes",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "terminal-linux",
+          "prerequisites": ["linux-introducao-ambiente"],
+          "searchQuery": "comandos linux terminal arquivos pipes grep tutorial"
+        },
+        {
+          "slug": "permissoes-usuarios-grupos",
+          "title": "Usuários, grupos e permissões de arquivos no Linux",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "terminal-linux",
+          "prerequisites": ["terminal-navegacao-arquivos"],
+          "searchQuery": "linux permissões chmod chown usuários grupos sudo"
+        },
+        {
+          "slug": "processos-servicos-systemd",
+          "title": "Processos, serviços e systemd",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "terminal-linux",
+          "prerequisites": ["permissoes-usuarios-grupos"],
+          "searchQuery": "linux processos systemctl systemd serviços tutorial"
+        },
+        {
+          "slug": "pacotes-logs-linux",
+          "title": "Gerenciamento de pacotes (apt) e leitura de logs do sistema",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "terminal-linux",
+          "prerequisites": ["processos-servicos-systemd"],
+          "searchQuery": "linux apt instalar pacotes journalctl logs"
+        },
+        {
+          "slug": "editores-vim-nano",
+          "title": "Editando arquivos no servidor com Vim e Nano",
+          "level": "iniciante",
+          "required": false,
+          "estimatedHours": 2,
+          "knownSkill": "terminal-linux",
+          "prerequisites": ["terminal-navegacao-arquivos"],
+          "searchQuery": "vim para iniciantes comandos básicos"
+        }
+      ],
+      "project": {
+        "title": "Servidor Linux configurado do zero",
+        "description": "Em uma máquina virtual, crie usuários e grupos com permissões adequadas, instale e configure um serviço gerenciado pelo systemd e documente cada comando em um passo a passo. Exercita terminal, permissões, processos, pacotes e logs.",
+        "estimatedHours": 6
+      }
+    },
+    {
+      "slug": "redes",
+      "title": "Redes de Computadores",
+      "description": "Os conceitos de rede que todo profissional de DevOps usa no dia a dia: TCP/IP, endereçamento, DNS, HTTP, SSH e firewall.",
+      "topics": [
+        {
+          "slug": "modelo-osi-tcp-ip",
+          "title": "Modelo OSI e TCP/IP: como os dados trafegam na rede",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": [],
+          "searchQuery": "modelo osi tcp ip explicado para iniciantes"
+        },
+        {
+          "slug": "enderecamento-ip-sub-redes",
+          "title": "Endereçamento IP, máscaras, CIDR e sub-redes",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["modelo-osi-tcp-ip"],
+          "searchQuery": "endereço ip máscara cidr sub-rede explicado"
+        },
+        {
+          "slug": "dns-http-https",
+          "title": "DNS, HTTP, HTTPS e certificados TLS",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "http-apis",
+          "prerequisites": ["modelo-osi-tcp-ip"],
+          "searchQuery": "como funciona dns http https certificado tls"
+        },
+        {
+          "slug": "ssh-acesso-remoto",
+          "title": "SSH: acesso remoto seguro com chaves",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "terminal-linux",
+          "prerequisites": ["terminal-navegacao-arquivos"],
+          "searchQuery": "ssh chave pública privada acesso remoto linux"
+        },
+        {
+          "slug": "firewall-portas",
+          "title": "Portas, firewall e regras de acesso com ufw e iptables",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["enderecamento-ip-sub-redes", "processos-servicos-systemd"],
+          "searchQuery": "firewall linux ufw iptables portas tutorial"
+        },
+        {
+          "slug": "diagnostico-rede",
+          "title": "Diagnóstico de rede: ping, curl, dig, traceroute e ss",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["dns-http-https"],
+          "searchQuery": "comandos de rede linux ping curl dig traceroute"
+        }
+      ],
+      "project": {
+        "title": "Servidor web acessível por SSH",
+        "description": "Configure uma máquina virtual acessível apenas por SSH com chave, publique uma página simples servida por HTTP e documente o caminho da requisição do navegador até o servidor. Exercita TCP/IP, endereçamento, DNS, HTTP e SSH.",
+        "estimatedHours": 6
+      }
+    },
+    {
+      "slug": "git-e-automacao",
+      "title": "Git e Automação com Scripts",
+      "description": "Versionamento com Git e GitHub e automação de tarefas com Bash, além dos formatos de configuração usados em toda a stack.",
+      "topics": [
+        {
+          "slug": "git-fundamentos",
+          "title": "Git: commits, histórico e branches",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "git",
+          "prerequisites": ["terminal-navegacao-arquivos"],
+          "searchQuery": "git para iniciantes commit branch merge tutorial"
+        },
+        {
+          "slug": "github-fluxo-pull-requests",
+          "title": "GitHub: repositórios remotos, pull requests e fluxo de trabalho em equipe",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "git",
+          "prerequisites": ["git-fundamentos"],
+          "searchQuery": "github pull request fluxo de trabalho git flow"
+        },
+        {
+          "slug": "bash-scripting",
+          "title": "Shell script com Bash: variáveis, condicionais, laços e funções",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 8,
+          "knownSkill": null,
+          "prerequisites": ["permissoes-usuarios-grupos"],
+          "searchQuery": "shell script bash tutorial completo"
+        },
+        {
+          "slug": "yaml-json",
+          "title": "YAML e JSON: os formatos de configuração do DevOps",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 2,
+          "knownSkill": null,
+          "prerequisites": [],
+          "searchQuery": "yaml para iniciantes sintaxe explicada"
+        },
+        {
+          "slug": "python-automacao",
+          "title": "Python para automação de tarefas de infraestrutura",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 10,
+          "knownSkill": null,
+          "prerequisites": ["bash-scripting"],
+          "searchQuery": "python para devops automação scripts"
+        }
+      ],
+      "project": {
+        "title": "Scripts de manutenção versionados",
+        "description": "Crie um repositório no GitHub com scripts Bash que fazem backup de diretórios, verificam uso de disco e geram um relatório, configurados por um arquivo YAML e evoluídos via pull requests. Exercita Git, GitHub, Bash e YAML.",
+        "estimatedHours": 6
+      }
+    },
+    {
+      "slug": "containers-docker",
+      "title": "Containers com Docker",
+      "description": "Empacotamento e execução de aplicações em containers, da criação de imagens à orquestração local com Docker Compose.",
+      "topics": [
+        {
+          "slug": "containers-docker-cli",
+          "title": "Containers e Docker: conceitos, imagens e comandos essenciais",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "docker",
+          "prerequisites": ["processos-servicos-systemd"],
+          "searchQuery": "docker para iniciantes containers imagens comandos"
+        },
+        {
+          "slug": "dockerfile-imagens",
+          "title": "Criando imagens com Dockerfile e publicando em um registry",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "docker",
+          "prerequisites": ["containers-docker-cli"],
+          "searchQuery": "dockerfile criar imagem docker hub push tutorial"
+        },
+        {
+          "slug": "volumes-redes-docker",
+          "title": "Volumes e redes no Docker",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "docker",
+          "prerequisites": ["dockerfile-imagens", "enderecamento-ip-sub-redes"],
+          "searchQuery": "docker volumes e redes networks tutorial"
+        },
+        {
+          "slug": "docker-compose",
+          "title": "Docker Compose: aplicações com múltiplos containers",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "docker",
+          "prerequisites": ["volumes-redes-docker", "yaml-json"],
+          "searchQuery": "docker compose tutorial completo aplicação e banco"
+        },
+        {
+          "slug": "docker-multistage-seguranca",
+          "title": "Imagens otimizadas e seguras: multi-stage build e varredura de vulnerabilidades",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["dockerfile-imagens"],
+          "searchQuery": "docker multi stage build imagem menor segurança"
+        },
+        {
+          "slug": "nginx-proxy-reverso",
+          "title": "Nginx como servidor web e proxy reverso",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["docker-compose", "dns-http-https"],
+          "searchQuery": "nginx proxy reverso docker tutorial"
+        }
+      ],
+      "project": {
+        "title": "Aplicação web containerizada",
+        "description": "Containerize uma aplicação web de código aberto com seu banco de dados usando Dockerfile e Docker Compose, com volume persistente e rede dedicada, e publique a imagem em um registry. Exercita imagens, volumes, redes e Compose.",
+        "estimatedHours": 8
+      }
+    },
+    {
+      "slug": "ci-cd",
+      "title": "Integração e Entrega Contínuas (CI/CD)",
+      "description": "Pipelines que testam, constroem e entregam aplicações automaticamente a cada mudança no código.",
+      "topics": [
+        {
+          "slug": "conceitos-ci-cd",
+          "title": "CI/CD: integração contínua, entrega e deploy contínuos",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["github-fluxo-pull-requests"],
+          "searchQuery": "o que é ci cd integração contínua explicado"
+        },
+        {
+          "slug": "github-actions-workflows",
+          "title": "GitHub Actions: workflows, jobs, steps e gatilhos",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["conceitos-ci-cd", "yaml-json"],
+          "searchQuery": "github actions tutorial completo workflow"
+        },
+        {
+          "slug": "pipeline-build-push-imagem",
+          "title": "Pipeline que testa, constrói e publica imagens Docker",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["github-actions-workflows", "dockerfile-imagens"],
+          "searchQuery": "github actions build push imagem docker"
+        },
+        {
+          "slug": "segredos-variaveis-pipeline",
+          "title": "Segredos, variáveis e ambientes em pipelines",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["github-actions-workflows"],
+          "searchQuery": "github actions secrets variáveis de ambiente environments"
+        },
+        {
+          "slug": "estrategias-deploy",
+          "title": "Estratégias de deploy: rolling, blue-green e canary",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["pipeline-build-push-imagem"],
+          "searchQuery": "estratégias de deploy blue green canary rolling"
+        },
+        {
+          "slug": "gitlab-ci",
+          "title": "Pipelines com GitLab CI",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["github-actions-workflows"],
+          "searchQuery": "gitlab ci pipeline tutorial gitlab-ci.yml"
+        }
+      ],
+      "project": {
+        "title": "Pipeline completo no GitHub Actions",
+        "description": "Crie para a aplicação containerizada um pipeline que roda testes a cada pull request e, ao integrar na branch principal, constrói e publica a imagem no registry usando segredos. Exercita conceitos de CI/CD, workflows, build de imagens e gestão de segredos.",
+        "estimatedHours": 8
+      }
+    },
+    {
+      "slug": "aws",
+      "title": "Computação em Nuvem com AWS",
+      "description": "Os serviços fundamentais da AWS para hospedar aplicações com segurança: identidade, computação, rede e armazenamento.",
+      "topics": [
+        {
+          "slug": "aws-conta-iam-custos",
+          "title": "AWS: criação de conta, controle de custos e IAM",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "cloud",
+          "prerequisites": [],
+          "searchQuery": "aws para iniciantes iam usuários políticas billing"
+        },
+        {
+          "slug": "aws-ec2-instancias",
+          "title": "EC2: criando e acessando servidores na nuvem",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "cloud",
+          "prerequisites": ["aws-conta-iam-custos", "ssh-acesso-remoto"],
+          "searchQuery": "aws ec2 criar instância acessar ssh tutorial"
+        },
+        {
+          "slug": "aws-vpc-security-groups",
+          "title": "VPC, sub-redes, rotas e security groups",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "cloud",
+          "prerequisites": ["aws-ec2-instancias", "enderecamento-ip-sub-redes"],
+          "searchQuery": "aws vpc subnet security group explicado"
+        },
+        {
+          "slug": "aws-s3-armazenamento",
+          "title": "S3: armazenamento de objetos, políticas e sites estáticos",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "cloud",
+          "prerequisites": ["aws-conta-iam-custos"],
+          "searchQuery": "aws s3 bucket tutorial site estático"
+        },
+        {
+          "slug": "aws-rds-banco-gerenciado",
+          "title": "RDS: bancos de dados gerenciados na AWS",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": "cloud",
+          "prerequisites": ["aws-vpc-security-groups"],
+          "searchQuery": "aws rds postgres tutorial"
+        },
+        {
+          "slug": "aws-ecs-fargate",
+          "title": "ECS com Fargate: rodando containers na AWS",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 6,
+          "knownSkill": "cloud",
+          "prerequisites": ["aws-vpc-security-groups", "docker-compose"],
+          "searchQuery": "aws ecs fargate deploy container tutorial"
+        }
+      ],
+      "project": {
+        "title": "Aplicação no ar na AWS",
+        "description": "Monte uma VPC com sub-rede pública, suba uma instância EC2 com Docker rodando sua aplicação containerizada, restrinja o acesso com security groups e use o S3 para guardar backups. Exercita IAM, EC2, VPC, security groups e S3.",
+        "estimatedHours": 10
+      }
+    },
+    {
+      "slug": "infraestrutura-como-codigo",
+      "title": "Infraestrutura como Código com Terraform",
+      "description": "Provisionar e versionar infraestrutura na nuvem de forma declarativa e reproduzível com Terraform.",
+      "topics": [
+        {
+          "slug": "iac-terraform-fundamentos",
+          "title": "Infraestrutura como código e fundamentos do Terraform: providers, recursos e ciclo plan/apply",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["aws-conta-iam-custos", "git-fundamentos"],
+          "searchQuery": "terraform para iniciantes aws tutorial"
+        },
+        {
+          "slug": "terraform-variaveis-modulos-state",
+          "title": "Terraform: variáveis, outputs, módulos e state remoto",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["iac-terraform-fundamentos"],
+          "searchQuery": "terraform variáveis módulos state remoto s3"
+        },
+        {
+          "slug": "terraform-aws-rede-servidores",
+          "title": "Provisionando VPC, EC2 e security groups na AWS com Terraform",
+          "level": "avancado",
+          "required": true,
+          "estimatedHours": 8,
+          "knownSkill": null,
+          "prerequisites": ["terraform-variaveis-modulos-state", "aws-vpc-security-groups"],
+          "searchQuery": "terraform aws vpc ec2 security group projeto"
+        },
+        {
+          "slug": "terraform-no-pipeline",
+          "title": "Terraform no pipeline de CI/CD",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["terraform-variaveis-modulos-state", "segredos-variaveis-pipeline"],
+          "searchQuery": "terraform github actions pipeline plan apply"
+        },
+        {
+          "slug": "ansible-gerenciamento-configuracao",
+          "title": "Gerenciamento de configuração com Ansible",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["ssh-acesso-remoto", "yaml-json"],
+          "searchQuery": "ansible para iniciantes playbook tutorial"
+        }
+      ],
+      "project": {
+        "title": "Infraestrutura da AWS em Terraform",
+        "description": "Recrie com Terraform toda a infraestrutura do projeto anterior (VPC, sub-redes, security groups e EC2), organizada em módulos e com state remoto, de forma que um único apply suba o ambiente e um destroy o remova. Exercita fundamentos, variáveis, módulos e state.",
+        "estimatedHours": 10
+      }
+    },
+    {
+      "slug": "kubernetes",
+      "title": "Orquestração com Kubernetes",
+      "description": "Execução e gerenciamento de containers em escala com Kubernetes: workloads, configuração, exposição e empacotamento.",
+      "topics": [
+        {
+          "slug": "kubernetes-arquitetura",
+          "title": "Kubernetes: arquitetura, cluster local e kubectl",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["docker-compose"],
+          "searchQuery": "kubernetes para iniciantes arquitetura kubectl minikube kind"
+        },
+        {
+          "slug": "kubernetes-pods-deployments-services",
+          "title": "Pods, Deployments e Services no Kubernetes",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 8,
+          "knownSkill": null,
+          "prerequisites": ["kubernetes-arquitetura"],
+          "searchQuery": "kubernetes pod deployment service tutorial"
+        },
+        {
+          "slug": "kubernetes-configmaps-secrets",
+          "title": "ConfigMaps, Secrets e volumes persistentes",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["kubernetes-pods-deployments-services"],
+          "searchQuery": "kubernetes configmap secret persistent volume"
+        },
+        {
+          "slug": "kubernetes-ingress",
+          "title": "Ingress: expondo aplicações com domínio e HTTPS",
+          "level": "avancado",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["kubernetes-pods-deployments-services", "dns-http-https"],
+          "searchQuery": "kubernetes ingress nginx tutorial"
+        },
+        {
+          "slug": "helm-charts",
+          "title": "Helm: empacotando e instalando aplicações no Kubernetes",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["kubernetes-configmaps-secrets"],
+          "searchQuery": "helm charts kubernetes tutorial"
+        },
+        {
+          "slug": "aws-eks",
+          "title": "Kubernetes gerenciado na AWS com EKS",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["kubernetes-ingress", "aws-vpc-security-groups"],
+          "searchQuery": "aws eks criar cluster kubernetes tutorial"
+        }
+      ],
+      "project": {
+        "title": "Aplicação orquestrada no Kubernetes",
+        "description": "Implante a aplicação containerizada e seu banco em um cluster local com Deployments, Services, ConfigMaps, Secrets e um Ingress com domínio, e faça uma atualização sem downtime. Exercita arquitetura do cluster, workloads, configuração e exposição.",
+        "estimatedHours": 10
+      }
+    },
+    {
+      "slug": "observabilidade",
+      "title": "Observabilidade e Operação",
+      "description": "Métricas, logs, traces e alertas para entender o comportamento dos sistemas e responder a incidentes em produção.",
+      "topics": [
+        {
+          "slug": "observabilidade-conceitos",
+          "title": "Observabilidade: métricas, logs e traces",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["pacotes-logs-linux"],
+          "searchQuery": "o que é observabilidade métricas logs traces"
+        },
+        {
+          "slug": "prometheus-metricas",
+          "title": "Coletando métricas com Prometheus",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["observabilidade-conceitos", "docker-compose"],
+          "searchQuery": "prometheus tutorial métricas node exporter"
+        },
+        {
+          "slug": "grafana-dashboards-alertas",
+          "title": "Dashboards e alertas com Grafana",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["prometheus-metricas"],
+          "searchQuery": "grafana dashboard prometheus alertas tutorial"
+        },
+        {
+          "slug": "logs-centralizados-loki",
+          "title": "Logs centralizados com Loki",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["grafana-dashboards-alertas"],
+          "searchQuery": "grafana loki logs centralizados tutorial"
+        },
+        {
+          "slug": "tracing-opentelemetry",
+          "title": "Rastreamento distribuído com OpenTelemetry",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["observabilidade-conceitos"],
+          "searchQuery": "opentelemetry tracing distribuído tutorial"
+        },
+        {
+          "slug": "sre-slo-incidentes",
+          "title": "SRE na prática: SLIs, SLOs e resposta a incidentes",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["grafana-dashboards-alertas"],
+          "searchQuery": "sre sli slo sla gestão de incidentes"
+        }
+      ],
+      "project": {
+        "title": "Stack de monitoramento",
+        "description": "Suba Prometheus e Grafana para monitorar a aplicação e o servidor, crie um dashboard com uso de recursos, latência e taxa de erros e configure um alerta disparado por uma falha simulada. Exercita conceitos de observabilidade, Prometheus, dashboards e alertas.",
+        "estimatedHours": 8
+      }
+    }
+  ]
+}

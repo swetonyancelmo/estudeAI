@@ -1,0 +1,635 @@
+{
+  "slug": "frontend",
+  "title": "Desenvolvimento Frontend",
+  "description": "Trilha completa do zero absoluto até o nível de vaga júnior em frontend, passando por HTML, CSS, JavaScript, TypeScript, React e Next.js. Ao final, você será capaz de construir interfaces responsivas, acessíveis e testadas, consumir APIs e publicar aplicações modernas em produção com um portfólio no GitHub.",
+  "modules": [
+    {
+      "slug": "fundamentos-da-web",
+      "title": "Fundamentos da Web e Ferramentas",
+      "description": "Como a web funciona por baixo dos panos e as ferramentas básicas de todo desenvolvedor: editor, navegador, terminal, Git e GitHub.",
+      "topics": [
+        {
+          "slug": "como-a-web-funciona",
+          "title": "Como a web funciona: cliente, servidor e HTTP",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "http-apis",
+          "prerequisites": [],
+          "searchQuery": "como a internet funciona cliente servidor http"
+        },
+        {
+          "slug": "ambiente-de-desenvolvimento",
+          "title": "Configurando o ambiente: VS Code, extensões e DevTools do navegador",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 2,
+          "knownSkill": null,
+          "prerequisites": [],
+          "searchQuery": "configurar vs code para desenvolvimento web iniciante"
+        },
+        {
+          "slug": "terminal-basico",
+          "title": "Terminal básico: navegar em pastas e executar comandos",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "terminal-linux",
+          "prerequisites": [],
+          "searchQuery": "terminal linha de comando para iniciantes comandos básicos"
+        },
+        {
+          "slug": "git-fundamentos",
+          "title": "Git: commits, histórico e branches",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "git",
+          "prerequisites": ["terminal-basico"],
+          "searchQuery": "git para iniciantes commit branch merge tutorial"
+        },
+        {
+          "slug": "github-repositorios-remotos",
+          "title": "GitHub: repositórios remotos, push, pull e pull requests",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "git",
+          "prerequisites": ["git-fundamentos"],
+          "searchQuery": "github push pull request tutorial iniciante"
+        },
+        {
+          "slug": "dns-dominios-hospedagem",
+          "title": "DNS, domínios e hospedagem de sites",
+          "level": "iniciante",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": "http-apis",
+          "prerequisites": ["como-a-web-funciona"],
+          "searchQuery": "o que é dns dominio e hospedagem de site explicado"
+        }
+      ],
+      "project": {
+        "title": "Diário de estudos no GitHub",
+        "description": "Crie um repositório público com um README em Markdown que registre sua trilha de estudos, usando branches e pull requests para cada atualização. Exercita terminal, Git e GitHub, e vira o ponto de partida do seu portfólio.",
+        "estimatedHours": 4
+      }
+    },
+    {
+      "slug": "html",
+      "title": "HTML Semântico",
+      "description": "Estrutura de páginas com HTML semântico, formulários, mídia e as bases de acessibilidade e SEO.",
+      "topics": [
+        {
+          "slug": "html-estrutura-semantica",
+          "title": "HTML: estrutura do documento e tags semânticas",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "html-css",
+          "prerequisites": ["ambiente-de-desenvolvimento"],
+          "searchQuery": "html semântico tutorial completo para iniciantes"
+        },
+        {
+          "slug": "html-formularios",
+          "title": "Formulários HTML: inputs, labels e validação nativa",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "html-css",
+          "prerequisites": ["html-estrutura-semantica"],
+          "searchQuery": "formulários html input label validação tutorial"
+        },
+        {
+          "slug": "html-acessibilidade-basica",
+          "title": "Acessibilidade na web: alt, hierarquia de títulos, foco e ARIA básico",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["html-formularios"],
+          "searchQuery": "acessibilidade web html para iniciantes aria"
+        },
+        {
+          "slug": "html-imagens-midia",
+          "title": "Imagens responsivas, áudio, vídeo e formatos modernos",
+          "level": "iniciante",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": "html-css",
+          "prerequisites": ["html-estrutura-semantica"],
+          "searchQuery": "imagens responsivas html picture srcset video"
+        },
+        {
+          "slug": "seo-meta-tags",
+          "title": "SEO básico: meta tags, Open Graph e boas práticas",
+          "level": "iniciante",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["html-estrutura-semantica"],
+          "searchQuery": "seo para desenvolvedores meta tags open graph"
+        }
+      ],
+      "project": {
+        "title": "Currículo online em HTML",
+        "description": "Monte seu currículo como uma página em HTML puro, com estrutura semântica, formulário de contato e textos alternativos em todas as imagens. Exercita tags semânticas, formulários e acessibilidade básica.",
+        "estimatedHours": 5
+      }
+    },
+    {
+      "slug": "css",
+      "title": "CSS e Layout Responsivo",
+      "description": "Estilização com CSS, do modelo de caixa aos layouts com Flexbox e Grid, até páginas que funcionam bem em qualquer tela.",
+      "topics": [
+        {
+          "slug": "css-seletores-cascata",
+          "title": "CSS: seletores, cascata, especificidade e herança",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "html-css",
+          "prerequisites": ["html-estrutura-semantica"],
+          "searchQuery": "css seletores especificidade cascata tutorial"
+        },
+        {
+          "slug": "css-box-model-unidades",
+          "title": "Box model, unidades (px, rem, %, vw) e tipografia",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "html-css",
+          "prerequisites": ["css-seletores-cascata"],
+          "searchQuery": "css box model unidades rem em tutorial"
+        },
+        {
+          "slug": "flexbox-alinhamento",
+          "title": "Flexbox: alinhamento e distribuição",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "html-css",
+          "prerequisites": ["css-box-model-unidades"],
+          "searchQuery": "flexbox css tutorial completo"
+        },
+        {
+          "slug": "css-grid-layout",
+          "title": "CSS Grid: layouts em linhas e colunas",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "html-css",
+          "prerequisites": ["flexbox-alinhamento"],
+          "searchQuery": "css grid layout tutorial completo"
+        },
+        {
+          "slug": "responsividade-media-queries",
+          "title": "Responsividade: mobile first e media queries",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "html-css",
+          "prerequisites": ["css-grid-layout"],
+          "searchQuery": "site responsivo mobile first media queries css"
+        },
+        {
+          "slug": "css-variaveis-animacoes",
+          "title": "Variáveis CSS, transições e animações",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": "html-css",
+          "prerequisites": ["css-box-model-unidades"],
+          "searchQuery": "css variáveis transition animation keyframes tutorial"
+        }
+      ],
+      "project": {
+        "title": "Landing page responsiva",
+        "description": "Recrie a landing page de um produto fictício com cabeçalho, seções de benefícios em Grid, cards em Flexbox e rodapé, funcionando do celular ao desktop. Publique no GitHub Pages. Exercita box model, Flexbox, Grid e media queries.",
+        "estimatedHours": 10
+      }
+    },
+    {
+      "slug": "javascript-fundamentos",
+      "title": "JavaScript: Fundamentos da Linguagem",
+      "description": "Lógica de programação com JavaScript: variáveis, decisões, repetições, funções, arrays, objetos e a sintaxe moderna da linguagem.",
+      "topics": [
+        {
+          "slug": "js-variaveis-tipos-operadores",
+          "title": "JavaScript: variáveis, tipos de dados e operadores",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "logica-programacao",
+          "prerequisites": ["ambiente-de-desenvolvimento"],
+          "searchQuery": "javascript para iniciantes variáveis tipos operadores"
+        },
+        {
+          "slug": "js-condicionais-lacos",
+          "title": "Condicionais e laços de repetição em JavaScript",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "logica-programacao",
+          "prerequisites": ["js-variaveis-tipos-operadores"],
+          "searchQuery": "javascript if else for while exercícios lógica"
+        },
+        {
+          "slug": "js-funcoes-escopo",
+          "title": "Funções, arrow functions, escopo e closures",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-condicionais-lacos"],
+          "searchQuery": "javascript funções arrow function escopo closure"
+        },
+        {
+          "slug": "js-arrays-objetos",
+          "title": "Arrays e objetos em JavaScript",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-funcoes-escopo"],
+          "searchQuery": "javascript arrays e objetos tutorial iniciante"
+        },
+        {
+          "slug": "js-metodos-de-array",
+          "title": "Métodos de array: map, filter, reduce, find e sort",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-arrays-objetos"],
+          "searchQuery": "javascript map filter reduce explicado"
+        },
+        {
+          "slug": "js-moderno-modulos",
+          "title": "JavaScript moderno: desestruturação, spread, template literals e módulos ES",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-metodos-de-array"],
+          "searchQuery": "javascript es6 desestruturação spread import export"
+        }
+      ],
+      "project": {
+        "title": "Controle de gastos no console",
+        "description": "Escreva um programa em JavaScript que cadastra gastos em uma lista de objetos e calcula total por categoria, maior gasto e média mensal, organizado em módulos. Exercita funções, arrays, objetos, map/filter/reduce e módulos ES.",
+        "estimatedHours": 6
+      }
+    },
+    {
+      "slug": "javascript-no-navegador",
+      "title": "JavaScript no Navegador e APIs",
+      "description": "Interatividade com o DOM, eventos, programação assíncrona e consumo de APIs REST com fetch.",
+      "topics": [
+        {
+          "slug": "dom-selecao-manipulacao",
+          "title": "DOM: selecionar, criar e modificar elementos",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-arrays-objetos", "responsividade-media-queries"],
+          "searchQuery": "javascript dom manipulação querySelector tutorial"
+        },
+        {
+          "slug": "eventos-dom",
+          "title": "Eventos: cliques, formulários, teclado e delegação",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "javascript",
+          "prerequisites": ["dom-selecao-manipulacao"],
+          "searchQuery": "javascript addEventListener eventos formulário tutorial"
+        },
+        {
+          "slug": "js-assincrono-promises",
+          "title": "JavaScript assíncrono: callbacks, promises e async/await",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-funcoes-escopo"],
+          "searchQuery": "javascript promises async await explicado"
+        },
+        {
+          "slug": "fetch-apis-json",
+          "title": "Consumindo APIs REST com fetch e JSON",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "http-apis",
+          "prerequisites": ["js-assincrono-promises", "como-a-web-funciona"],
+          "searchQuery": "javascript fetch api consumir api rest json"
+        },
+        {
+          "slug": "localstorage-armazenamento",
+          "title": "Persistindo dados no navegador com localStorage",
+          "level": "iniciante",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": "javascript",
+          "prerequisites": ["eventos-dom"],
+          "searchQuery": "javascript localStorage salvar dados tutorial"
+        },
+        {
+          "slug": "erros-e-debug-devtools",
+          "title": "Tratamento de erros e depuração com DevTools",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-assincrono-promises"],
+          "searchQuery": "debug javascript chrome devtools try catch"
+        }
+      ],
+      "project": {
+        "title": "Buscador de filmes com API pública",
+        "description": "Construa uma página que busca filmes em uma API pública, exibe resultados em cards, trata estados de carregamento e erro e permite salvar favoritos. Exercita DOM, eventos, async/await, fetch e, opcionalmente, localStorage.",
+        "estimatedHours": 10
+      }
+    },
+    {
+      "slug": "typescript-e-ferramentas",
+      "title": "TypeScript e Ferramentas Modernas",
+      "description": "O ecossistema de pacotes e build do frontend moderno e a tipagem estática com TypeScript.",
+      "topics": [
+        {
+          "slug": "npm-pacotes-vite",
+          "title": "npm, package.json e projetos com Vite",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "nodejs",
+          "prerequisites": ["js-moderno-modulos", "terminal-basico"],
+          "searchQuery": "npm package.json vite criar projeto tutorial"
+        },
+        {
+          "slug": "typescript-tipos-basicos",
+          "title": "TypeScript: tipos primitivos, arrays, objetos e funções tipadas",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "typescript",
+          "prerequisites": ["npm-pacotes-vite"],
+          "searchQuery": "typescript para iniciantes tipos básicos"
+        },
+        {
+          "slug": "typescript-interfaces-generics",
+          "title": "TypeScript: interfaces, types, unions e generics",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "typescript",
+          "prerequisites": ["typescript-tipos-basicos"],
+          "searchQuery": "typescript interface type union generics tutorial"
+        },
+        {
+          "slug": "typescript-narrowing-utility-types",
+          "title": "TypeScript: narrowing, utility types e tsconfig",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": "typescript",
+          "prerequisites": ["typescript-interfaces-generics"],
+          "searchQuery": "typescript utility types narrowing tsconfig"
+        },
+        {
+          "slug": "eslint-prettier",
+          "title": "Qualidade de código com ESLint e Prettier",
+          "level": "iniciante",
+          "required": false,
+          "estimatedHours": 2,
+          "knownSkill": null,
+          "prerequisites": ["npm-pacotes-vite"],
+          "searchQuery": "configurar eslint prettier vs code projeto"
+        },
+        {
+          "slug": "tailwind-css",
+          "title": "Tailwind CSS: estilização com classes utilitárias",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["npm-pacotes-vite", "responsividade-media-queries"],
+          "searchQuery": "tailwind css tutorial completo iniciantes"
+        }
+      ],
+      "project": {
+        "title": "Buscador de filmes em TypeScript",
+        "description": "Migre o buscador de filmes do módulo anterior para um projeto Vite com TypeScript, tipando as respostas da API com interfaces e eliminando erros apontados pelo compilador. Exercita npm, Vite, tipos, interfaces e generics.",
+        "estimatedHours": 6
+      }
+    },
+    {
+      "slug": "react",
+      "title": "React com TypeScript",
+      "description": "Construção de interfaces com componentes React, estado, efeitos, formulários e compartilhamento de dados entre componentes.",
+      "topics": [
+        {
+          "slug": "react-componentes-jsx-props",
+          "title": "React: componentes, JSX e props",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "react",
+          "prerequisites": ["typescript-interfaces-generics", "dom-selecao-manipulacao"],
+          "searchQuery": "react com typescript componentes props do zero"
+        },
+        {
+          "slug": "react-estado-eventos",
+          "title": "Estado com useState e eventos em React",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "react",
+          "prerequisites": ["react-componentes-jsx-props"],
+          "searchQuery": "react useState eventos tutorial"
+        },
+        {
+          "slug": "react-listas-formularios",
+          "title": "Renderização de listas, condicionais e formulários controlados",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "react",
+          "prerequisites": ["react-estado-eventos"],
+          "searchQuery": "react listas key formulários controlados"
+        },
+        {
+          "slug": "react-useeffect-dados",
+          "title": "useEffect e busca de dados em APIs com React",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "react",
+          "prerequisites": ["react-listas-formularios", "fetch-apis-json"],
+          "searchQuery": "react useEffect fetch api tutorial"
+        },
+        {
+          "slug": "react-context-hooks-customizados",
+          "title": "Context API e hooks customizados",
+          "level": "avancado",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "react",
+          "prerequisites": ["react-useeffect-dados"],
+          "searchQuery": "react context api hooks customizados"
+        },
+        {
+          "slug": "react-router",
+          "title": "Rotas em aplicações React com React Router",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": "react",
+          "prerequisites": ["react-estado-eventos"],
+          "searchQuery": "react router dom tutorial rotas"
+        }
+      ],
+      "project": {
+        "title": "Gerenciador de tarefas em React",
+        "description": "Desenvolva um app de tarefas com React e TypeScript que permite criar, editar, filtrar e concluir tarefas, com tema claro/escuro via Context e dados iniciais vindos de uma API. Exercita componentes, estado, formulários, useEffect, Context e hooks customizados.",
+        "estimatedHours": 12
+      }
+    },
+    {
+      "slug": "nextjs",
+      "title": "Next.js e Aplicações em Produção",
+      "description": "Aplicações completas com Next.js e App Router: rotas, renderização no servidor, busca de dados, performance e publicação.",
+      "topics": [
+        {
+          "slug": "nextjs-app-router-rotas",
+          "title": "Next.js: App Router, rotas, layouts e navegação",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["react-useeffect-dados"],
+          "searchQuery": "next.js app router tutorial completo"
+        },
+        {
+          "slug": "nextjs-server-client-components",
+          "title": "Server Components e Client Components no Next.js",
+          "level": "avancado",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["nextjs-app-router-rotas"],
+          "searchQuery": "next.js server components vs client components"
+        },
+        {
+          "slug": "nextjs-busca-dados-cache",
+          "title": "Busca de dados, cache, loading e tratamento de erros no Next.js",
+          "level": "avancado",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["nextjs-server-client-components"],
+          "searchQuery": "next.js fetch dados cache loading error"
+        },
+        {
+          "slug": "nextjs-server-actions-formularios",
+          "title": "Server Actions e formulários no Next.js",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["nextjs-busca-dados-cache"],
+          "searchQuery": "next.js server actions formulário tutorial"
+        },
+        {
+          "slug": "performance-web-vitals-seo",
+          "title": "Performance e SEO no Next.js: metadata, imagens e Core Web Vitals",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["nextjs-app-router-rotas"],
+          "searchQuery": "next.js seo metadata core web vitals performance"
+        },
+        {
+          "slug": "deploy-vercel-variaveis-ambiente",
+          "title": "Deploy na Vercel e variáveis de ambiente",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "cloud",
+          "prerequisites": ["nextjs-app-router-rotas", "github-repositorios-remotos"],
+          "searchQuery": "deploy next.js vercel variáveis de ambiente"
+        }
+      ],
+      "project": {
+        "title": "Catálogo de produtos com Next.js",
+        "description": "Construa um catálogo com listagem, página de detalhe por rota dinâmica e busca, carregando dados de uma API no servidor e publicado na Vercel com domínio próprio. Exercita App Router, Server e Client Components, busca de dados com cache e deploy.",
+        "estimatedHours": 12
+      }
+    },
+    {
+      "slug": "qualidade-e-mercado",
+      "title": "Testes, Estado de Servidor e Automação",
+      "description": "Práticas que as empresas cobram de quem entra no time: testes automatizados, gerenciamento de dados remotos e integração contínua.",
+      "topics": [
+        {
+          "slug": "testes-unitarios-vitest",
+          "title": "Testes unitários com Vitest",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["typescript-tipos-basicos"],
+          "searchQuery": "vitest testes unitários tutorial typescript"
+        },
+        {
+          "slug": "testes-componentes-testing-library",
+          "title": "Testando componentes React com Testing Library",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["testes-unitarios-vitest", "react-listas-formularios"],
+          "searchQuery": "react testing library vitest testar componentes"
+        },
+        {
+          "slug": "tanstack-query-zustand",
+          "title": "Estado de servidor com TanStack Query e estado global com Zustand",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["react-context-hooks-customizados"],
+          "searchQuery": "tanstack query react query zustand tutorial"
+        },
+        {
+          "slug": "testes-e2e-playwright",
+          "title": "Testes end-to-end com Playwright",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["testes-componentes-testing-library"],
+          "searchQuery": "playwright testes e2e tutorial"
+        },
+        {
+          "slug": "github-actions-ci",
+          "title": "Integração contínua com GitHub Actions",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["testes-unitarios-vitest", "github-repositorios-remotos"],
+          "searchQuery": "github actions ci rodar testes automaticamente"
+        }
+      ],
+      "project": {
+        "title": "Catálogo testado e com CI",
+        "description": "Adicione ao catálogo em Next.js testes unitários para as funções utilitárias e testes de componentes para busca e listagem, garantindo que rodem antes de cada deploy. Exercita Vitest e Testing Library e, para quem fez os opcionais, Playwright e GitHub Actions.",
+        "estimatedHours": 8
+      }
+    }
+  ]
+}

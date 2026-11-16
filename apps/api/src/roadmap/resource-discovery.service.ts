@@ -171,20 +171,36 @@ export class ResourceDiscoveryService {
   async searchYoutubeResources(
     topicTitle: string,
   ): Promise<ResourceContentDto[]> {
+    return (
+      (await this.fetchYoutube(`${topicTitle} tutorial curso`, topicTitle)) ??
+      []
+    );
+  }
+
+  /**
+   * A busca em si. `null` = a busca NÃO aconteceu (sem key, HTTP de erro, rede);
+   * `[]` = aconteceu e não sobrou nada válido. A geração trata os dois como
+   * "sem vídeos", mas a fila das trilhas depende da diferença: cota estourada
+   * não pode marcar um tópico como resolvido.
+   */
+  private async fetchYoutube(
+    query: string,
+    topicTitle: string,
+  ): Promise<ResourceContentDto[] | null> {
     const apiKey = this.config.get<string>('YOUTUBE_API_KEY');
     if (!apiKey) {
       this.warnOnce(
         'YOUTUBE_API_KEY',
         'YOUTUBE_API_KEY ausente — os roadmaps sairão apenas com recursos web.',
       );
-      return [];
+      return null;
     }
 
     const url = new URL(YOUTUBE_SEARCH_URL);
     url.searchParams.set('key', apiKey);
     url.searchParams.set('part', 'snippet');
     url.searchParams.set('type', 'video,playlist');
-    url.searchParams.set('q', `${topicTitle} tutorial curso`);
+    url.searchParams.set('q', query);
     url.searchParams.set('maxResults', String(YOUTUBE_CANDIDATES));
     url.searchParams.set('relevanceLanguage', 'pt');
     url.searchParams.set('regionCode', 'BR');
@@ -202,7 +218,7 @@ export class ResourceDiscoveryService {
         this.logger.warn(
           `YouTube search falhou (HTTP ${response.status}) para "${topicTitle}".`,
         );
-        return [];
+        return null;
       }
 
       const payload = (await response.json()) as YoutubeSearchResponse;
@@ -216,8 +232,46 @@ export class ResourceDiscoveryService {
       this.logger.warn(
         `Erro na busca do YouTube para "${topicTitle}": ${this.describe(error)}`,
       );
-      return [];
+      return null;
     }
+  }
+
+  /**
+   * Descoberta para UM tópico de trilha curada (docs/TRILHAS.md §8), fora do
+   * fluxo de geração: sem orçamento de tempo, e com a busca do YouTube usando o
+   * `searchQuery` escrito à mão para o tópico em vez do título.
+   *
+   * `youtubeOk: false` significa que a busca do YouTube não respondeu (cota,
+   * rede, key ausente) — quem chama deve tentar de novo depois em vez de
+   * gravar o resultado. Como todo método público daqui, não lança.
+   */
+  async discoverForTrackTopic(topic: {
+    title: string;
+    searchQuery: string;
+  }): Promise<{ resources: ResourceContentDto[]; youtubeOk: boolean }> {
+    if (!this.isEnabled()) {
+      return { resources: [], youtubeOk: false };
+    }
+    try {
+      const [youtube, web] = await Promise.all([
+        this.fetchYoutube(topic.searchQuery, topic.title),
+        this.searchWebResources(topic.title),
+      ]);
+      return {
+        resources: this.dedupeByUrl([...(youtube ?? []), ...web]),
+        youtubeOk: youtube !== null,
+      };
+    } catch (error) {
+      this.logger.error(
+        `Falha inesperada ao descobrir recursos de "${topic.title}": ${this.describe(error)}`,
+      );
+      return { resources: [], youtubeOk: false };
+    }
+  }
+
+  /** A fila das trilhas só faz sentido se a busca do YouTube puder rodar. */
+  canSearchYoutube(): boolean {
+    return this.isEnabled() && !!this.config.get<string>('YOUTUBE_API_KEY');
   }
 
   /**

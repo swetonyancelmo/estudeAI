@@ -34,5 +34,7 @@ import { Topic } from './entities/topic.entity';
     ResourceDiscoveryService,
     UserRoadmapService,
   ],
+  // O catálogo de trilhas reusa a descoberta de recursos (TracksModule).
+  exports: [ResourceDiscoveryService],
 })
 export class RoadmapModule {}
