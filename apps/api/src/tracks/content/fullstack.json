@@ -1,0 +1,645 @@
+{
+  "slug": "fullstack",
+  "title": "Desenvolvimento Fullstack",
+  "description": "O caminho mais curto do zero absoluto até construir e publicar uma aplicação web completa, com frontend em React e Next.js e backend em Node.js, NestJS e PostgreSQL, tudo em TypeScript. Ao final, você será capaz de criar interfaces responsivas, APIs REST com autenticação, integrar as duas pontas e colocar o produto no ar.",
+  "modules": [
+    {
+      "slug": "fundamentos-e-ferramentas",
+      "title": "Fundamentos da Web e Ferramentas",
+      "description": "Como a web funciona e as ferramentas que você vai usar todos os dias: editor, terminal, Git e GitHub.",
+      "topics": [
+        {
+          "slug": "como-a-web-funciona",
+          "title": "Como a web funciona: cliente, servidor e HTTP",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "http-apis",
+          "prerequisites": [],
+          "searchQuery": "como a internet funciona cliente servidor http"
+        },
+        {
+          "slug": "ambiente-de-desenvolvimento",
+          "title": "Configurando o ambiente: VS Code, Node.js e DevTools do navegador",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 2,
+          "knownSkill": null,
+          "prerequisites": [],
+          "searchQuery": "configurar vs code e instalar node.js para iniciantes"
+        },
+        {
+          "slug": "terminal-basico",
+          "title": "Terminal básico: navegar em pastas e executar comandos",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "terminal-linux",
+          "prerequisites": [],
+          "searchQuery": "terminal linha de comando para iniciantes comandos básicos"
+        },
+        {
+          "slug": "git-fundamentos",
+          "title": "Git: commits, histórico e branches",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "git",
+          "prerequisites": ["terminal-basico"],
+          "searchQuery": "git para iniciantes commit branch merge tutorial"
+        },
+        {
+          "slug": "github-repositorios-remotos",
+          "title": "GitHub: repositórios remotos, push, pull e pull requests",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "git",
+          "prerequisites": ["git-fundamentos"],
+          "searchQuery": "github push pull request tutorial iniciante"
+        },
+        {
+          "slug": "dns-dominios-hospedagem",
+          "title": "DNS, domínios e hospedagem de aplicações",
+          "level": "iniciante",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": "http-apis",
+          "prerequisites": ["como-a-web-funciona"],
+          "searchQuery": "o que é dns dominio e hospedagem explicado"
+        }
+      ],
+      "project": {
+        "title": "Diário de estudos no GitHub",
+        "description": "Crie um repositório público com um README em Markdown que registre sua trilha de estudos, usando branches e pull requests para cada atualização. Exercita terminal, Git e GitHub, e vira o ponto de partida do seu portfólio.",
+        "estimatedHours": 4
+      }
+    },
+    {
+      "slug": "html-e-css",
+      "title": "HTML e CSS Responsivo",
+      "description": "Estrutura de páginas com HTML semântico e acessível e estilização com CSS moderno, do box model aos layouts responsivos.",
+      "topics": [
+        {
+          "slug": "html-estrutura-semantica",
+          "title": "HTML: estrutura do documento e tags semânticas",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "html-css",
+          "prerequisites": ["ambiente-de-desenvolvimento"],
+          "searchQuery": "html semântico tutorial completo para iniciantes"
+        },
+        {
+          "slug": "html-formularios-acessibilidade",
+          "title": "Formulários HTML e acessibilidade básica",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "html-css",
+          "prerequisites": ["html-estrutura-semantica"],
+          "searchQuery": "formulários html acessibilidade label alt aria"
+        },
+        {
+          "slug": "css-seletores-box-model",
+          "title": "CSS: seletores, cascata, box model e unidades",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "html-css",
+          "prerequisites": ["html-estrutura-semantica"],
+          "searchQuery": "css para iniciantes seletores box model unidades"
+        },
+        {
+          "slug": "flexbox-alinhamento",
+          "title": "Flexbox: alinhamento e distribuição",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "html-css",
+          "prerequisites": ["css-seletores-box-model"],
+          "searchQuery": "flexbox css tutorial completo"
+        },
+        {
+          "slug": "css-grid-responsividade",
+          "title": "CSS Grid e responsividade com media queries",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 7,
+          "knownSkill": "html-css",
+          "prerequisites": ["flexbox-alinhamento"],
+          "searchQuery": "css grid e site responsivo media queries tutorial"
+        },
+        {
+          "slug": "css-variaveis-animacoes",
+          "title": "Variáveis CSS, transições e animações",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": "html-css",
+          "prerequisites": ["css-seletores-box-model"],
+          "searchQuery": "css variáveis transition animation keyframes tutorial"
+        }
+      ],
+      "project": {
+        "title": "Landing page responsiva",
+        "description": "Recrie a landing page de um produto fictício com cabeçalho, seções em Grid, cards em Flexbox e formulário de contato acessível, funcionando do celular ao desktop. Exercita HTML semântico, formulários, box model, Flexbox, Grid e media queries.",
+        "estimatedHours": 8
+      }
+    },
+    {
+      "slug": "javascript-fundamentos",
+      "title": "Lógica de Programação com JavaScript",
+      "description": "Os fundamentos da programação com JavaScript, da lógica básica à sintaxe moderna e à programação assíncrona, base para o front e o back.",
+      "topics": [
+        {
+          "slug": "js-variaveis-tipos-operadores",
+          "title": "JavaScript: variáveis, tipos de dados e operadores",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "logica-programacao",
+          "prerequisites": ["ambiente-de-desenvolvimento"],
+          "searchQuery": "javascript para iniciantes variáveis tipos operadores"
+        },
+        {
+          "slug": "js-condicionais-lacos",
+          "title": "Condicionais e laços de repetição em JavaScript",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "logica-programacao",
+          "prerequisites": ["js-variaveis-tipos-operadores"],
+          "searchQuery": "javascript if else for while exercícios lógica"
+        },
+        {
+          "slug": "js-funcoes-escopo",
+          "title": "Funções, arrow functions, escopo e closures",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-condicionais-lacos"],
+          "searchQuery": "javascript funções arrow function escopo closure"
+        },
+        {
+          "slug": "js-arrays-objetos-metodos",
+          "title": "Arrays e objetos: map, filter, reduce e find",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 8,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-funcoes-escopo"],
+          "searchQuery": "javascript arrays objetos map filter reduce"
+        },
+        {
+          "slug": "js-moderno-modulos",
+          "title": "JavaScript moderno: desestruturação, spread, classes e módulos ES",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-arrays-objetos-metodos"],
+          "searchQuery": "javascript es6 desestruturação spread classes import export"
+        },
+        {
+          "slug": "js-assincrono-promises",
+          "title": "JavaScript assíncrono: promises e async/await",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-funcoes-escopo"],
+          "searchQuery": "javascript promises async await explicado"
+        }
+      ],
+      "project": {
+        "title": "Controle de gastos no terminal",
+        "description": "Escreva um programa em JavaScript que cadastra gastos, calcula totais por categoria e simula o carregamento assíncrono dos dados, organizado em módulos. Exercita funções, arrays, objetos, métodos de array, módulos e async/await.",
+        "estimatedHours": 6
+      }
+    },
+    {
+      "slug": "javascript-no-navegador-e-typescript",
+      "title": "JavaScript no Navegador e TypeScript",
+      "description": "Interatividade com o DOM, consumo de APIs, ferramentas de build e tipagem estática com TypeScript.",
+      "topics": [
+        {
+          "slug": "dom-eventos",
+          "title": "DOM e eventos: manipulando a página com JavaScript",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 8,
+          "knownSkill": "javascript",
+          "prerequisites": ["js-arrays-objetos-metodos", "css-grid-responsividade"],
+          "searchQuery": "javascript dom eventos addEventListener tutorial"
+        },
+        {
+          "slug": "fetch-apis-json",
+          "title": "Consumindo APIs REST com fetch e JSON",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "http-apis",
+          "prerequisites": ["js-assincrono-promises", "dom-eventos"],
+          "searchQuery": "javascript fetch api consumir api rest json"
+        },
+        {
+          "slug": "erros-debug-devtools",
+          "title": "Tratamento de erros e depuração com DevTools",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": "javascript",
+          "prerequisites": ["fetch-apis-json"],
+          "searchQuery": "debug javascript chrome devtools try catch"
+        },
+        {
+          "slug": "npm-pacotes-vite",
+          "title": "npm, package.json, scripts e projetos com Vite",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 3,
+          "knownSkill": "nodejs",
+          "prerequisites": ["js-moderno-modulos", "terminal-basico"],
+          "searchQuery": "npm package.json scripts vite criar projeto"
+        },
+        {
+          "slug": "typescript-fundamentos",
+          "title": "TypeScript: tipos, interfaces, unions e funções tipadas",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 8,
+          "knownSkill": "typescript",
+          "prerequisites": ["npm-pacotes-vite"],
+          "searchQuery": "typescript para iniciantes tipos interfaces"
+        },
+        {
+          "slug": "typescript-generics-utility-types",
+          "title": "TypeScript: generics, utility types e decorators",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": "typescript",
+          "prerequisites": ["typescript-fundamentos"],
+          "searchQuery": "typescript generics utility types decorators"
+        }
+      ],
+      "project": {
+        "title": "Buscador de filmes em TypeScript",
+        "description": "Construa com Vite e TypeScript uma página que busca filmes em uma API pública, exibe resultados em cards e trata estados de carregamento e erro, com as respostas tipadas por interfaces. Exercita DOM, eventos, fetch, npm e TypeScript.",
+        "estimatedHours": 8
+      }
+    },
+    {
+      "slug": "react",
+      "title": "React com TypeScript",
+      "description": "Construção de interfaces com componentes React: props, estado, formulários e busca de dados.",
+      "topics": [
+        {
+          "slug": "react-componentes-props",
+          "title": "React: componentes, JSX e props",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "react",
+          "prerequisites": ["typescript-fundamentos", "dom-eventos"],
+          "searchQuery": "react com typescript componentes props do zero"
+        },
+        {
+          "slug": "react-estado-eventos-listas",
+          "title": "Estado com useState, eventos e renderização de listas",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 7,
+          "knownSkill": "react",
+          "prerequisites": ["react-componentes-props"],
+          "searchQuery": "react useState eventos listas key tutorial"
+        },
+        {
+          "slug": "react-formularios-controlados",
+          "title": "Formulários controlados e validação em React",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "react",
+          "prerequisites": ["react-estado-eventos-listas"],
+          "searchQuery": "react formulários controlados validação react hook form"
+        },
+        {
+          "slug": "react-useeffect-dados",
+          "title": "useEffect e busca de dados em APIs com React",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": "react",
+          "prerequisites": ["react-estado-eventos-listas", "fetch-apis-json"],
+          "searchQuery": "react useEffect fetch api tutorial"
+        },
+        {
+          "slug": "react-context-hooks-customizados",
+          "title": "Context API e hooks customizados",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": "react",
+          "prerequisites": ["react-useeffect-dados"],
+          "searchQuery": "react context api hooks customizados"
+        },
+        {
+          "slug": "tailwind-css",
+          "title": "Tailwind CSS: estilização com classes utilitárias",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["react-componentes-props"],
+          "searchQuery": "tailwind css react tutorial completo"
+        }
+      ],
+      "project": {
+        "title": "Gerenciador de tarefas em React",
+        "description": "Desenvolva um app de tarefas com React e TypeScript que permite criar, editar, filtrar e concluir tarefas, com dados iniciais vindos de uma API pública. Exercita componentes, estado, listas, formulários controlados e useEffect.",
+        "estimatedHours": 10
+      }
+    },
+    {
+      "slug": "node-e-postgresql",
+      "title": "Node.js, APIs REST e PostgreSQL",
+      "description": "Os fundamentos do lado servidor: o runtime do Node.js, design de APIs REST e bancos de dados relacionais com PostgreSQL.",
+      "topics": [
+        {
+          "slug": "node-runtime-event-loop",
+          "title": "Node.js por dentro: event loop e módulos nativos",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "nodejs",
+          "prerequisites": ["js-assincrono-promises", "npm-pacotes-vite"],
+          "searchQuery": "node.js event loop módulos nativos explicado"
+        },
+        {
+          "slug": "http-rest-boas-praticas",
+          "title": "APIs REST: métodos HTTP, status codes e design de rotas",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "http-apis",
+          "prerequisites": ["como-a-web-funciona"],
+          "searchQuery": "api rest métodos http status code boas práticas"
+        },
+        {
+          "slug": "modelagem-relacional",
+          "title": "Modelagem de dados relacional: tabelas, chaves e relacionamentos",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "sql",
+          "prerequisites": [],
+          "searchQuery": "modelagem de banco de dados relacional chave primária estrangeira"
+        },
+        {
+          "slug": "docker-postgres-local",
+          "title": "Docker básico: subindo o PostgreSQL em um container",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 4,
+          "knownSkill": "docker",
+          "prerequisites": ["terminal-basico"],
+          "searchQuery": "docker para iniciantes postgres container"
+        },
+        {
+          "slug": "sql-consultas-joins",
+          "title": "SQL no PostgreSQL: CRUD, JOINs e agregações",
+          "level": "iniciante",
+          "required": true,
+          "estimatedHours": 8,
+          "knownSkill": "sql",
+          "prerequisites": ["modelagem-relacional", "docker-postgres-local"],
+          "searchQuery": "sql postgresql select insert joins group by"
+        },
+        {
+          "slug": "postgres-indices-transacoes",
+          "title": "PostgreSQL: índices, constraints e transações",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": "sql",
+          "prerequisites": ["sql-consultas-joins"],
+          "searchQuery": "postgresql índices transações constraints"
+        }
+      ],
+      "project": {
+        "title": "Banco de dados de uma loja",
+        "description": "Modele e crie no PostgreSQL, rodando em Docker, o banco de uma loja com clientes, produtos e pedidos, e desenhe no README as rotas REST que a futura API terá. Exercita modelagem, Docker, SQL com JOINs e design de APIs REST.",
+        "estimatedHours": 6
+      }
+    },
+    {
+      "slug": "api-com-nestjs",
+      "title": "API com NestJS, Prisma e Autenticação",
+      "description": "Construção de uma API REST completa com NestJS e Prisma, com validação, acesso ao PostgreSQL e login com JWT.",
+      "topics": [
+        {
+          "slug": "nestjs-modulos-controllers-providers",
+          "title": "NestJS: módulos, controllers, providers e injeção de dependência",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["node-runtime-event-loop", "http-rest-boas-praticas", "typescript-fundamentos"],
+          "searchQuery": "nestjs do zero módulos controllers providers"
+        },
+        {
+          "slug": "prisma-schema-migrations",
+          "title": "Prisma ORM: schema, migrations e relacionamentos",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["sql-consultas-joins", "nestjs-modulos-controllers-providers"],
+          "searchQuery": "prisma orm postgresql migrations relacionamentos"
+        },
+        {
+          "slug": "nestjs-crud-dtos-validacao",
+          "title": "CRUD com NestJS e Prisma: DTOs, validação e variáveis de ambiente",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 7,
+          "knownSkill": null,
+          "prerequisites": ["prisma-schema-migrations"],
+          "searchQuery": "nestjs prisma crud dto class-validator"
+        },
+        {
+          "slug": "autenticacao-jwt-bcrypt",
+          "title": "Cadastro e login com bcrypt e JWT no NestJS",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 8,
+          "knownSkill": null,
+          "prerequisites": ["nestjs-crud-dtos-validacao"],
+          "searchQuery": "nestjs autenticação jwt bcrypt login tutorial"
+        },
+        {
+          "slug": "guards-autorizacao-roles",
+          "title": "Autorização com guards e papéis (roles) no NestJS",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["autenticacao-jwt-bcrypt"],
+          "searchQuery": "nestjs guards roles autorização"
+        },
+        {
+          "slug": "documentacao-swagger-nestjs",
+          "title": "Documentação da API com Swagger no NestJS",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["nestjs-crud-dtos-validacao"],
+          "searchQuery": "nestjs swagger documentação api"
+        }
+      ],
+      "project": {
+        "title": "API da loja com NestJS",
+        "description": "Implemente a API REST da loja modelada no módulo anterior, com CRUD de produtos e pedidos via Prisma, validação de entrada e cadastro e login de usuários com JWT. Exercita NestJS, Prisma, DTOs, bcrypt e JWT.",
+        "estimatedHours": 12
+      }
+    },
+    {
+      "slug": "nextjs-integracao",
+      "title": "Next.js e Integração Frontend + Backend",
+      "description": "Aplicações com Next.js e App Router conectadas à sua própria API, com login, sessões e dados vindos do backend.",
+      "topics": [
+        {
+          "slug": "nextjs-app-router-rotas",
+          "title": "Next.js: App Router, rotas, layouts e navegação",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["react-useeffect-dados", "react-formularios-controlados"],
+          "searchQuery": "next.js app router tutorial completo"
+        },
+        {
+          "slug": "nextjs-server-client-components",
+          "title": "Server Components, Client Components e busca de dados no Next.js",
+          "level": "avancado",
+          "required": true,
+          "estimatedHours": 6,
+          "knownSkill": null,
+          "prerequisites": ["nextjs-app-router-rotas"],
+          "searchQuery": "next.js server components client components fetch dados"
+        },
+        {
+          "slug": "integracao-front-api-autenticacao",
+          "title": "Conectando o Next.js à API: CORS, tokens, cookies e rotas protegidas",
+          "level": "avancado",
+          "required": true,
+          "estimatedHours": 8,
+          "knownSkill": null,
+          "prerequisites": ["nextjs-server-client-components", "autenticacao-jwt-bcrypt"],
+          "searchQuery": "next.js autenticação jwt api nestjs cookies"
+        },
+        {
+          "slug": "nextjs-server-actions-formularios",
+          "title": "Server Actions e formulários no Next.js",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["nextjs-server-client-components"],
+          "searchQuery": "next.js server actions formulário tutorial"
+        },
+        {
+          "slug": "tanstack-query",
+          "title": "Cache e sincronização de dados com TanStack Query",
+          "level": "avancado",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["integracao-front-api-autenticacao"],
+          "searchQuery": "tanstack query react query tutorial next.js"
+        }
+      ],
+      "project": {
+        "title": "Loja virtual fullstack",
+        "description": "Construa em Next.js a interface da loja consumindo sua API NestJS: vitrine de produtos, página de detalhe, cadastro, login e área do cliente com histórico de pedidos. Exercita App Router, Server e Client Components e integração autenticada com o backend.",
+        "estimatedHours": 14
+      }
+    },
+    {
+      "slug": "testes-e-deploy",
+      "title": "Testes, Containers e Deploy",
+      "description": "Garantir que a aplicação funciona com testes automatizados e publicá-la na nuvem com Docker e integração contínua.",
+      "topics": [
+        {
+          "slug": "testes-api-jest",
+          "title": "Testes unitários e end-to-end da API com Jest e Supertest",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 7,
+          "knownSkill": null,
+          "prerequisites": ["autenticacao-jwt-bcrypt"],
+          "searchQuery": "nestjs testes unitários e2e jest supertest"
+        },
+        {
+          "slug": "testes-componentes-react",
+          "title": "Testando componentes React com Vitest e Testing Library",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 5,
+          "knownSkill": null,
+          "prerequisites": ["react-formularios-controlados", "npm-pacotes-vite"],
+          "searchQuery": "react testing library vitest testar componentes"
+        },
+        {
+          "slug": "dockerfile-docker-compose",
+          "title": "Dockerfile e Docker Compose para a aplicação",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "docker",
+          "prerequisites": ["docker-postgres-local", "nestjs-crud-dtos-validacao"],
+          "searchQuery": "dockerfile docker compose nestjs postgres"
+        },
+        {
+          "slug": "deploy-frontend-backend",
+          "title": "Deploy do frontend, da API e do banco em plataformas de nuvem",
+          "level": "intermediario",
+          "required": true,
+          "estimatedHours": 5,
+          "knownSkill": "cloud",
+          "prerequisites": ["dockerfile-docker-compose", "nextjs-app-router-rotas", "github-repositorios-remotos"],
+          "searchQuery": "deploy next.js vercel e api nestjs postgres nuvem"
+        },
+        {
+          "slug": "github-actions-ci",
+          "title": "Integração contínua com GitHub Actions",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 4,
+          "knownSkill": null,
+          "prerequisites": ["testes-api-jest", "github-repositorios-remotos"],
+          "searchQuery": "github actions ci rodar testes node"
+        },
+        {
+          "slug": "logs-monitoramento",
+          "title": "Logs, health checks e monitoramento em produção",
+          "level": "intermediario",
+          "required": false,
+          "estimatedHours": 3,
+          "knownSkill": null,
+          "prerequisites": ["deploy-frontend-backend"],
+          "searchQuery": "logs estruturados health check monitoramento node"
+        }
+      ],
+      "project": {
+        "title": "Loja virtual em produção",
+        "description": "Adicione testes à API da loja, containerize o backend com Docker Compose e publique frontend, API e banco na nuvem com variáveis de ambiente seguras e um README com o link do produto no ar. Para quem fez os opcionais, rode os testes automaticamente com GitHub Actions a cada push.",
+        "estimatedHours": 10
+      }
+    }
+  ]
+}

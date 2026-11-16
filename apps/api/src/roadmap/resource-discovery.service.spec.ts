@@ -473,4 +473,48 @@ describe('ResourceDiscoveryService (Etapa 8 — YouTube e grounding mockados)', 
       expect(found.has('t-2')).toBe(false);
     });
   });
+  describe('discoverForTrackTopic (trilhas curadas)', () => {
+    const topic = {
+      title: 'Flexbox: alinhamento e distribuição',
+      searchQuery: 'flexbox css tutorial completo',
+    };
+
+    it('busca no YouTube pelo searchQuery do tópico, sem o sufixo da geração', async () => {
+      routeFetch({ youtubeItems: [youtubeVideo('v1', 'Flexbox')] });
+
+      const result = await buildService().discoverForTrackTopic(topic);
+
+      const query = new URL(youtubeSearchCalls()[0]).searchParams.get('q');
+      expect(query).toBe('flexbox css tutorial completo');
+      expect(result.youtubeOk).toBe(true);
+      expect(result.resources).toHaveLength(1);
+    });
+
+    it('busca respondida sem resultados ainda conta como youtubeOk', async () => {
+      routeFetch({ youtubeItems: [] });
+
+      const result = await buildService().discoverForTrackTopic(topic);
+
+      expect(result).toEqual({ resources: [], youtubeOk: true });
+    });
+
+    it('cota estourada (403) devolve youtubeOk false, para o tópico ficar na fila', async () => {
+      routeFetch({ youtubeStatus: 403 });
+
+      const result = await buildService().discoverForTrackTopic(topic);
+
+      expect(result.youtubeOk).toBe(false);
+    });
+
+    it('sem YOUTUBE_API_KEY não busca e não se declara apta', async () => {
+      routeFetch({});
+      const service = buildService({ ...baseEnv, YOUTUBE_API_KEY: undefined });
+
+      expect(service.canSearchYoutube()).toBe(false);
+      expect((await service.discoverForTrackTopic(topic)).youtubeOk).toBe(
+        false,
+      );
+      expect(youtubeSearchCalls()).toHaveLength(0);
+    });
+  });
 });
