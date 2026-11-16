@@ -9,10 +9,10 @@ import {
   RESOURCE_SEARCH_SYSTEM_INSTRUCTION,
   buildResourceSearchPrompt,
 } from './resource-discovery.prompt';
+import { classifyGeminiError, resolveGeminiModels } from './gemini-models';
 
 const YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
 
-const DEFAULT_MODEL = 'gemini-flash-latest';
 const DEFAULT_BUDGET_MS = 40_000;
 const DEFAULT_DELAY_MS = 250;
 const DEFAULT_SEARCH_TIMEOUT_MS = 10_000;
@@ -242,16 +242,7 @@ export class ResourceDiscoveryService {
     }
 
     try {
-      const response = await client.models.generateContent({
-        model: this.config.get<string>('GEMINI_MODEL') ?? DEFAULT_MODEL,
-        contents: buildResourceSearchPrompt(topicTitle),
-        config: {
-          systemInstruction: RESOURCE_SEARCH_SYSTEM_INSTRUCTION,
-          tools: [{ googleSearch: {} }],
-          temperature: 0.2,
-          abortSignal: AbortSignal.timeout(this.searchTimeoutMs()),
-        },
-      });
+      const response = await this.generateWithFallback(client, topicTitle);
 
       const chunks =
         response.candidates?.[0]?.groundingMetadata?.groundingChunks ?? [];
@@ -488,6 +479,36 @@ export class ResourceDiscoveryService {
     }
 
     return null;
+  }
+
+  /**
+   * Percorre a cadeia `GEMINI_MODELS` sem retry/backoff — esta busca já roda
+   * sob um orçamento de tempo do roadmap inteiro, e falhar aqui só significa
+   * "sem artigos" para o tópico. Erro `fatal` (key inválida etc.) não adianta
+   * repetir em outro modelo, então propaga logo.
+   */
+  private async generateWithFallback(client: GoogleGenAI, topicTitle: string) {
+    let lastError: unknown;
+    for (const model of resolveGeminiModels(this.config)) {
+      try {
+        return await client.models.generateContent({
+          model,
+          contents: buildResourceSearchPrompt(topicTitle),
+          config: {
+            systemInstruction: RESOURCE_SEARCH_SYSTEM_INSTRUCTION,
+            tools: [{ googleSearch: {} }],
+            temperature: 0.2,
+            abortSignal: AbortSignal.timeout(this.searchTimeoutMs()),
+          },
+        });
+      } catch (error) {
+        lastError = error;
+        if (classifyGeminiError(error) === 'fatal') {
+          throw error;
+        }
+      }
+    }
+    throw lastError;
   }
 
   /** Cria (uma vez) o client do Gemini. Sem key, a busca web fica indisponível. */

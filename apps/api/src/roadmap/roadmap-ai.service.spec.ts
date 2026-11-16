@@ -71,6 +71,7 @@ describe('RoadmapAiService (Gemini mockado — Etapa 4)', () => {
   const baseEnv = {
     GEMINI_API_KEY: 'test-key',
     GEMINI_MODEL: 'gemini-flash-latest',
+    GEMINI_RETRY_BASE_MS: '0',
   };
 
   beforeEach(() => {
@@ -193,6 +194,99 @@ describe('RoadmapAiService (Gemini mockado — Etapa 4)', () => {
   });
 });
 
+/** Simula o `ApiError` do SDK (só o `status` importa para a classificação). */
+function apiError(status: number, message = `HTTP ${status}`): Error {
+  return Object.assign(new Error(message), { status });
+}
+
+describe('RoadmapAiService — retry e fallback de modelos', () => {
+  const env = {
+    GEMINI_API_KEY: 'test-key',
+    GEMINI_MODELS: 'modelo-a, modelo-b',
+    GEMINI_MAX_RETRIES: '1',
+    GEMINI_RETRY_BASE_MS: '0',
+  };
+  const modelsCalled = () =>
+    generateContent.mock.calls.map(([req]) => (req as { model: string }).model);
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.useRealTimers();
+  });
+
+  it('repete o mesmo modelo após um 503 transitório e devolve o resultado', async () => {
+    generateContent
+      .mockRejectedValueOnce(apiError(503))
+      .mockResolvedValueOnce({ text: validRoadmapJson() });
+
+    const roadmap = await buildService(env).generate(answers);
+
+    expect(roadmap.targetArea).toBe('frontend');
+    expect(modelsCalled()).toEqual(['modelo-a', 'modelo-a']);
+  });
+
+  it('esgotados os retries por 503, passa ao próximo modelo', async () => {
+    generateContent
+      .mockRejectedValueOnce(apiError(503))
+      .mockRejectedValueOnce(apiError(429))
+      .mockResolvedValueOnce({ text: validRoadmapJson() });
+
+    await buildService(env).generate(answers);
+
+    expect(modelsCalled()).toEqual(['modelo-a', 'modelo-a', 'modelo-b']);
+  });
+
+  it('em 404 (modelo aposentado) pula direto ao próximo, sem retry', async () => {
+    generateContent
+      .mockRejectedValueOnce(apiError(404))
+      .mockResolvedValueOnce({ text: validRoadmapJson() });
+
+    await buildService(env).generate(answers);
+
+    expect(modelsCalled()).toEqual(['modelo-a', 'modelo-b']);
+  });
+
+  it('erro fatal (ex.: 403 de key inválida) aborta a cadeia → 503', async () => {
+    generateContent.mockRejectedValue(apiError(403));
+
+    await expect(buildService(env).generate(answers)).rejects.toBeInstanceOf(
+      ServiceUnavailableException,
+    );
+    expect(modelsCalled()).toEqual(['modelo-a']);
+  });
+
+  it('todos os modelos falhando → 503 após percorrer a cadeia inteira', async () => {
+    generateContent.mockRejectedValue(apiError(503));
+
+    await expect(buildService(env).generate(answers)).rejects.toBeInstanceOf(
+      ServiceUnavailableException,
+    );
+    expect(modelsCalled()).toEqual([
+      'modelo-a',
+      'modelo-a',
+      'modelo-b',
+      'modelo-b',
+    ]);
+  });
+
+  it('o backoff respeita o orçamento total: estourou o timeout → 504', async () => {
+    jest.useFakeTimers();
+    generateContent.mockRejectedValue(apiError(503));
+    const service = buildService({
+      ...env,
+      GEMINI_RETRY_BASE_MS: '60000',
+      GEMINI_TIMEOUT_MS: '1000',
+    });
+
+    const assertion = expect(service.generate(answers)).rejects.toBeInstanceOf(
+      GatewayTimeoutException,
+    );
+    await jest.advanceTimersByTimeAsync(1000);
+    await assertion;
+    expect(modelsCalled()).toEqual(['modelo-a']);
+  });
+});
+
 /** Detalhe persistido mínimo para alimentar o reajuste. */
 function persistedRoadmap(): RoadmapDetailDto {
   return {
@@ -257,6 +351,7 @@ describe('RoadmapAiService.adjustRoadmap (Etapa 7)', () => {
   const baseEnv = {
     GEMINI_API_KEY: 'test-key',
     GEMINI_MODEL: 'gemini-flash-latest',
+    GEMINI_RETRY_BASE_MS: '0',
   };
 
   beforeEach(() => {

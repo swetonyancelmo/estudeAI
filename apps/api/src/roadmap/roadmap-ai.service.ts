@@ -29,12 +29,29 @@ import {
   ROADMAP_ADJUST_SYSTEM_INSTRUCTION,
   buildAdjustUserPrompt,
 } from './roadmap-adjust.prompt';
+import { classifyGeminiError, resolveGeminiModels } from './gemini-models';
 
-// Alias resiliente: acompanha o flash atual e não vira 404 quando uma versão
-// fixa é aposentada para novos usuários. Sobrescreva com GEMINI_MODEL se quiser
-// fixar (ex.: gemini-3.6-flash).
-const DEFAULT_MODEL = 'gemini-flash-latest';
 const DEFAULT_TIMEOUT_MS = 20_000;
+/** Retries por modelo em falha transitória (além da 1ª tentativa). */
+const DEFAULT_MAX_RETRIES = 1;
+/** Base do backoff exponencial: ~base, ~2×base, ~4×base… (+ jitter). */
+const DEFAULT_RETRY_BASE_MS = 800;
+
+/** Backoff exponencial com jitter de até 25% para não sincronizar rajadas. */
+function backoffDelay(baseMs: number, attempt: number): number {
+  const exp = baseMs * 2 ** attempt;
+  return exp + Math.random() * exp * 0.25;
+}
+
+function sleep(ms: number): Promise<void> {
+  return ms > 0
+    ? new Promise((resolve) => setTimeout(resolve, ms))
+    : Promise.resolve();
+}
+
+function describeError(error: unknown): string {
+  return error instanceof Error ? error.message.slice(0, 200) : String(error);
+}
 
 /** Mensagens de erro voltadas ao usuário (o frontend as exibe via extractApiError). */
 const USER_MESSAGES = {
@@ -104,9 +121,12 @@ export class RoadmapAiService {
   }
 
   /**
-   * Chamada ao Gemini compartilhada pelos dois casos de uso: resolve o modelo,
-   * corre contra o timeout e traduz qualquer falha de transporte em HTTP. Só o
-   * prompt, o schema e a mensagem de timeout mudam entre geração e reajuste.
+   * Chamada ao Gemini compartilhada pelos dois casos de uso. Percorre a cadeia
+   * de modelos (`GEMINI_MODELS`) com retry + backoff exponencial para falhas
+   * transitórias (503 de alta demanda, 429, rede) e pula direto para o próximo
+   * modelo em 404 (modelo aposentado). TUDO corre dentro de um único orçamento
+   * de `GEMINI_TIMEOUT_MS`: estourou, aborta a requisição em voo e vira 504 —
+   * o usuário nunca espera mais que o timeout configurado.
    */
   private async callGemini(options: {
     contents: string;
@@ -116,31 +136,77 @@ export class RoadmapAiService {
     timeoutMessage: string;
   }): Promise<string | undefined> {
     const client = this.getClient();
-    const model = this.config.get<string>('GEMINI_MODEL') ?? DEFAULT_MODEL;
-    const timeoutMs = this.resolveTimeoutMs();
+    const models = resolveGeminiModels(this.config);
+    const maxRetries = this.resolveNonNegativeInt(
+      'GEMINI_MAX_RETRIES',
+      DEFAULT_MAX_RETRIES,
+    );
+    const baseDelayMs = this.resolveNonNegativeInt(
+      'GEMINI_RETRY_BASE_MS',
+      DEFAULT_RETRY_BASE_MS,
+    );
+    const controller = new AbortController();
+
+    const attemptAll = async (): Promise<string | undefined> => {
+      let lastError: unknown;
+      for (const model of models) {
+        for (let attempt = 0; attempt <= maxRetries; attempt++) {
+          // Timeout já disparou (o race rejeitou com 504): só para o loop.
+          if (controller.signal.aborted) {
+            throw new GeminiTimeoutError();
+          }
+          try {
+            const response = await client.models.generateContent({
+              model,
+              contents: options.contents,
+              config: {
+                systemInstruction: options.systemInstruction,
+                responseMimeType: 'application/json',
+                responseSchema: options.responseSchema,
+                temperature: options.temperature,
+                abortSignal: controller.signal,
+              },
+            });
+            if (model !== models[0] || attempt > 0) {
+              this.logger.log(
+                `Gemini respondeu com ${model} (tentativa ${attempt + 1}).`,
+              );
+            }
+            return response.text;
+          } catch (error) {
+            lastError = error;
+            const action = classifyGeminiError(error);
+            this.logger.warn(
+              `Gemini falhou (${model}, tentativa ${attempt + 1}, ação=${action}): ${describeError(error)}`,
+            );
+            if (action === 'fatal') {
+              throw error;
+            }
+            if (action === 'next-model' || attempt === maxRetries) {
+              break;
+            }
+            await sleep(backoffDelay(baseDelayMs, attempt));
+          }
+        }
+      }
+      throw lastError;
+    };
 
     try {
-      const controller = new AbortController();
       return await this.withTimeout(
-        client.models
-          .generateContent({
-            model,
-            contents: options.contents,
-            config: {
-              systemInstruction: options.systemInstruction,
-              responseMimeType: 'application/json',
-              responseSchema: options.responseSchema,
-              temperature: options.temperature,
-              abortSignal: controller.signal,
-            },
-          })
-          .then((response) => response.text),
-        timeoutMs,
+        attemptAll(),
+        this.resolveTimeoutMs(),
         controller,
       );
     } catch (error) {
       throw this.toHttpException(error, options.timeoutMessage);
     }
+  }
+
+  private resolveNonNegativeInt(key: string, fallback: number): number {
+    const raw = this.config.get<string>(key);
+    const parsed = raw !== undefined && raw !== '' ? Number(raw) : NaN;
+    return Number.isInteger(parsed) && parsed >= 0 ? parsed : fallback;
   }
 
   /** Cria (uma vez) o client do Gemini; sem API key, o serviço está indisponível. */
