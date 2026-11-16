@@ -5,14 +5,6 @@ import { useRouter } from "next/navigation";
 import { useForm, type Resolver } from "react-hook-form";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { extractApiError } from "@/lib/auth/actions";
@@ -60,64 +52,66 @@ export function AuthForm({
   });
 
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold">{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <form onSubmit={submit} noValidate>
-        <CardContent className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="email">E-mail</Label>
-            <Input
-              id="email"
-              type="email"
-              autoComplete="email"
-              aria-invalid={!!errors.email}
-              {...register("email")}
-            />
-            {errors.email && (
-              <p className="text-destructive text-sm">{errors.email.message}</p>
-            )}
-          </div>
+    <div className="flex w-full max-w-sm flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <h1>{title}</h1>
+        <p className="text-muted-foreground">{description}</p>
+      </div>
 
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="password">Senha</Label>
-            <Input
-              id="password"
-              type="password"
-              autoComplete={submitLabel === "Entrar" ? "current-password" : "new-password"}
-              aria-invalid={!!errors.password}
-              {...register("password")}
-            />
-            {errors.password ? (
-              <p className="text-destructive text-sm">{errors.password.message}</p>
-            ) : (
-              passwordHint && (
-                <p className="text-muted-foreground text-xs">{passwordHint}</p>
-              )
-            )}
-          </div>
-
-          {formError && (
-            <p className="text-destructive text-sm" role="alert">
-              {formError}
+      <form onSubmit={submit} noValidate className="flex flex-col gap-5">
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="email">E-mail</Label>
+          <Input
+            id="email"
+            type="email"
+            autoComplete="email"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
+            {...register("email")}
+          />
+          {errors.email && (
+            <p id="email-error" className="text-destructive text-sm">
+              {errors.email.message}
             </p>
           )}
-        </CardContent>
+        </div>
 
-        <CardFooter className="mt-2 flex flex-col gap-3">
-          <Button
-            type="submit"
-            className="h-10 w-full rounded-md font-semibold"
-            disabled={isSubmitting}
-          >
-            {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
-            {submitLabel}
-          </Button>
-          <div className="text-muted-foreground text-center text-sm">{footer}</div>
-        </CardFooter>
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="password">Senha</Label>
+          <Input
+            id="password"
+            type="password"
+            autoComplete={passwordHint ? "new-password" : "current-password"}
+            aria-invalid={!!errors.password}
+            aria-describedby="password-help"
+            {...register("password")}
+          />
+          {errors.password ? (
+            <p id="password-help" className="text-destructive text-sm">
+              {errors.password.message}
+            </p>
+          ) : (
+            passwordHint && (
+              <p id="password-help" className="text-ink-faint text-sm">
+                {passwordHint}
+              </p>
+            )
+          )}
+        </div>
+
+        {formError && (
+          <p className="text-destructive text-sm" role="alert">
+            {formError}
+          </p>
+        )}
+
+        <Button type="submit" className="mt-1 w-full" disabled={isSubmitting}>
+          {isSubmitting && <Loader2 className="size-4 animate-spin" />}
+          {submitLabel}
+        </Button>
       </form>
-    </Card>
+
+      <p className="text-muted-foreground text-sm">{footer}</p>
+    </div>
   );
 }

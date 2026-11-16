@@ -10,7 +10,7 @@ export default function RegisterPage() {
   return (
     <AuthForm
       title="Criar conta"
-      description="Comece a montar seu roadmap de estudos personalizado."
+      description="Leva um minuto. Depois são 4 perguntas até o seu roadmap."
       submitLabel="Criar conta"
       resolver={zodResolver(registerSchema)}
       onSubmit={register}
@@ -18,7 +18,7 @@ export default function RegisterPage() {
       footer={
         <>
           Já tem conta?{" "}
-          <Link href="/login" className="text-primary hover:underline">
+          <Link href="/login" className="text-brand-ink font-semibold underline-offset-4 hover:underline">
             Entrar
           </Link>
         </>

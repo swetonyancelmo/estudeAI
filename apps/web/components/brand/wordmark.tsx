@@ -15,11 +15,11 @@ export function Wordmark({ href, className }: WordmarkProps) {
   const content = (
     <span
       className={cn(
-        "font-heading text-lg font-extrabold tracking-[-0.02em]",
+        "font-heading text-xl font-extrabold tracking-tight",
         className,
       )}
     >
-      estude<span className="text-brand">AI</span>
+      estude<span className="text-brand-ink">AI</span>
     </span>
   );
 
@@ -28,7 +28,11 @@ export function Wordmark({ href, className }: WordmarkProps) {
   }
 
   return (
-    <Link href={href} className="rounded-sm" aria-label="estudeAI — início">
+    <Link
+      href={href}
+      className="flex min-h-11 items-center rounded-md"
+      aria-label="estudeAI, início"
+    >
       {content}
     </Link>
   );

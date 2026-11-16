@@ -45,7 +45,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       }
       title={hydrated ? `Tema ${MODES[current].label}` : undefined}
       className={cn(
-        "text-muted-foreground hover:text-foreground hover:bg-muted flex size-8 items-center justify-center rounded-md transition-colors",
+        "text-muted-foreground hover:text-foreground hover:bg-muted flex size-11 items-center justify-center rounded-lg transition-colors",
         className,
       )}
     >

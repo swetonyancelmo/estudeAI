@@ -22,29 +22,24 @@ export function RoadmapError({ error, onRetry, onRestart }: RoadmapErrorProps) {
 
   return (
     <div
-      className="flex flex-col items-center gap-6 py-8 text-center duration-300 animate-in fade-in-0"
+      className="flex flex-col items-start gap-6 duration-300 animate-in fade-in-0"
       role="alert"
     >
       <div className="bg-destructive/10 text-destructive flex size-12 items-center justify-center rounded-full">
         <AlertTriangle className="size-6" />
       </div>
-
-      <div className="flex flex-col gap-2">
-        <h2 className="font-heading text-lg font-medium">
-          Não deu para gerar seu roadmap
-        </h2>
-        <p className="text-muted-foreground max-w-md text-sm leading-relaxed">
-          {message}
-        </p>
+      <div className="flex flex-col gap-3">
+        <h1>A rota não saiu desta vez</h1>
+        <p className="text-muted-foreground max-w-md text-lg">{message}</p>
+        <p className="text-ink-faint text-sm">Suas respostas continuam salvas.</p>
       </div>
-
-      <div className="flex flex-col-reverse items-center gap-3 sm:flex-row">
-        <Button variant="ghost" onClick={onRestart}>
-          Refazer diagnóstico
-        </Button>
+      <div className="flex flex-col gap-3 sm:flex-row">
         <Button onClick={onRetry}>
           <RefreshCw className="size-4" />
           Tentar novamente
+        </Button>
+        <Button variant="ghost" onClick={onRestart}>
+          Refazer diagnóstico
         </Button>
       </div>
     </div>

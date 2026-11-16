@@ -1,0 +1,130 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import type { WizardAnswers } from "@estudeai/shared-types";
+import { WIZARD_STEPS } from "@/lib/wizard/steps";
+
+/** Rótulo da opção escolhida num campo ("Entrar no mercado", "Cerca de 15h"…). */
+function labelOf<K extends keyof WizardAnswers>(
+  field: K,
+  answers: WizardAnswers,
+): string {
+  const step = WIZARD_STEPS.find((candidate) => candidate.field === field);
+  const option = step?.options.find(
+    (candidate) => candidate.value === answers[field],
+  );
+  return (option?.label ?? "").toLowerCase();
+}
+
+/** Intervalo entre as etapas narradas. A última fica até a resposta chegar. */
+const STAGE_INTERVAL_MS = 2400;
+
+/**
+ * Tela de espera da geração (FR-02.1). A chamada ao Gemini leva vários
+ * segundos, então a espera vira um momento do produto: a rota vai sendo
+ * traçada e cada etapa narrada cita uma resposta do próprio usuário — fica
+ * claro que algo específico para ele está sendo montado.
+ *
+ * As etapas são um roteiro local (não vêm do servidor): servem para dar ritmo
+ * à espera, e por isso a última não promete conclusão, só "quase lá".
+ */
+export function RoadmapGenerating({ answers }: { answers: WizardAnswers }) {
+  const stages = [
+    `Lendo seu objetivo: ${labelOf("goal", answers)}`,
+    `Dimensionando a carga para ${labelOf("weeklyTime", answers)} por semana`,
+    `Escolhendo a trilha a partir de: ${labelOf("affinity", answers)}`,
+    `Organizando módulos no estilo ${labelOf("learningStyle", answers)}`,
+    "Buscando vídeos e artigos para cada tópico",
+    "Quase lá, fechando a rota",
+  ];
+
+  const [stage, setStage] = useState(0);
+  const lastStage = stages.length - 1;
+
+  useEffect(() => {
+    if (stage >= lastStage) return;
+    const timer = setTimeout(() => setStage(stage + 1), STAGE_INTERVAL_MS);
+    return () => clearTimeout(timer);
+  }, [stage, lastStage]);
+
+  return (
+    <div
+      className="flex flex-col gap-10 duration-300 animate-in fade-in-0"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div className="flex flex-col gap-3">
+        <h1>Traçando sua rota</h1>
+        <p className="text-muted-foreground text-lg">
+          Isso costuma levar menos de um minuto. Pode deixar esta aba aberta.
+        </p>
+      </div>
+
+      {/* A rota se desenha em loop: tronco, bifurcação nas três trilhas, destino. */}
+      <svg
+        viewBox="0 0 560 150"
+        fill="none"
+        aria-hidden="true"
+        className="h-auto w-full"
+      >
+        <g className="stroke-input" strokeWidth="3" strokeDasharray="2 8" strokeLinecap="round">
+          <path d="M20 75 H160 C230 75 230 25 300 25 C370 25 370 75 440 75 H540" />
+          <path d="M160 75 H440" />
+          <path d="M160 75 C230 75 230 125 300 125 C370 125 370 75 440 75" />
+        </g>
+        <g strokeWidth="3.5" strokeLinecap="round">
+          <path
+            pathLength={1}
+            className="route-draw-loop stroke-line-front"
+            d="M20 75 H160 C230 75 230 25 300 25 C370 25 370 75 440 75 H540"
+          />
+          <path
+            pathLength={1}
+            className="route-draw-loop stroke-line-back [animation-delay:0.35s]"
+            d="M160 75 H440"
+          />
+          <path
+            pathLength={1}
+            className="route-draw-loop stroke-line-full [animation-delay:0.7s]"
+            d="M160 75 C230 75 230 125 300 125 C370 125 370 75 440 75"
+          />
+        </g>
+        <circle cx="20" cy="75" r="8" className="fill-brand" />
+        <circle cx="160" cy="75" r="7" className="fill-background stroke-foreground" strokeWidth="3" />
+        <circle cx="300" cy="25" r="6" className="fill-background stroke-line-front" strokeWidth="3" />
+        <circle cx="300" cy="75" r="6" className="fill-background stroke-line-back" strokeWidth="3" />
+        <circle cx="300" cy="125" r="6" className="fill-background stroke-line-full" strokeWidth="3" />
+        <circle cx="440" cy="75" r="7" className="fill-background stroke-foreground" strokeWidth="3" />
+        <circle cx="540" cy="75" r="8" className="fill-background stroke-foreground" strokeWidth="3" strokeDasharray="3 4" />
+      </svg>
+
+      <ol className="flex flex-col gap-2.5">
+        {stages.slice(0, stage + 1).map((text, index) => {
+          const isCurrent = index === stage;
+          return (
+            <li
+              key={text}
+              className={
+                isCurrent
+                  ? "flex items-center gap-3 font-medium duration-300 animate-in fade-in-0 slide-in-from-bottom-2"
+                  : "text-ink-faint flex items-center gap-3"
+              }
+            >
+              <span
+                className={
+                  isCurrent
+                    ? "bg-brand size-2.5 shrink-0 animate-pulse rounded-full"
+                    : "bg-input size-2.5 shrink-0 rounded-full"
+                }
+                aria-hidden="true"
+              />
+              {text}
+              {isCurrent && "…"}
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}

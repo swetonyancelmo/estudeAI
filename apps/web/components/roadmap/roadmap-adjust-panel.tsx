@@ -1,14 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import {
-  AlertTriangle,
-  Loader2,
-  Sparkles,
-  Wand2,
-  X,
-} from "lucide-react";
+import { AlertTriangle, Loader2, ShieldCheck, X } from "lucide-react";
 import type { AdjustmentChangesDto } from "@estudeai/shared-types";
+import { RerouteIcon } from "@/components/brand/icons";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { extractApiError } from "@/lib/auth/actions";
@@ -26,10 +21,12 @@ interface RoadmapAdjustPanelProps {
   roadmapId: string;
   /** Sobe o resultado para o detalhe destacar o que mudou. */
   onAdjusted: (changes: AdjustmentChangesDto) => void;
+  /** Tópicos concluídos que passaram intactos pelo último reajuste. */
+  preservedCount: number;
 }
 
 /**
- * FR-04.1 — pedido de reajuste em linguagem natural.
+ * FR-04.1 — pedido de reajuste em linguagem natural ("reajustar a rota").
  *
  * A chamada passa pela IA e demora alguns segundos, então o estado de loading é
  * explícito (botão travado + aviso), e o erro é tratado como parte normal do
@@ -39,6 +36,7 @@ interface RoadmapAdjustPanelProps {
 export function RoadmapAdjustPanel({
   roadmapId,
   onAdjusted,
+  preservedCount,
 }: RoadmapAdjustPanelProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [request, setRequest] = useState("");
@@ -65,37 +63,59 @@ export function RoadmapAdjustPanel({
 
   if (!isOpen) {
     return (
-      <div className="flex flex-col gap-3">
-        <Button variant="outline" onClick={() => setIsOpen(true)}>
-          <Wand2 className="size-4" />
-          Reajustar roadmap
-        </Button>
-
+      <div className="flex flex-col gap-4">
+        {/* Resumo do último reajuste: aviso no topo da linha, com filete da marca. */}
         {adjust.isSuccess && (
-          <p className="border-success/30 bg-success/5 text-muted-foreground rounded-xl border p-3 text-sm leading-relaxed">
-            <Sparkles className="text-success mr-1.5 inline size-4 align-text-bottom" />
-            {adjust.data.adjustmentSummary}
-          </p>
+          <div
+            className="border-brand bg-brand-soft flex flex-col gap-2 rounded-lg border-l-[3px] p-4"
+            role="status"
+          >
+            <p className="flex items-center gap-2 font-semibold">
+              <RerouteIcon className="text-brand-ink size-5" />
+              Rota reajustada
+            </p>
+            <p className="text-muted-foreground text-sm">
+              {adjust.data.adjustmentSummary}
+            </p>
+            {preservedCount > 0 && (
+              <p className="text-muted-foreground flex items-center gap-1.5 text-sm">
+                <ShieldCheck className="text-success-ink size-4 shrink-0" />
+                {preservedCount}{" "}
+                {preservedCount === 1
+                  ? "tópico concluído foi preservado."
+                  : "tópicos concluídos foram preservados."}
+              </p>
+            )}
+          </div>
         )}
+
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <Button variant="outline" onClick={() => setIsOpen(true)}>
+            <RerouteIcon />
+            Reajustar rota
+          </Button>
+          <span className="text-ink-faint text-sm">
+            A rotina mudou? Recalcule o que falta.
+          </span>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="border-border bg-card flex flex-col gap-3 rounded-2xl border p-5 duration-200 animate-in fade-in-0">
+    <div className="border-border bg-card flex flex-col gap-4 rounded-lg border p-5 duration-200 animate-in fade-in-0 sm:p-6">
       <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-col gap-1">
-          <h2 className="font-heading text-sm font-medium">
-            Reajustar roadmap
-          </h2>
-          <p className="text-muted-foreground text-xs leading-relaxed">
-            Conte como sua rotina mudou. A IA reorganiza o que falta — os
+        <div className="flex flex-col gap-1.5">
+          <h2 className="text-xl">Reajustar rota</h2>
+          <p className="text-muted-foreground text-sm">
+            Conte como sua rotina mudou. Só o que falta é reorganizado: os
             tópicos que você já concluiu ficam como estão.
           </p>
         </div>
         <Button
           variant="ghost"
-          size="icon-sm"
+          size="icon"
+          className="-mt-2 -mr-2"
           onClick={handleClose}
           aria-label="Fechar"
           disabled={adjust.isPending}
@@ -116,8 +136,8 @@ export function RoadmapAdjustPanel({
         {EXAMPLES.map((example) => (
           <Button
             key={example}
-            variant="ghost"
-            size="xs"
+            variant="secondary"
+            size="sm"
             disabled={adjust.isPending}
             onClick={() => setRequest(example)}
           >
@@ -127,10 +147,7 @@ export function RoadmapAdjustPanel({
       </div>
 
       {adjust.isError && (
-        <p
-          className="text-destructive flex items-start gap-2 text-sm leading-relaxed"
-          role="alert"
-        >
+        <p className="text-destructive flex items-start gap-2 text-sm" role="alert">
           <AlertTriangle className="mt-0.5 size-4 shrink-0" />
           {extractApiError(
             adjust.error,
@@ -140,7 +157,7 @@ export function RoadmapAdjustPanel({
       )}
 
       <div className="flex items-center justify-between gap-3">
-        <span className="text-ink-faint font-mono text-xs tabular-nums">
+        <span className="data-label text-ink-faint">
           {request.length}/{MAX_LENGTH}
         </span>
         <Button onClick={handleSubmit} disabled={!canSubmit}>
@@ -151,7 +168,7 @@ export function RoadmapAdjustPanel({
             </>
           ) : (
             <>
-              <Sparkles className="size-4" />
+              <RerouteIcon />
               Reajustar
             </>
           )}
@@ -159,9 +176,8 @@ export function RoadmapAdjustPanel({
       </div>
 
       {adjust.isPending && (
-        <p className="text-muted-foreground text-xs" aria-live="polite">
-          A IA está recalculando o que falta do seu roadmap. Isso leva alguns
-          segundos.
+        <p className="text-muted-foreground text-sm" aria-live="polite">
+          Recalculando o que falta da sua rota. Isso leva alguns segundos.
         </p>
       )}
     </div>

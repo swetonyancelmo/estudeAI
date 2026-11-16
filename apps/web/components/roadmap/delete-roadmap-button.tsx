@@ -42,8 +42,8 @@ export function DeleteRoadmapButton({ roadmapId }: { roadmapId: string }) {
   }
 
   return (
-    <div className="border-destructive/30 bg-destructive/5 flex flex-col gap-3 rounded-xl border p-4 duration-200 animate-in fade-in-0">
-      <p className="text-muted-foreground text-sm leading-relaxed">
+    <div className="border-destructive/30 bg-destructive/5 flex flex-col gap-3 rounded-lg border p-4 duration-200 animate-in fade-in-0">
+      <p className="text-muted-foreground text-sm">
         Excluir este roadmap apaga também todos os módulos, tópicos e o
         progresso que você já marcou. Não dá para desfazer.
       </p>

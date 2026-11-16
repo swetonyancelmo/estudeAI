@@ -28,8 +28,8 @@ export function TopicResources({ resources }: { resources: ResourceDto[] }) {
 
   return (
     // O padding à esquerda alinha os recursos com o TÍTULO do tópico, não com o
-    // checkbox (18px do quadrado + 12px do gap na linha do TopicCheckbox).
-    <ul className="flex flex-col gap-0.5 pb-2 pl-[30px]">
+    // marcador (24px da parada + 12px do gap na linha do TopicCheckbox = pl-9).
+    <ul className="flex flex-col gap-0.5 pb-2.5 pl-9">
       {resources.map((resource) => {
         const Icon = TYPE_ICONS[resource.type];
         const host = hostOf(resource.url);
@@ -40,7 +40,7 @@ export function TopicResources({ resources }: { resources: ResourceDto[] }) {
               href={resource.url}
               target="_blank"
               rel="noreferrer noopener"
-              className="group/resource hover:bg-muted/60 flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors"
+              className="group/resource hover:bg-muted -ml-2 flex min-h-11 items-center gap-3 rounded-md px-2 py-1.5 transition-colors"
             >
               {resource.thumbnailUrl ? (
                 <Image
@@ -48,26 +48,26 @@ export function TopicResources({ resources }: { resources: ResourceDto[] }) {
                   alt=""
                   width={THUMBNAIL_WIDTH}
                   height={THUMBNAIL_HEIGHT}
-                  className="bg-muted shrink-0 rounded-[4px] object-cover"
+                  className="bg-muted shrink-0 rounded-sm object-cover"
                 />
               ) : (
-                <span className="bg-muted text-muted-foreground flex size-7 shrink-0 items-center justify-center rounded-[4px]">
-                  <Icon className="size-3.5" />
+                <span className="bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-sm">
+                  <Icon className="size-4" />
                 </span>
               )}
 
               <span className="min-w-0 flex-1">
-                <span className="text-foreground/85 group-hover/resource:text-foreground block truncate text-xs transition-colors">
+                <span className="text-foreground/85 group-hover/resource:text-foreground block truncate text-sm transition-colors">
                   {resource.title}
                 </span>
                 {host !== resource.title.toLowerCase() && (
-                  <span className="text-ink-faint block truncate text-[11px]">
+                  <span className="text-ink-faint block truncate font-mono text-xs">
                     {host}
                   </span>
                 )}
               </span>
 
-              <ExternalLink className="text-ink-faint size-3 shrink-0 opacity-0 transition-opacity group-hover/resource:opacity-100" />
+              <ExternalLink className="text-ink-faint size-3.5 shrink-0 opacity-0 transition-opacity group-hover/resource:opacity-100" />
             </a>
           </li>
         );
