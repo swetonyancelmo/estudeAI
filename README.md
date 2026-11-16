@@ -1,4 +1,6 @@
-# estudeAI
+<p align="center">
+  <img src="apps/web/public/brand/estudeai-horizontal-light.svg" alt="estudeAI" width="360">
+</p>
 
 Plataforma que monta um **roadmap de estudos personalizado** de Frontend, Backend ou Fullstack. A pessoa responde a um diagnóstico rápido (objetivo, tempo por semana, afinidade e estilo de aprendizado), a API gera o roadmap com o Gemini, e depois ela acompanha o progresso e pode pedir um reajuste quando a rotina muda.
 
