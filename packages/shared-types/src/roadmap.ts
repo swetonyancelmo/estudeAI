@@ -110,10 +110,50 @@ export interface ResourceContentDto {
   source: ResourceSource;
 }
 
+/**
+ * Andamento do usuário num recurso (sala de estudo). Cada linha de recurso já é
+ * da cópia do roadmap de UMA pessoa, então o estado mora na própria linha.
+ * Só avança: um recurso concluído não volta para "em andamento".
+ */
+export const RESOURCE_STATUSES = ["not_started", "in_progress", "completed"] as const;
+export type ResourceStatus = (typeof RESOURCE_STATUSES)[number];
+
 /** Recurso persistido, ligado a um Topic real. */
 export interface ResourceDto extends ResourceContentDto {
   id: string;
+  status: ResourceStatus;
+  /** Maior ponto já assistido, em segundos (só vídeos; 0 nos demais). */
+  watchedSeconds: number;
 }
+
+/** Payload de PATCH /roadmap/:id/topics/:topicId/resources/:resourceId. */
+export interface UpdateResourceProgressRequestDto {
+  status: Exclude<ResourceStatus, "not_started">;
+  watchedSeconds?: number;
+}
+
+/** Resposta do PATCH acima: o estado final, já com a regra de "só avança". */
+export interface ResourceProgressDto {
+  resourceId: string;
+  status: ResourceStatus;
+  watchedSeconds: number;
+}
+
+/** Anotação livre do usuário em um tópico (GET e PUT .../topics/:topicId/note). */
+export interface TopicNoteDto {
+  topicId: string;
+  content: string;
+  /** ISO 8601; nulo enquanto nunca foi salva. */
+  updatedAt: string | null;
+}
+
+/** Payload de PUT /roadmap/:id/topics/:topicId/note. */
+export interface UpdateTopicNoteRequestDto {
+  content: string;
+}
+
+/** Teto da anotação: texto de estudo, não documento. */
+export const TOPIC_NOTE_MAX_LENGTH = 20_000;
 
 /**
  * FORMA FINAL esperada do Gemini (Structured Output — NFR-01).

@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { Checkbox } from "@base-ui/react/checkbox";
-import { Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import type { PersistedTopicDto } from "@estudeai/shared-types";
 import { cn } from "@/lib/utils";
 import { TopicResources } from "./topic-resources";
@@ -18,6 +19,8 @@ interface TopicCheckboxProps {
   topic: PersistedTopicDto;
   onToggle: (topicId: string) => void;
   highlight?: TopicHighlight;
+  /** Rota da sala de estudo do tópico. */
+  studyHref: string;
 }
 
 /**
@@ -39,12 +42,14 @@ interface TopicCheckboxProps {
  *
  * Etapa 8: os recursos ficam FORA do <label>, como irmãos dele. Dentro, cada
  * clique num link também alternaria o checkbox — é o comportamento nativo do
- * label, não um detalhe de estilo.
+ * label, não um detalhe de estilo. O link "Estudar" (sala de estudo) também
+ * fica fora dele, ao lado, pelo mesmo motivo.
  */
 export function TopicCheckbox({
   topic,
   onToggle,
   highlight,
+  studyHref,
 }: TopicCheckboxProps) {
   const isProject = topic.kind === "project";
 
@@ -55,51 +60,63 @@ export function TopicCheckbox({
         highlight && "border-l-brand -ml-3 border-l-[3px] pl-[9px]",
       )}
     >
-      <label className="group/topic flex min-h-11 cursor-pointer items-center gap-3 py-2">
-        <Checkbox.Root
-          checked={topic.isCompleted}
-          onCheckedChange={() => onToggle(topic.id)}
-          className={cn(
-            "border-input bg-card flex size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
-            "group-hover/topic:border-line",
-            "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
-            "data-[checked]:border-line data-[checked]:bg-line data-[checked]:animate-[station-pop_0.3s_ease-out]",
-          )}
-        >
-          <Checkbox.Indicator className="flex text-white">
-            <Check className="size-3.5" strokeWidth={3.5} />
-          </Checkbox.Indicator>
-        </Checkbox.Root>
-
-        <span className="flex flex-1 flex-wrap items-center gap-x-2 gap-y-1">
-          {isProject && (
-            <span className="border-line text-foreground shrink-0 rounded-sm border px-1.5 py-0.5 text-xs font-semibold">
-              Projeto
-            </span>
-          )}
-          <span
+      <div className="flex items-center gap-2">
+        <label className="group/topic flex min-h-11 flex-1 cursor-pointer items-center gap-3 py-2">
+          <Checkbox.Root
+            checked={topic.isCompleted}
+            onCheckedChange={() => onToggle(topic.id)}
             className={cn(
-              "transition-colors",
-              isProject && "font-medium",
-              topic.isCompleted && "text-muted-foreground line-through",
+              "border-input bg-card flex size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+              "group-hover/topic:border-line",
+              "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+              "data-[checked]:border-line data-[checked]:bg-line data-[checked]:animate-[station-pop_0.3s_ease-out]",
             )}
           >
-            {topic.title}
-          </span>
-        </span>
+            <Checkbox.Indicator className="flex text-white">
+              <Check className="size-3.5" strokeWidth={3.5} />
+            </Checkbox.Indicator>
+          </Checkbox.Root>
 
-        {highlight && (
-          <span className="text-brand-ink bg-brand-soft shrink-0 rounded-sm px-1.5 py-0.5 text-xs font-medium">
-            {HIGHLIGHT_LABELS[highlight]}
+          <span className="flex flex-1 flex-wrap items-center gap-x-2 gap-y-1">
+            {isProject && (
+              <span className="border-line text-foreground shrink-0 rounded-sm border px-1.5 py-0.5 text-xs font-semibold">
+                Projeto
+              </span>
+            )}
+            <span
+              className={cn(
+                "transition-colors",
+                isProject && "font-medium",
+                topic.isCompleted && "text-muted-foreground line-through",
+              )}
+            >
+              {topic.title}
+            </span>
           </span>
-        )}
 
-        {topic.estimatedHours !== undefined && (
-          <span className="data-label text-ink-faint shrink-0">
-            ~{topic.estimatedHours}h
-          </span>
-        )}
-      </label>
+          {highlight && (
+            <span className="text-brand-ink bg-brand-soft shrink-0 rounded-sm px-1.5 py-0.5 text-xs font-medium">
+              {HIGHLIGHT_LABELS[highlight]}
+            </span>
+          )}
+
+          {topic.estimatedHours !== undefined && (
+            <span className="data-label text-ink-faint shrink-0">
+              ~{topic.estimatedHours}h
+            </span>
+          )}
+        </label>
+
+        <Link
+          href={studyHref}
+          aria-label={`Estudar ${topic.title}`}
+          className="text-brand-ink hover:bg-muted flex min-h-11 min-w-11 shrink-0 items-center justify-center gap-1 rounded-md px-2 text-sm font-medium transition-colors"
+        >
+          {/* No celular só a seta: o texto espremeria o título do tópico. */}
+          <span className="hidden sm:inline">Estudar</span>
+          <ArrowRight className="size-4 sm:size-3.5" />
+        </Link>
+      </div>
 
       {isProject && topic.description && (
         <p className="text-muted-foreground pb-3 pl-9 text-sm">

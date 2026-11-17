@@ -5,9 +5,12 @@ import {
 } from "@tanstack/react-query";
 import type {
   AdjustRoadmapResponseDto,
+  ResourceProgressDto,
   RoadmapDetailDto,
   RoadmapListItemDto,
   ToggleTopicResponseDto,
+  TopicNoteDto,
+  UpdateResourceProgressRequestDto,
 } from "@estudeai/shared-types";
 import { api } from "@/lib/api/client";
 import { computeProgress } from "./progress";
@@ -21,6 +24,8 @@ export const roadmapKeys = {
   all: ["roadmaps"] as const,
   list: () => ["roadmaps", "list"] as const,
   detail: (id: string) => ["roadmaps", "detail", id] as const,
+  note: (roadmapId: string, topicId: string) =>
+    ["roadmaps", "note", roadmapId, topicId] as const,
 };
 
 /** GET /roadmap — "Meus Roadmaps" (FR-03.2). */
@@ -59,6 +64,44 @@ export async function toggleTopic(
 ): Promise<ToggleTopicResponseDto> {
   const { data } = await api.patch<ToggleTopicResponseDto>(
     `/roadmap/${roadmapId}/topics/${topicId}`,
+  );
+  return data;
+}
+
+/** PATCH .../topics/:topicId/resources/:resourceId — andamento no recurso. */
+export async function updateResourceProgress(
+  roadmapId: string,
+  topicId: string,
+  resourceId: string,
+  body: UpdateResourceProgressRequestDto,
+): Promise<ResourceProgressDto> {
+  const { data } = await api.patch<ResourceProgressDto>(
+    `/roadmap/${roadmapId}/topics/${topicId}/resources/${resourceId}`,
+    body,
+  );
+  return data;
+}
+
+/** GET .../topics/:topicId/note — anotação do tópico. */
+export async function getTopicNote(
+  roadmapId: string,
+  topicId: string,
+): Promise<TopicNoteDto> {
+  const { data } = await api.get<TopicNoteDto>(
+    `/roadmap/${roadmapId}/topics/${topicId}/note`,
+  );
+  return data;
+}
+
+/** PUT .../topics/:topicId/note — salva a anotação inteira. */
+export async function saveTopicNote(
+  roadmapId: string,
+  topicId: string,
+  content: string,
+): Promise<TopicNoteDto> {
+  const { data } = await api.put<TopicNoteDto>(
+    `/roadmap/${roadmapId}/topics/${topicId}/note`,
+    { content },
   );
   return data;
 }
@@ -168,6 +211,74 @@ export function useAdjustRoadmap(roadmapId: string) {
         response.roadmap,
       );
       void queryClient.invalidateQueries({ queryKey: roadmapKeys.list() });
+    },
+  });
+}
+
+/**
+ * Andamento num recurso (sala de estudo). Sem palpite otimista: o player manda
+ * atualizações periódicas e quem decide o estado final é o servidor (o status
+ * só avança). A resposta é gravada direto no cache do detalhe, sem refetch,
+ * porque o player chama isto várias vezes por vídeo.
+ */
+export function useUpdateResourceProgress(roadmapId: string, topicId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      resourceId,
+      ...body
+    }: UpdateResourceProgressRequestDto & { resourceId: string }) =>
+      updateResourceProgress(roadmapId, topicId, resourceId, body),
+
+    onSuccess: (result) => {
+      queryClient.setQueryData<RoadmapDetailDto>(
+        roadmapKeys.detail(roadmapId),
+        (previous) =>
+          previous && {
+            ...previous,
+            modules: previous.modules.map((module) => ({
+              ...module,
+              topics: module.topics.map((topic) =>
+                topic.id !== topicId
+                  ? topic
+                  : {
+                      ...topic,
+                      resources: topic.resources.map((resource) =>
+                        resource.id === result.resourceId
+                          ? {
+                              ...resource,
+                              status: result.status,
+                              watchedSeconds: result.watchedSeconds,
+                            }
+                          : resource,
+                      ),
+                    },
+              ),
+            })),
+          },
+      );
+    },
+  });
+}
+
+export function useTopicNote(roadmapId: string, topicId: string) {
+  return useQuery({
+    queryKey: roadmapKeys.note(roadmapId, topicId),
+    queryFn: () => getTopicNote(roadmapId, topicId),
+    // O editor é a fonte do texto enquanto a tela está aberta; refetch ao
+    // voltar para a aba sobrescreveria o que a pessoa acabou de digitar.
+    refetchOnWindowFocus: false,
+  });
+}
+
+export function useSaveTopicNote(roadmapId: string, topicId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (content: string) => saveTopicNote(roadmapId, topicId, content),
+    onSuccess: (note) => {
+      queryClient.setQueryData(roadmapKeys.note(roadmapId, topicId), note);
     },
   });
 }

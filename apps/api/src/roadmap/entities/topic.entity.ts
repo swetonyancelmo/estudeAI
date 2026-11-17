@@ -40,6 +40,13 @@ export class Topic {
   @Column({ type: 'text', nullable: true })
   description: string | null;
 
+  /** Anotação livre do usuário (sala de estudo). Nulo = nunca escrita. */
+  @Column({ type: 'text', nullable: true })
+  note: string | null;
+
+  @Column({ type: 'timestamptz', name: 'note_updated_at', nullable: true })
+  noteUpdatedAt: Date | null;
+
   @Column({ type: 'boolean', name: 'is_completed', default: false })
   isCompleted: boolean;
 

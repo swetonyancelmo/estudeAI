@@ -9,12 +9,16 @@ import type {
   AdjustRoadmapResponseDto,
   AdjustedRoadmapDto,
   ResourceContentDto,
+  ResourceProgressDto,
+  ResourceStatus,
   RoadmapDetailDto,
   RoadmapListItemDto,
   RoadmapProgressDto,
   TargetArea,
   ToggleTopicResponseDto,
   TopicKind,
+  TopicNoteDto,
+  UpdateResourceProgressRequestDto,
   WizardAnswers,
 } from '@estudeai/shared-types';
 import { WEEKLY_HOURS } from '@estudeai/shared-types';
@@ -25,6 +29,13 @@ import { Module as ModuleEntity } from './entities/module.entity';
 import { Resource } from './entities/resource.entity';
 import { Topic } from './entities/topic.entity';
 import { buildAdjustmentPlan } from './roadmap-adjust.validator';
+
+/** Ordem do andamento: o status de um recurso só anda para a direita. */
+const STATUS_RANK: Record<ResourceStatus, number> = {
+  not_started: 0,
+  in_progress: 1,
+  completed: 2,
+};
 
 /** Linha crua da query agregada da lista (COUNT volta como string no pg). */
 interface RoadmapListRow {
@@ -97,6 +108,8 @@ export class UserRoadmapService {
     private readonly roadmaps: Repository<Roadmap>,
     @InjectRepository(Topic)
     private readonly topics: Repository<Topic>,
+    @InjectRepository(Resource)
+    private readonly resources: Repository<Resource>,
   ) {}
 
   /**
@@ -217,6 +230,77 @@ export class UserRoadmapService {
       isCompleted: topic.isCompleted,
       progress: this.progressOf(roadmap),
     };
+  }
+
+  /**
+   * Sala de estudo — registra o andamento num recurso do tópico. Só avança:
+   * status menor que o atual e `watchedSeconds` menor que o já visto são
+   * ignorados, porque o player manda atualizações periódicas e fora de ordem
+   * (duas abas, rede lenta) não podem desfazer o que a pessoa já assistiu.
+   */
+  async updateResourceProgress(
+    userId: string,
+    roadmapId: string,
+    topicId: string,
+    resourceId: string,
+    update: UpdateResourceProgressRequestDto,
+  ): Promise<ResourceProgressDto> {
+    const topic = await this.loadOwnedTopic(userId, roadmapId, topicId);
+    const resource = (topic.resources ?? []).find(
+      (candidate) => candidate.id === resourceId,
+    );
+    if (!resource) {
+      throw new NotFoundException('Recurso não encontrado neste tópico.');
+    }
+
+    const current = resource.status ?? 'not_started';
+    const status =
+      STATUS_RANK[update.status] > STATUS_RANK[current]
+        ? update.status
+        : current;
+    const watchedSeconds = Math.max(
+      resource.watchedSeconds ?? 0,
+      update.watchedSeconds ?? 0,
+    );
+
+    if (status !== current || watchedSeconds !== resource.watchedSeconds) {
+      await this.resources.update(
+        { id: resource.id },
+        { status, watchedSeconds },
+      );
+    }
+
+    return { resourceId: resource.id, status, watchedSeconds };
+  }
+
+  /** Sala de estudo — anotação do tópico (vazia quando nunca foi escrita). */
+  async getNote(
+    userId: string,
+    roadmapId: string,
+    topicId: string,
+  ): Promise<TopicNoteDto> {
+    const topic = await this.loadOwnedTopic(userId, roadmapId, topicId);
+    return this.toNoteDto(topic);
+  }
+
+  /**
+   * Substitui a anotação inteira (autosave do editor). String vazia apaga o
+   * texto, mas mantém `updatedAt` — "apaguei" também é uma edição.
+   */
+  async updateNote(
+    userId: string,
+    roadmapId: string,
+    topicId: string,
+    content: string,
+  ): Promise<TopicNoteDto> {
+    const topic = await this.loadOwnedTopic(userId, roadmapId, topicId);
+    topic.note = content;
+    topic.noteUpdatedAt = new Date();
+    await this.topics.update(
+      { id: topic.id },
+      { note: topic.note, noteUpdatedAt: topic.noteUpdatedAt },
+    );
+    return this.toNoteDto(topic);
   }
 
   /**
@@ -449,6 +533,33 @@ export class UserRoadmapService {
     return roadmap;
   }
 
+  /**
+   * Tópico de um roadmap do usuário. Mesma regra do `toggleTopic`: o tópico
+   * precisa estar num módulo DESTE roadmap, senão 404.
+   */
+  private async loadOwnedTopic(
+    userId: string,
+    roadmapId: string,
+    topicId: string,
+  ): Promise<Topic> {
+    const roadmap = await this.loadOwned(userId, roadmapId);
+    const topic = roadmap.modules
+      .flatMap((module) => module.topics)
+      .find((candidate) => candidate.id === topicId);
+    if (!topic) {
+      throw new NotFoundException('Tópico não encontrado neste roadmap.');
+    }
+    return topic;
+  }
+
+  private toNoteDto(topic: Topic): TopicNoteDto {
+    return {
+      topicId: topic.id,
+      content: topic.note ?? '',
+      updatedAt: topic.noteUpdatedAt ? topic.noteUpdatedAt.toISOString() : null,
+    };
+  }
+
   private toDetailDto(roadmap: Roadmap): RoadmapDetailDto {
     // docs/TRILHAS.md §5: quem prefere fundamentos vê os artigos primeiro.
     const articlesFirst = roadmap.answers?.learningStyle === 'teorico';
@@ -514,6 +625,9 @@ export class UserRoadmapService {
         ...(resource.thumbnailUrl
           ? { thumbnailUrl: resource.thumbnailUrl }
           : {}),
+        // `??`: linha carregada sem as colunas novas (mocks, leituras parciais).
+        status: resource.status ?? 'not_started',
+        watchedSeconds: resource.watchedSeconds ?? 0,
       }));
   }
 

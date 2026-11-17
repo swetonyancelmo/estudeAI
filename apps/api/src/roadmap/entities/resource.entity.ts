@@ -7,7 +7,11 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import type { ResourceSource, ResourceType } from '@estudeai/shared-types';
+import type {
+  ResourceSource,
+  ResourceStatus,
+  ResourceType,
+} from '@estudeai/shared-types';
 import { Topic } from './topic.entity';
 
 /**
@@ -51,6 +55,18 @@ export class Resource {
 
   @Column({ type: 'varchar' })
   source: ResourceSource;
+
+  /**
+   * Andamento do dono do roadmap neste recurso (sala de estudo). Fica na linha
+   * porque o recurso já é da cópia de UMA pessoa; só avança (ver
+   * `UserRoadmapService.updateResourceProgress`).
+   */
+  @Column({ type: 'varchar', default: 'not_started' })
+  status: ResourceStatus;
+
+  /** Maior ponto já assistido do vídeo, em segundos. */
+  @Column({ type: 'int', name: 'watched_seconds', default: 0 })
+  watchedSeconds: number;
 
   /**
    * Não serve como ordenação: `now()` é constante dentro da transação, então

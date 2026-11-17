@@ -4,6 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import type { RoadmapResponseDto } from '@estudeai/shared-types';
 import { UserRoadmapService } from './user-roadmap.service';
 import { Roadmap } from './entities/roadmap.entity';
+import { Resource } from './entities/resource.entity';
 import { Topic } from './entities/topic.entity';
 
 const OWNER = 'user-owner';
@@ -85,7 +86,8 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
     delete: jest.Mock;
     createQueryBuilder: jest.Mock;
   };
-  let topics: { save: jest.Mock };
+  let topics: { save: jest.Mock; update: jest.Mock };
+  let resources: { update: jest.Mock };
 
   beforeEach(async () => {
     roadmaps = {
@@ -97,13 +99,18 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
       delete: jest.fn().mockResolvedValue({ affected: 1 }),
       createQueryBuilder: jest.fn(),
     };
-    topics = { save: jest.fn((value: unknown) => Promise.resolve(value)) };
+    topics = {
+      save: jest.fn((value: unknown) => Promise.resolve(value)),
+      update: jest.fn().mockResolvedValue({ affected: 1 }),
+    };
+    resources = { update: jest.fn().mockResolvedValue({ affected: 1 }) };
 
     const moduleRef = await Test.createTestingModule({
       providers: [
         UserRoadmapService,
         { provide: getRepositoryToken(Roadmap), useValue: roadmaps },
         { provide: getRepositoryToken(Topic), useValue: topics },
+        { provide: getRepositoryToken(Resource), useValue: resources },
       ],
     }).compile();
 
@@ -445,6 +452,157 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
         totalTopics: 0,
         percent: 0,
       });
+    });
+  });
+
+  describe('sala de estudo — andamento por recurso', () => {
+    /** topic-2 com um vídeo já assistido até 120s. */
+    function roadmapWithVideo(status: Resource['status']) {
+      const roadmap = makePersistedRoadmap();
+      roadmap.modules[0].topics[1].resources = [
+        {
+          id: 'resource-1',
+          topicId: 'topic-2',
+          title: 'Flexbox em 20 minutos',
+          url: 'https://www.youtube.com/watch?v=abc123',
+          type: 'video',
+          source: 'youtube',
+          thumbnailUrl: null,
+          status,
+          watchedSeconds: 120,
+        } as Resource,
+      ];
+      return roadmap;
+    }
+
+    it('avança o status e guarda o maior ponto assistido', async () => {
+      roadmaps.findOne.mockResolvedValue(roadmapWithVideo('not_started'));
+
+      const result = await service.updateResourceProgress(
+        OWNER,
+        'roadmap-1',
+        'topic-2',
+        'resource-1',
+        { status: 'in_progress', watchedSeconds: 300 },
+      );
+
+      expect(result).toEqual({
+        resourceId: 'resource-1',
+        status: 'in_progress',
+        watchedSeconds: 300,
+      });
+      expect(resources.update).toHaveBeenCalledWith(
+        { id: 'resource-1' },
+        { status: 'in_progress', watchedSeconds: 300 },
+      );
+    });
+
+    it('nunca volta: concluído continua concluído e o tempo não diminui', async () => {
+      roadmaps.findOne.mockResolvedValue(roadmapWithVideo('completed'));
+
+      const result = await service.updateResourceProgress(
+        OWNER,
+        'roadmap-1',
+        'topic-2',
+        'resource-1',
+        { status: 'in_progress', watchedSeconds: 30 },
+      );
+
+      expect(result.status).toBe('completed');
+      expect(result.watchedSeconds).toBe(120);
+      expect(resources.update).not.toHaveBeenCalled();
+    });
+
+    it('recurso de outro tópico dá 404', async () => {
+      roadmaps.findOne.mockResolvedValue(roadmapWithVideo('not_started'));
+
+      await expect(
+        service.updateResourceProgress(
+          OWNER,
+          'roadmap-1',
+          'topic-1',
+          'resource-1',
+          { status: 'completed' },
+        ),
+      ).rejects.toThrow(NotFoundException);
+    });
+
+    it('roadmap de outra pessoa dá 403', async () => {
+      roadmaps.findOne.mockResolvedValue(roadmapWithVideo('not_started'));
+
+      await expect(
+        service.updateResourceProgress(
+          INTRUDER,
+          'roadmap-1',
+          'topic-2',
+          'resource-1',
+          { status: 'completed' },
+        ),
+      ).rejects.toThrow(ForbiddenException);
+      expect(resources.update).not.toHaveBeenCalled();
+    });
+
+    it('o detalhe expõe status e tempo assistido de cada recurso', async () => {
+      roadmaps.findOne.mockResolvedValue(roadmapWithVideo('in_progress'));
+
+      const detail = await service.findDetail(OWNER, 'roadmap-1');
+
+      expect(detail.modules[0].topics[1].resources[0]).toMatchObject({
+        id: 'resource-1',
+        status: 'in_progress',
+        watchedSeconds: 120,
+      });
+    });
+  });
+
+  describe('sala de estudo — anotação do tópico', () => {
+    it('tópico sem anotação devolve texto vazio e updatedAt nulo', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      const note = await service.getNote(OWNER, 'roadmap-1', 'topic-1');
+
+      expect(note).toEqual({
+        topicId: 'topic-1',
+        content: '',
+        updatedAt: null,
+      });
+    });
+
+    it('salva o texto inteiro com a data da edição', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      const note = await service.updateNote(
+        OWNER,
+        'roadmap-1',
+        'topic-1',
+        'display: flex alinha no eixo principal',
+      );
+
+      expect(note.content).toBe('display: flex alinha no eixo principal');
+      expect(note.updatedAt).not.toBeNull();
+      expect(topics.update).toHaveBeenCalledWith(
+        { id: 'topic-1' },
+        expect.objectContaining({
+          note: 'display: flex alinha no eixo principal',
+        }),
+      );
+    });
+
+    it('não escreve na anotação de roadmap alheio', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      await expect(
+        service.updateNote(INTRUDER, 'roadmap-1', 'topic-1', 'x'),
+      ).rejects.toThrow(ForbiddenException);
+      expect(topics.update).not.toHaveBeenCalled();
+    });
+
+    it('tópico que não é deste roadmap dá 404', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      await expect(
+        service.getNote(OWNER, 'roadmap-1', 'topic-x'),
+      ).rejects.toThrow(NotFoundException);
     });
   });
 
