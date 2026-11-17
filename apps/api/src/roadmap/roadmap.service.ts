@@ -1,79 +1,134 @@
-import { Injectable, Logger } from '@nestjs/common';
-import type { RoadmapDetailDto, WizardAnswers } from '@estudeai/shared-types';
-import { RoadmapAiService } from './roadmap-ai.service';
-import { RoadmapCacheService } from './roadmap-cache.service';
-import { ResourceDiscoveryService } from './resource-discovery.service';
+import {
+  Injectable,
+  Logger,
+  ServiceUnavailableException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import {
+  UNDECIDED_AREA,
+  type RoadmapDetailDto,
+  type WizardAnswers,
+} from '@estudeai/shared-types';
+import { Track } from '../tracks/entities/track.entity';
+import { personalizeTrack } from '../tracks/track-personalization';
+import { chooseTrack } from '../tracks/track-selection';
+import { TrackJustificationService } from './track-justification.service';
 import { UserRoadmapService } from './user-roadmap.service';
 
 /**
- * Camada de orquestração isolada (CLAUDE.md §6): o controller nunca chama a
- * geração direto. O cache (FR-02.2) entra AQUI, ANTES do AI:
- *  - HIT: devolve o template em cache, sem chamar o Gemini.
- *  - MISS: chama o RoadmapAiService (Etapa 4) e grava o resultado como novo
- *    template, pra próxima requisição com os mesmos critérios pegar do cache.
+ * Orquestra a geração do roadmap (FR-01 / FR-02), agora a partir das trilhas
+ * curadas (docs/TRILHAS.md):
  *
- * Etapa 6 (FR-03.2): venha de onde vier, o conteúdo obtido é apenas um MOLDE.
- * O último passo copia esse molde para as entidades do usuário — é o roadmap
- * persistido (com ids reais) que volta pro frontend, nunca o molde solto.
+ *  1. as respostas escolhem a trilha (regra fixa);
+ *  2. a trilha é recortada para a pessoa (tempo semanal + o que ela já sabe);
+ *  3. a IA escreve só a justificativa, com texto por regra de reserva;
+ *  4. o recorte é copiado para linhas do usuário (FR-03.2).
  *
- * Etapa 8: a descoberta de recursos acontece ANTES do `cache.save`, então os
- * links são cacheados junto do template e um HIT não rebusca nada — o custo em
- * cota do YouTube fica limitado ao número de combinações do wizard, não ao
- * número de usuários.
+ * Nenhum dos passos 1, 2 e 4 depende de serviço externo — a geração deixou de
+ * poder falhar por erro de IA e de esperar por busca de links: os recursos já
+ * estão na trilha (ou chegam depois, pela fila do TracksModule).
+ *
+ * Continua valendo a regra do CLAUDE.md §6: o controller nunca fala com a IA.
  */
 @Injectable()
 export class RoadmapService {
   private readonly logger = new Logger(RoadmapService.name);
 
   constructor(
-    private readonly cache: RoadmapCacheService,
-    private readonly aiService: RoadmapAiService,
-    private readonly resources: ResourceDiscoveryService,
+    @InjectRepository(Track)
+    private readonly tracks: Repository<Track>,
+    private readonly justification: TrackJustificationService,
     private readonly userRoadmaps: UserRoadmapService,
   ) {}
 
   async generate(
     userId: string,
-    answers: WizardAnswers,
+    input: WizardAnswers,
   ): Promise<RoadmapDetailDto> {
-    const cached = await this.cache.find(answers);
-    if (cached) {
-      this.logger.log(`cache HIT — ${this.cache.keyOf(answers)}`);
+    const answers = this.normalize(input);
+    const slug = chooseTrack(answers);
 
-      // Backfill preguiçoso: templates gravados antes da Etapa 8 (ou cuja
-      // descoberta parou no meio pelo orçamento de tempo) ganham os recursos
-      // no primeiro hit, e a partir daí o HIT volta a custar zero chamadas.
-      if (!this.hasAllResources(cached)) {
-        this.logger.log(
-          'Template sem recursos — enriquecendo antes de copiar.',
-        );
-        const enriched = await this.resources.enrichRoadmap(cached);
-        await this.cache.refresh(answers, enriched);
-        return this.userRoadmaps.createFrom(userId, enriched);
-      }
-
-      return this.userRoadmaps.createFrom(userId, cached);
+    const track = await this.tracks.findOne({
+      where: { slug },
+      relations: { modules: { topics: { resources: true } } },
+    });
+    if (!track) {
+      // Só acontece se a carga das trilhas falhou no boot (ver TrackSyncService).
+      this.logger.error(`Trilha "${slug}" não está no banco.`);
+      throw new ServiceUnavailableException(
+        'Esta trilha está indisponível no momento. Tente novamente em instantes.',
+      );
     }
 
+    const ordered = [...track.modules]
+      .sort((a, b) => a.order - b.order)
+      .map((module) => ({
+        ...module,
+        topics: [...module.topics].sort((a, b) => a.order - b.order),
+      }));
+    const plan = personalizeTrack(ordered, answers);
+
+    const topics = plan.flatMap((module) => module.topics);
+    const justification = await this.justification.write(answers, {
+      area: slug,
+      areaChosenByUser: answers.area !== UNDECIDED_AREA,
+      moduleCount: plan.length,
+      topicCount: topics.length,
+      knownTopicCount: topics.filter((item) => item.alreadyKnown).length,
+    });
+
     this.logger.log(
-      `cache MISS — ${this.cache.keyOf(answers)} — chamando Gemini`,
+      `Roadmap por trilha "${slug}" — ${answers.weeklyTime}, ${topics.length} tópicos em ${plan.length} módulos.`,
     );
-    const roadmap = await this.aiService.generate(answers);
-    const enriched = await this.resources.enrichRoadmap(roadmap);
-    await this.cache.save(answers, enriched);
-    return this.userRoadmaps.createFrom(userId, enriched);
+
+    return this.userRoadmaps.createFrom(userId, {
+      targetArea: slug,
+      justification,
+      trackSlug: slug,
+      answers,
+      modules: plan.map(({ module, topics: moduleTopics }, moduleIndex) => ({
+        title: module.title,
+        description: module.description,
+        // Reindexado: módulos e tópicos cortados não deixam buraco na ordem.
+        order: moduleIndex,
+        topics: moduleTopics.map(({ topic, alreadyKnown }, topicIndex) => ({
+          title: topic.title,
+          order: topicIndex,
+          estimatedHours: topic.estimatedHours,
+          isCompleted: alreadyKnown,
+          trackTopicId: topic.id,
+          resources: [...topic.resources]
+            .sort((a, b) => a.order - b.order)
+            .map((resource) => ({
+              title: resource.title,
+              url: resource.url,
+              type: resource.type,
+              source: resource.source,
+              ...(resource.thumbnailUrl
+                ? { thumbnailUrl: resource.thumbnailUrl }
+                : {}),
+            })),
+        })),
+      })),
+    });
   }
 
   /**
-   * `resources` ausente = nunca buscado (template antigo ou tópico cortado pelo
-   * orçamento). Array vazio conta como resolvido: já buscamos e não sobrou link
-   * válido — insistir só gastaria cota.
+   * Respostas como serão guardadas no roadmap: objeto simples (o que chega é a
+   * instância do DTO) e sem `affinity` para quem escolheu a área — ali ela não
+   * decidiu nada, e guardá-la faria parecer que decidiu.
    */
-  private hasAllResources(roadmap: {
-    modules: { topics: { resources?: unknown[] }[] }[];
-  }): boolean {
-    return roadmap.modules.every((module) =>
-      module.topics.every((topic) => topic.resources !== undefined),
-    );
+  private normalize(input: WizardAnswers): WizardAnswers {
+    return {
+      goal: input.goal,
+      area: input.area,
+      ...(input.area === UNDECIDED_AREA && input.affinity
+        ? { affinity: input.affinity }
+        : {}),
+      knownSkills: [...input.knownSkills],
+      weeklyTime: input.weeklyTime,
+      learningStyle: input.learningStyle,
+    };
   }
 }

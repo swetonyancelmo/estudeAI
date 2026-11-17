@@ -10,7 +10,7 @@ export default function RegisterPage() {
   return (
     <AuthForm
       title="Criar conta"
-      description="Leva um minuto. Depois são 4 perguntas até o seu roadmap."
+      description="Leva um minuto. Depois são até 6 perguntas até o seu roadmap."
       submitLabel="Criar conta"
       resolver={zodResolver(registerSchema)}
       onSubmit={register}

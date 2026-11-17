@@ -42,6 +42,14 @@ export class Topic {
   estimatedHours: number | null;
 
   /**
+   * Tópico da trilha curada de onde este nasceu. Só o id, sem relação: serve
+   * para a fila de recursos achar quem ainda está sem links, e vira nulo quando
+   * o reajuste muda o assunto do tópico.
+   */
+  @Column({ type: 'uuid', name: 'track_topic_id', nullable: true })
+  trackTopicId: string | null;
+
+  /**
    * Recursos gratuitos de estudo (Etapa 8). `cascade: ['insert']` faz com que
    * eles entrem na MESMA transação que grava roadmap + módulos + tópicos: ou o
    * tópico nasce com seus links, ou não nasce.

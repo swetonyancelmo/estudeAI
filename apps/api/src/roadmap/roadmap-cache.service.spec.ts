@@ -7,6 +7,8 @@ import { RoadmapTemplate } from './entities/roadmap-template.entity';
 describe('RoadmapCacheService (FR-02.2 — cache de match exato)', () => {
   const answers: WizardAnswers = {
     goal: 'mercado',
+    area: 'nao-sei',
+    knownSkills: [],
     weeklyTime: '15h',
     affinity: 'visual',
     learningStyle: 'pratico',

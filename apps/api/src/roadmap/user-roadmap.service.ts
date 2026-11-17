@@ -12,8 +12,9 @@ import type {
   RoadmapDetailDto,
   RoadmapListItemDto,
   RoadmapProgressDto,
-  RoadmapResponseDto,
+  TargetArea,
   ToggleTopicResponseDto,
+  WizardAnswers,
 } from '@estudeai/shared-types';
 import { Roadmap } from './entities/roadmap.entity';
 // A entidade se chama Module (ARCHITETURE.md §4); o alias evita ler como o
@@ -47,6 +48,34 @@ export interface AppliedAdjustment {
 }
 
 /**
+ * O que `createFrom` precisa para criar o roadmap de um usuário: o conteúdo já
+ * decidido, venha de onde vier. Um `RoadmapResponseDto` (forma do Gemini) cabe
+ * aqui sem conversão; a geração por trilha curada preenche também os campos
+ * opcionais.
+ */
+export interface RoadmapDraft {
+  targetArea: TargetArea;
+  justification: string;
+  /** Trilha curada de origem e as respostas que a recortaram. */
+  trackSlug?: string;
+  answers?: WizardAnswers;
+  modules: {
+    title: string;
+    description: string;
+    order: number;
+    topics: {
+      title: string;
+      order: number;
+      estimatedHours?: number;
+      /** true = habilidade que a pessoa declarou já dominar. */
+      isCompleted?: boolean;
+      trackTopicId?: string;
+      resources?: ResourceContentDto[];
+    }[];
+  }[];
+}
+
+/**
  * FR-03.2 / FR-03.3 — instâncias de roadmap do usuário e seu progresso.
  *
  * Responsabilidade única, no mesmo espírito que separa RoadmapCacheService de
@@ -66,24 +95,27 @@ export class UserRoadmapService {
   ) {}
 
   /**
-   * Copia um roadmap gerado (Gemini ou template em cache) para linhas próprias
-   * do usuário. É uma CÓPIA campo a campo, deliberadamente: o `payload` que
-   * chega pode ser o jsonb de um `RoadmapTemplate` compartilhado por vários
-   * usuários — nada dele pode ser referenciado nem mutado aqui. Todo tópico
-   * nasce com isCompleted=false, então o progresso é sempre individual.
+   * Copia um roadmap já decidido (recorte de trilha curada) para linhas
+   * próprias do usuário. É uma CÓPIA campo a campo, deliberadamente: o
+   * `payload` que chega aponta para conteúdo compartilhado por vários usuários
+   * — nada dele pode ser referenciado nem mutado aqui. O progresso é sempre
+   * individual; um tópico só nasce concluído quando o rascunho diz que a pessoa
+   * já domina aquela habilidade.
    *
    * Os recursos (Etapa 8) seguem a mesma regra: viram linhas próprias em
    * `topic_resources`, copiadas do molde, na mesma transação.
    */
   async createFrom(
     userId: string,
-    payload: RoadmapResponseDto,
+    payload: RoadmapDraft,
   ): Promise<RoadmapDetailDto> {
     const roadmap = this.roadmaps.create({
       userId,
       targetArea: payload.targetArea,
       justification: payload.justification,
       status: 'active',
+      trackSlug: payload.trackSlug ?? null,
+      answers: payload.answers ?? null,
       modules: payload.modules.map((module) => ({
         title: module.title,
         description: module.description,
@@ -91,8 +123,9 @@ export class UserRoadmapService {
         topics: module.topics.map((topic) => ({
           title: topic.title,
           order: topic.order,
-          isCompleted: false,
+          isCompleted: topic.isCompleted ?? false,
           estimatedHours: topic.estimatedHours ?? null,
+          trackTopicId: topic.trackTopicId ?? null,
           resources: this.toResourceRows(topic.resources),
         })),
       })),
@@ -316,6 +349,10 @@ export class UserRoadmapService {
    * Apaga os antigos de TODOS os `topicIds` informados, mesmo os que não
    * receberam substitutos: se o título mudou, os links velhos falam de outra
    * coisa e ficar sem recurso é melhor do que ficar com o recurso errado.
+   *
+   * Pelo mesmo motivo o vínculo com o tópico da trilha curada é cortado: sem
+   * isso, a fila de recursos das trilhas poderia devolver a um tópico
+   * renomeado os links do assunto antigo.
    */
   async replaceTopicResources(
     topicIds: string[],
@@ -327,6 +364,7 @@ export class UserRoadmapService {
 
     await this.roadmaps.manager.transaction(async (manager) => {
       await manager.delete(Resource, { topicId: In(topicIds) });
+      await manager.update(Topic, { id: In(topicIds) }, { trackTopicId: null });
 
       const rows = topicIds.flatMap((topicId) =>
         this.toResourceRows(resourcesByTopicId.get(topicId)).map(
@@ -405,6 +443,8 @@ export class UserRoadmapService {
   }
 
   private toDetailDto(roadmap: Roadmap): RoadmapDetailDto {
+    // docs/TRILHAS.md §5: quem prefere fundamentos vê os artigos primeiro.
+    const articlesFirst = roadmap.answers?.learningStyle === 'teorico';
     return {
       id: roadmap.id,
       targetArea: roadmap.targetArea,
@@ -427,7 +467,7 @@ export class UserRoadmapService {
               order: topic.order,
               isCompleted: topic.isCompleted,
               estimatedHours: topic.estimatedHours ?? undefined,
-              resources: this.toResourceDtos(topic.resources),
+              resources: this.toResourceDtos(topic.resources, articlesFirst),
             })),
         })),
     };
@@ -435,16 +475,21 @@ export class UserRoadmapService {
 
   /**
    * Recursos do tópico, sempre como array (a relação pode nem ter sido
-   * carregada) e em ordem estável: YouTube antes de web, depois por título.
+   * carregada) e em ordem estável: YouTube antes de web (ou o inverso, com
+   * `articlesFirst`), depois por título.
    *
    * A ordenação não vem do banco de propósito — `created_at` é o mesmo para
    * todas as linhas gravadas na mesma transação, então não serve de critério.
    */
-  private toResourceDtos(resources: Resource[] | undefined) {
+  private toResourceDtos(
+    resources: Resource[] | undefined,
+    articlesFirst = false,
+  ) {
+    const last = articlesFirst ? 'youtube' : 'web';
     return [...(resources ?? [])]
       .sort(
         (a, b) =>
-          Number(a.source === 'web') - Number(b.source === 'web') ||
+          Number(a.source === last) - Number(b.source === last) ||
           a.title.localeCompare(b.title),
       )
       .map((resource) => ({

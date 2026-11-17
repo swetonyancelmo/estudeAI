@@ -49,6 +49,7 @@ function build(options: {
     delete: jest.fn(),
     insert: jest.fn(),
     update: jest.fn(),
+    query: jest.fn(),
   };
   const queryBuilder = {
     innerJoin: jest.fn().mockReturnThis(),
@@ -113,6 +114,11 @@ describe('TrackResourceSyncService', () => {
       { id: 't-1' },
       { resourcesFetchedAt: expect.any(Date) as Date },
     );
+    // Roadmaps criados antes de a fila chegar aqui recebem os mesmos links.
+    expect(manager.query).toHaveBeenCalledWith(
+      expect.stringContaining('INSERT INTO "topic_resources"'),
+      ['t-1'],
+    );
   });
 
   it('busca que respondeu vazia também resolve o tópico (não insiste à toa)', async () => {
@@ -129,6 +135,7 @@ describe('TrackResourceSyncService', () => {
     expect(result.filled).toBe(1);
     expect(manager.insert).not.toHaveBeenCalled();
     expect(manager.update).toHaveBeenCalledTimes(1);
+    expect(manager.query).not.toHaveBeenCalled();
   });
 
   it('para no primeiro erro do YouTube e deixa esse tópico e os seguintes na fila', async () => {

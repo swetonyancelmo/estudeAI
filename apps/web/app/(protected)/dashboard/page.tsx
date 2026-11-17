@@ -74,7 +74,8 @@ function EmptyState() {
       <div className="flex flex-col gap-3">
         <h1>Seu mapa ainda está em branco.</h1>
         <p className="text-muted-foreground max-w-md text-lg">
-          São 4 perguntas sobre seu objetivo e seu tempo. Em uns 2 minutos você
+          São até 6 perguntas sobre seu objetivo, seu tempo e o que você já
+          sabe. Em uns 2 minutos você
           sai com a rota completa, módulo por módulo.
         </p>
       </div>
@@ -90,7 +91,7 @@ function EmptyState() {
           <Link href="/wizard" className={buttonVariants()}>
             Montar meu roadmap
           </Link>
-          <span className="data-label text-ink-faint">4 perguntas · ~2 min</span>
+          <span className="data-label text-ink-faint">até 6 perguntas · ~2 min</span>
         </div>
       </div>
     </div>

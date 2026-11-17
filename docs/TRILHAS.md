@@ -1,6 +1,6 @@
 # Trilhas curadas — especificação
 
-Status: **aprovada em 16/11/2026**. PR 1 (catálogo de trilhas) implementado; PRs 2 e 3 pendentes.
+Status: **aprovada em 16/11/2026**. PRs 1 (catálogo de trilhas) e 2 (wizard novo e geração por trilha) implementados; PR 3 pendente.
 
 Decisões da seção 11, já tomadas: justificativa pela opção A; tópicos de habilidades dominadas entram concluídos; roadmaps antigos ficam como estão.
 
@@ -84,7 +84,7 @@ Módulo que ficar sem nenhum tópico após o recorte é omitido.
 
 O texto "por que esta área" é hoje escrito pelo Gemini junto com o roadmap. Duas opções:
 
-- **A (recomendada):** uma chamada curta ao Gemini só para a justificativa, com um texto montado por regra como reserva se a IA falhar ou demorar. Mantém o FR-02.1 ("a IA analisa os dados do formulário") e a geração nunca falha.
+- **A (escolhida):** uma chamada curta ao Gemini só para a justificativa, com um texto montado por regra como reserva se a IA falhar ou demorar. Mantém o FR-02.1 ("a IA analisa os dados do formulário") e a geração nunca falha. O teto é `JUSTIFICATION_TIMEOUT_MS` (8 s por padrão), dividido igualmente entre os modelos de `GEMINI_MODELS`.
 - **B:** só o texto por regra. Zero custo e zero dependência, mas a IA sai da geração.
 
 ## 7. Banco de dados
@@ -98,8 +98,8 @@ Tabelas novas:
 
 Colunas novas nas tabelas do usuário:
 
-- `roadmaps`: `track_slug`, `answers` (jsonb com as respostas do wizard), `weekly_time`. Todas aceitam nulo, para os roadmaps antigos.
-- `roadmap_topics`: `kind` (`topic` ou `project`, padrão `topic`), `description` (nulo permitido, usado pelos projetos), `track_topic_id` (nulo permitido, `ON DELETE SET NULL`).
+- `roadmaps`: `track_slug` e `answers` (jsonb com as respostas do wizard, incluindo o tempo semanal). Aceitam nulo, para os roadmaps antigos.
+- `roadmap_topics`: `track_topic_id` (nulo permitido, `ON DELETE SET NULL`; vira nulo também quando um reajuste muda o assunto do tópico). No PR 3: `kind` (`topic` ou `project`, padrão `topic`) e `description` (nulo permitido, usado pelos projetos).
 
 Carga do conteúdo: no boot, a API compara o hash de cada JSON com `tracks.content_hash`. Se mudou, substitui a trilha em uma transação, preservando os recursos dos tópicos cujo `slug` e `search_query` não mudaram. Roadmaps de usuários não são afetados, porque são cópias.
 

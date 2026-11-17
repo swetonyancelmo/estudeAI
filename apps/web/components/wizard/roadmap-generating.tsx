@@ -1,29 +1,38 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { WizardAnswers } from "@estudeai/shared-types";
-import { WIZARD_STEPS } from "@/lib/wizard/steps";
+import { UNDECIDED_AREA, type WizardAnswers } from "@estudeai/shared-types";
+import { optionLabel, type SingleField } from "@/lib/wizard/steps";
 
-/** Rótulo da opção escolhida num campo ("Entrar no mercado", "Cerca de 15h"…). */
-function labelOf<K extends keyof WizardAnswers>(
-  field: K,
-  answers: WizardAnswers,
-): string {
-  const step = WIZARD_STEPS.find((candidate) => candidate.field === field);
-  const option = step?.options.find(
-    (candidate) => candidate.value === answers[field],
-  );
-  return (option?.label ?? "").toLowerCase();
+/** Rótulo da opção escolhida num campo ("entrar no mercado", "cerca de 15h"…). */
+function labelOf(field: SingleField, answers: WizardAnswers): string {
+  return optionLabel(field, answers[field]).toLowerCase();
+}
+
+/** Como a trilha foi decidida: pela área escolhida ou pela afinidade. */
+function trackStage(answers: WizardAnswers): string {
+  return answers.area === UNDECIDED_AREA
+    ? `Escolhendo a trilha a partir de: ${labelOf("affinity", answers)}`
+    : `Abrindo a trilha de ${optionLabel("area", answers.area)}`;
+}
+
+function skillsStage(answers: WizardAnswers): string {
+  const count = answers.knownSkills.length;
+  if (count === 0) return "Partindo do básico, do zero";
+  return `Marcando como concluído o que você já sabe (${count} ${
+    count === 1 ? "habilidade" : "habilidades"
+  })`;
 }
 
 /** Intervalo entre as etapas narradas. A última fica até a resposta chegar. */
-const STAGE_INTERVAL_MS = 2400;
+const STAGE_INTERVAL_MS = 1300;
 
 /**
- * Tela de espera da geração (FR-02.1). A chamada ao Gemini leva vários
- * segundos, então a espera vira um momento do produto: a rota vai sendo
- * traçada e cada etapa narrada cita uma resposta do próprio usuário — fica
- * claro que algo específico para ele está sendo montado.
+ * Tela de espera da geração (FR-02.1). O roadmap sai de uma trilha curada e só
+ * a justificativa passa pela IA, então a espera é de poucos segundos — ainda
+ * assim ela vira um momento do produto: a rota vai sendo traçada e cada etapa
+ * narrada cita uma resposta do próprio usuário, deixando claro que algo
+ * específico para ele está sendo montado.
  *
  * As etapas são um roteiro local (não vêm do servidor): servem para dar ritmo
  * à espera, e por isso a última não promete conclusão, só "quase lá".
@@ -31,10 +40,10 @@ const STAGE_INTERVAL_MS = 2400;
 export function RoadmapGenerating({ answers }: { answers: WizardAnswers }) {
   const stages = [
     `Lendo seu objetivo: ${labelOf("goal", answers)}`,
+    trackStage(answers),
+    skillsStage(answers),
     `Dimensionando a carga para ${labelOf("weeklyTime", answers)} por semana`,
-    `Escolhendo a trilha a partir de: ${labelOf("affinity", answers)}`,
-    `Organizando módulos no estilo ${labelOf("learningStyle", answers)}`,
-    "Buscando vídeos e artigos para cada tópico",
+    `Ordenando os materiais no estilo ${labelOf("learningStyle", answers)}`,
     "Quase lá, fechando a rota",
   ];
 
@@ -57,7 +66,7 @@ export function RoadmapGenerating({ answers }: { answers: WizardAnswers }) {
       <div className="flex flex-col gap-3">
         <h1>Traçando sua rota</h1>
         <p className="text-muted-foreground text-lg">
-          Isso costuma levar menos de um minuto. Pode deixar esta aba aberta.
+          Isso leva só alguns segundos.
         </p>
       </div>
 

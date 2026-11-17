@@ -70,6 +70,7 @@ Sair do cinza-frio para neutros quentes (papel) e dar uma cor por trilha. O lara
 | `--line-front` | `#E2481F` | `#FF6B3E` | trilha Frontend (= marca) |
 | `--line-back` | `#2F6FEB` | `#5B8CFF` | trilha Backend |
 | `--line-full` | `#7A3FD1` | `#A47BFF` | trilha Fullstack |
+| `--line-ops` | `#0F8F8C` | `#3CCFC8` | trilha DevOps (azul-petróleo, para não confundir com o verde de concluído) |
 | `--success` | `#1F9D64` | `#34C77E` | concluído |
 
 Regra: **a cor da trilha aparece na linha da rota, no marcador do card e no header do detalhe**. Fundo e texto continuam neutros. Isso dá cor ao produto sem virar arco-íris.

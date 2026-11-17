@@ -1,21 +1,31 @@
-import type {
-  Affinity,
-  LearningGoal,
-  LearningStyle,
-  WeeklyTime,
-  WizardAnswers,
+import {
+  UNDECIDED_AREA,
+  type Affinity,
+  type KnownSkill,
+  type LearningGoal,
+  type LearningStyle,
+  type WeeklyTime,
+  type WizardAnswers,
+  type WizardArea,
 } from "@estudeai/shared-types";
 
 /**
  * Configuração declarativa do wizard (FR-01.1: uma pergunta por tela).
  * Cada step mapeia para exatamente um campo de WizardAnswers; renderização,
  * navegação e barra de progresso derivam deste array — sem lógica por-tela.
+ *
+ * Dois formatos de pergunta: `single` (uma opção, avança sozinho) e `multi`
+ * (várias opções, com uma saída explícita "nenhuma"). Um step pode ser
+ * condicional (`when`): o caminho de quem já sabe a área tem uma pergunta a
+ * menos — por isso quem consome usa `visibleSteps`, nunca o array cru.
  */
 /** Nome curto de cada parada do diagnóstico (landing e linha do wizard). */
 export const STEP_SHORT_LABELS: Record<keyof WizardAnswers, string> = {
   goal: "Objetivo",
-  weeklyTime: "Tempo",
+  area: "Área",
   affinity: "Afinidade",
+  knownSkills: "Bagagem",
+  weeklyTime: "Tempo",
   learningStyle: "Estilo",
 };
 
@@ -25,21 +35,45 @@ export interface StepOption<V extends string> {
   hint: string;
 }
 
-interface StepConfig<K extends keyof WizardAnswers> {
-  /** Chave do campo em WizardAnswers — também usada como key de animação. */
-  field: K;
+/** Campos de escolha única — todos menos a lista de habilidades. */
+export type SingleField = Exclude<keyof WizardAnswers, "knownSkills">;
+
+interface StepBase {
   title: string;
   subtitle: string;
-  options: ReadonlyArray<StepOption<WizardAnswers[K]>>;
+  /** Aviso curto para a landing, quando a pergunta não é feita a todo mundo. */
+  note?: string;
+  /** Ausente = sempre aparece. */
+  when?: (answers: Partial<WizardAnswers>) => boolean;
 }
 
+export interface SingleStepConfig<K extends SingleField = SingleField>
+  extends StepBase {
+  kind: "single";
+  /** Chave do campo em WizardAnswers — também usada como key de animação. */
+  field: K;
+  options: ReadonlyArray<StepOption<NonNullable<WizardAnswers[K]>>>;
+}
+
+export interface MultiStepConfig extends StepBase {
+  kind: "multi";
+  field: "knownSkills";
+  options: ReadonlyArray<StepOption<KnownSkill>>;
+  /** A resposta "nenhuma": limpa a seleção e ainda conta como respondida. */
+  none: { label: string; hint: string };
+}
+
+export type WizardStepConfig = SingleStepConfig | MultiStepConfig;
+
 // Tipa cada entrada com sua própria chave sem alargar para a união toda.
-function step<K extends keyof WizardAnswers>(config: StepConfig<K>): StepConfig<K> {
-  return config;
+function single<K extends SingleField>(
+  config: Omit<SingleStepConfig<K>, "kind">,
+): SingleStepConfig<K> {
+  return { kind: "single", ...config };
 }
 
 export const WIZARD_STEPS = [
-  step<"goal">({
+  single<"goal">({
     field: "goal",
     title: "Qual é o seu objetivo?",
     subtitle: "Isso ajuda a calibrar o foco do seu roadmap.",
@@ -56,20 +90,44 @@ export const WIZARD_STEPS = [
       },
     ],
   }),
-  step<"weeklyTime">({
-    field: "weeklyTime",
-    title: "Quanto tempo você tem por semana?",
-    subtitle: "Usamos isso para dimensionar a carga de cada tópico.",
+  single<"area">({
+    field: "area",
+    title: "Já sabe qual área quer seguir?",
+    subtitle: "Se ainda não sabe, tudo bem: a gente descobre com você.",
     options: [
-      { value: "5h" satisfies WeeklyTime, label: "Cerca de 5h", hint: "Ritmo leve, encaixando nos intervalos." },
-      { value: "15h" satisfies WeeklyTime, label: "Cerca de 15h", hint: "Ritmo consistente durante a semana." },
-      { value: "30h+" satisfies WeeklyTime, label: "30h ou mais", hint: "Dedicação intensiva, quase tempo integral." },
+      {
+        value: "frontend" satisfies WizardArea,
+        label: "Frontend",
+        hint: "O que as pessoas veem e usam: páginas e interfaces.",
+      },
+      {
+        value: "backend" satisfies WizardArea,
+        label: "Backend",
+        hint: "O que roda por trás: regras, dados e APIs.",
+      },
+      {
+        value: "fullstack" satisfies WizardArea,
+        label: "Fullstack",
+        hint: "As duas pontas, para construir o produto inteiro.",
+      },
+      {
+        value: "devops" satisfies WizardArea,
+        label: "DevOps",
+        hint: "Servidores, automação e colocar sistemas no ar.",
+      },
+      {
+        value: UNDECIDED_AREA satisfies WizardArea,
+        label: "Ainda não sei",
+        hint: "Uma pergunta a mais e a gente indica a trilha.",
+      },
     ],
   }),
-  step<"affinity">({
+  single<"affinity">({
     field: "affinity",
     title: "Com o que você mais se identifica?",
     subtitle: "Não existe resposta errada, é só a sua preferência.",
+    note: "Só para quem ainda não sabe a área.",
+    when: (answers) => answers.area === UNDECIDED_AREA,
     options: [
       {
         value: "visual" satisfies Affinity,
@@ -81,9 +139,49 @@ export const WIZARD_STEPS = [
         label: "Lógica e dados",
         hint: "Regras de negócio, algoritmos e o que roda por trás.",
       },
+      {
+        value: "infra" satisfies Affinity,
+        label: "Infraestrutura",
+        hint: "Servidores, redes e automatizar o que é repetitivo.",
+      },
     ],
   }),
-  step<"learningStyle">({
+  {
+    kind: "multi",
+    field: "knownSkills",
+    title: "O que você já sabe?",
+    subtitle:
+      "Marque o que você já domina. Esses tópicos já entram concluídos no seu roadmap.",
+    none: {
+      label: "Estou começando do zero",
+      hint: "Sem problema: a trilha parte do básico.",
+    },
+    options: [
+      { value: "logica-programacao", label: "Lógica de programação", hint: "" },
+      { value: "html-css", label: "HTML e CSS", hint: "" },
+      { value: "javascript", label: "JavaScript", hint: "" },
+      { value: "typescript", label: "TypeScript", hint: "" },
+      { value: "git", label: "Git", hint: "" },
+      { value: "terminal-linux", label: "Terminal Linux", hint: "" },
+      { value: "sql", label: "SQL", hint: "" },
+      { value: "http-apis", label: "HTTP e APIs", hint: "" },
+      { value: "react", label: "React", hint: "" },
+      { value: "nodejs", label: "Node.js", hint: "" },
+      { value: "docker", label: "Docker", hint: "" },
+      { value: "cloud", label: "Nuvem", hint: "" },
+    ],
+  } satisfies MultiStepConfig,
+  single<"weeklyTime">({
+    field: "weeklyTime",
+    title: "Quanto tempo você tem por semana?",
+    subtitle: "Com menos tempo o roadmap fica mais enxuto, só com o essencial.",
+    options: [
+      { value: "5h" satisfies WeeklyTime, label: "Cerca de 5h", hint: "Ritmo leve, encaixando nos intervalos." },
+      { value: "15h" satisfies WeeklyTime, label: "Cerca de 15h", hint: "Ritmo consistente durante a semana." },
+      { value: "30h+" satisfies WeeklyTime, label: "30h ou mais", hint: "Dedicação intensiva, quase tempo integral." },
+    ],
+  }),
+  single<"learningStyle">({
     field: "learningStyle",
     title: "Como você aprende melhor?",
     subtitle: "Vamos priorizar recursos no formato que mais te ajuda.",
@@ -105,6 +203,24 @@ export const WIZARD_STEPS = [
       },
     ],
   }),
-] as const;
+] as const satisfies ReadonlyArray<WizardStepConfig>;
 
-export const TOTAL_STEPS = WIZARD_STEPS.length;
+/** As perguntas que ESTA pessoa vai responder, dadas as respostas até aqui. */
+export function visibleSteps(
+  answers: Partial<WizardAnswers>,
+): ReadonlyArray<WizardStepConfig> {
+  return WIZARD_STEPS.filter(
+    (step: WizardStepConfig) => !step.when || step.when(answers),
+  );
+}
+
+/** Rótulo da opção de um campo de escolha única ("Entrar no mercado"…). */
+export function optionLabel<K extends SingleField>(
+  field: K,
+  value: WizardAnswers[K],
+): string {
+  const step = WIZARD_STEPS.find(
+    (candidate: WizardStepConfig) => candidate.field === field,
+  );
+  return step?.options.find((option) => option.value === value)?.label ?? "";
+}

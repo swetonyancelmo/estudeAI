@@ -165,6 +165,117 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
     });
   });
 
+  describe('createFrom — rascunho vindo de trilha curada', () => {
+    const answers = {
+      goal: 'mercado',
+      area: 'frontend',
+      knownSkills: ['html-css'],
+      weeklyTime: '5h',
+      learningStyle: 'teorico',
+    } as const;
+
+    it('grava origem, respostas e o tópico de habilidade dominada já concluído', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      await service.createFrom(OWNER, {
+        targetArea: 'frontend',
+        justification: 'justificativa',
+        trackSlug: 'frontend',
+        answers: { ...answers, knownSkills: [...answers.knownSkills] },
+        modules: [
+          {
+            title: 'Fundamentos',
+            description: 'HTML e CSS',
+            order: 0,
+            topics: [
+              {
+                title: 'HTML semântico',
+                order: 0,
+                estimatedHours: 4,
+                isCompleted: true,
+                trackTopicId: 'track-topic-1',
+              },
+              { title: 'CSS layout', order: 1, trackTopicId: 'track-topic-2' },
+            ],
+          },
+        ],
+      });
+
+      const created = roadmaps.create.mock.calls[0][0] as {
+        trackSlug: string;
+        answers: unknown;
+        modules: { topics: Record<string, unknown>[] }[];
+      };
+      expect(created.trackSlug).toBe('frontend');
+      expect(created.answers).toEqual(answers);
+      expect(
+        created.modules[0].topics.map((topic) => [
+          topic.isCompleted,
+          topic.trackTopicId,
+        ]),
+      ).toEqual([
+        [true, 'track-topic-1'],
+        [false, 'track-topic-2'],
+      ]);
+    });
+
+    it('rascunho sem origem (forma antiga) grava os campos novos como nulos', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      await service.createFrom(OWNER, makeTemplatePayload());
+
+      const created = roadmaps.create.mock.calls[0][0] as {
+        trackSlug: unknown;
+        answers: unknown;
+        modules: { topics: Record<string, unknown>[] }[];
+      };
+      expect(created.trackSlug).toBeNull();
+      expect(created.answers).toBeNull();
+      expect(created.modules[0].topics[0].trackTopicId).toBeNull();
+    });
+  });
+
+  describe('ordem dos recursos pelo estilo de aprendizado', () => {
+    function withResources(learningStyle: string | null): Roadmap {
+      const roadmap = makePersistedRoadmap({
+        answers: learningStyle ? ({ learningStyle } as never) : null,
+      });
+      roadmap.modules[0].topics[0].resources = [
+        {
+          id: 'r-1',
+          title: 'Aula',
+          url: 'https://youtu.be/a',
+          type: 'video',
+          source: 'youtube',
+          thumbnailUrl: null,
+        },
+        {
+          id: 'r-2',
+          title: 'Artigo',
+          url: 'https://mdn.dev/a',
+          type: 'article',
+          source: 'web',
+          thumbnailUrl: null,
+        },
+      ] as never;
+      return roadmap;
+    }
+
+    it.each([
+      ['teorico', ['web', 'youtube']],
+      ['audiovisual', ['youtube', 'web']],
+      [null, ['youtube', 'web']],
+    ])('%s → %j', async (learningStyle, expected) => {
+      roadmaps.findOne.mockResolvedValue(withResources(learningStyle));
+
+      const detail = await service.findDetail(OWNER, 'roadmap-1');
+
+      expect(
+        detail.modules[0].topics[0].resources.map((item) => item.source),
+      ).toEqual(expected);
+    });
+  });
+
   describe('ownership — roadmap de outro usuário', () => {
     it('findDetail devolve 403 (Forbidden)', async () => {
       roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());

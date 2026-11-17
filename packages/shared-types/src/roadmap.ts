@@ -12,26 +12,64 @@ export type LearningGoal = (typeof LEARNING_GOALS)[number];
 export const WEEKLY_TIMES = ["5h", "15h", "30h+"] as const;
 export type WeeklyTime = (typeof WEEKLY_TIMES)[number];
 
-/** Afinidade: interface/visual vs lógica/dados (FR-01.2). */
-export const AFFINITIES = ["visual", "logica"] as const;
+/**
+ * Afinidade: interface/visual, lógica/dados ou infraestrutura (FR-01.2).
+ * Só é perguntada a quem ainda não sabe a área — ver `WizardAnswers.affinity`.
+ */
+export const AFFINITIES = ["visual", "logica", "infra"] as const;
 export type Affinity = (typeof AFFINITIES)[number];
 
 /** Estilo de aprendizado (FR-01.2): mão-na-massa, teoria/docs ou vídeo-aulas. */
 export const LEARNING_STYLES = ["pratico", "teorico", "audiovisual"] as const;
 export type LearningStyle = (typeof LEARNING_STYLES)[number];
 
-/** Área sugerida pela IA (FR-02.1). */
-export const TARGET_AREAS = ["frontend", "backend", "fullstack"] as const;
+/** Área do roadmap (FR-02.1) — uma trilha curada por valor (docs/TRILHAS.md). */
+export const TARGET_AREAS = [
+  "frontend",
+  "backend",
+  "fullstack",
+  "devops",
+] as const;
 export type TargetArea = (typeof TARGET_AREAS)[number];
+
+/** Resposta de "já sabe qual área quer seguir?": uma área ou "ainda não sei". */
+export const UNDECIDED_AREA = "nao-sei";
+export const WIZARD_AREAS = [...TARGET_AREAS, UNDECIDED_AREA] as const;
+export type WizardArea = (typeof WIZARD_AREAS)[number];
+
+/** Habilidades que, se já dominadas, dispensam tópicos da trilha. */
+export const KNOWN_SKILLS = [
+  "logica-programacao",
+  "html-css",
+  "javascript",
+  "typescript",
+  "git",
+  "terminal-linux",
+  "sql",
+  "http-apis",
+  "react",
+  "nodejs",
+  "docker",
+  "cloud",
+] as const;
+export type KnownSkill = (typeof KNOWN_SKILLS)[number];
 
 /**
  * Respostas do wizard — payload de entrada de POST /roadmap/generate.
- * Cobre os 4 campos do FR-01.2.
+ * Os 4 campos do FR-01.2 mais os dois das trilhas curadas (docs/TRILHAS.md §3).
  */
 export interface WizardAnswers {
   goal: LearningGoal;
+  /** Área escolhida pela pessoa, ou "nao-sei" para a regra decidir. */
+  area: WizardArea;
+  /**
+   * Só existe quando `area` é "nao-sei": é o que desempata a trilha. Quem já
+   * escolheu a área não é perguntado, e a API descarta o campo se vier.
+   */
+  affinity?: Affinity;
+  /** O que a pessoa já domina. Vazio = começando do zero. */
+  knownSkills: KnownSkill[];
   weeklyTime: WeeklyTime;
-  affinity: Affinity;
   learningStyle: LearningStyle;
 }
 
@@ -282,28 +320,11 @@ export interface AdjustRoadmapResponseDto {
 // ---------------------------------------------------------------------------
 // Trilhas curadas (docs/TRILHAS.md).
 //
-// Vocabulário fechado usado pelo conteúdo das trilhas (`knownSkill`, `level`)
-// e, a partir do wizard novo, pela pergunta "o que você já sabe?". Mora aqui
-// porque as duas pontas precisam concordar: um valor fora desta lista num JSON
-// de trilha é erro de conteúdo, e a API recusa a carga.
+// Vocabulário fechado usado pelo conteúdo das trilhas. `KNOWN_SKILLS` (lá em
+// cima, junto do wizard) é o outro: as duas pontas precisam concordar, e um
+// valor fora dessas listas num JSON de trilha é erro de conteúdo — a API
+// recusa a carga.
 // ---------------------------------------------------------------------------
-
-/** Habilidades que, se já dominadas, dispensam tópicos da trilha. */
-export const KNOWN_SKILLS = [
-  "logica-programacao",
-  "html-css",
-  "javascript",
-  "typescript",
-  "git",
-  "terminal-linux",
-  "sql",
-  "http-apis",
-  "react",
-  "nodejs",
-  "docker",
-  "cloud",
-] as const;
-export type KnownSkill = (typeof KNOWN_SKILLS)[number];
 
 /** Nível de um tópico dentro da trilha. */
 export const TRACK_TOPIC_LEVELS = [
