@@ -7,6 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import type { TopicKind } from '@estudeai/shared-types';
 import { Module } from './module.entity';
 import { Resource } from './resource.entity';
 
@@ -31,6 +32,14 @@ export class Topic {
   @Column({ type: 'varchar' })
   title: string;
 
+  /** Tópico de estudo ou projeto de fim de módulo. */
+  @Column({ type: 'varchar', default: 'topic' })
+  kind: TopicKind;
+
+  /** Só nos projetos: o que construir. */
+  @Column({ type: 'text', nullable: true })
+  description: string | null;
+
   @Column({ type: 'boolean', name: 'is_completed', default: false })
   isCompleted: boolean;
 
@@ -40,6 +49,14 @@ export class Topic {
   /** Estimativa opcional da IA — o Gemini pode omitir (ver RoadmapTopicDto). */
   @Column({ type: 'int', name: 'estimated_hours', nullable: true })
   estimatedHours: number | null;
+
+  /**
+   * Tópico da trilha curada de onde este nasceu. Só o id, sem relação: serve
+   * para a fila de recursos achar quem ainda está sem links, e vira nulo quando
+   * o reajuste muda o assunto do tópico.
+   */
+  @Column({ type: 'uuid', name: 'track_topic_id', nullable: true })
+  trackTopicId: string | null;
 
   /**
    * Recursos gratuitos de estudo (Etapa 8). `cascade: ['insert']` faz com que

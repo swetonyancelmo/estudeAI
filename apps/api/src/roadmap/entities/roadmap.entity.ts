@@ -8,7 +8,11 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import type { RoadmapStatus, TargetArea } from '@estudeai/shared-types';
+import type {
+  RoadmapStatus,
+  TargetArea,
+  WizardAnswers,
+} from '@estudeai/shared-types';
 import { User } from '../../users/entities/user.entity';
 import { Module } from './module.entity';
 
@@ -40,6 +44,14 @@ export class Roadmap {
 
   @Column({ type: 'varchar', default: 'active' })
   status: RoadmapStatus;
+
+  /** Trilha curada de origem. Nulo nos roadmaps anteriores às trilhas. */
+  @Column({ type: 'varchar', name: 'track_slug', nullable: true })
+  trackSlug: string | null;
+
+  /** Respostas do wizard que geraram este roadmap. Nulo nos antigos. */
+  @Column({ type: 'jsonb', nullable: true })
+  answers: WizardAnswers | null;
 
   /**
    * `cascade: ['insert']` é o que permite gravar roadmap + módulos + tópicos

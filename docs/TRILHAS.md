@@ -1,6 +1,6 @@
 # Trilhas curadas — especificação
 
-Status: **aprovada em 16/11/2026**. PR 1 (catálogo de trilhas) implementado; PRs 2 e 3 pendentes.
+Status: **aprovada em 16/11/2026**. Os três PRs estão implementados: catálogo de trilhas, wizard novo com geração por trilha, e projetos com duração estimada.
 
 Decisões da seção 11, já tomadas: justificativa pela opção A; tópicos de habilidades dominadas entram concluídos; roadmaps antigos ficam como estão.
 
@@ -84,7 +84,7 @@ Módulo que ficar sem nenhum tópico após o recorte é omitido.
 
 O texto "por que esta área" é hoje escrito pelo Gemini junto com o roadmap. Duas opções:
 
-- **A (recomendada):** uma chamada curta ao Gemini só para a justificativa, com um texto montado por regra como reserva se a IA falhar ou demorar. Mantém o FR-02.1 ("a IA analisa os dados do formulário") e a geração nunca falha.
+- **A (escolhida):** uma chamada curta ao Gemini só para a justificativa, com um texto montado por regra como reserva se a IA falhar ou demorar. Mantém o FR-02.1 ("a IA analisa os dados do formulário") e a geração nunca falha. O teto é `JUSTIFICATION_TIMEOUT_MS` (8 s por padrão), dividido igualmente entre os modelos de `GEMINI_MODELS`.
 - **B:** só o texto por regra. Zero custo e zero dependência, mas a IA sai da geração.
 
 ## 7. Banco de dados
@@ -98,8 +98,8 @@ Tabelas novas:
 
 Colunas novas nas tabelas do usuário:
 
-- `roadmaps`: `track_slug`, `answers` (jsonb com as respostas do wizard), `weekly_time`. Todas aceitam nulo, para os roadmaps antigos.
-- `roadmap_topics`: `kind` (`topic` ou `project`, padrão `topic`), `description` (nulo permitido, usado pelos projetos), `track_topic_id` (nulo permitido, `ON DELETE SET NULL`).
+- `roadmaps`: `track_slug` e `answers` (jsonb com as respostas do wizard, incluindo o tempo semanal). Aceitam nulo, para os roadmaps antigos.
+- `roadmap_topics`: `track_topic_id` (nulo permitido, `ON DELETE SET NULL`; vira nulo também quando um reajuste muda o assunto do tópico). Também `kind` (`topic` ou `project`, padrão `topic`) e `description` (nulo permitido, usado pelos projetos).
 
 Carga do conteúdo: no boot, a API compara o hash de cada JSON com `tracks.content_hash`. Se mudou, substitui a trilha em uma transação, preservando os recursos dos tópicos cujo `slug` e `search_query` não mudaram. Roadmaps de usuários não são afetados, porque são cópias.
 
@@ -122,14 +122,14 @@ Por isso a busca sai do momento da geração e vira uma tarefa em segundo plano:
 - `WizardAnswers`: ganha `area` e `knownSkills`; `affinity` vira opcional (obrigatória quando `area` = "ainda não sei", validado na API).
 - `TARGET_AREAS` ganha `devops`; `AFFINITIES` ganha `infra`.
 - `PersistedTopicDto` ganha `kind` e `description`.
-- `RoadmapDetailDto` ganha `estimatedWeeks` (nulo nos roadmaps antigos).
+- `RoadmapDetailDto` ganha `weeklyHours` (nulo nos roadmaps antigos). A duração em semanas é calculada no web a partir dele e das horas pendentes, para acompanhar cada tópico marcado sem esperar o servidor.
 - `POST /roadmap/generate` mantém rota e formato de resposta.
 
 ## 10. Entrega em 3 PRs
 
 1. **Catálogo de trilhas (API).** Tabelas, carga dos JSONs, tarefa de recursos em segundo plano. Nenhuma mudança visível: já começa a gastar os 3 dias de cota enquanto o resto é feito. Só cria tabelas novas; as colunas novas de `roadmaps` e `roadmap_topics` (seção 7) e a cópia de links para tópicos de usuários (seção 8) entram no PR 2, junto com a geração que passa a usá-las.
 2. **Wizard novo e geração por trilha (API + web).** Perguntas novas, escolha da trilha, recorte, justificativa, rótulo e cor de DevOps na interface.
-3. **Projetos e duração (API + web).** Projetos como itens do roadmap e "≈ N semanas no seu ritmo".
+3. **Projetos e duração (API + web).** Projetos como itens do roadmap e "≈ N semanas no seu ritmo". O projeto conta no progresso e nas horas, nunca nasce concluído e não tem recursos; no reajuste a IA é instruída a mantê-lo como último item do módulo.
 
 Cada PR com testes unitários dos services novos; o recorte (seção 5) e a escolha da trilha (seção 4) são funções puras, testadas por tabela.
 

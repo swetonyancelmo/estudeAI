@@ -17,6 +17,25 @@ const DEFAULT_DELAY_MS = 250;
 /** Deixa o boot terminar (sync das trilhas incluso) antes da primeira rodada. */
 const FIRST_RUN_DELAY_MS = 5_000;
 
+/**
+ * Roadmaps criados ANTES de a fila chegar num tópico nasceram sem links nele.
+ * Quando o tópico da trilha é preenchido, os tópicos de usuários que vieram
+ * dele e continuam sem nenhum recurso recebem os mesmos links.
+ *
+ * `NOT EXISTS` em vez de ON CONFLICT: quem já tem qualquer recurso (inclusive
+ * os trocados por um reajuste) não é tocado.
+ */
+const COPY_TO_USER_TOPICS_SQL = `
+  INSERT INTO "topic_resources" ("topic_id", "title", "url", "type", "thumbnail_url", "source")
+  SELECT t."id", r."title", r."url", r."type", r."thumbnail_url", r."source"
+  FROM "roadmap_topics" t
+  JOIN "track_topic_resources" r ON r."track_topic_id" = t."track_topic_id"
+  WHERE t."track_topic_id" = $1
+    AND NOT EXISTS (
+      SELECT 1 FROM "topic_resources" existing WHERE existing."topic_id" = t."id"
+    )
+`;
+
 export interface TrackResourceRunResult {
   /** Tópicos que ganharam recursos (ou a confirmação de que não há) nesta rodada. */
   filled: number;
@@ -131,6 +150,9 @@ export class TrackResourceSyncService
           { id: topic.id },
           { resourcesFetchedAt: new Date() },
         );
+        if (resources.length > 0) {
+          await manager.query(COPY_TO_USER_TOPICS_SQL, [topic.id]);
+        }
       });
       filled += 1;
     }

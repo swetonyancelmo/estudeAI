@@ -33,6 +33,10 @@ interface TopicCheckboxProps {
  * com o visual de sempre, e é esse contraste que mostra que o progresso passou
  * intacto pelo recálculo.
  *
+ * Projeto de fim de módulo (`kind: "project"`) é a mesma parada, com um selo e
+ * a descrição do que construir no lugar dos recursos — ele se marca, conta no
+ * progresso e é reajustado como qualquer tópico.
+ *
  * Etapa 8: os recursos ficam FORA do <label>, como irmãos dele. Dentro, cada
  * clique num link também alternaria o checkbox — é o comportamento nativo do
  * label, não um detalhe de estilo.
@@ -42,6 +46,8 @@ export function TopicCheckbox({
   onToggle,
   highlight,
 }: TopicCheckboxProps) {
+  const isProject = topic.kind === "project";
+
   return (
     <div
       className={cn(
@@ -65,13 +71,21 @@ export function TopicCheckbox({
           </Checkbox.Indicator>
         </Checkbox.Root>
 
-        <span
-          className={cn(
-            "flex-1 transition-colors",
-            topic.isCompleted && "text-muted-foreground line-through",
+        <span className="flex flex-1 flex-wrap items-center gap-x-2 gap-y-1">
+          {isProject && (
+            <span className="border-line text-foreground shrink-0 rounded-sm border px-1.5 py-0.5 text-xs font-semibold">
+              Projeto
+            </span>
           )}
-        >
-          {topic.title}
+          <span
+            className={cn(
+              "transition-colors",
+              isProject && "font-medium",
+              topic.isCompleted && "text-muted-foreground line-through",
+            )}
+          >
+            {topic.title}
+          </span>
         </span>
 
         {highlight && (
@@ -86,6 +100,12 @@ export function TopicCheckbox({
           </span>
         )}
       </label>
+
+      {isProject && topic.description && (
+        <p className="text-muted-foreground pb-3 pl-9 text-sm">
+          {topic.description}
+        </p>
+      )}
 
       <TopicResources resources={topic.resources} />
     </div>

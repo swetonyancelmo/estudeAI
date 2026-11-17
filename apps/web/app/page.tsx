@@ -37,7 +37,16 @@ const TRACKS = [
     description: "As duas pontas, para quem quer construir o produto inteiro.",
     stops: ["Fundamentos web", "React", "APIs e banco", "Autenticação", "Produto completo"],
   },
+  {
+    className: "track-devops",
+    name: "DevOps",
+    description: "O caminho do código até a produção: servidores, automação e nuvem.",
+    stops: ["Linux e redes", "Docker", "CI/CD", "Nuvem", "Observabilidade"],
+  },
 ] as const;
+
+/** Quantas opções de uma pergunta a landing mostra antes de resumir em "+N". */
+const MAX_OPTIONS_SHOWN = 6;
 
 /** Módulo de exemplo da seção "O que você recebe". Ilustrativo, não é dado real. */
 const EXAMPLE_TOPICS = [
@@ -147,9 +156,9 @@ export default function Home() {
               <span className="text-brand">amanhã.</span>
             </h1>
             <p className="text-muted-foreground max-w-xl text-lg">
-              Quatro perguntas sobre seu objetivo e seu tempo. Você recebe uma
-              trilha de programação em módulos, com horas estimadas e links
-              gratuitos para estudar cada tópico.
+              Algumas perguntas sobre seu objetivo, seu tempo e o que você já
+              sabe. Você recebe uma trilha de programação em módulos, com horas
+              estimadas e links gratuitos para estudar cada tópico.
             </p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Link href="/register" className={buttonVariants({ size: "lg" })}>
@@ -173,7 +182,7 @@ export default function Home() {
               </p>
             </div>
 
-            <ol className="mt-10 grid gap-x-0 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
+            <ol className="mt-10 grid gap-x-0 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
               {WIZARD_STEPS.map((step, index) => (
                 <li key={step.field} className="flex flex-col gap-4 pr-6">
                   <div className="flex items-center" aria-hidden="true">
@@ -192,9 +201,12 @@ export default function Home() {
                       {STEP_SHORT_LABELS[step.field]}
                     </span>
                     <h3>{step.title}</h3>
+                    {"note" in step && (
+                      <p className="text-ink-faint text-sm">{step.note}</p>
+                    )}
                   </div>
                   <ul className="flex flex-wrap gap-1.5">
-                    {step.options.map((option) => (
+                    {step.options.slice(0, MAX_OPTIONS_SHOWN).map((option) => (
                       <li
                         key={option.value}
                         className="border-input bg-card rounded-sm border px-2 py-1 text-sm"
@@ -202,6 +214,11 @@ export default function Home() {
                         {option.label}
                       </li>
                     ))}
+                    {step.options.length > MAX_OPTIONS_SHOWN && (
+                      <li className="text-ink-faint data-label px-1 py-1.5">
+                        +{step.options.length - MAX_OPTIONS_SHOWN}
+                      </li>
+                    )}
                   </ul>
                 </li>
               ))}
@@ -212,8 +229,9 @@ export default function Home() {
               <span>
                 <strong className="font-semibold">Aí a rota se abre.</strong>{" "}
                 <span className="text-muted-foreground">
-                  Com as quatro respostas, o estudeAI escolhe entre Frontend,
-                  Backend e Fullstack e monta os módulos na ordem certa para você.
+                  Com as suas respostas, o estudeAI define a trilha (Frontend,
+                  Backend, Fullstack ou DevOps) e monta os módulos na ordem certa,
+                  no tamanho do seu tempo.
                 </span>
               </span>
             </p>
@@ -244,7 +262,7 @@ export default function Home() {
 
           <RailSection id="trilhas" state="upcoming">
             <div className="flex max-w-2xl flex-col gap-3">
-              <h2>Três linhas no mapa</h2>
+              <h2>Quatro linhas no mapa</h2>
               <p className="text-muted-foreground text-lg">
                 Você segue uma delas. Estas são paradas de exemplo: as suas
                 dependem do que você responder.
@@ -297,7 +315,7 @@ export default function Home() {
                   Montar meu roadmap
                 </Link>
                 <span className="data-label text-ink-faint">
-                  grátis · 4 perguntas · ~2 min
+                  grátis · até 6 perguntas · ~2 min
                 </span>
               </div>
             </div>

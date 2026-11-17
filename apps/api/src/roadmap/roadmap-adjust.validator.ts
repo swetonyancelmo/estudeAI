@@ -272,8 +272,8 @@ export function buildAdjustmentPlan(
       }
 
       // Só o TÍTULO invalida os links: mudar de módulo ou de estimativa não
-      // muda o assunto estudado (Etapa 8).
-      if (aiTopic.title !== topic.title) {
+      // muda o assunto estudado (Etapa 8). Projeto não tem links a refazer.
+      if (aiTopic.title !== topic.title && topic.kind !== 'project') {
         plan.topicsNeedingResources.push({
           id: topic.id,
           title: aiTopic.title,

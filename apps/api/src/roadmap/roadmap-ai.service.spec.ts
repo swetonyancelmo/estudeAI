@@ -26,6 +26,8 @@ import { RoadmapAiService } from './roadmap-ai.service';
 
 const answers: WizardAnswers = {
   goal: 'mercado',
+  area: 'nao-sei',
+  knownSkills: [],
   weeklyTime: '15h',
   affinity: 'visual',
   learningStyle: 'pratico',
@@ -290,6 +292,7 @@ describe('RoadmapAiService — retry e fallback de modelos', () => {
 /** Detalhe persistido mínimo para alimentar o reajuste. */
 function persistedRoadmap(): RoadmapDetailDto {
   return {
+    weeklyHours: null,
     id: 'roadmap-1',
     targetArea: 'frontend',
     justification: 'justificativa',
@@ -305,6 +308,7 @@ function persistedRoadmap(): RoadmapDetailDto {
         topics: [
           {
             id: 't-1',
+            kind: 'topic',
             title: 'HTML semântico',
             order: 0,
             isCompleted: true,
@@ -313,6 +317,7 @@ function persistedRoadmap(): RoadmapDetailDto {
           },
           {
             id: 't-2',
+            kind: 'topic',
             title: 'CSS layout',
             order: 1,
             isCompleted: false,

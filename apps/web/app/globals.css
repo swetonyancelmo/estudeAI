@@ -89,6 +89,7 @@
   --color-line-front: var(--line-front);
   --color-line-back: var(--line-back);
   --color-line-full: var(--line-full);
+  --color-line-ops: var(--line-ops);
 }
 
 /**
@@ -148,6 +149,7 @@
   --line-front: #f0562e;
   --line-back: #2f6feb;
   --line-full: #7a3fd1;
+  --line-ops: #0f8f8c;
   /* Linha "corrente": quem estiver dentro de `.track-*` herda a cor da trilha. */
   --line: var(--brand);
 
@@ -201,6 +203,7 @@
   --line-front: #ff6b3e;
   --line-back: #5b8cff;
   --line-full: #a47bff;
+  --line-ops: #3ccfc8;
 
   --sidebar: #1b1917;
   --sidebar-foreground: #f4f0ea;
@@ -266,6 +269,9 @@
   }
   .track-fullstack {
     --line: var(--line-full);
+  }
+  .track-devops {
+    --line: var(--line-ops);
   }
 
   /* Traçado SVG que se desenha: o path precisa de `pathLength="1"`. */

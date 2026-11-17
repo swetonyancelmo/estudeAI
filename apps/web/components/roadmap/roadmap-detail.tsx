@@ -17,6 +17,7 @@ import {
   moduleStates,
   remainingHours,
   type ModuleState,
+  estimatedWeeks,
 } from "@/lib/roadmaps/track";
 import { DeleteRoadmapButton } from "./delete-roadmap-button";
 import { RouteProgress } from "./progress-bar";
@@ -58,6 +59,7 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
   const states = moduleStates(roadmap.modules);
   const doneModules = states.filter((state) => state === "done").length;
   const hoursLeft = remainingHours(roadmap.modules);
+  const weeksLeft = estimatedWeeks(hoursLeft, roadmap.weeklyHours);
   const isFinished = roadmap.progress.percent === 100;
 
   function highlightOf(topicId: string): TopicHighlight | undefined {
@@ -101,6 +103,8 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
             <p className="data-label text-ink-faint">
               {doneModules}/{roadmap.modules.length} módulos
               {hoursLeft > 0 && ` · ~${hoursLeft}h pela frente`}
+              {weeksLeft !== null &&
+                ` · ≈ ${weeksLeft} ${weeksLeft === 1 ? "semana" : "semanas"} no seu ritmo`}
               {isFinished && " · rota concluída"}
             </p>
           </div>
