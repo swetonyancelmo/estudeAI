@@ -33,7 +33,7 @@ export function RouteProgress({
       aria-valuenow={percent}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-valuetext={`${completedTopics} de ${totalTopics} tópicos concluídos`}
+      aria-valuetext={`${completedTopics} de ${totalTopics} etapas concluídas`}
     >
       <div className="flex items-end justify-between gap-3">
         <span className="font-heading text-3xl leading-none font-extrabold">
@@ -41,7 +41,7 @@ export function RouteProgress({
           <span className="text-xl">%</span>
         </span>
         <span className="data-label text-ink-faint pb-0.5">
-          {completedTopics}/{totalTopics} tópicos
+          {completedTopics}/{totalTopics} etapas
         </span>
       </div>
       <RouteLine

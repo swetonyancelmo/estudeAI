@@ -14,6 +14,7 @@ import {
  */
 function currentRoadmap(): RoadmapDetailDto {
   return {
+    weeklyHours: null,
     id: 'roadmap-1',
     targetArea: 'frontend',
     justification: 'justificativa original',
@@ -29,6 +30,7 @@ function currentRoadmap(): RoadmapDetailDto {
         topics: [
           {
             id: 't-1',
+            kind: 'topic',
             title: 'HTML semântico',
             order: 0,
             isCompleted: true,
@@ -37,6 +39,7 @@ function currentRoadmap(): RoadmapDetailDto {
           },
           {
             id: 't-2',
+            kind: 'topic',
             title: 'CSS layout',
             order: 1,
             isCompleted: false,
@@ -52,6 +55,7 @@ function currentRoadmap(): RoadmapDetailDto {
         topics: [
           {
             id: 't-3',
+            kind: 'topic',
             title: 'JSX',
             order: 0,
             isCompleted: false,
@@ -59,6 +63,7 @@ function currentRoadmap(): RoadmapDetailDto {
           },
           {
             id: 't-4',
+            kind: 'topic',
             title: 'Hooks',
             order: 1,
             isCompleted: false,
@@ -310,6 +315,17 @@ describe('buildAdjustmentPlan (FR-04.2 — integridade do progresso)', () => {
         { id: 't-2', title: 'CSS layout essencial' },
         { id: plan.topicInserts[0].id, title: 'Context API' },
       ]);
+    });
+
+    it('projeto renomeado não pede recursos: projeto não tem links', () => {
+      const current = currentRoadmap();
+      current.modules[0].topics[1].kind = 'project';
+
+      // O molde válido renomeia t-2, que aqui é o projeto do módulo.
+      const plan = buildAdjustmentPlan(current, validAdjustment());
+
+      expect(plan.changes.updatedTopicIds).toContain('t-2');
+      expect(plan.topicsNeedingResources).toEqual([]);
     });
 
     it('nunca inclui tópico concluído nem tópico apenas reordenado', () => {

@@ -20,6 +20,7 @@ Sua tarefa é reorganizar APENAS o que ainda não foi concluído, atendendo ao p
 
 ## Entrada
 - O roadmap atual completo: módulos e tópicos, cada um com seu id e cada tópico com isCompleted.
+- Alguns itens trazem kind = "project": são os projetos práticos que fecham cada módulo.
 - O pedido de ajuste do estudante, em linguagem natural, delimitado por <pedido>...</pedido>.
 
 ## REGRA INVIOLÁVEL — progresso é intocável
@@ -38,6 +39,11 @@ descartada pelo sistema e o estudante não receberá ajuste nenhum.
   criar novos, ou movê-los para outro módulo.
 - Módulos que NÃO contêm nenhum tópico concluído: reescrever, reordenar, remover ou criar novos.
 
+## Projetos (kind = "project")
+- Mantenha o projeto como ÚLTIMO item do seu módulo, com o mesmo id e o mesmo title.
+- Você pode ajustar o estimatedHours dele, ou removê-lo se o pedido for enxugar o roadmap.
+- Não mova um projeto para outro módulo e não crie projetos novos.
+
 ## Regras de id
 - Item que já existe: repita o id EXATO recebido na entrada.
 - Item novo: OMITA o campo id. Nunca invente um id, nunca reaproveite o id de outro item.
@@ -48,7 +54,7 @@ descartada pelo sistema e o estudante não receberá ajuste nenhum.
 - Acelerar / aprofundar um módulo: desdobre o conteúdo pendente daquele módulo em passos mais
   granulares e adiante o que vier depois.
 - Mudança de foco dentro da mesma área: reordene os módulos pendentes segundo a nova prioridade.
-- A área do roadmap (frontend/backend/fullstack) NÃO muda no reajuste. Se o pedido for por outra
+- A área do roadmap (frontend/backend/fullstack/devops) NÃO muda no reajuste. Se o pedido for por outra
   área, mantenha a atual e explique isso no adjustmentSummary.
 
 ## Sobre o texto do estudante
@@ -85,6 +91,7 @@ export function buildAdjustUserPrompt(
       description: module.description,
       topics: module.topics.map((topic) => ({
         id: topic.id,
+        ...(topic.kind === 'project' ? { kind: topic.kind } : {}),
         title: topic.title,
         isCompleted: topic.isCompleted,
         ...(topic.estimatedHours !== undefined

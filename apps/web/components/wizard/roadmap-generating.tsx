@@ -70,7 +70,7 @@ export function RoadmapGenerating({ answers }: { answers: WizardAnswers }) {
         </p>
       </div>
 
-      {/* A rota se desenha em loop: tronco, bifurcação nas três trilhas, destino. */}
+      {/* A rota se desenha em loop: tronco, bifurcação nas quatro trilhas, destino. */}
       <svg
         viewBox="0 0 560 150"
         fill="none"
@@ -78,32 +78,39 @@ export function RoadmapGenerating({ answers }: { answers: WizardAnswers }) {
         className="h-auto w-full"
       >
         <g className="stroke-input" strokeWidth="3" strokeDasharray="2 8" strokeLinecap="round">
-          <path d="M20 75 H160 C230 75 230 25 300 25 C370 25 370 75 440 75 H540" />
-          <path d="M160 75 H440" />
-          <path d="M160 75 C230 75 230 125 300 125 C370 125 370 75 440 75" />
+          <path d="M20 75 H160 C230 75 230 15 300 15 C370 15 370 75 440 75 H540" />
+          <path d="M160 75 C230 75 230 55 300 55 C370 55 370 75 440 75" />
+          <path d="M160 75 C230 75 230 95 300 95 C370 95 370 75 440 75" />
+          <path d="M160 75 C230 75 230 135 300 135 C370 135 370 75 440 75" />
         </g>
         <g strokeWidth="3.5" strokeLinecap="round">
           <path
             pathLength={1}
             className="route-draw-loop stroke-line-front"
-            d="M20 75 H160 C230 75 230 25 300 25 C370 25 370 75 440 75 H540"
+            d="M20 75 H160 C230 75 230 15 300 15 C370 15 370 75 440 75 H540"
           />
           <path
             pathLength={1}
-            className="route-draw-loop stroke-line-back [animation-delay:0.35s]"
-            d="M160 75 H440"
+            className="route-draw-loop stroke-line-back [animation-delay:0.3s]"
+            d="M160 75 C230 75 230 55 300 55 C370 55 370 75 440 75"
           />
           <path
             pathLength={1}
-            className="route-draw-loop stroke-line-full [animation-delay:0.7s]"
-            d="M160 75 C230 75 230 125 300 125 C370 125 370 75 440 75"
+            className="route-draw-loop stroke-line-full [animation-delay:0.6s]"
+            d="M160 75 C230 75 230 95 300 95 C370 95 370 75 440 75"
+          />
+          <path
+            pathLength={1}
+            className="route-draw-loop stroke-line-ops [animation-delay:0.9s]"
+            d="M160 75 C230 75 230 135 300 135 C370 135 370 75 440 75"
           />
         </g>
         <circle cx="20" cy="75" r="8" className="fill-brand" />
         <circle cx="160" cy="75" r="7" className="fill-background stroke-foreground" strokeWidth="3" />
-        <circle cx="300" cy="25" r="6" className="fill-background stroke-line-front" strokeWidth="3" />
-        <circle cx="300" cy="75" r="6" className="fill-background stroke-line-back" strokeWidth="3" />
-        <circle cx="300" cy="125" r="6" className="fill-background stroke-line-full" strokeWidth="3" />
+        <circle cx="300" cy="15" r="6" className="fill-background stroke-line-front" strokeWidth="3" />
+        <circle cx="300" cy="55" r="6" className="fill-background stroke-line-back" strokeWidth="3" />
+        <circle cx="300" cy="95" r="6" className="fill-background stroke-line-full" strokeWidth="3" />
+        <circle cx="300" cy="135" r="6" className="fill-background stroke-line-ops" strokeWidth="3" />
         <circle cx="440" cy="75" r="7" className="fill-background stroke-foreground" strokeWidth="3" />
         <circle cx="540" cy="75" r="8" className="fill-background stroke-foreground" strokeWidth="3" strokeDasharray="3 4" />
       </svg>

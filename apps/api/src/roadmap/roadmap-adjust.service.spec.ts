@@ -27,6 +27,7 @@ const ROADMAP_ID = 'roadmap-1';
 /** Roadmap do usuário com 1 tópico concluído (t-1) e 2 pendentes. */
 function currentRoadmap(): RoadmapDetailDto {
   return {
+    weeklyHours: null,
     id: ROADMAP_ID,
     targetArea: 'frontend',
     justification: 'justificativa original',
@@ -42,6 +43,7 @@ function currentRoadmap(): RoadmapDetailDto {
         topics: [
           {
             id: 't-1',
+            kind: 'topic',
             title: 'HTML semântico',
             order: 0,
             isCompleted: true,
@@ -50,6 +52,7 @@ function currentRoadmap(): RoadmapDetailDto {
           },
           {
             id: 't-2',
+            kind: 'topic',
             title: 'CSS layout',
             order: 1,
             isCompleted: false,
@@ -57,6 +60,7 @@ function currentRoadmap(): RoadmapDetailDto {
           },
           {
             id: 't-3',
+            kind: 'topic',
             title: 'JS básico',
             order: 2,
             isCompleted: false,

@@ -235,6 +235,77 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
     });
   });
 
+  describe('projetos e ritmo semanal', () => {
+    it('grava o projeto com tipo e descrição; tópico comum fica como topic', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      await service.createFrom(OWNER, {
+        targetArea: 'frontend',
+        justification: 'justificativa',
+        modules: [
+          {
+            title: 'Fundamentos',
+            description: 'HTML e CSS',
+            order: 0,
+            topics: [
+              { title: 'HTML semântico', order: 0 },
+              {
+                kind: 'project',
+                title: 'Página pessoal',
+                description: 'Construa a sua página.',
+                order: 1,
+                estimatedHours: 8,
+              },
+            ],
+          },
+        ],
+      });
+
+      const created = roadmaps.create.mock.calls[0][0] as {
+        modules: { topics: Record<string, unknown>[] }[];
+      };
+      expect(
+        created.modules[0].topics.map((topic) => [
+          topic.kind,
+          topic.description,
+        ]),
+      ).toEqual([
+        ['topic', null],
+        ['project', 'Construa a sua página.'],
+      ]);
+    });
+
+    it('o detalhe devolve tipo, descrição do projeto e as horas semanais', async () => {
+      const roadmap = makePersistedRoadmap({
+        answers: { weeklyTime: '15h' } as never,
+      });
+      Object.assign(roadmap.modules[0].topics[2], {
+        kind: 'project',
+        description: 'Construa a sua página.',
+      });
+      roadmaps.findOne.mockResolvedValue(roadmap);
+
+      const detail = await service.findDetail(OWNER, 'roadmap-1');
+
+      expect(detail.weeklyHours).toBe(15);
+      const [first, , project] = detail.modules[0].topics;
+      expect(first.kind).toBe('topic');
+      expect(first).not.toHaveProperty('description');
+      expect(project).toMatchObject({
+        kind: 'project',
+        description: 'Construa a sua página.',
+      });
+    });
+
+    it('roadmap anterior às trilhas não tem ritmo conhecido', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      const detail = await service.findDetail(OWNER, 'roadmap-1');
+
+      expect(detail.weeklyHours).toBeNull();
+    });
+  });
+
   describe('ordem dos recursos pelo estilo de aprendizado', () => {
     function withResources(learningStyle: string | null): Roadmap {
       const roadmap = makePersistedRoadmap({

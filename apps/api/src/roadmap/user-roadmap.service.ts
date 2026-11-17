@@ -14,8 +14,10 @@ import type {
   RoadmapProgressDto,
   TargetArea,
   ToggleTopicResponseDto,
+  TopicKind,
   WizardAnswers,
 } from '@estudeai/shared-types';
+import { WEEKLY_HOURS } from '@estudeai/shared-types';
 import { Roadmap } from './entities/roadmap.entity';
 // A entidade se chama Module (ARCHITETURE.md §4); o alias evita ler como o
 // decorator @Module do Nest, mesmo padrão de roadmap.module.ts.
@@ -66,6 +68,9 @@ export interface RoadmapDraft {
     topics: {
       title: string;
       order: number;
+      /** Ausente = tópico comum. */
+      kind?: TopicKind;
+      description?: string;
       estimatedHours?: number;
       /** true = habilidade que a pessoa declarou já dominar. */
       isCompleted?: boolean;
@@ -122,6 +127,8 @@ export class UserRoadmapService {
         order: module.order,
         topics: module.topics.map((topic) => ({
           title: topic.title,
+          kind: topic.kind ?? 'topic',
+          description: topic.description ?? null,
           order: topic.order,
           isCompleted: topic.isCompleted ?? false,
           estimatedHours: topic.estimatedHours ?? null,
@@ -452,6 +459,9 @@ export class UserRoadmapService {
       status: roadmap.status,
       createdAt: roadmap.createdAt.toISOString(),
       progress: this.progressOf(roadmap),
+      weeklyHours: roadmap.answers
+        ? WEEKLY_HOURS[roadmap.answers.weeklyTime]
+        : null,
       modules: [...roadmap.modules]
         .sort((a, b) => a.order - b.order)
         .map((module) => ({
@@ -463,7 +473,10 @@ export class UserRoadmapService {
             .sort((a, b) => a.order - b.order)
             .map((topic) => ({
               id: topic.id,
+              // `?? 'topic'`: linha carregada sem a coluna (mocks, leituras parciais).
+              kind: topic.kind ?? 'topic',
               title: topic.title,
+              ...(topic.description ? { description: topic.description } : {}),
               order: topic.order,
               isCompleted: topic.isCompleted,
               estimatedHours: topic.estimatedHours ?? undefined,
