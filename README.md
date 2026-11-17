@@ -11,6 +11,7 @@ Plataforma que monta um **roadmap de estudos personalizado** de Frontend, Backen
 - **Diagnóstico em etapas** (wizard) que define a área, o ritmo, o formato preferido de estudo e o que a pessoa já domina
 - **Trilhas curadas no banco:** o conteúdo de cada área é revisado e versionado no repositório (`apps/api/src/tracks/content`), e não gerado a cada pedido
 - **Recorte por pessoa, sem IA:** menos tempo por semana dá um roadmap mais enxuto, e os tópicos do que a pessoa já sabe entram concluídos
+- **Projeto prático em cada módulo** e duração estimada em semanas, no ritmo que a pessoa informou
 - **Justificativa escrita por IA** (Gemini), com um texto por regra de reserva: a geração nunca falha por erro de IA
 - **Progresso por usuário:** marcar tópicos como concluídos e voltar depois
 - **Reajuste dinâmico:** a IA reorganiza só o que falta, sem apagar o que já foi concluído

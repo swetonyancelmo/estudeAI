@@ -7,6 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import type { TopicKind } from '@estudeai/shared-types';
 import { Module } from './module.entity';
 import { Resource } from './resource.entity';
 
@@ -30,6 +31,14 @@ export class Topic {
 
   @Column({ type: 'varchar' })
   title: string;
+
+  /** Tópico de estudo ou projeto de fim de módulo. */
+  @Column({ type: 'varchar', default: 'topic' })
+  kind: TopicKind;
+
+  /** Só nos projetos: o que construir. */
+  @Column({ type: 'text', nullable: true })
+  description: string | null;
 
   @Column({ type: 'boolean', name: 'is_completed', default: false })
   isCompleted: boolean;

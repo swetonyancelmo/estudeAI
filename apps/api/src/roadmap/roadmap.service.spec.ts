@@ -37,6 +37,9 @@ function makeTrack(): Track {
         title: 'Aprofundamento',
         description: 'Só opcionais.',
         order: 1,
+        projectTitle: 'Projeto do módulo',
+        projectDescription: 'Construa algo.',
+        projectHours: 8,
         topics: [trackTopic('extra', 0, { required: false })],
       },
       {
@@ -44,6 +47,9 @@ function makeTrack(): Track {
         title: 'Fundamentos',
         description: 'A base.',
         order: 0,
+        projectTitle: 'Projeto do módulo',
+        projectDescription: 'Construa algo.',
+        projectHours: 8,
         topics: [
           trackTopic('css', 1, {
             resources: [
@@ -73,6 +79,9 @@ function makeTrack(): Track {
         title: 'JavaScript',
         description: 'A linguagem.',
         order: 2,
+        projectTitle: 'Projeto do módulo',
+        projectDescription: 'Construa algo.',
+        projectHours: 8,
         topics: [trackTopic('js', 0)],
       },
     ],
@@ -137,7 +146,26 @@ describe('RoadmapService (geração por trilha curada)', () => {
     ).toEqual([
       ['html', 0],
       ['css', 1],
+      [undefined, 2],
     ]);
+  });
+
+  it('fecha cada módulo com o seu projeto, pendente e sem recursos', async () => {
+    await service.generate(userId, answers);
+
+    for (const module of draft().modules) {
+      const last = module.topics.at(-1);
+      expect(last).toEqual({
+        kind: 'project',
+        title: 'Projeto do módulo',
+        description: 'Construa algo.',
+        order: module.topics.length - 1,
+        estimatedHours: 8,
+      });
+      expect(
+        module.topics.slice(0, -1).every((item) => item.kind === undefined),
+      ).toBe(true);
+    }
   });
 
   it('tópico de habilidade dominada nasce concluído; os demais, não', async () => {
@@ -177,6 +205,7 @@ describe('RoadmapService (geração por trilha curada)', () => {
         area: 'frontend',
         areaChosenByUser: true,
         moduleCount: 2,
+        // Projetos não entram na conta de tópicos da justificativa.
         topicCount: 3,
         knownTopicCount: 1,
       },

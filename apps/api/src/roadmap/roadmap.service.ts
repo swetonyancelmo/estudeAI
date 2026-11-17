@@ -21,7 +21,8 @@ import { UserRoadmapService } from './user-roadmap.service';
  * curadas (docs/TRILHAS.md):
  *
  *  1. as respostas escolhem a trilha (regra fixa);
- *  2. a trilha é recortada para a pessoa (tempo semanal + o que ela já sabe);
+ *  2. a trilha é recortada para a pessoa (tempo semanal + o que ela já sabe),
+ *     e cada módulo que sobra ganha o seu projeto prático como último item;
  *  3. a IA escreve só a justificativa, com texto por regra de reserva;
  *  4. o recorte é copiado para linhas do usuário (FR-03.2).
  *
@@ -92,24 +93,35 @@ export class RoadmapService {
         description: module.description,
         // Reindexado: módulos e tópicos cortados não deixam buraco na ordem.
         order: moduleIndex,
-        topics: moduleTopics.map(({ topic, alreadyKnown }, topicIndex) => ({
-          title: topic.title,
-          order: topicIndex,
-          estimatedHours: topic.estimatedHours,
-          isCompleted: alreadyKnown,
-          trackTopicId: topic.id,
-          resources: [...topic.resources]
-            .sort((a, b) => a.order - b.order)
-            .map((resource) => ({
-              title: resource.title,
-              url: resource.url,
-              type: resource.type,
-              source: resource.source,
-              ...(resource.thumbnailUrl
-                ? { thumbnailUrl: resource.thumbnailUrl }
-                : {}),
-            })),
-        })),
+        topics: [
+          ...moduleTopics.map(({ topic, alreadyKnown }, topicIndex) => ({
+            title: topic.title,
+            order: topicIndex,
+            estimatedHours: topic.estimatedHours,
+            isCompleted: alreadyKnown,
+            trackTopicId: topic.id,
+            resources: [...topic.resources]
+              .sort((a, b) => a.order - b.order)
+              .map((resource) => ({
+                title: resource.title,
+                url: resource.url,
+                type: resource.type,
+                source: resource.source,
+                ...(resource.thumbnailUrl
+                  ? { thumbnailUrl: resource.thumbnailUrl }
+                  : {}),
+              })),
+          })),
+          // O projeto fecha o módulo, em todos os ritmos. Nunca nasce
+          // concluído: saber a teoria não é ter construído.
+          {
+            kind: 'project' as const,
+            title: module.projectTitle,
+            description: module.projectDescription,
+            order: moduleTopics.length,
+            estimatedHours: module.projectHours,
+          },
+        ],
       })),
     });
   }

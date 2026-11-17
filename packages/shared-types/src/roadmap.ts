@@ -12,6 +12,13 @@ export type LearningGoal = (typeof LEARNING_GOALS)[number];
 export const WEEKLY_TIMES = ["5h", "15h", "30h+"] as const;
 export type WeeklyTime = (typeof WEEKLY_TIMES)[number];
 
+/** Horas por semana que cada faixa representa, para estimar a duração. */
+export const WEEKLY_HOURS: Record<WeeklyTime, number> = {
+  "5h": 5,
+  "15h": 15,
+  "30h+": 30,
+};
+
 /**
  * Afinidade: interface/visual, lógica/dados ou infraestrutura (FR-01.2).
  * Só é perguntada a quem ainda não sabe a área — ver `WizardAnswers.affinity`.
@@ -182,9 +189,20 @@ export interface RoadmapProgressDto {
   percent: number;
 }
 
+/**
+ * O que o item do roadmap é: um tópico de estudo ou o projeto prático que
+ * fecha o módulo (docs/TRILHAS.md §5). Projeto conta no progresso e nas horas
+ * como qualquer item, mas não tem recursos e traz uma descrição.
+ */
+export const TOPIC_KINDS = ["topic", "project"] as const;
+export type TopicKind = (typeof TOPIC_KINDS)[number];
+
 export interface PersistedTopicDto {
   id: string;
+  kind: TopicKind;
   title: string;
+  /** Só nos projetos: o que construir. */
+  description?: string;
   /** Ordem dentro do módulo (0-based). */
   order: number;
   isCompleted: boolean;
@@ -225,6 +243,13 @@ export interface RoadmapDetailDto {
   /** ISO 8601. */
   createdAt: string;
   progress: RoadmapProgressDto;
+  /**
+   * Ritmo declarado no wizard, em horas por semana. Nulo nos roadmaps
+   * anteriores às trilhas curadas. Vem o ritmo, e não a duração pronta, porque
+   * a duração depende do que falta — e isso muda a cada tópico marcado, no
+   * cliente, antes de qualquer resposta do servidor.
+   */
+  weeklyHours: number | null;
   modules: PersistedModuleDto[];
 }
 
