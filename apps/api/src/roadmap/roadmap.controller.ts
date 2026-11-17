@@ -9,19 +9,24 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import type {
   AdjustRoadmapResponseDto,
+  ResourceProgressDto,
   RoadmapDetailDto,
   RoadmapListItemDto,
   ToggleTopicResponseDto,
+  TopicNoteDto,
 } from '@estudeai/shared-types';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/strategies/jwt.strategy';
 import { AdjustRoadmapDto } from './dto/adjust-roadmap.dto';
+import { UpdateResourceProgressDto } from './dto/update-resource-progress.dto';
+import { UpdateTopicNoteDto } from './dto/update-topic-note.dto';
 import { WizardAnswersDto } from './dto/wizard-answers.dto';
 import { RoadmapService } from './roadmap.service';
 import { RoadmapAdjustService } from './roadmap-adjust.service';
@@ -92,6 +97,47 @@ export class RoadmapController {
     @Param('topicId', ParseUUIDPipe) topicId: string,
   ): Promise<ToggleTopicResponseDto> {
     return this.userRoadmaps.toggleTopic(user.id, id, topicId);
+  }
+
+  /** Sala de estudo — andamento num recurso (vídeo assistido, artigo lido). */
+  @Patch(':id/topics/:topicId/resources/:resourceId')
+  @HttpCode(HttpStatus.OK)
+  updateResourceProgress(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('topicId', ParseUUIDPipe) topicId: string,
+    @Param('resourceId', ParseUUIDPipe) resourceId: string,
+    @Body() dto: UpdateResourceProgressDto,
+  ): Promise<ResourceProgressDto> {
+    return this.userRoadmaps.updateResourceProgress(
+      user.id,
+      id,
+      topicId,
+      resourceId,
+      dto,
+    );
+  }
+
+  /** Sala de estudo — anotação do tópico. */
+  @Get(':id/topics/:topicId/note')
+  getNote(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('topicId', ParseUUIDPipe) topicId: string,
+  ): Promise<TopicNoteDto> {
+    return this.userRoadmaps.getNote(user.id, id, topicId);
+  }
+
+  /** Sala de estudo — salva a anotação inteira (autosave). */
+  @Put(':id/topics/:topicId/note')
+  @HttpCode(HttpStatus.OK)
+  updateNote(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('topicId', ParseUUIDPipe) topicId: string,
+    @Body() dto: UpdateTopicNoteDto,
+  ): Promise<TopicNoteDto> {
+    return this.userRoadmaps.updateNote(user.id, id, topicId, dto.content);
   }
 
   /**

@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useRoadmap, useToggleTopic } from "@/lib/roadmaps/api";
 import { AREA_LABELS } from "@/lib/roadmaps/labels";
+import { studyHref } from "@/lib/roadmaps/study";
 import {
   TRACK_CLASS,
   moduleStates,
@@ -254,6 +255,7 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
                             topic={topic}
                             onToggle={toggle.mutate}
                             highlight={highlightOf(topic.id)}
+                            studyHref={studyHref(roadmap.id, topic.id)}
                           />
                         ))}
                       </div>
