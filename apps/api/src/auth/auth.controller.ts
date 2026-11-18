@@ -63,7 +63,11 @@ export class AuthController {
     return session.response;
   }
 
-  @Throttle({ default: { limit: 10, ttl: 900000 } })
+  // O refresh roda a cada carregamento de página (o access token vive só em
+  // memória), então não pode ter o limite apertado do login: 10 a cada 15 min
+  // deslogava quem recarregava ou dividia IP. Força bruta aqui não é risco (o
+  // token tem 256 bits aleatórios); o limite só segura abuso de volume.
+  @Throttle({ default: { limit: 60, ttl: 60000 } })
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   async refresh(
