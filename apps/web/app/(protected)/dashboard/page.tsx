@@ -6,6 +6,7 @@ import type { RoadmapListItemDto } from "@estudeai/shared-types";
 import { buttonVariants } from "@/components/ui/button";
 import { RouteLine } from "@/components/brand/route-line";
 import { RoadmapCard } from "@/components/roadmap/roadmap-card";
+import { ReviewTodayCard } from "@/components/review/review-today-card";
 import { useRoadmaps } from "@/lib/roadmaps/api";
 
 /**
@@ -57,6 +58,8 @@ function List({ roadmaps }: { roadmaps: RoadmapListItemDto[] }) {
           Novo roadmap
         </Link>
       </div>
+
+      <ReviewTodayCard />
 
       <div className="grid gap-5 sm:grid-cols-2">
         {roadmaps.map((roadmap) => (

@@ -28,6 +28,7 @@ describe('QuizService (Fase 3)', () => {
   let userRoadmaps: { loadOwnedTopic: jest.Mock };
   let questions: { find: jest.Mock };
   let attempts: { insert: jest.Mock; query: jest.Mock };
+  let review: { record: jest.Mock };
   let service: QuizService;
 
   beforeEach(() => {
@@ -40,10 +41,12 @@ describe('QuizService (Fase 3)', () => {
       insert: jest.fn().mockResolvedValue(undefined),
       query: jest.fn().mockResolvedValue([]),
     };
+    review = { record: jest.fn().mockResolvedValue(new Date()) };
     service = new QuizService(
       userRoadmaps as unknown as UserRoadmapService,
       questions as never,
       attempts as never,
+      review as never,
     );
   });
 
@@ -124,6 +127,8 @@ describe('QuizService (Fase 3)', () => {
         chosenIndex: 3,
         isCorrect: true,
       });
+      // Fase 6: toda resposta agenda a revisão espaçada.
+      expect(review.record).toHaveBeenCalledWith(USER, 'topic-1', 'q2', true);
       expect(result).toEqual({
         questionId: 'q2',
         chosenIndex: 3,
@@ -164,6 +169,7 @@ describe('QuizService (Fase 3)', () => {
         }),
       ).rejects.toThrow(NotFoundException);
       expect(attempts.insert).not.toHaveBeenCalled();
+      expect(review.record).not.toHaveBeenCalled();
     });
 
     it('alternativa além das que a pergunta tem: 400', async () => {
