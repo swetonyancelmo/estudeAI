@@ -35,27 +35,54 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
  */
 let refreshPromise: Promise<boolean> | null = null;
 
-export function refreshSession(): Promise<boolean> {
-  if (!refreshPromise) {
-    refreshPromise = axios
-      .post<AuthResponse>(
+/** Esperas entre tentativas quando a falha é passageira. */
+const REFRESH_RETRY_DELAYS_MS = [1000, 3000];
+
+/**
+ * Só 401 (e 403) dizem que a sessão acabou. 429, 5xx e erro de rede não dizem
+ * nada sobre o cookie: deslogar nesses casos jogava fora uma sessão válida.
+ */
+function isSessionRejected(error: unknown): boolean {
+  const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+  return status === 401 || status === 403;
+}
+
+async function requestRefresh(): Promise<boolean> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const { data } = await axios.post<AuthResponse>(
         `${API_URL}/auth/refresh`,
         {},
         { withCredentials: true },
-      )
-      .then(({ data }) => {
-        useAuthStore.getState().setSession(data.accessToken, data.user);
-        setAuthFlag();
-        return true;
-      })
-      .catch(() => {
+      );
+      useAuthStore.getState().setSession(data.accessToken, data.user);
+      setAuthFlag();
+      return true;
+    } catch (error) {
+      if (isSessionRejected(error)) {
         useAuthStore.getState().clearSession();
         clearAuthFlag();
         return false;
-      })
-      .finally(() => {
-        refreshPromise = null;
-      });
+      }
+      const delay = REFRESH_RETRY_DELAYS_MS[attempt];
+      if (delay === undefined) {
+        // Mantém o cookie flag: a sessão provavelmente segue válida. Quem já
+        // estava logado continua na tela (a requisição falha e pode ser
+        // repetida); no carregamento, o AuthGuard oferece "tentar de novo".
+        const { status, setStatus } = useAuthStore.getState();
+        if (status !== "authenticated") setStatus("unavailable");
+        return false;
+      }
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+}
+
+export function refreshSession(): Promise<boolean> {
+  if (!refreshPromise) {
+    refreshPromise = requestRefresh().finally(() => {
+      refreshPromise = null;
+    });
   }
   return refreshPromise;
 }
