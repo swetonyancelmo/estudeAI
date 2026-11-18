@@ -15,6 +15,8 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import type {
   AdjustRoadmapResponseDto,
+  QuizAnswerResultDto,
+  QuizDto,
   ResourceProgressDto,
   RoadmapDetailDto,
   RoadmapListItemDto,
@@ -25,11 +27,13 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/strategies/jwt.strategy';
 import { AdjustRoadmapDto } from './dto/adjust-roadmap.dto';
+import { SubmitQuizAnswerDto } from './dto/submit-quiz-answer.dto';
 import { UpdateResourceProgressDto } from './dto/update-resource-progress.dto';
 import { UpdateTopicNoteDto } from './dto/update-topic-note.dto';
 import { WizardAnswersDto } from './dto/wizard-answers.dto';
 import { RoadmapService } from './roadmap.service';
 import { RoadmapAdjustService } from './roadmap-adjust.service';
+import { QuizService } from './quiz.service';
 import { UserRoadmapService } from './user-roadmap.service';
 
 /**
@@ -44,6 +48,7 @@ export class RoadmapController {
     private readonly roadmapService: RoadmapService,
     private readonly userRoadmaps: UserRoadmapService,
     private readonly adjustService: RoadmapAdjustService,
+    private readonly quizzes: QuizService,
   ) {}
 
   /**
@@ -116,6 +121,28 @@ export class RoadmapController {
       resourceId,
       dto,
     );
+  }
+
+  /** Fase 3 — perguntas do quiz do tópico, sem o gabarito. */
+  @Get(':id/topics/:topicId/quiz')
+  getQuiz(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('topicId', ParseUUIDPipe) topicId: string,
+  ): Promise<QuizDto> {
+    return this.quizzes.getQuiz(user.id, id, topicId);
+  }
+
+  /** Fase 3 — corrige uma resposta, grava a tentativa e revela o gabarito. */
+  @Post(':id/topics/:topicId/quiz/answers')
+  @HttpCode(HttpStatus.OK)
+  answerQuiz(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('topicId', ParseUUIDPipe) topicId: string,
+    @Body() dto: SubmitQuizAnswerDto,
+  ): Promise<QuizAnswerResultDto> {
+    return this.quizzes.answer(user.id, id, topicId, dto);
   }
 
   /** Sala de estudo — anotação do tópico. */

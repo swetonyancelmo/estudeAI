@@ -536,9 +536,11 @@ export class UserRoadmapService {
 
   /**
    * Tópico de um roadmap do usuário. Mesma regra do `toggleTopic`: o tópico
-   * precisa estar num módulo DESTE roadmap, senão 404.
+   * precisa estar num módulo DESTE roadmap, senão 404 (e roadmap alheio, 403).
+   * Público porque outros services da sala de estudo (quiz) dependem da mesma
+   * checagem de dono.
    */
-  private async loadOwnedTopic(
+  async loadOwnedTopic(
     userId: string,
     roadmapId: string,
     topicId: string,

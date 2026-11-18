@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   KNOWN_SKILLS,
+  QUIZ_OPTION_COUNT,
   TRACK_TOPIC_LEVELS,
   type KnownSkill,
   type TrackTopicLevel,
@@ -33,6 +34,22 @@ export interface TrackDocContent {
   url: string;
 }
 
+/**
+ * Pergunta de quiz de um tópico (Fase 3). O `id` é estável e vai para o banco:
+ * as tentativas dos usuários ficam presas a ele, então editar o texto da
+ * pergunta não perde o histórico, mas trocar o `id` perde.
+ */
+export interface TrackQuizQuestionContent {
+  id: string;
+  question: string;
+  /** Exatamente `QUIZ_OPTION_COUNT` alternativas, todas diferentes. */
+  options: string[];
+  /** Índice (0-based) da alternativa certa em `options`. */
+  answerIndex: number;
+  /** Por que a certa é a certa — mostrada depois da resposta. */
+  explanation: string;
+}
+
 export interface TrackTopicContent {
   slug: string;
   title: string;
@@ -44,6 +61,8 @@ export interface TrackTopicContent {
   searchQuery: string;
   /** Documentação oficial curada (0 a `MAX_TOPIC_DOCS` links). Opcional. */
   docs?: TrackDocContent[];
+  /** Quiz do tópico (`MIN_QUIZ_QUESTIONS` a `MAX_QUIZ_QUESTIONS`). Opcional. */
+  quiz?: TrackQuizQuestionContent[];
 }
 
 export interface TrackProjectContent {
@@ -74,6 +93,11 @@ export interface LoadedTrack {
 }
 
 const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
+/** Tamanho do quiz de um tópico: checagem rápida, não prova. */
+export const MIN_QUIZ_QUESTIONS = 3;
+export const MAX_QUIZ_QUESTIONS = 5;
+const MAX_QUIZ_TEXT = 400;
 
 /** Teto de links de documentação por tópico: é leitura de apoio, não índice. */
 export const MAX_TOPIC_DOCS = 4;
@@ -232,6 +256,8 @@ export function validateTrackContent(
   if (modules.length === 0) problems.push('trilha sem módulos');
 
   const moduleSlugs = new Set<string>();
+  /** Ids de pergunta já vistos: únicos na trilha inteira. */
+  const quizIds = new Set<string>();
   /** slug → required, só dos tópicos já percorridos (ou seja, anteriores). */
   const seenTopics = new Map<string, boolean>();
 
@@ -278,6 +304,9 @@ export function validateTrackContent(
       if (!isText(topic.searchQuery)) problems.push(`${at}: sem searchQuery`);
       if (topic.docs !== undefined) {
         problems.push(...validateDocs(topic.docs, at));
+      }
+      if (topic.quiz !== undefined) {
+        problems.push(...validateQuiz(topic.quiz, at, quizIds));
       }
       if (!TRACK_TOPIC_LEVELS.includes(topic.level)) {
         problems.push(`${at}: level inválido "${String(topic.level)}"`);
@@ -345,6 +374,67 @@ function validateDocs(docs: unknown, at: string): string[] {
     }
     if (seen.has(doc.url)) problems.push(`${at}: doc repetido "${doc.url}"`);
     seen.add(doc.url);
+  }
+  return problems;
+}
+
+function isShortText(value: unknown): value is string {
+  return isText(value) && value.length <= MAX_QUIZ_TEXT;
+}
+
+/** Regras do campo `quiz` de um tópico. Devolve os problemas encontrados. */
+function validateQuiz(
+  quiz: unknown,
+  at: string,
+  seenIds: Set<string>,
+): string[] {
+  if (!Array.isArray(quiz)) return [`${at}: quiz deve ser uma lista`];
+
+  const problems: string[] = [];
+  if (quiz.length < MIN_QUIZ_QUESTIONS || quiz.length > MAX_QUIZ_QUESTIONS) {
+    problems.push(
+      `${at}: quiz deve ter de ${MIN_QUIZ_QUESTIONS} a ${MAX_QUIZ_QUESTIONS} perguntas`,
+    );
+  }
+  for (const item of quiz as Partial<TrackQuizQuestionContent>[]) {
+    const where = `${at}, pergunta "${String(item?.id)}"`;
+    if (!isText(item?.id) || !SLUG_PATTERN.test(item.id)) {
+      problems.push(`${where}: id ausente ou fora do kebab-case`);
+      continue;
+    }
+    if (seenIds.has(item.id)) problems.push(`${where}: id repetido na trilha`);
+    seenIds.add(item.id);
+
+    if (!isShortText(item.question)) {
+      problems.push(
+        `${where}: question vazia ou com mais de ${MAX_QUIZ_TEXT} caracteres`,
+      );
+    }
+    if (!isShortText(item.explanation)) {
+      problems.push(
+        `${where}: explanation vazia ou com mais de ${MAX_QUIZ_TEXT} caracteres`,
+      );
+    }
+    const options = Array.isArray(item.options) ? item.options : [];
+    if (
+      options.length !== QUIZ_OPTION_COUNT ||
+      !options.every(isShortText) ||
+      new Set(options.map((option) => option.trim().toLowerCase())).size !==
+        options.length
+    ) {
+      problems.push(
+        `${where}: precisa de ${QUIZ_OPTION_COUNT} alternativas preenchidas e diferentes`,
+      );
+    }
+    if (
+      !Number.isInteger(item.answerIndex) ||
+      (item.answerIndex as number) < 0 ||
+      (item.answerIndex as number) >= QUIZ_OPTION_COUNT
+    ) {
+      problems.push(
+        `${where}: answerIndex deve ser de 0 a ${QUIZ_OPTION_COUNT - 1}`,
+      );
+    }
   }
   return problems;
 }

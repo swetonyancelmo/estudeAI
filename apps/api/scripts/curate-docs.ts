@@ -29,13 +29,13 @@ import {
   type TrackSlug,
 } from '../src/tracks/track-content';
 import { mdnJsonUrl, parseMdnUrl } from '../src/docs/mdn-url';
+import { generateJson, sleep } from './gemini-json';
 import { assertSameContent, setTopicDocs } from './track-json-docs';
 
 const CONTENT_DIR = join(__dirname, '..', 'src', 'tracks', 'content');
 const DOCS_PER_TOPIC = 3;
 const FETCH_TIMEOUT_MS = 20_000;
 const DELAY_MS = 1_500;
-const GEMINI_TIMEOUT_MS = 30_000;
 const USER_AGENT =
   'Mozilla/5.0 (compatible; estudeAI-docs-curator/1.0; +https://github.com/)';
 
@@ -69,87 +69,32 @@ function parseArgs() {
   };
 }
 
-function models(): string[] {
-  const raw = process.env.GEMINI_MODELS ?? process.env.GEMINI_MODEL ?? '';
-  const list = raw
-    .split(',')
-    .map((m) => m.trim())
-    .filter(Boolean);
-  return list.length > 0
-    ? list
-    : ['gemini-flash-latest', 'gemini-flash-lite-latest'];
-}
-
-/** Modelos que responderam 429 (cota esgotada): pulados pelo resto da rodada. */
-const exhaustedModels = new Set<string>();
-const MAX_ATTEMPTS = 5;
-
-function isQuotaError(error: unknown): boolean {
-  return /"code":\s*429|RESOURCE_EXHAUSTED|exceeded your current quota/i.test(
-    String(error),
-  );
-}
-
 async function suggest(
   ai: GoogleGenAI,
   context: { track: string; module: string; topic: string },
 ): Promise<Suggestion[]> {
-  const prompt = `Trilha: ${context.track}\nMódulo: ${context.module}\nTópico: ${context.topic}`;
-  let lastError: unknown;
-  for (const model of models()) {
-    if (exhaustedModels.has(model)) continue;
-    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-      try {
-        const response = await withTimeout(
-          ai.models.generateContent({
-            model,
-            contents: prompt,
-            config: {
-              systemInstruction: SYSTEM_INSTRUCTION,
-              temperature: 0.2,
-              responseMimeType: 'application/json',
-              responseSchema: {
-                type: Type.OBJECT,
-                properties: {
-                  docs: {
-                    type: Type.ARRAY,
-                    items: {
-                      type: Type.OBJECT,
-                      properties: {
-                        title: { type: Type.STRING },
-                        url: { type: Type.STRING },
-                      },
-                      required: ['title', 'url'],
-                    },
-                  },
-                },
-                required: ['docs'],
-              },
+  const parsed = await generateJson<{ docs?: Suggestion[] }>(ai, {
+    systemInstruction: SYSTEM_INSTRUCTION,
+    prompt: `Trilha: ${context.track}\nMódulo: ${context.module}\nTópico: ${context.topic}`,
+    schema: {
+      type: Type.OBJECT,
+      properties: {
+        docs: {
+          type: Type.ARRAY,
+          items: {
+            type: Type.OBJECT,
+            properties: {
+              title: { type: Type.STRING },
+              url: { type: Type.STRING },
             },
-          }),
-          GEMINI_TIMEOUT_MS,
-        );
-        const parsed = JSON.parse(response.text ?? '{}') as {
-          docs?: Suggestion[];
-        };
-        return (parsed.docs ?? []).slice(0, DOCS_PER_TOPIC + 2);
-      } catch (error) {
-        lastError = error;
-        console.log(
-          `  … ${model}, tentativa ${attempt + 1}: ${String(error).slice(0, 120)}`,
-        );
-        if (isQuotaError(error)) {
-          // Cota não volta em segundos: insistir só gasta tempo.
-          exhaustedModels.add(model);
-          console.log(`  … ${model} sem cota, pulado pelo resto da rodada.`);
-          break;
-        }
-        // Sobrecarga (503) costuma passar em alguns segundos: espera crescente.
-        await sleep(Math.min(5_000 * 2 ** attempt, 60_000));
-      }
-    }
-  }
-  throw lastError;
+            required: ['title', 'url'],
+          },
+        },
+      },
+      required: ['docs'],
+    },
+  });
+  return (parsed.docs ?? []).slice(0, DOCS_PER_TOPIC + 2);
 }
 
 /**
@@ -222,23 +167,6 @@ async function get(url: string): Promise<Response | null> {
   } catch {
     return null;
   }
-}
-
-function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  return Promise.race([
-    promise,
-    new Promise<never>((_, reject) => {
-      timer = setTimeout(
-        () => reject(new Error(`sem resposta em ${ms} ms`)),
-        ms,
-      );
-    }),
-  ]).finally(() => clearTimeout(timer));
-}
-
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function main() {
@@ -324,7 +252,10 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
-  process.exit(1);
-});
+main()
+  // Conexões abertas do SDK seguram o processo vivo: sai ao terminar.
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exit(1);
+  });

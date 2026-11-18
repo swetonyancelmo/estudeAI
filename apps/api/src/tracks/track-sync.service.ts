@@ -4,10 +4,12 @@ import { Track } from './entities/track.entity';
 import { TrackModule } from './entities/track-module.entity';
 import { TrackTopic } from './entities/track-topic.entity';
 import { TrackTopicResource } from './entities/track-topic-resource.entity';
+import { TrackQuizQuestion } from './entities/track-quiz-question.entity';
 import {
   TRACK_SLUGS,
   loadTrack,
   type LoadedTrack,
+  type TrackQuizQuestionContent,
   type TrackSlug,
 } from './track-content';
 
@@ -168,6 +170,7 @@ export class TrackSyncService implements OnApplicationBootstrap {
           }),
         );
         keptTopicIds.add(topic.id);
+        await this.syncQuiz(manager, topic.id, topicContent.quiz ?? []);
         if (requeue) {
           requeuedTopicIds.push(topic.id);
         }
@@ -199,5 +202,50 @@ export class TrackSyncService implements OnApplicationBootstrap {
     await manager.query(COPY_DOCS_TO_USER_TOPICS_SQL, [track.id]);
 
     return existing ? 'updated' : 'created';
+  }
+
+  /**
+   * Perguntas de quiz de um tópico (Fase 3), casadas pelo `id` do JSON (slug
+   * no banco). Assim o uuid de cada pergunta não muda entre syncs, e as
+   * tentativas dos usuários continuam presas a ela mesmo quando o texto é
+   * corrigido. Pergunta que saiu do JSON é apagada, e as tentativas nela vão
+   * junto (CASCADE).
+   */
+  private async syncQuiz(
+    manager: EntityManager,
+    trackTopicId: string,
+    quiz: TrackQuizQuestionContent[],
+  ): Promise<void> {
+    const existing = await manager.find(TrackQuizQuestion, {
+      where: { trackTopicId },
+    });
+    const bySlug = new Map(existing.map((row) => [row.slug, row]));
+    const kept = new Set<string>();
+
+    for (const [order, item] of quiz.entries()) {
+      const row = await manager.save(
+        manager.merge(
+          TrackQuizQuestion,
+          bySlug.get(item.id) ?? manager.create(TrackQuizQuestion),
+          {
+            trackTopicId,
+            slug: item.id,
+            question: item.question,
+            options: item.options,
+            answerIndex: item.answerIndex,
+            explanation: item.explanation,
+            order,
+          },
+        ),
+      );
+      kept.add(row.id);
+    }
+
+    const removed = existing
+      .filter((row) => !kept.has(row.id))
+      .map((row) => row.id);
+    if (removed.length > 0) {
+      await manager.delete(TrackQuizQuestion, { id: In(removed) });
+    }
   }
 }

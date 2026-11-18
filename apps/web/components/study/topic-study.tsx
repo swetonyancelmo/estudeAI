@@ -34,6 +34,7 @@ import {
   parseYoutubeUrl,
 } from "@/lib/roadmaps/youtube";
 import { TopicNoteEditor } from "./topic-note-editor";
+import { TopicQuiz } from "./topic-quiz";
 import { YoutubePlayer } from "./youtube-player";
 
 /** Intervalo mínimo entre dois registros de "em andamento" do mesmo vídeo. */
@@ -240,6 +241,15 @@ function StudyRoom({
               </p>
             )
           )}
+
+          <TopicQuiz
+            roadmapId={roadmap.id}
+            topicId={topic.id}
+            topicCompleted={topic.isCompleted}
+            onCompleteTopic={() => {
+              if (!topic.isCompleted) toggle.mutate(topic.id);
+            }}
+          />
 
           <TopicNoteEditor roadmapId={roadmap.id} topicId={topic.id} />
         </div>

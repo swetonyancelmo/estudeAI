@@ -125,6 +125,15 @@ Além dos links buscados pela fila, cada tópico pode ter até 4 links de **docu
 - **Banco:** `track_topics.docs` (jsonb), regravado a cada sync. No roadmap do usuário, cada doc vira uma linha de `topic_resources` com `source = 'docs'`: entra na geração e, para roadmaps já existentes, é copiada no sync (só acrescenta; doc tirada do JSON continua com quem já tinha). A fila do YouTube ignora essas linhas ao decidir se um tópico "já tem recursos".
 - **Leitor:** páginas da MDN abrem no leitor do estudeAI (`GET /docs/mdn?url=...`). A API busca a versão JSON da página (pt-BR, senão en-US), sanitiza o HTML por lista de permissões e guarda em `mdn_articles` por 7 dias. Mudou o sanitizador? Suba `MDN_ARTICLE_FORMAT` para invalidar o cache. O conteúdo é CC-BY-SA 2.5 e o leitor sempre mostra a atribuição a "Mozilla Contributors" e o link para a página original. As demais docs abrem no site oficial.
 
+### 8.2 Quizzes (plataforma de estudos, Fase 3)
+
+Cada tópico pode ter um campo `quiz` com 3 a 5 perguntas de múltipla escolha: `{ "id", "question", "options" (4, todas diferentes), "answerIndex" (0 a 3), "explanation" }`. O `id` é estável (`<slug-do-tópico>-<n>`): as respostas dos usuários ficam presas a ele, então corrigir o texto de uma pergunta mantém o histórico, mas trocar o `id` não.
+
+- **Geração:** `pnpm --filter api quiz:curate <trilha>` pede ao Gemini enunciado, resposta certa, 3 erradas e explicação. O script decide a posição da certa (uma vez em cada letra por tópico, em ordem embaralhada pelo slug), descarta perguntas com alternativa repetida, "todas/nenhuma das anteriores" ou certa bem mais longa que as erradas, e grava só o bloco `quiz` de cada tópico. **Revise antes de commitar.** `--force` refaz; `--limit N` processa só N.
+- **Banco:** `track_quiz_questions` (casadas pelo `id` do JSON a cada sync; pergunta que sai do JSON é apagada com as respostas dela) e `quiz_attempts` (cada resposta, só acrescentada). As perguntas não são copiadas para o roadmap do usuário: vêm do tópico da trilha (`roadmap_topics.track_topic_id`). Tópico sem essa ligação (projeto, ou assunto trocado num reajuste) não tem quiz.
+- **API:** `GET /roadmap/:id/topics/:topicId/quiz` devolve perguntas e alternativas **sem o gabarito**; `POST .../quiz/answers` corrige, grava a resposta e só então revela a certa e a explicação. A situação do quiz é a última resposta de cada pergunta. A partir de 70% de acerto (`QUIZ_PASS_RATIO`), a tela sugere concluir o tópico, sem obrigar.
+- Os JSONs das trilhas estão no `.prettierignore` da API: formatar a pasta não pode reescrever o arquivo inteiro, senão o diff de revisão fica ilegível.
+
 ## 9. Contrato (shared-types)
 
 - `WizardAnswers`: ganha `area` e `knownSkills`; `affinity` vira opcional (obrigatória quando `area` = "ainda não sei", validado na API).
