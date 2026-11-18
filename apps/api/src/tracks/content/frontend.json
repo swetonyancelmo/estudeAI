@@ -1322,6 +1322,21 @@
               "answerIndex": 1,
               "explanation": "O `const` é ideal para valores fixos, pois gera um erro se você tentar atribuir um novo valor a essa variável posteriormente, aumentando a segurança do código."
             }
+          ],
+          "challenges": [
+            {
+              "id": "js-variaveis-tipos-operadores-d1",
+              "title": "Conversor de temperatura",
+              "prompt": "Implemente `celsiusParaFahrenheit(celsius)`, que recebe uma temperatura em graus Celsius e devolve o valor em Fahrenheit.\n\nA fórmula é `F = C × 9 / 5 + 32`. Devolva sempre um número, mesmo quando o valor recebido vier como texto, por exemplo `\"25\"`.",
+              "template": "vanilla",
+              "files": {
+                "/exercicio.js": "export function celsiusParaFahrenheit(celsius) {\n  // Seu código aqui\n}\n"
+              },
+              "tests": "import { celsiusParaFahrenheit } from \"./exercicio\";\n\ntest(\"0 °C são 32 °F\", () => {\n  expect(celsiusParaFahrenheit(0)).toBe(32);\n});\n\ntest(\"100 °C são 212 °F\", () => {\n  expect(celsiusParaFahrenheit(100)).toBe(212);\n});\n\ntest(\"-40 é igual nas duas escalas\", () => {\n  expect(celsiusParaFahrenheit(-40)).toBe(-40);\n});\n\ntest(\"aceita casas decimais\", () => {\n  expect(celsiusParaFahrenheit(37)).toBeCloseTo(98.6);\n});\n\ntest('converte texto como \"25\" para número antes de calcular', () => {\n  expect(celsiusParaFahrenheit(\"25\")).toBe(77);\n});\n",
+              "solution": {
+                "/exercicio.js": "export function celsiusParaFahrenheit(celsius) {\n  return (Number(celsius) * 9) / 5 + 32;\n}\n"
+              }
+            }
           ]
         },
         {
@@ -1395,6 +1410,21 @@
               ],
               "answerIndex": 2,
               "explanation": "Se a expressão avaliada no `while` permanecer sempre verdadeira, o código continuará executando indefinidamente, causando travamento."
+            }
+          ],
+          "challenges": [
+            {
+              "id": "js-condicionais-lacos-d1",
+              "title": "FizzBuzz",
+              "prompt": "Implemente `fizzBuzz(n)`, que devolve uma lista com os números de 1 até `n`, trocando:\n\n- múltiplos de 3 por `\"Fizz\"`;\n- múltiplos de 5 por `\"Buzz\"`;\n- múltiplos de 3 e de 5 ao mesmo tempo por `\"FizzBuzz\"`.\n\nOs demais números entram como texto: `fizzBuzz(5)` é `[\"1\", \"2\", \"Fizz\", \"4\", \"Buzz\"]`. Com `n` menor que 1, devolva uma lista vazia.",
+              "template": "vanilla",
+              "files": {
+                "/exercicio.js": "export function fizzBuzz(n) {\n  // Seu código aqui\n}\n"
+              },
+              "tests": "import { fizzBuzz } from \"./exercicio\";\n\ntest(\"de 1 a 5\", () => {\n  expect(fizzBuzz(5)).toEqual([\"1\", \"2\", \"Fizz\", \"4\", \"Buzz\"]);\n});\n\ntest(\"15 vira FizzBuzz\", () => {\n  expect(fizzBuzz(15)[14]).toBe(\"FizzBuzz\");\n});\n\ntest(\"tamanho da lista é n\", () => {\n  expect(fizzBuzz(30)).toHaveLength(30);\n});\n\ntest(\"n menor que 1 devolve lista vazia\", () => {\n  expect(fizzBuzz(0)).toEqual([]);\n});\n",
+              "solution": {
+                "/exercicio.js": "export function fizzBuzz(n) {\n  const resultado = [];\n  for (let i = 1; i <= n; i++) {\n    if (i % 15 === 0) resultado.push(\"FizzBuzz\");\n    else if (i % 3 === 0) resultado.push(\"Fizz\");\n    else if (i % 5 === 0) resultado.push(\"Buzz\");\n    else resultado.push(String(i));\n  }\n  return resultado;\n}\n"
+              }
             }
           ]
         },
@@ -1470,6 +1500,21 @@
               "answerIndex": 0,
               "explanation": "A declaração `let x = 20` dentro da função cria uma nova variável local que sofre hoisting para o topo da função, ativando a TDZ para o identificador `x` antes de sua atribuição."
             }
+          ],
+          "challenges": [
+            {
+              "id": "js-funcoes-escopo-d1",
+              "title": "Contador com closure",
+              "prompt": "Implemente `criarContador(inicio)`, que devolve um objeto com três funções:\n\n- `incrementar()` soma 1 e devolve o valor novo;\n- `decrementar()` subtrai 1 e devolve o valor novo;\n- `valor()` devolve o valor atual.\n\nSem `inicio`, o contador começa em 0. Cada contador tem o seu próprio valor: mexer em um não muda o outro. O valor não pode ficar exposto como propriedade do objeto, só acessível pelas funções.",
+              "template": "vanilla",
+              "files": {
+                "/exercicio.js": "export function criarContador(inicio) {\n  // Seu código aqui\n}\n"
+              },
+              "tests": "import { criarContador } from \"./exercicio\";\n\ntest(\"começa em 0 por padrão\", () => {\n  expect(criarContador().valor()).toBe(0);\n});\n\ntest(\"incrementa e decrementa a partir do início informado\", () => {\n  const contador = criarContador(10);\n  expect(contador.incrementar()).toBe(11);\n  expect(contador.incrementar()).toBe(12);\n  expect(contador.decrementar()).toBe(11);\n  expect(contador.valor()).toBe(11);\n});\n\ntest(\"cada contador tem o próprio valor\", () => {\n  const a = criarContador();\n  const b = criarContador();\n  a.incrementar();\n  a.incrementar();\n  b.incrementar();\n  expect(a.valor()).toBe(2);\n  expect(b.valor()).toBe(1);\n});\n\ntest(\"o valor não fica exposto como propriedade\", () => {\n  const contador = criarContador(5);\n  expect(Object.keys(contador).sort()).toEqual([\"decrementar\", \"incrementar\", \"valor\"]);\n});\n",
+              "solution": {
+                "/exercicio.js": "export function criarContador(inicio = 0) {\n  let atual = inicio;\n  return {\n    incrementar: () => ++atual,\n    decrementar: () => --atual,\n    valor: () => atual,\n  };\n}\n"
+              }
+            }
           ]
         },
         {
@@ -1539,6 +1584,21 @@
               ],
               "answerIndex": 1,
               "explanation": "A propriedade length retorna o número de itens no array, que é sempre um a mais do que o índice do último elemento devido à indexação baseada em zero."
+            }
+          ],
+          "challenges": [
+            {
+              "id": "js-arrays-objetos-d1",
+              "title": "Contar palavras",
+              "prompt": "Implemente `contarPalavras(texto)`, que devolve um objeto dizendo quantas vezes cada palavra aparece no texto.\n\n- Ignore maiúsculas e minúsculas: `\"Casa\"` e `\"casa\"` são a mesma palavra.\n- As palavras são separadas por um ou mais espaços.\n- Texto vazio devolve um objeto vazio.\n\nExemplo: `contarPalavras(\"o gato e o rato\")` é `{ o: 2, gato: 1, e: 1, rato: 1 }`.",
+              "template": "vanilla",
+              "files": {
+                "/exercicio.js": "export function contarPalavras(texto) {\n  // Seu código aqui\n}\n"
+              },
+              "tests": "import { contarPalavras } from \"./exercicio\";\n\ntest(\"conta repetições\", () => {\n  expect(contarPalavras(\"o gato e o rato\")).toEqual({ o: 2, gato: 1, e: 1, rato: 1 });\n});\n\ntest(\"ignora maiúsculas\", () => {\n  expect(contarPalavras(\"Casa casa CASA\")).toEqual({ casa: 3 });\n});\n\ntest(\"aceita vários espaços entre as palavras\", () => {\n  expect(contarPalavras(\"  sol   e    mar \")).toEqual({ sol: 1, e: 1, mar: 1 });\n});\n\ntest(\"texto vazio devolve objeto vazio\", () => {\n  expect(contarPalavras(\"\")).toEqual({});\n});\n",
+              "solution": {
+                "/exercicio.js": "export function contarPalavras(texto) {\n  const contagem = {};\n  const palavras = texto.toLowerCase().split(\" \").filter((palavra) => palavra !== \"\");\n  for (const palavra of palavras) {\n    contagem[palavra] = (contagem[palavra] || 0) + 1;\n  }\n  return contagem;\n}\n"
+              }
             }
           ]
         },
@@ -1614,6 +1674,21 @@
               "answerIndex": 3,
               "explanation": "Por padrão, o sort() converte os elementos para string e os compara pela tabela UTF-16, o que faz '10' vir antes de '2'."
             }
+          ],
+          "challenges": [
+            {
+              "id": "js-metodos-de-array-d1",
+              "title": "Resumo do carrinho",
+              "prompt": "Implemente `resumoDoCarrinho(itens)`. Cada item é um objeto `{ nome, preco, quantidade }`. Devolva:\n\n- `totalItens`: a soma das quantidades;\n- `valorTotal`: a soma de `preco × quantidade`, arredondada para 2 casas decimais;\n- `maisCaro`: o `nome` do item com o maior preço unitário (ou `null` com o carrinho vazio).\n\nTente resolver com `map`, `filter`, `reduce` e afins, sem laços `for`.",
+              "template": "vanilla",
+              "files": {
+                "/exercicio.js": "export function resumoDoCarrinho(itens) {\n  // Seu código aqui\n}\n"
+              },
+              "tests": "import { resumoDoCarrinho } from \"./exercicio\";\n\nconst carrinho = [\n  { nome: \"Caderno\", preco: 12.5, quantidade: 2 },\n  { nome: \"Caneta\", preco: 2.3, quantidade: 5 },\n  { nome: \"Mochila\", preco: 89.9, quantidade: 1 },\n];\n\ntest(\"soma as quantidades\", () => {\n  expect(resumoDoCarrinho(carrinho).totalItens).toBe(8);\n});\n\ntest(\"soma preço × quantidade com 2 casas\", () => {\n  expect(resumoDoCarrinho(carrinho).valorTotal).toBe(126.4);\n});\n\ntest(\"acha o item de maior preço unitário\", () => {\n  expect(resumoDoCarrinho(carrinho).maisCaro).toBe(\"Mochila\");\n});\n\ntest(\"carrinho vazio\", () => {\n  expect(resumoDoCarrinho([])).toEqual({ totalItens: 0, valorTotal: 0, maisCaro: null });\n});\n",
+              "solution": {
+                "/exercicio.js": "export function resumoDoCarrinho(itens) {\n  const totalItens = itens.reduce((soma, item) => soma + item.quantidade, 0);\n  const valorTotal = itens.reduce((soma, item) => soma + item.preco * item.quantidade, 0);\n  const maisCaro = itens.reduce(\n    (maior, item) => (maior === null || item.preco > maior.preco ? item : maior),\n    null,\n  );\n  return {\n    totalItens,\n    valorTotal: Math.round(valorTotal * 100) / 100,\n    maisCaro: maisCaro ? maisCaro.nome : null,\n  };\n}\n"
+              }
+            }
           ]
         },
         {
@@ -1687,6 +1762,21 @@
               ],
               "answerIndex": 3,
               "explanation": "Quando a chave buscada não existe no objeto, a variável criada via desestruturação assume o valor undefined por padrão."
+            }
+          ],
+          "challenges": [
+            {
+              "id": "js-moderno-modulos-d1",
+              "title": "Mesclar configurações",
+              "prompt": "Implemente `mesclarConfig(padrao, personalizada)`, que devolve um objeto novo com as configurações padrão sobrescritas pelas personalizadas.\n\n- O objeto `tema` dentro da configuração também deve ser mesclado: mudar só `tema.cor` mantém o restante de `tema`.\n- Nenhum dos dois objetos recebidos pode ser alterado.\n- Sem configuração personalizada, devolva uma cópia do padrão.\n\nUse desestruturação e o operador spread (`...`).",
+              "template": "vanilla",
+              "files": {
+                "/exercicio.js": "export function mesclarConfig(padrao, personalizada) {\n  // Seu código aqui\n}\n"
+              },
+              "tests": "import { mesclarConfig } from \"./exercicio\";\n\nconst padrao = { idioma: \"pt-BR\", notificacoes: true, tema: { cor: \"claro\", fonte: 16 } };\n\ntest(\"sobrescreve o que foi personalizado\", () => {\n  expect(mesclarConfig(padrao, { notificacoes: false }).notificacoes).toBe(false);\n  expect(mesclarConfig(padrao, { notificacoes: false }).idioma).toBe(\"pt-BR\");\n});\n\ntest(\"mescla o tema em vez de substituir\", () => {\n  expect(mesclarConfig(padrao, { tema: { cor: \"escuro\" } }).tema).toEqual({ cor: \"escuro\", fonte: 16 });\n});\n\ntest(\"não altera os objetos recebidos\", () => {\n  const personalizada = { tema: { cor: \"escuro\" } };\n  const resultado = mesclarConfig(padrao, personalizada);\n  expect(padrao.tema.cor).toBe(\"claro\");\n  expect(personalizada).toEqual({ tema: { cor: \"escuro\" } });\n  expect(resultado).not.toBe(padrao);\n  expect(resultado.tema).not.toBe(padrao.tema);\n});\n\ntest(\"sem personalização devolve uma cópia do padrão\", () => {\n  const resultado = mesclarConfig(padrao);\n  expect(resultado).toEqual(padrao);\n  expect(resultado).not.toBe(padrao);\n});\n",
+              "solution": {
+                "/exercicio.js": "export function mesclarConfig(padrao, personalizada = {}) {\n  const { tema = {}, ...resto } = personalizada;\n  return { ...padrao, ...resto, tema: { ...padrao.tema, ...tema } };\n}\n"
+              }
             }
           ]
         }
@@ -1770,6 +1860,21 @@
               "answerIndex": 3,
               "explanation": "O método moderno remove() apaga o próprio elemento do DOM de forma direta. O método antigo exige chamar removeChild no elemento pai."
             }
+          ],
+          "challenges": [
+            {
+              "id": "dom-selecao-manipulacao-d1",
+              "title": "Montar uma lista na página",
+              "prompt": "Implemente `renderizarLista(container, itens)`, que mostra os textos de `itens` como uma lista dentro do elemento `container`.\n\n- Crie um `<ul>` com um `<li>` para cada item, na mesma ordem.\n- Chamar de novo substitui a lista anterior: o `container` nunca fica com mais de um `<ul>`.\n- Com a lista vazia, mostre um `<p>` com o texto `Nenhum item`.\n\nCrie os elementos com `document.createElement` e use `textContent`, não `innerHTML`.",
+              "template": "vanilla",
+              "files": {
+                "/exercicio.js": "export function renderizarLista(container, itens) {\n  // Seu código aqui\n}\n"
+              },
+              "tests": "import { renderizarLista } from \"./exercicio\";\n\ntest(\"cria um li por item, na ordem\", () => {\n  const container = document.createElement(\"div\");\n  renderizarLista(container, [\"HTML\", \"CSS\", \"JS\"]);\n  const itens = container.querySelectorAll(\"ul > li\");\n  expect(itens).toHaveLength(3);\n  expect([...itens].map((li) => li.textContent)).toEqual([\"HTML\", \"CSS\", \"JS\"]);\n});\n\ntest(\"chamar de novo substitui a lista\", () => {\n  const container = document.createElement(\"div\");\n  renderizarLista(container, [\"a\", \"b\"]);\n  renderizarLista(container, [\"c\"]);\n  expect(container.querySelectorAll(\"ul\")).toHaveLength(1);\n  expect(container.textContent).toBe(\"c\");\n});\n\ntest(\"lista vazia mostra a mensagem\", () => {\n  const container = document.createElement(\"div\");\n  renderizarLista(container, []);\n  expect(container.querySelector(\"ul\")).toBeNull();\n  expect(container.querySelector(\"p\").textContent).toBe(\"Nenhum item\");\n});\n\ntest(\"texto com HTML aparece como texto, sem virar elemento\", () => {\n  const container = document.createElement(\"div\");\n  renderizarLista(container, [\"<b>negrito</b>\"]);\n  expect(container.querySelector(\"b\")).toBeNull();\n  expect(container.querySelector(\"li\").textContent).toBe(\"<b>negrito</b>\");\n});\n",
+              "solution": {
+                "/exercicio.js": "export function renderizarLista(container, itens) {\n  container.textContent = \"\";\n  if (itens.length === 0) {\n    const vazio = document.createElement(\"p\");\n    vazio.textContent = \"Nenhum item\";\n    container.append(vazio);\n    return;\n  }\n  const lista = document.createElement(\"ul\");\n  for (const item of itens) {\n    const li = document.createElement(\"li\");\n    li.textContent = item;\n    lista.append(li);\n  }\n  container.append(lista);\n}\n"
+              }
+            }
           ]
         },
         {
@@ -1839,6 +1944,21 @@
               ],
               "answerIndex": 3,
               "explanation": "Ele impede a ação nativa do navegador, como o envio de formulários ou a navegação de links. Parar a propagação é papel do stopPropagation."
+            }
+          ],
+          "challenges": [
+            {
+              "id": "eventos-dom-d1",
+              "title": "Botão que conta cliques",
+              "prompt": "Implemente `criarBotaoContador(container)`, que cria um botão dentro de `container`.\n\n- O botão começa com o texto `Cliques: 0`.\n- A cada clique, o número aumenta em 1 (`Cliques: 1`, `Cliques: 2`...).\n- Devolva o botão criado.\n\nUse `addEventListener` para tratar o clique. Cada botão criado tem a própria contagem.",
+              "template": "vanilla",
+              "files": {
+                "/exercicio.js": "export function criarBotaoContador(container) {\n  // Seu código aqui\n}\n"
+              },
+              "tests": "import { criarBotaoContador } from \"./exercicio\";\n\ntest(\"cria o botão com o texto inicial\", () => {\n  const container = document.createElement(\"div\");\n  const botao = criarBotaoContador(container);\n  expect(botao.tagName).toBe(\"BUTTON\");\n  expect(container.contains(botao)).toBe(true);\n  expect(botao.textContent).toBe(\"Cliques: 0\");\n});\n\ntest(\"cada clique soma 1\", () => {\n  const botao = criarBotaoContador(document.createElement(\"div\"));\n  botao.click();\n  botao.click();\n  botao.click();\n  expect(botao.textContent).toBe(\"Cliques: 3\");\n});\n\ntest(\"botões diferentes contam separado\", () => {\n  const container = document.createElement(\"div\");\n  const a = criarBotaoContador(container);\n  const b = criarBotaoContador(container);\n  a.click();\n  a.click();\n  b.click();\n  expect(a.textContent).toBe(\"Cliques: 2\");\n  expect(b.textContent).toBe(\"Cliques: 1\");\n});\n",
+              "solution": {
+                "/exercicio.js": "export function criarBotaoContador(container) {\n  let cliques = 0;\n  const botao = document.createElement(\"button\");\n  botao.type = \"button\";\n  botao.textContent = \"Cliques: 0\";\n  botao.addEventListener(\"click\", () => {\n    cliques += 1;\n    botao.textContent = `Cliques: ${cliques}`;\n  });\n  container.append(botao);\n  return botao;\n}\n"
+              }
             }
           ]
         },
@@ -1913,6 +2033,21 @@
               ],
               "answerIndex": 1,
               "explanation": "Callbacks aninhados criam o problema conhecido como pyramid of doom. As promises permitem encadear operações de forma linear."
+            }
+          ],
+          "challenges": [
+            {
+              "id": "js-assincrono-promises-d1",
+              "title": "Tarefas em sequência",
+              "prompt": "Implemente a função assíncrona `executarEmSequencia(tarefas)`. Cada tarefa é uma função que devolve uma Promise.\n\n- Execute uma tarefa por vez, na ordem: a próxima só começa quando a anterior terminar.\n- Devolva (numa Promise) a lista com o resultado de cada tarefa, na mesma ordem.\n- Se uma tarefa falhar, as seguintes não rodam e a Promise devolvida é rejeitada com o mesmo erro.\n\nUse `async`/`await`. `Promise.all` não serve aqui: ele começa todas as tarefas ao mesmo tempo.",
+              "template": "vanilla",
+              "files": {
+                "/exercicio.js": "export async function executarEmSequencia(tarefas) {\n  // Seu código aqui\n}\n"
+              },
+              "tests": "import { executarEmSequencia } from \"./exercicio\";\n\nconst esperar = (ms, valor) => new Promise((resolver) => setTimeout(() => resolver(valor), ms));\n\ntest(\"devolve os resultados na ordem\", async () => {\n  const resultados = await executarEmSequencia([\n    () => esperar(30, \"a\"),\n    () => esperar(5, \"b\"),\n    () => esperar(10, \"c\"),\n  ]);\n  expect(resultados).toEqual([\"a\", \"b\", \"c\"]);\n});\n\ntest(\"uma tarefa só começa depois da anterior\", async () => {\n  const log = [];\n  const tarefa = (nome, ms) => async () => {\n    log.push(`início ${nome}`);\n    await esperar(ms);\n    log.push(`fim ${nome}`);\n    return nome;\n  };\n  await executarEmSequencia([tarefa(\"1\", 20), tarefa(\"2\", 5)]);\n  expect(log).toEqual([\"início 1\", \"fim 1\", \"início 2\", \"fim 2\"]);\n});\n\ntest(\"para no primeiro erro\", async () => {\n  let rodouDepois = false;\n  const erro = new Error(\"falhou\");\n  await expect(\n    executarEmSequencia([\n      () => esperar(5, 1),\n      () => Promise.reject(erro),\n      async () => {\n        rodouDepois = true;\n      },\n    ]),\n  ).rejects.toBe(erro);\n  expect(rodouDepois).toBe(false);\n});\n\ntest(\"lista vazia devolve lista vazia\", async () => {\n  await expect(executarEmSequencia([])).resolves.toEqual([]);\n});\n",
+              "solution": {
+                "/exercicio.js": "export async function executarEmSequencia(tarefas) {\n  const resultados = [];\n  for (const tarefa of tarefas) {\n    resultados.push(await tarefa());\n  }\n  return resultados;\n}\n"
+              }
             }
           ]
         },
@@ -2658,6 +2793,22 @@
               "answerIndex": 3,
               "explanation": "Usar chaves `{}` permite passar tipos primitivos em JavaScript como numbers, booleans e objetos, enquanto aspas criam sempre uma string."
             }
+          ],
+          "challenges": [
+            {
+              "id": "react-componentes-jsx-props-d1",
+              "title": "Componente de cartão",
+              "prompt": "Crie o componente `Cartao` em `Cartao.js`. Ele recebe as props `titulo`, `descricao` e `destaque` e mostra:\n\n- um `<article>` com o título num `<h2>` e a descrição num `<p>`;\n- quando `destaque` for verdadeiro, um `<span>` com o texto `Destaque` dentro do `article`;\n- sem `descricao`, o `<p>` não aparece.\n\nO `App.js` já usa o componente para você ver o resultado na pré-visualização.",
+              "template": "react",
+              "files": {
+                "/Cartao.js": "export default function Cartao(props) {\n  // Seu código aqui\n  return null;\n}\n",
+                "/App.js": "import Cartao from \"./Cartao\";\n\nexport default function App() {\n  return (\n    <main>\n      <Cartao titulo=\"HTML\" descricao=\"A estrutura da página.\" destaque />\n      <Cartao titulo=\"CSS\" descricao=\"A aparência da página.\" />\n      <Cartao titulo=\"JavaScript\" />\n    </main>\n  );\n}\n"
+              },
+              "tests": "import { render, screen } from \"@testing-library/react\";\nimport Cartao from \"./Cartao\";\n\ntest(\"mostra título e descrição\", () => {\n  render(<Cartao titulo=\"React\" descricao=\"Biblioteca de interfaces.\" />);\n  expect(screen.getByRole(\"heading\", { level: 2 }).textContent).toBe(\"React\");\n  expect(screen.getByText(\"Biblioteca de interfaces.\").tagName).toBe(\"P\");\n});\n\ntest(\"tudo fica dentro de um article\", () => {\n  const { container } = render(<Cartao titulo=\"React\" descricao=\"Texto.\" />);\n  const article = container.querySelector(\"article\");\n  expect(article).not.toBeNull();\n  expect(article.querySelector(\"h2\")).not.toBeNull();\n});\n\ntest(\"mostra o selo só com destaque\", () => {\n  const { rerender } = render(<Cartao titulo=\"React\" destaque />);\n  expect(screen.getByText(\"Destaque\").tagName).toBe(\"SPAN\");\n  rerender(<Cartao titulo=\"React\" />);\n  expect(screen.queryByText(\"Destaque\")).toBeNull();\n});\n\ntest(\"sem descrição não renderiza o parágrafo\", () => {\n  const { container } = render(<Cartao titulo=\"React\" />);\n  expect(container.querySelector(\"p\")).toBeNull();\n});\n",
+              "solution": {
+                "/Cartao.js": "export default function Cartao({ titulo, descricao, destaque }) {\n  return (\n    <article>\n      <h2>{titulo}</h2>\n      {descricao && <p>{descricao}</p>}\n      {destaque && <span>Destaque</span>}\n    </article>\n  );\n}\n"
+              }
+            }
           ]
         },
         {
@@ -2731,6 +2882,22 @@
               ],
               "answerIndex": 2,
               "explanation": "O estado no React é atualizado de forma assíncrona. Usar o valor atual direto pode causar leituras desatualizadas, sendo preferível usar a função de callback `setCount(prev => prev + 1)`."
+            }
+          ],
+          "challenges": [
+            {
+              "id": "react-estado-eventos-d1",
+              "title": "Contador com useState",
+              "prompt": "Crie o componente `Contador` em `Contador.js`, com o valor guardado em estado (`useState`):\n\n- um parágrafo com o texto `Valor: 0` no início;\n- três botões: `+1`, `-1` e `Zerar`;\n- a prop opcional `maximo`: com ela, o `+1` não passa desse valor.\n\nO `App.js` já mostra o componente na pré-visualização.",
+              "template": "react",
+              "files": {
+                "/Contador.js": "import { useState } from \"react\";\n\nexport default function Contador({ maximo }) {\n  // Seu código aqui\n  return null;\n}\n",
+                "/App.js": "import Contador from \"./Contador\";\n\nexport default function App() {\n  return <Contador maximo={5} />;\n}\n"
+              },
+              "tests": "import { fireEvent, render, screen } from \"@testing-library/react\";\nimport Contador from \"./Contador\";\n\nconst valor = () => screen.getByText(/^Valor:/).textContent;\nconst clicar = (nome) => fireEvent.click(screen.getByRole(\"button\", { name: nome }));\n\ntest(\"começa em zero\", () => {\n  render(<Contador />);\n  expect(valor()).toBe(\"Valor: 0\");\n});\n\ntest(\"+1 e -1 alteram o valor\", () => {\n  render(<Contador />);\n  clicar(\"+1\");\n  clicar(\"+1\");\n  clicar(\"-1\");\n  expect(valor()).toBe(\"Valor: 1\");\n});\n\ntest(\"Zerar volta para 0\", () => {\n  render(<Contador />);\n  clicar(\"+1\");\n  clicar(\"+1\");\n  clicar(\"Zerar\");\n  expect(valor()).toBe(\"Valor: 0\");\n});\n\ntest(\"respeita o máximo\", () => {\n  render(<Contador maximo={2} />);\n  clicar(\"+1\");\n  clicar(\"+1\");\n  clicar(\"+1\");\n  expect(valor()).toBe(\"Valor: 2\");\n});\n",
+              "solution": {
+                "/Contador.js": "import { useState } from \"react\";\n\nexport default function Contador({ maximo }) {\n  const [valor, setValor] = useState(0);\n\n  function somar() {\n    setValor((atual) => (maximo !== undefined && atual >= maximo ? atual : atual + 1));\n  }\n\n  return (\n    <div>\n      <p>Valor: {valor}</p>\n      <button type=\"button\" onClick={somar}>\n        +1\n      </button>\n      <button type=\"button\" onClick={() => setValor((atual) => atual - 1)}>\n        -1\n      </button>\n      <button type=\"button\" onClick={() => setValor(0)}>\n        Zerar\n      </button>\n    </div>\n  );\n}\n"
+              }
             }
           ]
         },

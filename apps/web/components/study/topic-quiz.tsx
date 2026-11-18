@@ -10,28 +10,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAnswerTopicQuiz, useTopicQuiz } from "@/lib/roadmaps/api";
+import { InlineText } from "./study-text";
 
 const LETTERS = ["A", "B", "C", "D", "E", "F"];
 
-/** Texto do quiz com `código` entre crases renderizado como código. */
-function QuizText({ text }: { text: string }) {
-  return (
-    <>
-      {text.split(/(`[^`]+`)/).map((part, index) =>
-        part.startsWith("`") && part.endsWith("`") && part.length > 2 ? (
-          <code
-            key={index}
-            className="bg-muted rounded-sm px-1 py-0.5 font-mono text-sm"
-          >
-            {part.slice(1, -1)}
-          </code>
-        ) : (
-          part
-        ),
-      )}
-    </>
-  );
-}
 
 /**
  * Quiz do tópico na sala de estudo (Fase 3): uma pergunta por vez, correção
@@ -176,7 +158,7 @@ function QuizRunner({
       {stage === "running" && question && (
         <div className="flex flex-col gap-4">
           <p className="font-medium">
-            <QuizText text={question.question} />
+            <InlineText text={question.question} />
           </p>
 
           <ul className="flex flex-col gap-2" aria-label="Alternativas">
@@ -215,7 +197,7 @@ function QuizRunner({
                       )}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <QuizText text={option} />
+                      <InlineText text={option} />
                     </span>
                   </button>
                 </li>
@@ -242,7 +224,7 @@ function QuizRunner({
                   {result.correct ? "Resposta certa." : "Não foi dessa vez."}
                 </p>
                 <p className="text-muted-foreground mt-1">
-                  <QuizText text={result.explanation} />
+                  <InlineText text={result.explanation} />
                 </p>
               </div>
               <Button onClick={next}>

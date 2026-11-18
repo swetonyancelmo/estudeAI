@@ -134,6 +134,15 @@ Cada tópico pode ter um campo `quiz` com 3 a 5 perguntas de múltipla escolha: 
 - **API:** `GET /roadmap/:id/topics/:topicId/quiz` devolve perguntas e alternativas **sem o gabarito**; `POST .../quiz/answers` corrige, grava a resposta e só então revela a certa e a explicação. A situação do quiz é a última resposta de cada pergunta. A partir de 70% de acerto (`QUIZ_PASS_RATIO`), a tela sugere concluir o tópico, sem obrigar.
 - Os JSONs das trilhas estão no `.prettierignore` da API: formatar a pasta não pode reescrever o arquivo inteiro, senão o diff de revisão fica ilegível.
 
+### 8.3 Desafios de código (plataforma de estudos, Fase 4)
+
+Tópicos de JavaScript, DOM e React podem ter um campo `challenges` (até 2): `{ "id", "title", "prompt", "template" ("vanilla" ou "react"), "files", "tests", "solution" }`. O `prompt` aceita `código` entre crases, parágrafos separados por linha em branco e listas com "- ". `files` é o código inicial (caminhos começando em `/`, arquivos .js/.jsx/.css/.html); `tests` vira o arquivo `/exercicio.test.js`, escondido e só leitura no editor; `solution` substitui arquivos de `files` no "ver solução".
+
+- **Execução:** o código e os testes rodam no navegador, no Sandpack (`@codesandbox/sandpack-react` 2.20.0, carregado só quando a pessoa abre o editor, porque é pesado e usa o bundler do CodeSandbox). Os testes usam a API do Jest; os de React usam `@testing-library/react`, sem `jest-dom`. O ambiente de testes do Sandpack é um DOM mais antigo: evite APIs recentes como `replaceChildren` nas soluções.
+- **Banco:** `track_challenges` (casados pelo `id` do JSON a cada sync, como o quiz) e `challenge_progress` (código da pessoa, para continuar de onde parou, e `passed`, que só avança). O salvamento é um `INSERT ... ON CONFLICT` atômico: o editor dispara salvamentos quase simultâneos.
+- **Confiança:** é o navegador que informa à API se os testes passaram. Para estudo individual isso basta; quem burlar só engana a si mesmo.
+- **Validação do conteúdo:** todo desafio novo precisa ser conferido no Sandpack real: o código inicial falha e a solução passa.
+
 ## 9. Contrato (shared-types)
 
 - `WizardAnswers`: ganha `area` e `knownSkills`; `affinity` vira opcional (obrigatória quando `area` = "ainda não sei", validado na API).

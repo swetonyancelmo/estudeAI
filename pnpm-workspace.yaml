@@ -9,6 +9,9 @@ allowBuilds:
   # SDK do Gemini e sua dependência: JS puro, sem build nativo necessário.
   '@google/genai': false
   protobufjs: false
+  # Dependência indireta do Sandpack (desafios de código). O postinstall só
+  # imprime uma mensagem; o pacote funciona sem ele.
+  es5-ext: false
 
 onlyBuiltDependencies:
   - unrs-resolver

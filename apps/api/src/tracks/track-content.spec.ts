@@ -1,6 +1,7 @@
 import {
   InvalidTrackContentError,
   MAX_QUIZ_QUESTIONS,
+  MAX_TOPIC_CHALLENGES,
   MAX_TOPIC_DOCS,
   TRACK_SLUGS,
   isOfficialDocUrl,
@@ -280,5 +281,77 @@ describe('quiz — perguntas por tópico (Fase 3)', () => {
       ]),
     );
     expect(problems.filter((p) => p.includes('id repetido'))).toHaveLength(4);
+  });
+});
+
+describe('challenges — desafios de código (Fase 4)', () => {
+  const challenge = (id: string, overrides: Record<string, unknown> = {}) => ({
+    id,
+    title: 'Somar pares',
+    prompt: 'Implemente `somaPares`.',
+    template: 'vanilla',
+    files: { '/exercicio.js': 'export function somaPares() {}\n' },
+    tests:
+      "import { somaPares } from './exercicio';\ntest('soma', () => expect(somaPares([2])).toBe(2));\n",
+    solution: {
+      '/exercicio.js':
+        'export function somaPares(n) { return n.filter((x) => x % 2 === 0).reduce((a, b) => a + b, 0); }\n',
+    },
+    ...overrides,
+  });
+
+  it('aceita desafio válido e tópico sem desafio', () => {
+    expect(
+      problemsOf(
+        track([topic('a', { challenges: [challenge('a-1')] }), topic('b')]),
+      ),
+    ).toEqual([]);
+  });
+
+  it('recusa template, arquivos e testes inválidos', () => {
+    const problems = problemsOf(
+      track([
+        topic('a', {
+          challenges: [
+            challenge('a-1', { template: 'angular' }),
+            challenge('a-2', { files: { 'exercicio.js': 'x' } }),
+          ],
+        }),
+        topic('b', {
+          challenges: [
+            challenge('b-1', { files: { '/exercicio.test.js': 'x' } }),
+            challenge('b-2', { tests: 'console.log(1)' }),
+          ],
+        }),
+        topic('c', {
+          challenges: [challenge('c-1', { solution: { '/outro.js': 'x' } })],
+        }),
+      ]),
+    );
+    expect(problems).toEqual([
+      expect.stringContaining('"a-1": template inválido'),
+      expect.stringContaining('"a-2": files precisa'),
+      expect.stringContaining('"b-1": files precisa'),
+      expect.stringContaining('"b-2": tests precisa'),
+      expect.stringContaining('"c-1": solution só pode ter arquivos'),
+    ]);
+  });
+
+  it('limita desafios por tópico e exige id único na trilha', () => {
+    const many = Array.from({ length: MAX_TOPIC_CHALLENGES + 1 }, (_, i) =>
+      challenge(`a-${i + 1}`),
+    );
+    const problems = problemsOf(
+      track([
+        topic('a', { challenges: many }),
+        topic('b', { challenges: [challenge('a-1')] }),
+      ]),
+    );
+    expect(problems).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining(`no máximo ${MAX_TOPIC_CHALLENGES} desafios`),
+        expect.stringContaining('id repetido na trilha'),
+      ]),
+    );
   });
 });

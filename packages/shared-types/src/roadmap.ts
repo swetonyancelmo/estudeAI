@@ -507,3 +507,70 @@ export interface QuizAnswerResultDto {
   explanation: string;
   summary: QuizSummaryDto;
 }
+
+// ---------------------------------------------------------------------------
+// Fase 4 — desafios de código (JS/HTML/CSS/React) com Sandpack.
+//
+// O código roda no navegador da pessoa, dentro do Sandpack. Os testes também:
+// é o cliente que informa se passou. Para estudo individual isso basta — quem
+// quiser burlar só engana a si mesmo —, então a API guarda o resultado sem
+// tentar reexecutar nada.
+// ---------------------------------------------------------------------------
+
+/** Template do Sandpack de cada desafio. */
+export const CHALLENGE_TEMPLATES = ["vanilla", "react"] as const;
+export type ChallengeTemplate = (typeof CHALLENGE_TEMPLATES)[number];
+
+/** Caminho fixo do arquivo de testes (escondido e só leitura no editor). */
+export const CHALLENGE_TEST_FILE = "/exercicio.test.js";
+
+/** Arquivos editáveis do desafio: caminho → conteúdo. */
+export type ChallengeFiles = Record<string, string>;
+
+export interface ChallengeDto {
+  id: string;
+  title: string;
+  /** Enunciado; `código` entre crases e parágrafos separados por linha em branco. */
+  prompt: string;
+  template: ChallengeTemplate;
+  /** Código inicial, para o "recomeçar". */
+  starterFiles: ChallengeFiles;
+  /** Código atual da pessoa (o salvo, ou o inicial se nunca salvou). */
+  files: ChallengeFiles;
+  /** Conteúdo do arquivo de testes. */
+  tests: string;
+  passed: boolean;
+  /** ISO 8601 da primeira vez que os testes passaram. */
+  passedAt: string | null;
+}
+
+/** Resposta de GET /roadmap/:id/topics/:topicId/challenges. */
+export interface TopicChallengesDto {
+  topicId: string;
+  /** Vazio quando o tópico não tem desafio (a seção some). */
+  challenges: ChallengeDto[];
+}
+
+/**
+ * Payload de PUT .../challenges/:challengeId. Sem `result`, só salva o código
+ * (autosave); com `result`, registra também a execução dos testes.
+ */
+export interface SaveChallengeRequestDto {
+  files: ChallengeFiles;
+  result?: "pass" | "fail";
+}
+
+export interface ChallengeProgressDto {
+  challengeId: string;
+  passed: boolean;
+  passedAt: string | null;
+}
+
+/** Resposta de GET .../challenges/:challengeId/solution. */
+export interface ChallengeSolutionDto {
+  challengeId: string;
+  files: ChallengeFiles;
+}
+
+/** Teto de cada arquivo salvo: código de exercício, não projeto. */
+export const CHALLENGE_FILE_MAX_LENGTH = 20_000;

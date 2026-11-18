@@ -5,6 +5,8 @@ import {
 } from "@tanstack/react-query";
 import type {
   AdjustRoadmapResponseDto,
+  ChallengeProgressDto,
+  ChallengeSolutionDto,
   QuizAnswerResultDto,
   QuizDto,
   ResourceProgressDto,
@@ -12,7 +14,9 @@ import type {
   RoadmapListItemDto,
   ToggleTopicResponseDto,
   TopicNoteDto,
+  SaveChallengeRequestDto,
   SubmitQuizAnswerRequestDto,
+  TopicChallengesDto,
   UpdateResourceProgressRequestDto,
 } from "@estudeai/shared-types";
 import { api } from "@/lib/api/client";
@@ -31,6 +35,8 @@ export const roadmapKeys = {
     ["roadmaps", "note", roadmapId, topicId] as const,
   quiz: (roadmapId: string, topicId: string) =>
     ["roadmaps", "quiz", roadmapId, topicId] as const,
+  challenges: (roadmapId: string, topicId: string) =>
+    ["roadmaps", "challenges", roadmapId, topicId] as const,
 };
 
 /** GET /roadmap — "Meus Roadmaps" (FR-03.2). */
@@ -336,6 +342,88 @@ export function useAnswerTopicQuiz(roadmapId: string, topicId: string) {
       queryClient.setQueryData<QuizDto>(
         roadmapKeys.quiz(roadmapId, topicId),
         (previous) => previous && { ...previous, summary: result.summary },
+      );
+    },
+  });
+}
+
+/** GET .../topics/:topicId/challenges — desafios de código (Fase 4). */
+export async function getTopicChallenges(
+  roadmapId: string,
+  topicId: string,
+): Promise<TopicChallengesDto> {
+  const { data } = await api.get<TopicChallengesDto>(
+    `/roadmap/${roadmapId}/topics/${topicId}/challenges`,
+  );
+  return data;
+}
+
+/** PUT .../challenges/:challengeId — salva código e, se vier, o resultado. */
+export async function saveChallenge(
+  roadmapId: string,
+  topicId: string,
+  challengeId: string,
+  body: SaveChallengeRequestDto,
+): Promise<ChallengeProgressDto> {
+  const { data } = await api.put<ChallengeProgressDto>(
+    `/roadmap/${roadmapId}/topics/${topicId}/challenges/${challengeId}`,
+    body,
+  );
+  return data;
+}
+
+/** GET .../challenges/:challengeId/solution — solução de referência. */
+export async function getChallengeSolution(
+  roadmapId: string,
+  topicId: string,
+  challengeId: string,
+): Promise<ChallengeSolutionDto> {
+  const { data } = await api.get<ChallengeSolutionDto>(
+    `/roadmap/${roadmapId}/topics/${topicId}/challenges/${challengeId}/solution`,
+  );
+  return data;
+}
+
+export function useTopicChallenges(roadmapId: string, topicId: string) {
+  return useQuery({
+    queryKey: roadmapKeys.challenges(roadmapId, topicId),
+    queryFn: () => getTopicChallenges(roadmapId, topicId),
+    // O editor é a fonte do código enquanto a tela está aberta: refetch ao
+    // voltar para a aba recriaria o editor com uma versão mais velha.
+    refetchOnWindowFocus: false,
+  });
+}
+
+/**
+ * Salva o código (autosave) ou o resultado dos testes. Só o status vai para o
+ * cache: o código fica no editor, e regravar `files` no cache a cada tecla
+ * faria a lista re-renderizar à toa.
+ */
+export function useSaveChallenge(roadmapId: string, topicId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      challengeId,
+      ...body
+    }: SaveChallengeRequestDto & { challengeId: string }) =>
+      saveChallenge(roadmapId, topicId, challengeId, body),
+    onSuccess: (result) => {
+      queryClient.setQueryData<TopicChallengesDto>(
+        roadmapKeys.challenges(roadmapId, topicId),
+        (previous) =>
+          previous && {
+            ...previous,
+            challenges: previous.challenges.map((challenge) =>
+              challenge.id === result.challengeId
+                ? {
+                    ...challenge,
+                    passed: result.passed,
+                    passedAt: result.passedAt,
+                  }
+                : challenge,
+            ),
+          },
       );
     },
   });
