@@ -85,6 +85,7 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
     findOne: jest.Mock;
     delete: jest.Mock;
     createQueryBuilder: jest.Mock;
+    query: jest.Mock;
   };
   let topics: { save: jest.Mock; update: jest.Mock };
   let resources: { update: jest.Mock };
@@ -98,6 +99,7 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
       findOne: jest.fn(),
       delete: jest.fn().mockResolvedValue({ affected: 1 }),
       createQueryBuilder: jest.fn(),
+      query: jest.fn().mockResolvedValue([]),
     };
     topics = {
       save: jest.fn((value: unknown) => Promise.resolve(value)),
@@ -729,6 +731,14 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
         ]),
       };
       roadmaps.createQueryBuilder.mockReturnValue(qb);
+      roadmaps.query.mockResolvedValue([
+        {
+          roadmapId: 'roadmap-1',
+          id: 'topic-3',
+          title: 'JS básico',
+          moduleTitle: 'Fundamentos',
+        },
+      ]);
 
       const list = await service.listForUser(OWNER);
 
@@ -742,8 +752,52 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
           status: 'active',
           createdAt: '2026-01-01T12:00:00.000Z',
           progress: { completedTopics: 2, totalTopics: 8, percent: 25 },
+          nextTopic: {
+            id: 'topic-3',
+            title: 'JS básico',
+            moduleTitle: 'Fundamentos',
+          },
         },
       ]);
+      expect(roadmaps.query).toHaveBeenCalledWith(
+        expect.stringContaining('DISTINCT ON (m."roadmap_id")'),
+        [['roadmap-1']],
+      );
+    });
+
+    it('roadmap completo não tem próximo tópico; lista vazia não consulta', async () => {
+      const qb = {
+        leftJoin: jest.fn().mockReturnThis(),
+        select: jest.fn().mockReturnThis(),
+        addSelect: jest.fn().mockReturnThis(),
+        where: jest.fn().mockReturnThis(),
+        groupBy: jest.fn().mockReturnThis(),
+        orderBy: jest.fn().mockReturnThis(),
+        getRawMany: jest.fn().mockResolvedValue([]),
+      };
+      roadmaps.createQueryBuilder.mockReturnValue(qb);
+
+      expect(await service.listForUser(OWNER)).toEqual([]);
+      expect(roadmaps.query).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('completed_at (Fase 5)', () => {
+    type Saved = { id: string; completedAt: Date | null };
+    const lastSaved = () => topics.save.mock.calls.at(-1) as [Saved];
+
+    it('concluir grava a data; desmarcar apaga', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+
+      await service.toggleTopic(OWNER, 'roadmap-1', 'topic-2');
+      const [completed] = lastSaved();
+      expect(completed.id).toBe('topic-2');
+      expect(completed.completedAt).toBeInstanceOf(Date);
+
+      await service.toggleTopic(OWNER, 'roadmap-1', 'topic-1');
+      const [reopened] = lastSaved();
+      expect(reopened.id).toBe('topic-1');
+      expect(reopened.completedAt).toBeNull();
     });
   });
 });

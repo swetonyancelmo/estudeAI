@@ -9,6 +9,7 @@ import type {
   ChallengeSolutionDto,
   QuizAnswerResultDto,
   QuizDto,
+  RoadmapStatsDto,
   ResourceProgressDto,
   RoadmapDetailDto,
   RoadmapListItemDto,
@@ -37,6 +38,7 @@ export const roadmapKeys = {
     ["roadmaps", "quiz", roadmapId, topicId] as const,
   challenges: (roadmapId: string, topicId: string) =>
     ["roadmaps", "challenges", roadmapId, topicId] as const,
+  stats: (roadmapId: string) => ["roadmaps", "stats", roadmapId] as const,
 };
 
 /** GET /roadmap — "Meus Roadmaps" (FR-03.2). */
@@ -426,5 +428,33 @@ export function useSaveChallenge(roadmapId: string, topicId: string) {
           },
       );
     },
+  });
+}
+
+/** POST /roadmap/:id/study-time — "estou estudando" (1 minuto). */
+export async function recordStudyTime(
+  roadmapId: string,
+  day: string,
+): Promise<void> {
+  await api.post(`/roadmap/${roadmapId}/study-time`, { day });
+}
+
+/** GET /roadmap/:id/stats — painel de evolução (Fase 5). */
+export async function getRoadmapStats(
+  roadmapId: string,
+  today: string,
+  tz: string,
+): Promise<RoadmapStatsDto> {
+  const { data } = await api.get<RoadmapStatsDto>(
+    `/roadmap/${roadmapId}/stats`,
+    { params: { today, tz } },
+  );
+  return data;
+}
+
+export function useRoadmapStats(roadmapId: string, today: string, tz: string) {
+  return useQuery({
+    queryKey: [...roadmapKeys.stats(roadmapId), today, tz],
+    queryFn: () => getRoadmapStats(roadmapId, today, tz),
   });
 }

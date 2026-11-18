@@ -275,6 +275,17 @@ export interface RoadmapListItemDto {
   progress: RoadmapProgressDto;
   /** ISO 8601. */
   createdAt: string;
+  /**
+   * Primeiro item ainda não concluído, na ordem de estudo: o "continuar de
+   * onde parou" do card. Nulo quando o roadmap está completo.
+   */
+  nextTopic: NextTopicDto | null;
+}
+
+export interface NextTopicDto {
+  id: string;
+  title: string;
+  moduleTitle: string;
 }
 
 /** Resposta de GET /roadmap/:id e de POST /roadmap/generate. */
@@ -574,3 +585,66 @@ export interface ChallengeSolutionDto {
 
 /** Teto de cada arquivo salvo: código de exercício, não projeto. */
 export const CHALLENGE_FILE_MAX_LENGTH = 20_000;
+
+// ---------------------------------------------------------------------------
+// Fase 5 — evolução do estudante.
+//
+// O tempo de estudo vem de um aviso por minuto que a sala de estudo manda
+// enquanto está visível e em uso; a API soma por dia (no fuso de quem estuda)
+// e ignora avisos com menos de 55 s de intervalo, então duas abas não contam
+// em dobro. Datas no formato YYYY-MM-DD são sempre o dia LOCAL da pessoa.
+// ---------------------------------------------------------------------------
+
+/** Payload de POST /roadmap/:id/study-time. */
+export interface StudyTimeRequestDto {
+  /** Dia local de quem estuda (YYYY-MM-DD). */
+  day: string;
+}
+
+export interface StudyDayDto {
+  /** YYYY-MM-DD. */
+  day: string;
+  minutes: number;
+}
+
+export interface StudyWeekDto {
+  /** Segunda-feira da semana (YYYY-MM-DD). */
+  weekStart: string;
+  /** Minutos neste roadmap. */
+  minutes: number;
+  topicsCompleted: number;
+}
+
+export interface ModuleQuizStatsDto {
+  moduleId: string;
+  title: string;
+  /** Perguntas com resposta (a última de cada uma conta). */
+  answered: number;
+  correct: number;
+  /** Perguntas que os tópicos do módulo têm, respondidas ou não. */
+  total: number;
+}
+
+/** Resposta de GET /roadmap/:id/stats?today=YYYY-MM-DD. */
+export interface RoadmapStatsDto {
+  roadmapId: string;
+  /** Dia de referência usado nos cálculos (o "hoje" de quem pediu). */
+  today: string;
+  /** Minutos por dia, em TODOS os roadmaps da pessoa, só dias com estudo. */
+  days: StudyDayDto[];
+  /** Dias seguidos com estudo até hoje (ou ontem, se hoje ainda não teve). */
+  currentStreak: number;
+  bestStreak: number;
+  /** Meta do wizard em minutos por semana; nula nos roadmaps antigos. */
+  weeklyGoalMinutes: number | null;
+  /** Semanas deste roadmap, da mais antiga à atual (8 semanas). */
+  weeks: StudyWeekDto[];
+  quizByModule: ModuleQuizStatsDto[];
+  challenges: { passed: number; total: number };
+  /** Horas estimadas do que falta concluir. */
+  remainingHours: number;
+  /** Média de minutos por semana nas últimas 4 semanas (inclui a atual). */
+  recentWeeklyMinutes: number;
+  /** Semanas para terminar no ritmo real recente; nulo sem estudo recente. */
+  weeksAtRecentPace: number | null;
+}

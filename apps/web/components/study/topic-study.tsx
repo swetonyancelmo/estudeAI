@@ -35,6 +35,7 @@ import {
 } from "@/lib/roadmaps/youtube";
 import { TopicNoteEditor } from "./topic-note-editor";
 import { TopicQuiz } from "./topic-quiz";
+import { useStudyTime } from "./use-study-time";
 import { TopicChallenges } from "./topic-challenges";
 import { YoutubePlayer } from "./youtube-player";
 
@@ -73,6 +74,8 @@ function StudyRoom({
   const location = locateTopic(roadmap.modules, topicId);
   const toggle = useToggleTopic(roadmap.id);
   const progress = useUpdateResourceProgress(roadmap.id, topicId);
+  // Fase 5: o tempo aqui conta como estudo; vídeo tocando também é atividade.
+  const { markActive } = useStudyTime(roadmap.id);
 
   const resources = location?.topic.resources ?? [];
   const playable = resources.filter(
@@ -117,6 +120,7 @@ function StudyRoom({
     current: number,
     duration: number,
   ) {
+    markActive();
     if (resource.status === "completed") return;
     if (current / duration >= VIDEO_COMPLETION_RATIO) {
       markCompleted(resource, current);

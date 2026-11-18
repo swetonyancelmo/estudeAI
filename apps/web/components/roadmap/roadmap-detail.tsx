@@ -2,13 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { AlertCircle, ArrowLeft, Check, ChevronDown } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowLeft,
+  ChartColumn,
+  Check,
+  ChevronDown,
+} from "lucide-react";
 import type {
   AdjustmentChangesDto,
   PersistedModuleDto,
   RoadmapDetailDto,
 } from "@estudeai/shared-types";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useRoadmap, useToggleTopic } from "@/lib/roadmaps/api";
 import { AREA_LABELS } from "@/lib/roadmaps/labels";
@@ -100,7 +106,16 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
         <div className="bg-line h-2" aria-hidden="true" />
         <div className="flex flex-col gap-6 p-6 sm:p-8">
           <div className="flex flex-col gap-2">
-            <h1>Trilha {AREA_LABELS[roadmap.targetArea]}</h1>
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <h1>Trilha {AREA_LABELS[roadmap.targetArea]}</h1>
+              <Link
+                href={`/roadmaps/${roadmap.id}/evolucao`}
+                className={buttonVariants({ variant: "outline", size: "sm" })}
+              >
+                <ChartColumn className="size-4" />
+                Sua evolução
+              </Link>
+            </div>
             <p className="data-label text-ink-faint">
               {doneModules}/{roadmap.modules.length} módulos
               {hoursLeft > 0 && ` · ~${hoursLeft}h pela frente`}
