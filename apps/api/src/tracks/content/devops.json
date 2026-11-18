@@ -26,6 +26,56 @@
               "title": "Manual de introdução ao Linux",
               "url": "https://www.kernel.org/doc/html/latest/process/adding-syscalls.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "linux-introducao-ambiente-1",
+              "question": "Qual é a principal função do kernel Linux em uma distribuição?",
+              "options": [
+                "Gerenciar o hardware e os recursos do sistema.",
+                "Fornecer a interface gráfica padrão do usuário.",
+                "Instalar pacotes de software automaticamente.",
+                "Criar arquivos de texto no terminal."
+              ],
+              "answerIndex": 0,
+              "explanation": "O kernel é o núcleo do sistema operacional, responsável por fazer a ponte entre o hardware e os programas. A interface e os gerenciadores de pacotes são camadas adicionais."
+            },
+            {
+              "id": "linux-introducao-ambiente-2",
+              "question": "Qual é a principal vantagem de usar o WSL no desenvolvimento web no Windows?",
+              "options": [
+                "Substituir completamente o sistema operacional Windows.",
+                "Acelerar o hardware da placa de vídeo em jogos.",
+                "Garantir que o site rode mais rápido apenas no Edge.",
+                "Executar comandos Linux nativamente sem reiniciar o PC."
+              ],
+              "answerIndex": 3,
+              "explanation": "O WSL permite rodar ferramentas de linha de comando do Linux diretamente no Windows, integrando os dois ambientes sem precisar de dual boot."
+            },
+            {
+              "id": "linux-introducao-ambiente-3",
+              "question": "Por que rodar uma máquina virtual (VM) costuma exigir mais recursos do PC que o WSL?",
+              "options": [
+                "O WSL não precisa usar memória RAM para rodar.",
+                "A VM sempre roda em computadores mais antigos.",
+                "A VM emula um hardware inteiro, incluindo uma BIOS.",
+                "O Linux na VM consome mais espaço em disco que arquivos."
+              ],
+              "answerIndex": 2,
+              "explanation": "Máquinas virtuais criam um sistema completo isolado com seu próprio kernel e hardware emulado, exigindo mais CPU e RAM dedicados."
+            },
+            {
+              "id": "linux-introducao-ambiente-4",
+              "question": "O que acontece quando você digita um comando errado no terminal Linux?",
+              "options": [
+                "O computador reinicia automaticamente por segurança.",
+                "O shell exibe uma mensagem de erro informando a falha.",
+                "O arquivo de configuração principal é apagado.",
+                "O sistema entra no modo de recuperação."
+              ],
+              "answerIndex": 1,
+              "explanation": "O interpretador de comandos (shell) apenas avisa que o comando não foi encontrado ou é inválido, sem danificar o sistema."
+            }
           ]
         },
         {
@@ -45,6 +95,56 @@
             {
               "title": "Guia do Ubuntu para a linha de comando",
               "url": "https://ubuntu.com/tutorials/command-line-for-beginners"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "terminal-navegacao-arquivos-1",
+              "question": "Qual comando você usa para ver o conteúdo de um diretório no terminal?",
+              "options": [
+                "ls",
+                "cd",
+                "cat",
+                "pwd"
+              ],
+              "answerIndex": 0,
+              "explanation": "O comando `ls` lista os arquivos e pastas do diretório atual. `cd` muda de pasta e `pwd` mostra o caminho atual."
+            },
+            {
+              "id": "terminal-navegacao-arquivos-2",
+              "question": "Como você copia um arquivo chamado 'dados.txt' para uma pasta de backup?",
+              "options": [
+                "mv dados.txt backup/",
+                "cp dados.txt backup/",
+                "rm dados.txt backup/",
+                "cat dados.txt backup/"
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando `cp` faz uma cópia do arquivo mantendo o original. `mv` moveria ou renomearia o arquivo."
+            },
+            {
+              "id": "terminal-navegacao-arquivos-3",
+              "question": "O que o comando `cd ..` faz no terminal do Linux?",
+              "options": [
+                "Apaga o diretório atual",
+                "Retorna para a raiz",
+                "Move para o diretório pai",
+                "Lista o diretório acima"
+              ],
+              "answerIndex": 2,
+              "explanation": "Os dois pontos `..` representam o diretório imediatamente superior na árvore de pastas."
+            },
+            {
+              "id": "terminal-navegacao-arquivos-4",
+              "question": "Qual símbolo é utilizado para redirecionar a saída padrão de um comando para um arquivo, sobrescrevendo-o?",
+              "options": [
+                "|",
+                "<",
+                "&",
+                ">"
+              ],
+              "answerIndex": 3,
+              "explanation": "O operador `>` envia a saída de um comando para um arquivo. O símbolo `|` é usado para pipes."
             }
           ]
         },
@@ -70,6 +170,56 @@
               "title": "Manual do chown",
               "url": "https://man7.org/linux/man-pages/man1/chown.1.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "permissoes-usuarios-grupos-1",
+              "question": "Qual comando altera o dono de um arquivo para outro usuário?",
+              "options": [
+                "chmod",
+                "chgrp",
+                "chown",
+                "useradd"
+              ],
+              "answerIndex": 2,
+              "explanation": "O comando chown serve para mudar o dono e o grupo de um arquivo. Já o chmod altera apenas as permissões."
+            },
+            {
+              "id": "permissoes-usuarios-grupos-2",
+              "question": "Em `chmod 755 arquivo.txt`, o que o dígito 5 representa para o grupo?",
+              "options": [
+                "Permissão total de leitura, escrita e execução",
+                "Permissão de leitura e execução",
+                "Permissão apenas de leitura e escrita",
+                "Permissão exclusiva de execução"
+              ],
+              "answerIndex": 1,
+              "explanation": "O número 5 na notação octal resulta da soma de 4 (leitura) mais 1 (execução). A escrita (2) não foi incluída."
+            },
+            {
+              "id": "permissoes-usuarios-grupos-3",
+              "question": "Onde o Linux armazena as informações de criptografia das senhas dos usuários?",
+              "options": [
+                "/etc/shadow",
+                "/etc/passwd",
+                "/etc/group",
+                "/etc/sudoers"
+              ],
+              "answerIndex": 0,
+              "explanation": "O arquivo /etc/shadow guarda as senhas criptografadas e dados de expiração com acesso restrito ao root. O /etc/passwd armazena os dados públicos dos usuários."
+            },
+            {
+              "id": "permissoes-usuarios-grupos-4",
+              "question": "Qual comando adiciona um usuário existente a um grupo suplementar sem removê-lo dos outros?",
+              "options": [
+                "usermod -g",
+                "groupadd",
+                "useradd -m",
+                "usermod -aG"
+              ],
+              "answerIndex": 3,
+              "explanation": "A flag -aG adiciona o usuário ao grupo especificado mantendo os grupos anteriores. A flag -g altera apenas o grupo principal."
+            }
           ]
         },
         {
@@ -85,6 +235,56 @@
             {
               "title": "Gerenciando o systemd e Serviços no Debian",
               "url": "https://www.debian.org/doc/manuals/debian-reference/ch03.pt.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "processos-servicos-systemd-1",
+              "question": "Qual comando deve ser utilizado para aplicar imediatamente as alterações feitas em um arquivo de unidade do systemd?",
+              "options": [
+                "systemctl reload-daemon",
+                "systemctl restart systemd",
+                "systemctl update-units",
+                "systemctl daemon-reload"
+              ],
+              "answerIndex": 3,
+              "explanation": "O comando daemon-reload instrui o systemd a reler todos os arquivos de unidade e dependências do disco. Sem ele, alterações recentes não são reconhecidas."
+            },
+            {
+              "id": "processos-servicos-systemd-2",
+              "question": "Como verificar se um serviço está configurado para iniciar automaticamente durante o boot do sistema?",
+              "options": [
+                "systemctl is-enabled nome_servico",
+                "systemctl status nome_servico",
+                "systemctl check-boot nome_servico",
+                "systemctl is-active nome_servico"
+              ],
+              "answerIndex": 0,
+              "explanation": "O subcomando is-enabled verifica se há links simbólicos configurados para inicialização. O comando is-active apenas checa o estado atual de execução."
+            },
+            {
+              "id": "processos-servicos-systemd-3",
+              "question": "Qual comando exibe os logs de um serviço específico gerados pelo systemd-journald?",
+              "options": [
+                "journalctl --service=nome_servico",
+                "systemctl logs nome_servico",
+                "journalctl -u nome_servico",
+                "journalctl -s nome_servico"
+              ],
+              "answerIndex": 2,
+              "explanation": "A flag -u (ou --unit) filtra os registros do journal especificamente para a unidade informada. systemctl logs não existe."
+            },
+            {
+              "id": "processos-servicos-systemd-4",
+              "question": "Qual é a principal função do systemd em um sistema operacional Linux moderno?",
+              "options": [
+                "Compilar o kernel do sistema operacional sob demanda",
+                "Gerenciar a inicialização e o ciclo de vida dos processos",
+                "Gerenciar pacotes e dependências de software",
+                "Controlar o acesso de rede e regras de firewall"
+              ],
+              "answerIndex": 1,
+              "explanation": "O systemd atua como o sistema de inicialização inicial (PID 1) e gerenciador de serviços do sistema. As outras tarefas pertencem a gerenciadores de pacotes ou firewalls."
             }
           ]
         },
@@ -106,6 +306,56 @@
               "title": "Página de manual do systemd journalctl",
               "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "pacotes-logs-linux-1",
+              "question": "Qual comando do gerenciador apt atualiza apenas a lista de pacotes disponíveis nos repositórios?",
+              "options": [
+                "sudo apt update",
+                "sudo apt upgrade",
+                "sudo apt refresh",
+                "sudo apt install"
+              ],
+              "answerIndex": 0,
+              "explanation": "O comando `update` baixa os metadados mais recentes dos repositórios. O `upgrade` instala efetivamente as novas versões dos pacotes."
+            },
+            {
+              "id": "pacotes-logs-linux-2",
+              "question": "Para que serve o comando apt upgrade no dia a dia do gerenciamento de sistemas Linux baseados em Debian?",
+              "options": [
+                "Remove completamente pacotes e seus arquivos de configuração",
+                "Adiciona novos repositórios externos de software de forma segura",
+                "Instala atualizações para todos os pacotes já instalados no sistema",
+                "Apaga arquivos temporários deixados por instalações anteriores"
+              ],
+              "answerIndex": 2,
+              "explanation": "O `upgrade` compara as versões instaladas com as listas atualizadas e aplica as correções e melhorias disponíveis para os softwares."
+            },
+            {
+              "id": "pacotes-logs-linux-3",
+              "question": "O que acontece ao executar o comando apt remove sem o parâmetro purge?",
+              "options": [
+                "O sistema operacional inteiro é reiniciado automaticamente",
+                "Os arquivos de configuração do programa são mantidos no sistema",
+                "Nenhum pacote é desinstalado por falta de permissão root",
+                "Todas as dependências compartilhadas são apagadas imediatamente"
+              ],
+              "answerIndex": 1,
+              "explanation": "O `remove` padrão apenas desinstala o binário do programa. Para apagar também as configurações locais, usa-se o comando `purge`."
+            },
+            {
+              "id": "pacotes-logs-linux-4",
+              "question": "Como você faria para visualizar apenas os logs gerados por um serviço específico chamado nginx usando o journalctl?",
+              "options": [
+                "journalctl --service nginx",
+                "journalctl -f nginx",
+                "journalctl --follow nginx",
+                "journalctl -u nginx"
+              ],
+              "answerIndex": 3,
+              "explanation": "A flag `-u` (ou `--unit`) filtra os registros especificando a unidade do systemd correspondente ao serviço desejado."
+            }
           ]
         },
         {
@@ -121,6 +371,56 @@
             {
               "title": "Documenta1 aficiac do Vim",
               "url": "https://www.vim.org/docs.php"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "editores-vim-nano-1",
+              "question": "Qual comando no Nano é usado para salvar as alterações feitas em um arquivo aberto?",
+              "options": [
+                "Ctrl + O",
+                "Ctrl + S",
+                "Ctrl + W",
+                "Ctrl + X"
+              ],
+              "answerIndex": 0,
+              "explanation": "No editor Nano, o comando Ctrl + O (WriteOut) é utilizado para gravar as modificações no arquivo. O Ctrl + S costuma congelar o terminal em alguns sistemas e Ctrl + X serve para sair."
+            },
+            {
+              "id": "editores-vim-nano-2",
+              "question": "Como sair do modo de inserção e voltar ao modo de comando no Vim?",
+              "options": [
+                "Pressionar Enter",
+                "Digitar :wq",
+                "Clicar duas vezes",
+                "Pressionar Esc"
+              ],
+              "answerIndex": 3,
+              "explanation": "A tecla Esc interrrompe o modo de edição e retorna o Vim para o modo de comando, onde operações de salvamento e movimentação podem ser executadas."
+            },
+            {
+              "id": "editores-vim-nano-3",
+              "question": "Qual comando deve ser digitado no modo de comando do Vim para salvar o arquivo e sair imediatamente?",
+              "options": [
+                ":q!",
+                ":wq",
+                "ZZ",
+                "Ctrl + X"
+              ],
+              "answerIndex": 1,
+              "explanation": "A combinação :wq escreve (salva) as alterações e sai do editor. Já o :q! descarta as modificações feitas e o ZZ também salva e sai, mas não é um comando iniciado por dois-pontos."
+            },
+            {
+              "id": "editores-vim-nano-4",
+              "question": "Qual atalho no Nano abre a ferramenta de busca de texto dentro do arquivo atual?",
+              "options": [
+                "Ctrl + F",
+                "Ctrl + S",
+                "Ctrl + W",
+                "Ctrl + R"
+              ],
+              "answerIndex": 2,
+              "explanation": "O atalho Ctrl + W (Where Is) aciona a função de busca no Nano. O Ctrl + F é usado apenas para mover o cursor para a frente caractere por caractere."
             }
           ]
         }
@@ -150,6 +450,56 @@
               "title": "Como a Web funciona",
               "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works"
             }
+          ],
+          "quiz": [
+            {
+              "id": "modelo-osi-tcp-ip-1",
+              "question": "O que acontece com os dados gerados pelo navegador quando eles começam a descer pelas camadas do modelo OSI para serem enviados à rede?",
+              "options": [
+                "Cada camada adiciona seus próprios cabeçalhos de controle aos dados.",
+                "Os dados são divididos permanentemente e perdem a ordem original.",
+                "A camada física converte os dados em texto legível para o roteador.",
+                "O endereço IP de destino é apagado para economizar largura de banda."
+              ],
+              "answerIndex": 0,
+              "explanation": "Esse processo é conhecido como encapsulamento, onde cada camada acrescenta informações específicas necessárias para a entrega."
+            },
+            {
+              "id": "modelo-osi-tcp-ip-2",
+              "question": "Por que o modelo TCP/IP utiliza camadas separadas para organizar a comunicação em rede?",
+              "options": [
+                "Para garantir que a velocidade da conexão seja sempre a máxima possível.",
+                "Para obrigar os desenvolvedores a usarem a mesma linguagem de programação.",
+                "Para impedir que vírus e malwares passem de um computador para o outro.",
+                "Para permitir que alterações em uma camada não afetem o funcionamento das outras."
+              ],
+              "answerIndex": 3,
+              "explanation": "A modularidade facilita a manutenção e a evolução dos protocolos, pois cada camada tem uma responsabilidade isolada."
+            },
+            {
+              "id": "modelo-osi-tcp-ip-3",
+              "question": "Qual é o principal papel da camada de transporte no envio de informações pela internet?",
+              "options": [
+                "Definir o caminho físico mais curto entre dois computadores na rede.",
+                "Garantir a entrega correta e ordenada dos pacotes entre as aplicações.",
+                "Converter os sinais elétricos em ondas de rádio para o roteador Wi-Fi.",
+                "Traduzir o nome do site digitado em um endereço IP numérico."
+              ],
+              "answerIndex": 1,
+              "explanation": "A camada de transporte gerencia a confiabilidade da conexão e a divisão dos dados em segmentos, sendo o TCP seu principal expoente."
+            },
+            {
+              "id": "modelo-osi-tcp-ip-4",
+              "question": "O que o endereço IP realiza durante o processo de roteamento dos dados na rede?",
+              "options": [
+                "Define a quantidade exata de memória RAM que o servidor possui.",
+                "Criptografa o conteúdo da mensagem para evitar interceptações.",
+                "Identifica a localização lógica do dispositivo de destino na rede.",
+                "Armazena o histórico de todas as páginas web acessadas pelo usuário."
+              ],
+              "answerIndex": 2,
+              "explanation": "O endereço IP atua como um número de endereço postal, permitindo que os roteadores saibam para onde enviar os pacotes."
+            }
           ]
         },
         {
@@ -165,6 +515,56 @@
             {
               "title": "Documentação do Linux sobre endereçamento IP e netlink",
               "url": "https://man7.org/linux/man-pages/man7/ip.7.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "enderecamento-ip-sub-redes-1",
+              "question": "O que representa a notação /24 no endereço IP 192.168.1.10/24?",
+              "options": [
+                "O número total de servidores que podem ser conectados na rede.",
+                "A quantidade exata de roteadores presentes no mesmo domínio.",
+                "Os primeiros 24 bits definem a rede e os demais identificam o host.",
+                "O tempo máximo de expiração do endereço fornecido via DHCP."
+              ],
+              "answerIndex": 2,
+              "explanation": "A notação CIDR indica quantos bits à esquerda da máscara são usados para a porção de rede, deixando o restante para os hosts."
+            },
+            {
+              "id": "enderecamento-ip-sub-redes-2",
+              "question": "Qual é a principal função de uma máscara de sub-rede em uma rede IPv4?",
+              "options": [
+                "Acelerar o trque de pacotes criptografados entre roteadores distantes.",
+                "Separar a parte que identifica a rede da parte que identifica o host.",
+                "Definir a velocidade máxima de transmissão permitida na interface.",
+                "Converter nomes de domínio legíveis em endereços IP numéricos."
+              ],
+              "answerIndex": 1,
+              "explanation": "A máscara atua como um filtro binário para que dispositivos saibam se o destino está na mesma rede local ou requer um gateway."
+            },
+            {
+              "id": "enderecamento-ip-sub-redes-3",
+              "question": "Ao dividir a rede 10.0.0.0/16 usando a máscara /24, quantos blocos de sub-redes obtemos?",
+              "options": [
+                "256 sub-redes",
+                "16 sub-redes",
+                "65536 sub-redes",
+                "512 sub-redes"
+              ],
+              "answerIndex": 0,
+              "explanation": "A diferença entre /24 e /16 é de 8 bits. 2 elevado à potência de 8 resulta em 256 sub-redes possíveis."
+            },
+            {
+              "id": "enderecamento-ip-sub-redes-4",
+              "question": "Em uma configuração de rede Linux, o que define a rota padrão quando não há correspondência específica?",
+              "options": [
+                "Um endereço IP com todos os bits ativados (255.255.255.255).",
+                "O endereço de loopback 127.0.0.1 configurado na interface lo.",
+                "O endereço IP da própria interface de rede principal.",
+                "Um destino 0.0.0.0/0 direcionado ao gateway padrão."
+              ],
+              "answerIndex": 3,
+              "explanation": "A rota padrão usa a notação CIDR /0 para abranger qualquer destino externo, encaminhando o tráfego para o gateway."
             }
           ]
         },
@@ -190,6 +590,56 @@
               "title": "Introdução ao Cloudflare DNS",
               "url": "https://developers.google.com/speed/public-dns"
             }
+          ],
+          "quiz": [
+            {
+              "id": "dns-http-https-1",
+              "question": "Qual é a principal diferença de segurança entre o protocolo HTTP e o HTTPS?",
+              "options": [
+                "O HTTPS criptografa os dados trocados entre o navegador e o servidor.",
+                "O HTTPS acelera o carregamento das páginas usando servidores locais.",
+                "O HTTP impede que o servidor seja derrubado por ataques de negação.",
+                "O HTTP exige o uso de senhas fortes para qualquer tipo de acesso."
+              ],
+              "answerIndex": 0,
+              "explanation": "O HTTPS adiciona uma camada de criptografia TLS sobre o HTTP, garantindo que os dados não possam ser lidos por terceiros no meio do caminho."
+            },
+            {
+              "id": "dns-http-https-2",
+              "question": "Qual é a função básica do DNS na arquitetura da internet?",
+              "options": [
+                "Armazenar o código-fonte de sites e aplicações web.",
+                "Traduzir nomes de domínio legíveis em endereços IP numéricos.",
+                "Criptografar o tráfego de dados entre o cliente e o servidor.",
+                "Controlar o tráfego de rede para evitar ataques de vírus."
+              ],
+              "answerIndex": 1,
+              "explanation": "O DNS funciona como a lista telefônica da internet, convertendo endereços como google.com em IPs compreensíveis pelas máquinas."
+            },
+            {
+              "id": "dns-http-https-3",
+              "question": "O que um certificado TLS/SSL autentica em um site?",
+              "options": [
+                "A qualidade e a velocidade da hospedagem web.",
+                "O fato de a empresa não possuir nenhum bug de software.",
+                "A identidade do servidor e a segurança da conexão.",
+                "A quantidade de visitantes simultâneos que o site suporta."
+              ],
+              "answerIndex": 2,
+              "explanation": "O certificado valida que o domínio pertence realmente à organização que diz possuí-lo e estabelece uma chave de criptografia."
+            },
+            {
+              "id": "dns-http-https-4",
+              "question": "O que acontece quando digitamos uma URL no navegador e pressionamos Enter?",
+              "options": [
+                "O servidor envia imediatamente o certificado digital sem consultar redes.",
+                "O provedor de internet bloqueia a página caso ela use o protocolo HTTP.",
+                "O computador cria um novo endereço IP exclusivo para acessar o site.",
+                "O navegador faz uma consulta DNS para descobrir o IP do servidor."
+              ],
+              "answerIndex": 3,
+              "explanation": "O primeiro passo técnico antes de abrir uma página é sempre resolver o nome do domínio para um endereço IP através do DNS."
+            }
           ]
         },
         {
@@ -214,6 +664,56 @@
               "title": "Documentação do GitHub sobre conexão SSH",
               "url": "https://docs.github.com/en/authentication/connecting-to-github-with-ssh"
             }
+          ],
+          "quiz": [
+            {
+              "id": "ssh-acesso-remoto-1",
+              "question": "Qual é o principal objetivo de utilizar o par de chaves SSH em vez de senha?",
+              "options": [
+                "Acelerar a velocidade de download de arquivos grandes no servidor remoto.",
+                "Autenticar o acesso de forma criptográfica sem expor credenciais na rede.",
+                "Garantir que o sistema operacional execute atualizações automáticas.",
+                "Comprimir o tráfego de dados para economizar largura de banda."
+              ],
+              "answerIndex": 1,
+              "explanation": "As chaves SSH utilizam criptografia de chave pública para validar a identidade, eliminando o envio de senhas pela rede e aumentando a segurança."
+            },
+            {
+              "id": "ssh-acesso-remoto-2",
+              "question": "Qual arquivo gerado pelo comando `ssh-keygen` deve ser mantido em segredo absoluto na máquina local?",
+              "options": [
+                "A chave privada (`id_rsa` ou similar).",
+                "A chave pública (`id_rsa.pub`).",
+                "O arquivo de configuração (`config`).",
+                "O arquivo de histórico de conexões."
+              ],
+              "answerIndex": 0,
+              "explanation": "A chave privada confere acesso à sua conta e nunca deve ser compartilhada ou copiada para servidores remotos, apenas a chave pública."
+            },
+            {
+              "id": "ssh-acesso-remoto-3",
+              "question": "Por que o comando `ssh-copy-id` é frequentemente utilizado após gerar um par de chaves?",
+              "options": [
+                "Para transferir a chave privada para o diretório de configuração do SSH.",
+                "Para gerar um backup seguro das chaves geradas recentemente.",
+                "Para copiar a chave pública de forma correta para o servidor remoto.",
+                "Para instalar o servidor SSH na máquina remota automaticamente."
+              ],
+              "answerIndex": 2,
+              "explanation": "O comando `ssh-copy-id` automatiza o processo de adicionar a chave pública ao arquivo `authorized_keys` do servidor remoto com as permissões corretas."
+            },
+            {
+              "id": "ssh-acesso-remoto-4",
+              "question": "O que acontece se as permissões da pasta `~/.ssh` ou dos arquivos de chave forem muito abertas no Linux?",
+              "options": [
+                "O sistema altera automaticamente as permissões sem avisar o usuário.",
+                "As chaves são apagadas permanentemente para evitar invasões.",
+                "O servidor remoto bloqueia o endereço IP do cliente.",
+                "O cliente SSH pode recusar a conexão por motivos de segurança."
+              ],
+              "answerIndex": 3,
+              "explanation": "O SSH exige que a chave privada e a pasta `.ssh` tenham permissões restritas (apenas o dono pode ler/escrever), falhando caso estejam muito abertas."
+            }
           ]
         },
         {
@@ -233,6 +733,56 @@
             {
               "title": "Documentação do iptables no manual do Linux",
               "url": "https://man7.org/linux/man-pages/man8/iptables.8.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "firewall-portas-1",
+              "question": "Por que o comando `sudo ufw default deny incoming` é recomendado antes de habilitar o firewall?",
+              "options": [
+                "Bloqueia o tráfego de saída para evitar vazamento de dados corporativos.",
+                "Aplica imediatamente as regras para conexões já estabelecidas na rede.",
+                "Garante que nenhuma porta fique aberta por padrão ao ativar o serviço.",
+                "Força o roteador local a descartar pacotes maliciosos na camada de enlace."
+              ],
+              "answerIndex": 2,
+              "explanation": "Definir a política padrão de entrada como 'deny' protege o servidor contra acessos não intencionais assim que o UFW é ligado. O tráfego de saída continua permitido por padrão."
+            },
+            {
+              "id": "firewall-portas-2",
+              "question": "Qual é o comportamento padrão do iptables quando nenhuma regra é encontrada em uma cadeia como INPUT?",
+              "options": [
+                "O pacote é automaticamente aceito para evitar quedas de conexão.",
+                "O pacote é rejeitado com o envio imediato de um erro TCP RST.",
+                "O kernel descarta silenciosamente o pacote sem alterar contadores.",
+                "O pacote é avaliado pela política padrão (policy) definida na cadeia."
+              ],
+              "answerIndex": 3,
+              "explanation": "Se um pacote passa por todas as regras sem match, o iptables aplica a política padrão configurada, que geralmente é ACCEPT ou DROP."
+            },
+            {
+              "id": "firewall-portas-3",
+              "question": "Qual a principal diferença operacional entre as ações DROP e REJECT no iptables?",
+              "options": [
+                "REJECT informa a origem sobre o bloqueio, enquanto DROP descarta sem aviso.",
+                "DROP bloqueia apenas portas TCP, enquanto REJECT funciona para UDP e TCP.",
+                "REJECT exige privilégios de root, ao passo que DROP pode ser usado por usuários comuns.",
+                "DROP consome mais memória do kernel devido ao log automático gerado."
+              ],
+              "answerIndex": 0,
+              "explanation": "O DROP simplesmente ignora o pacote, fazendo a conexão expirar por timeout. O REJECT envia uma resposta de erro ICMP ou TCP RST de volta ao remetente."
+            },
+            {
+              "id": "firewall-portas-4",
+              "question": "O que acontece se uma regra de ACCEPT for colocada após uma regra de DROP na mesma cadeia do iptables?",
+              "options": [
+                "O iptables reorganiza automaticamente as regras por ordem de eficiência.",
+                "A regra de ACCEPT será ignorada para pacotes que já deram match no DROP.",
+                "A regra de ACCEPT sobrescreve a anterior por ter precedência lógica.",
+                "Ocorre um conflito de sintaxe que impede o carregamento das regras."
+              ],
+              "answerIndex": 1,
+              "explanation": "O iptables avalia as regras de cima para baixo de forma sequencial. Assim que um pacote atende a uma condição, a ação é executada e as regras seguintes são ignoradas."
             }
           ]
         },
@@ -257,6 +807,56 @@
             {
               "title": "Manual do ss",
               "url": "https://man7.org/linux/man-pages/man8/ss.8.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "diagnostico-rede-1",
+              "question": "Qual comando é mais adequado para verificar se a resolução de DNS de um domínio está funcionando corretamente a partir de um servidor Linux?",
+              "options": [
+                "ping exemplo.com",
+                "curl exemplo.com",
+                "traceroute exemplo.com",
+                "dig exemplo.com"
+              ],
+              "answerIndex": 3,
+              "explanation": "O comando dig consulta diretamente os servidores DNS para retornar os registros de um domínio. O ping resolve o nome, mas testa a conectividade ICMP e não exibe detalhes do DNS."
+            },
+            {
+              "id": "diagnostico-rede-2",
+              "question": "Durante a investigação de uma falha de rede, você precisa listar todas as portas TCP que estão ativas e escutando conexões no servidor local. Qual comando usar?",
+              "options": [
+                "ss -s",
+                "ping -a",
+                "ss -tln",
+                "curl -v"
+              ],
+              "answerIndex": 2,
+              "explanation": "A flag -t filtra conexões TCP, -l mostra apenas sockets em estado de escuta (listening) e -n evita a resolução de nomes. O comando ss substituiu o antigo netstat com melhor desempenho."
+            },
+            {
+              "id": "diagnostico-rede-3",
+              "question": "Você fez uma requisição HTTP usando curl para uma URL, mas a resposta retornou apenas os cabeçalhos HTTP sem o corpo da página. Qual parâmetro foi utilizado?",
+              "options": [
+                "-I",
+                "-X GET",
+                "-s",
+                "-v"
+              ],
+              "answerIndex": 0,
+              "explanation": "A flag -I (ou --head) faz uma requisição HEAD, obtendo apenas os cabeçalhos do servidor. O parâmetro -s ativa o modo silencioso, enquanto -v ativa o modo detalhado (verbose)."
+            },
+            {
+              "id": "diagnostico-rede-4",
+              "question": "Ao testar a rota que os pacotes de rede fazem até um IP de destino, alguns saltos na listagem do traceroute aparecem com asteriscos (*). O que isso significa?",
+              "options": [
+                "O cabo de rede daquele salto está fisicamente desconectado e com defeito.",
+                "O roteador daquele salto configurou-se para não responder a pacotes ICMP de tempo excedido.",
+                "Houve perda total de pacotes em ambas as direções sem possibilidade de recuperação.",
+                "A rota foi permanentemente bloqueada por um ataque de negação de serviço."
+              ],
+              "answerIndex": 1,
+              "explanation": "Muitos roteadores corporativos ignoram intencionalmente pacotes de tempo excedido para evitar sobrecarga ou ocultar topologia. O tráfego ainda pode passar por eles normalmente."
             }
           ]
         }
@@ -294,6 +894,56 @@
               "title": "Branches no Git em poucas palavras",
               "url": "https://git-scm.com/book/pt-br/v2/Ramifica%C3%A7%C3%A3o-Branching-no-Git-Branches-em-Poucas-Palavras"
             }
+          ],
+          "quiz": [
+            {
+              "id": "git-fundamentos-1",
+              "question": "Para que serve o comando `git status` durante o desenvolvimento de um projeto?",
+              "options": [
+                "Para listar o histórico completo de todos os commits já realizados no repositório.",
+                "Para verificar o status da conexão com o servidor remoto na internet.",
+                "Para verificar quais arquivos foram modificados, preparados ou não rastreados.",
+                "Para mostrar qual branch está ativa e o log das últimas alterações."
+              ],
+              "answerIndex": 2,
+              "explanation": "O `git status` mostra o estado atual da árvore de trabalho e da área de stage. O histórico de commits é visualizado com o comando `git log`."
+            },
+            {
+              "id": "git-fundamentos-2",
+              "question": "O que representa uma branch (ramificação) no Git em sua essência?",
+              "options": [
+                "Uma cópia física de todos os arquivos do projeto em uma pasta separada.",
+                "Um ponteiro leve e móvel para um commit específico do histórico.",
+                "Um diretório isolado no servidor remoto onde a equipe envia códigos.",
+                "Uma versão congelada do sistema que não pode mais receber alterações."
+              ],
+              "answerIndex": 1,
+              "explanation": "No Git, branches são apenas referências leves e mutáveis para commits, o que torna a criação e a troca de ramos extremamente rápidas."
+            },
+            {
+              "id": "git-fundamentos-3",
+              "question": "Qual comando você deve utilizar para visualizar o histórico de commits de forma cronológica?",
+              "options": [
+                "git history",
+                "git show",
+                "git track",
+                "git log"
+              ],
+              "answerIndex": 3,
+              "explanation": "O comando `git log` exibe a lista de commits realizados no branch atual em ordem cronológica inversa. O comando `git show` serve para ver detalhes de um commit específico."
+            },
+            {
+              "id": "git-fundamentos-4",
+              "question": "Qual é o comportamento do comando `git checkout -b nova-branch`?",
+              "options": [
+                "Cria um novo branch e muda imediatamente para ele.",
+                "Apenas cria o novo branch, mantendo você no branch atual.",
+                "Envia o branch atual para o repositório remoto com um novo nome.",
+                "Exclui definitivamente o branch informado do repositório local."
+              ],
+              "answerIndex": 0,
+              "explanation": "A opção `-b` combinada com o checkout cria a ramificação e já realiza a troca para ela em um único comando. Sem a flag, o Git tentaria apenas mudar para um branch existente."
+            }
           ]
         },
         {
@@ -314,6 +964,56 @@
               "title": "Colaborando com pull requests",
               "url": "https://docs.github.com/pt/pull-requests"
             }
+          ],
+          "quiz": [
+            {
+              "id": "github-fluxo-pull-requests-1",
+              "question": "Qual é a principal função do comando `git push` no fluxo de trabalho do GitHub?",
+              "options": [
+                "Baixar alterações recentes do repositório remoto para o computador.",
+                "Criar um novo repositório diretamente na nuvem do GitHub.",
+                "Enviar commits locais para o repositório remoto.",
+                "Mesclar dois ramos diferentes dentro da máquina local."
+              ],
+              "answerIndex": 2,
+              "explanation": "O comando push atualiza o repositório remoto com os commits que você já realizou e salvou localmente. O erro comum é confundi-lo com o pull."
+            },
+            {
+              "id": "github-fluxo-pull-requests-2",
+              "question": "O que acontece ao abrir um Pull Request no GitHub?",
+              "options": [
+                "Você propõe que alterações de um branch sejam mescladas em outro.",
+                "O código é publicado automaticamente em produção sem revisão.",
+                "Um arquivo local é apagado permanentemente do seu computador.",
+                "Apenas a equipe de suporte do GitHub recebe uma mensagem de erro."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Pull Request serve para iniciar uma discussão e revisão de código antes que ele entre no branch principal. Ele não altera arquivos sozinho."
+            },
+            {
+              "id": "github-fluxo-pull-requests-3",
+              "question": "Por que é recomendado criar um branch separado antes de começar a editar um arquivo?",
+              "options": [
+                "Para que o GitHub consiga compactar o histórico de commits.",
+                "Porque o Git proíbe salvar alterações direto no branch principal.",
+                "Para acelerar o tempo de download do projeto na sua máquina.",
+                "Para isolar o trabalho e não alterar o branch principal instável."
+              ],
+              "answerIndex": 3,
+              "explanation": "Trabalhar em branches isola novas funcionalidades ou correções, mantendo o branch principal limpo. O Git permite commits diretos, embora seja uma prática ruim."
+            },
+            {
+              "id": "github-fluxo-pull-requests-4",
+              "question": "Qual comando você usa para atualizar seu repositório local com as mudanças feitas por outra pessoa no GitHub?",
+              "options": [
+                "git push",
+                "git pull",
+                "git commit",
+                "git status"
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando `git pull` busca e integra as novidades do repositório remoto para a sua máquina. Quem está começando costuma confundir o sentido do fluxo com o push."
+            }
           ]
         },
         {
@@ -329,6 +1029,56 @@
             {
               "title": "Manual do Bash no Linux",
               "url": "https://man7.org/linux/man-pages/man1/bash.1.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "bash-scripting-1",
+              "question": "Como declarar e atribuir valor a uma variável em Bash corretamente?",
+              "options": [
+                "nome=valor",
+                "nome = valor",
+                "var nome = valor",
+                "set nome=valor"
+              ],
+              "answerIndex": 0,
+              "explanation": "Em Bash, a atribuição de variáveis não permite espaços ao redor do sinal de igual. O erro comum é colocar espaços como em outras linguagens."
+            },
+            {
+              "id": "bash-scripting-2",
+              "question": "Qual é a forma correta de usar o valor armazenado na variável `usuario`?",
+              "options": [
+                "&usuario",
+                "#usuario",
+                "$usuario",
+                "@usuario"
+              ],
+              "answerIndex": 2,
+              "explanation": "O cifrão ($) é usado para expandir e acessar o valor de uma variável em Bash. Outros símbolos são usados para escopos diferentes ou metacaracteres."
+            },
+            {
+              "id": "bash-scripting-3",
+              "question": "Qual estrutura de laço percorre uma lista fixa de elementos fornecidos explicitamente?",
+              "options": [
+                "while [ $i -lt 3 ]; do ... done",
+                "for item in a b c; do ... done",
+                "foreach item in a b c; do ... done",
+                "loop a b c; do ... done"
+              ],
+              "answerIndex": 1,
+              "explanation": "O laço `for ... in` itera diretamente sobre uma lista de valores especificada. Os outros formatos usam sintaxe inválida ou são de outras linguagens."
+            },
+            {
+              "id": "bash-scripting-4",
+              "question": "Como declarar uma função chamada `minha_funcao` em Bash?",
+              "options": [
+                "function minha_funcao { echo \"ok\"; }",
+                "def minha_funcao() { echo \"ok\"; }",
+                "func minha_funcao() { echo \"ok\"; }",
+                "minha_funcao() { echo \"ok\"; }"
+              ],
+              "answerIndex": 3,
+              "explanation": "A sintaxe padrão do Bash exige o nome seguido de parênteses vazios e chaves. A palavra-chave `function` é opcional e sem parênteses."
             }
           ]
         },
@@ -350,6 +1100,56 @@
               "title": "YAML Specification",
               "url": "https://yaml.org/spec/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "yaml-json-1",
+              "question": "Qual é a principal diferença estrutural na representação de listas e coleções entre JSON e YAML?",
+              "options": [
+                "O JSON utiliza colchetes `[]` enquanto o YAML utiliza hífens `-`.",
+                "O JSON exige indentação baseada em espaços enquanto o YAML usa tabulações.",
+                "O YAML suporta apenas dados textuais enquanto o JSON aceita números e booleanos.",
+                "O JSON permite comentários em linha enquanto o YAML não possui suporte a comentários."
+              ],
+              "answerIndex": 0,
+              "explanation": "No YAML, listas são indicadas por hífens no início das linhas, enquanto o JSON emprega colchetes para delimitar arrays."
+            },
+            {
+              "id": "yaml-json-2",
+              "question": "Ao ler um arquivo de configuração em YAML, você se depara com o uso de chaves `{}` e colchetes `[]`. O que isso significa?",
+              "options": [
+                "Que o arquivo está corrompido e precisa ser convertido imediatamente.",
+                "Que o interpretador YAML vai falhar ao tentar ler essa mistura de padrões.",
+                "Que o arquivo foi convertido automaticamente para XML em tempo de execução.",
+                "Que o YAML também aceita a sintaxe estilo JSON para objetos e listas."
+              ],
+              "answerIndex": 3,
+              "explanation": "O YAML é um superconjunto do JSON, permitindo o uso da sintaxe de fluxo (chaves e colchetes) para estruturar dados."
+            },
+            {
+              "id": "yaml-json-3",
+              "question": "Por que o YAML é frequentemente preferido em relação ao JSON para escrever arquivos de configuração manuais, como em ferramentas de CI/CD?",
+              "options": [
+                "Porque os servidores processam arquivos YAML dez vezes mais rápido que JSON.",
+                "Porque o YAML é a única linguagem aceitada nativamente por servidores Linux.",
+                "Porque sua sintaxe limpa dispensa o uso excessivo de aspas e chaves.",
+                "Porque o JSON não permite a criação de estruturas aninhadas complexas."
+              ],
+              "answerIndex": 2,
+              "explanation": "A ausência de chaves e aspas obrigatórias torna o YAML mais legível para humanos editarem configurações."
+            },
+            {
+              "id": "yaml-json-4",
+              "question": "O que acontece se você misturar espaços e tabulações (tabs) para fazer a indentação em um arquivo YAML?",
+              "options": [
+                "O arquivo será executado normalmente, pois o parser converte tabs em espaços.",
+                "O interpretador YAML gerará um erro de sintaxe na leitura.",
+                "As linhas com tabulação serão ignoradas pelo sistema de automação.",
+                "Os dados serão lidos, mas perderão a ordem original das chaves."
+              ],
+              "answerIndex": 1,
+              "explanation": "A especificação YAML proíbe estritamente o uso de caracteres de tabulação para indentação, exigindo apenas espaços."
+            }
           ]
         },
         {
@@ -369,6 +1169,56 @@
             {
               "title": "Biblioteca Padrão do Python",
               "url": "https://docs.python.org/3/library/index.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "python-automacao-1",
+              "question": "Como abrir e ler um arquivo de configuração com segurança, garantindo que o descritor seja fechado mesmo se ocorrer um erro?",
+              "options": [
+                "Usando apenas `open(...)` e chamando `close()` no final",
+                "Usando blocos `try-finally` manuais sem o `with`",
+                "Usando o gerenciador de contexto `with open(...)`",
+                "Atribuindo o arquivo a uma variável global"
+              ],
+              "answerIndex": 2,
+              "explanation": "A instrução 'with' garante o fechamento automático do arquivo ao sair do bloco, evitando vazamentos de recursos. O erro comum é esquecer de chamar o método close() em fluxos de exceção."
+            },
+            {
+              "id": "python-automacao-2",
+              "question": "Ao criar scripts de automação que lidam com credenciais, qual é a prática recomendada para injetar essas informações?",
+              "options": [
+                "Salvar as senhas em um arquivo JSON criptografado localmente",
+                "Ler variáveis de ambiente através de `os.environ`",
+                "Inserir as chaves diretamente no código fonte do script",
+                "Requisitar a senha via input interativo a cada execução"
+              ],
+              "answerIndex": 1,
+              "explanation": "Variáveis de ambiente mantêm segredos fora do código fonte e facilitam o uso em containers. O erro comum é deixar credenciais hardcoded no repositório."
+            },
+            {
+              "id": "python-automacao-3",
+              "question": "Para processar argumentos passados via linha de comando em um script de automação robusto, qual módulo usar?",
+              "options": [
+                "sys.argv",
+                "getopt",
+                "click",
+                "argparse"
+              ],
+              "answerIndex": 3,
+              "explanation": "O módulo argparse cria interfaces de linha de comando completas com ajuda automática e validação de tipos. O erro comum é processar sys.argv manualmente com fatiamento de listas."
+            },
+            {
+              "id": "python-automacao-4",
+              "question": "Como lidar com falhas temporárias de rede ao fazer requisições em scripts de infraestrutura?",
+              "options": [
+                "Implementar lógica de repetição com tratamento de exceções específicas",
+                "Aumentar o tempo limite (timeout) para o valor máximo permitido",
+                "Desativar a verificação de certificado SSL para evitar erros de conexão",
+                "Ignorar todos os erros usando um bloco try-except vazio"
+              ],
+              "answerIndex": 0,
+              "explanation": "Redes instáveis exigem tentativas controladas (retry) capturando exceções de conexão. O erro comum é usar blocos genéricos ou ignorar os erros, mascarando problemas reais."
             }
           ]
         }
@@ -398,6 +1248,56 @@
               "title": "Visão geral do Docker",
               "url": "https://docs.docker.com/get-started/docker-overview/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "containers-docker-cli-1",
+              "question": "Qual é a principal diferença conceitual entre uma máquina virtual tradicional e um container Docker?",
+              "options": [
+                "Containers rodam apenas em servidores Linux, ao passo que máquinas virtuais rodam em qualquer sistema operacional.",
+                "Máquinas virtuais não utilizam recursos de hardware físico, diferentemente dos containers.",
+                "Containers armazenam dados de forma permanente por padrão, enquanto VMs usam apenas memória volátil.",
+                "Containers compartilham o kernel do sistema operacional host, enquanto VMs possuem um sistema operacional completo próprio."
+              ],
+              "answerIndex": 3,
+              "explanation": "Containers são leves justamente porque isolam a aplicação compartilhando o kernel da máquina hospedeira. O erro comum é achar que cada container roda um SO inteiro."
+            },
+            {
+              "id": "containers-docker-cli-2",
+              "question": "Qual comando do Docker é utilizado para criar e iniciar um container a partir de uma imagem?",
+              "options": [
+                "docker start",
+                "docker create",
+                "docker run",
+                "docker build"
+              ],
+              "answerIndex": 2,
+              "explanation": "O comando `docker run` combina a criação e a inicialização do container. O `docker start` apenas reinicia um container que já existe e está parado."
+            },
+            {
+              "id": "containers-docker-cli-3",
+              "question": "Para que serve o comando `docker ps` no dia a dia do desenvolvimento?",
+              "options": [
+                "Exibir todas as imagens Docker armazenadas localmente no computador.",
+                "Listar os containers que estão atualmente em execução no ambiente.",
+                "Medir o consumo de memória RAM e processamento de todos os hosts.",
+                "Verificar o status de conexão com o registro remoto do Docker Hub."
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando `docker ps` mostra os containers ativos. Usando a flag `-a`, é possível ver também os containers que já foram parados."
+            },
+            {
+              "id": "containers-docker-cli-4",
+              "question": "O que acontece com os dados salvos dentro do sistema de arquivos de um container quando ele é removido?",
+              "options": [
+                "Os dados são perdidos permanentemente, pois o container é efêmero.",
+                "Os dados são migrados automaticamente para a imagem base correspondente.",
+                "Os arquivos ficam salvos na pasta de lixeira do Docker para recuperação futura.",
+                "O Docker cria um backup compactado na área de trabalho do usuário."
+              ],
+              "answerIndex": 0,
+              "explanation": "Por padrão, o ciclo de vida do container dita que alterações no seu disco interno somem ao removê-lo. Para persistir dados, usamos volumes."
+            }
           ]
         },
         {
@@ -418,6 +1318,56 @@
               "title": "Gerenciando credenciais e publicando imagens",
               "url": "https://docs.docker.com/security/access-tokens/personal-access-tokens/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "dockerfile-imagens-1",
+              "question": "Qual a principal vantagem de usar múltiplos estágios (multi-stage builds) em um Dockerfile?",
+              "options": [
+                "Acelera o download das dependências do sistema operacional.",
+                "Reduz o tamanho final da imagem ao descartar ferramentas de compilação.",
+                "Permite executar múltiplos containers simultaneamente na mesma porta.",
+                "Garante que o código fonte original nunca seja compilado."
+              ],
+              "answerIndex": 1,
+              "explanation": "O multi-stage build usa imagens temporárias para compilar o app e copia apenas o binário final para a imagem de produção, diminuindo o tamanho."
+            },
+            {
+              "id": "dockerfile-imagens-2",
+              "question": "Por que o comando COPY deve ser usado em etapas específicas em vez de copiar todo o projeto de uma vez no início?",
+              "options": [
+                "Para evitar erros de permissão de arquivo no Linux.",
+                "Para garantir que o código seja executado em modo seguro.",
+                "Para reduzir o tempo de execução do comando RUN.",
+                "Para aproveitar o sistema de cache de camadas do Docker."
+              ],
+              "answerIndex": 3,
+              "explanation": "Copiar primeiro apenas o arquivo de dependências permite que o Docker use o cache caso o código fonte mude, mas as dependências não."
+            },
+            {
+              "id": "dockerfile-imagens-3",
+              "question": "Antes de enviar uma imagem recém-criada para um registry privado, qual comando deve ser executado obrigatoriamente?",
+              "options": [
+                "docker login",
+                "docker push",
+                "docker commit",
+                "docker tag"
+              ],
+              "answerIndex": 0,
+              "explanation": "O comando docker login autentica o cliente Docker no registry remoto. Sem ele, a operação de push será rejeitada por falta de credenciais."
+            },
+            {
+              "id": "dockerfile-imagens-4",
+              "question": "Ao criar uma tag para uma imagem antes de publicá-la, qual formato faz parte da convenção padrão do Docker Hub?",
+              "options": [
+                "nomeimagem-nomeusuario:versao",
+                "versao/nomeusuario/nomeimagem",
+                "nomeusuario/nomeimagem:versao",
+                "nomeusuario.nomeimagem:versao"
+              ],
+              "answerIndex": 2,
+              "explanation": "O padrão para imagens públicas exige o seu nome de usuário do Docker Hub seguido de barra, o nome do repositório e a tag da versão."
+            }
           ]
         },
         {
@@ -437,6 +1387,56 @@
             {
               "title": "Visão geral das redes do Docker",
               "url": "https://docs.docker.com/engine/network/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "volumes-redes-docker-1",
+              "question": "Qual a principal vantagem de usar um volume do Docker em vez do armazenamento interno do container?",
+              "options": [
+                "Os dados persistem mesmo após o container ser removido.",
+                "O acesso à leitura e escrita em disco torna-se ilimitado.",
+                "A criptografia dos arquivos gravados é automática.",
+                "A velocidade de transferência de arquivos dobra."
+              ],
+              "answerIndex": 0,
+              "explanation": "Volumes armazenam dados fora do ciclo de vida do container. O erro comum é achar que volumes melhoram performance."
+            },
+            {
+              "id": "volumes-redes-docker-2",
+              "question": "Como containers em redes bridge padrão diferentes comunicam-se entre si por padrão?",
+              "options": [
+                "Usando o nome do container como hostname.",
+                "Apenas por meio de seus endereços IP.",
+                "Através de portas expostas automaticamente no host.",
+                "Eles não conseguem se comunicar de forma alguma."
+              ],
+              "answerIndex": 1,
+              "explanation": "A bridge padrão não suporta resolução de nomes integrada. Para usar nomes, é necessário criar uma rede bridge personalizada."
+            },
+            {
+              "id": "volumes-redes-docker-3",
+              "question": "Qual comando cria um volume nomeado para uso posterior?",
+              "options": [
+                "docker volume new",
+                "docker create volume",
+                "docker make volume",
+                "docker volume create"
+              ],
+              "answerIndex": 3,
+              "explanation": "O comando correto para gerenciar volumes explicitamente é docker volume create. Os outros termos são inválidos no CLI."
+            },
+            {
+              "id": "volumes-redes-docker-4",
+              "question": "Para que serve o driver de rede 'bridge' padrão do Docker?",
+              "options": [
+                "Para conectar containers em servidores físicos distintos.",
+                "Para expor a aplicação diretamente na rede pública.",
+                "Para conectar containers rodando na mesma máquina física.",
+                "Para substituir totalmente o protocolo DNS."
+              ],
+              "answerIndex": 2,
+              "explanation": "A rede bridge é ideal para comunicação local entre containers no mesmo host. Redes overlay são usadas para múltiplos hosts."
             }
           ]
         },
@@ -462,6 +1462,56 @@
               "title": "Referência do arquivo Compose",
               "url": "https://docs.docker.com/reference/compose-file/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "docker-compose-1",
+              "question": "Qual é a principal função do arquivo docker-compose.yml em um projeto?",
+              "options": [
+                "Substituir completamente a necessidade de instalar o Docker Engine na máquina.",
+                "Compilar o código fonte da aplicação em imagens otimizadas para produção.",
+                "Gerenciar o balanceamento de carga automático entre servidores na nuvem.",
+                "Definir e executar aplicações multi-container com uma única configuração."
+              ],
+              "answerIndex": 3,
+              "explanation": "O Docker Compose usa um arquivo YAML para configurar os serviços, redes e volumes da aplicação, permitindo subir tudo com um comando. Ele não substitui o Docker Engine nem compila códigos."
+            },
+            {
+              "id": "docker-compose-2",
+              "question": "Ao executar `docker compose up`, como o Docker Compose sabe quais portas expor e mapear?",
+              "options": [
+                "Através da chave `ports` configurada para cada serviço no arquivo YAML.",
+                "Lendo automaticamente o código fonte para identificar servidores HTTP ativos.",
+                "Utilizando sempre as portas padrão 80 e 443 para todos os containers.",
+                "Atribuindo portas aleatórias que precisam ser consultadas via logs."
+              ],
+              "answerIndex": 0,
+              "explanation": "A diretiva `ports` define o mapeamento entre a porta da máquina hospedeira e a porta interna do container. As portas não são descobertas automaticamente pelo código."
+            },
+            {
+              "id": "docker-compose-3",
+              "question": "Como os containers definidos no mesmo arquivo Docker Compose comunicam-se entre si por padrão?",
+              "options": [
+                "Apenas utilizando o endereço IP público da máquina hospedeira.",
+                "Através de uma rede padrão criada automaticamente, usando o nome do serviço como host.",
+                "Eles ficam isolados e precisam de configuração manual de portas para conversar.",
+                "Através do protocolo SSH configurado na chave `links` obrigatória."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Compose cria uma rede padrão para o projeto. Os containers conseguem resolver o nome uns dos outros usando o nome do serviço definido no YAML."
+            },
+            {
+              "id": "docker-compose-4",
+              "question": "Qual comando deve ser utilizado para encerrar e remover os containers, redes e volumes criados pelo Compose?",
+              "options": [
+                "docker compose stop --purge",
+                "docker compose remove --all",
+                "docker compose down -v",
+                "docker compose clear --volumes"
+              ],
+              "answerIndex": 2,
+              "explanation": "O comando `docker compose down` para e remove os recursos. Adicionando a flag `-v` (ou `--volumes`), os volumes nomeados declarados na seção de volumes também são apagados."
+            }
           ]
         },
         {
@@ -478,6 +1528,56 @@
               "title": "Usar builds multi-stage",
               "url": "https://docs.docker.com/build/building/multi-stage/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "docker-multistage-seguranca-1",
+              "question": "Qual é a principal vantagem de usar múltiplos estágios (multi-stage builds) em um Dockerfile?",
+              "options": [
+                "Eliminar ferramentas de compilação da imagem final, reduzindo seu tamanho e superfície de ataque.",
+                "Acelerar o processo de download da imagem base durante o deploy em servidores de produção.",
+                "Permitir a execução simultânea de diferentes linguagens de programação no mesmo container.",
+                "Garantir que o código fonte proprietário fique oculto dentro de camadas criptografadas."
+              ],
+              "answerIndex": 0,
+              "explanation": "O multi-stage build permite copiar apenas os artefatos compilados para uma imagem limpa, descartando o SDK e dependências de build. O ganho principal é segurança e leveza."
+            },
+            {
+              "id": "docker-multistage-seguranca-2",
+              "question": "Como você referencia o resultado de um estágio anterior ao copiar arquivos para o estágio atual?",
+              "options": [
+                "Usando a diretiva `IMPORT FROM <estagio>:` no topo do arquivo.",
+                "Atribuindo o caminho absoluto do cache global do Docker.",
+                "Utilizando a instrução `COPY --from=<nome_ou_indice>`.",
+                "Declarando uma variável de ambiente com o hash do build anterior."
+              ],
+              "answerIndex": 2,
+              "explanation": "A flag `--from` indica de qual estágio nomeado ou índice numérico o arquivo deve ser copiado para o estágio atual."
+            },
+            {
+              "id": "docker-multistage-seguranca-3",
+              "question": "Ao criar uma imagem final em um multi-stage build voltada para produção, qual imagem base é mais recomendada?",
+              "options": [
+                "A mesma imagem completa com todos os compiladores usada no primeiro estágio.",
+                "Uma imagem minimalista como Alpine ou distroless.",
+                "Uma imagem baseada em Ubuntu LTS para garantir compatibilidade total de pacotes.",
+                "A imagem oficial mais recente contendo ferramentas de debug pré-instaladas."
+              ],
+              "answerIndex": 1,
+              "explanation": "Imagens minimalistas contêm apenas o runtime necessário, reduzindo drasticamente vulnerabilidades conhecidas (CVEs)."
+            },
+            {
+              "id": "docker-multistage-seguranca-4",
+              "question": "O que acontece com as camadas criadas em estágios anteriores que não foram referenciadas por um comando COPY no estágio final?",
+              "options": [
+                "Elas permanecem na imagem final ocupando espaço em disco oculto.",
+                "Elas causam falhas no build caso não sejam explicitamente limpas.",
+                "Elas são armazenadas apenas no cache local da máquina de desenvolvimento.",
+                "Elas são descartadas e não entram na imagem final gerada."
+              ],
+              "answerIndex": 3,
+              "explanation": "Somente os artefatos explicitamente copiados para o estágio final persistem na imagem gerada pelo build."
+            }
           ]
         },
         {
@@ -493,6 +1593,56 @@
             {
               "title": "Documentação Oficial do Nginx",
               "url": "https://nginx.org/en/docs/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "nginx-proxy-reverso-1",
+              "question": "Como o Nginx atua primariamente quando configurado como um proxy reverso para uma aplicação Node.js em um container Docker?",
+              "options": [
+                "Ele executa o código JavaScript da aplicação em sua própria máquina virtual.",
+                "Ele substitui completamente a necessidade de expor portas na aplicação.",
+                "Ele armazena permanentemente todos os dados gerados pelo Node.js no disco.",
+                "Ele recebe as requisições externas e as repassa para a aplicação interna."
+              ],
+              "answerIndex": 3,
+              "explanation": "O proxy reverso serve como ponto de entrada único, intermediando o tráfego externo e repassando para o serviço interno. O código continua rodando no container da aplicação."
+            },
+            {
+              "id": "nginx-proxy-reverso-2",
+              "question": "Qual diretiva do Nginx é utilizada para definir o endereço de destino ao configurar um proxy reverso?",
+              "options": [
+                "server_pass",
+                "upstream_url",
+                "proxy_pass",
+                "redirect_to"
+              ],
+              "answerIndex": 2,
+              "explanation": "A diretiva `proxy_pass` indica ao Nginx para onde ele deve encaminhar a requisição recebida, geralmente apontando para um IP ou nome de serviço Docker."
+            },
+            {
+              "id": "nginx-proxy-reverso-3",
+              "question": "Ao alterar um arquivo de configuração do Nginx em um container em execução, por que dar um reload é preferível a reiniciar o container inteiro?",
+              "options": [
+                "O reload apaga os logs antigos liberando espaço em disco no container.",
+                "O reload aplica as novas configurações sem derrubar as conexões ativas.",
+                "Reiniciar o container apaga permanentemente a imagem do Docker.",
+                "O comando de reload atualiza automaticamente o código fonte da aplicação."
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando `nginx -s reload` faz uma leitura sem interrupções, aplicando mudanças com zero downtime para os usuários conectados."
+            },
+            {
+              "id": "nginx-proxy-reverso-4",
+              "question": "O que acontece se o Nginx tentar fazer o repasse via `proxy_pass` para um container que está desligado na rede Docker?",
+              "options": [
+                "O cliente receberá um erro HTTP 502 Bad Gateway como resposta.",
+                "O Nginx iniciará automaticamente o container desligado para atender a requisição.",
+                "A requisição ficará em loop infinito até que o container seja ligado manualmente.",
+                "O Nginx assumirá o papel da aplicação e responderá com dados mockados."
+              ],
+              "answerIndex": 0,
+              "explanation": "O erro 502 Bad Gateway indica que o Nginx está funcionando, mas não conseguiu se comunicar com o servidor upstream (a aplicação)."
             }
           ]
         }
@@ -526,6 +1676,56 @@
               "title": "Noções básicas de Integração Contínua com GitHub Actions",
               "url": "https://docs.github.com/en/actions/get-started/understand-github-actions"
             }
+          ],
+          "quiz": [
+            {
+              "id": "conceitos-ci-cd-1",
+              "question": "Qual é o principal objetivo da Integração Contínua (CI) em um projeto?",
+              "options": [
+                "Enviar atualizações diretamente para produção todos os dias.",
+                "Impedir que desenvolvedores criem novas ramificações no Git.",
+                "Garantir que o software nunca apresente falhas em produção.",
+                "Fundir código frequentemente e testar de forma automatizada."
+              ],
+              "answerIndex": 3,
+              "explanation": "A CI foca em integrar o código de vários desenvolvedores várias vezes ao dia, rodando testes automáticos para achar erros cedo. O deploy em produção é parte do CD."
+            },
+            {
+              "id": "conceitos-ci-cd-2",
+              "question": "Qual é a principal diferença prática entre Entrega Contínuas e Deploy Contínuo?",
+              "options": [
+                "A entrega contínua só funciona com GitLab e o deploy apenas com GitHub Actions.",
+                "O deploy contínuo valida o código, enquanto a entrega contínuas apenas cria backups.",
+                "O deploy contínuo libera para produção automaticamente, já a entrega exige aprovação humana.",
+                "A entrega contínua foca no banco de dados e o deploy apenas na interface web."
+              ],
+              "answerIndex": 2,
+              "explanation": "Na entrega contínua o artefato está pronto para produção, mas um humano decide o momento do lançamento. No deploy contínuo, qualquer alteração aprovada nos testes vai direto para o usuário final."
+            },
+            {
+              "id": "conceitos-ci-cd-3",
+              "question": "O que define um pipeline de CI/CD bem estruturado em ferramentas como GitHub Actions ou GitLab CI?",
+              "options": [
+                "Uma sequência automatizada de etapas como build, teste e publicação.",
+                "Um script único que roda diretamente na máquina local de cada cliente.",
+                "Um processo manual onde o líder aprova cada linha escrita antes de salvar.",
+                "Um backup diário do banco de dados feito por meio de cron jobs locais."
+              ],
+              "answerIndex": 0,
+              "explanation": "Pipelines automatizam o fluxo de trabalho dividindo-o em fases lógicas que validam e empacotam o software de forma consistente."
+            },
+            {
+              "id": "conceitos-ci-cd-4",
+              "question": "O que acontece se um teste automatizado falhar no meio de um pipeline de Integração Contínua?",
+              "options": [
+                "O sistema ignora o erro e prossegue para o deploy em produção.",
+                "O pipeline é interrompido e a equipe é alertada sobre o erro.",
+                "O código com erro é apagado automaticamente do repositório remoto.",
+                "O servidor de CI reinicia o sistema operacional do ambiente."
+              ],
+              "answerIndex": 1,
+              "explanation": "A falha em qualquer etapa crítica interrompe o fluxo para evitar que código quebrado contamine os ambientes de homologação ou produção."
+            }
           ]
         },
         {
@@ -550,6 +1750,56 @@
               "title": "Eventos que acionam os fluxos de trabalho",
               "url": "https://docs.github.com/pt/actions/reference/workflows-and-actions/events-that-trigger-workflows"
             }
+          ],
+          "quiz": [
+            {
+              "id": "github-actions-workflows-1",
+              "question": "O que define o momento exato em que um workflow do GitHub Actions deve ser executado?",
+              "options": [
+                "A chave `on` no arquivo YAML.",
+                "A chave `triggers` no arquivo YAML.",
+                "O nome do arquivo dentro da pasta `.github/workflows`.",
+                "A diretiva `schedule` dentro do job principal."
+              ],
+              "answerIndex": 0,
+              "explanation": "A chave 'on' é a propriedade padrão do GitHub Actions utilizada para definir os eventos que acionam o fluxo de trabalho."
+            },
+            {
+              "id": "github-actions-workflows-2",
+              "question": "Como você configuraria um workflow para rodar sempre que houver um `push` na branch `main`?",
+              "options": [
+                "Usando `trigger: push` e `branch: main`.",
+                "Usando `on: push: branches: [main]`.",
+                "Usando `when: push` na raiz do arquivo YAML.",
+                "Usando `events: [push]` com o filtro `target: main`."
+              ],
+              "answerIndex": 1,
+              "explanation": "A sintaxe correta do GitHub Actions exige aninhar o evento `push` com a propriedade `branches` para filtrar onde ele será aplicado."
+            },
+            {
+              "id": "github-actions-workflows-3",
+              "question": "Se você precisa que o `jobB` só inicie após a conclusão bem-sucedida do `jobA`, o que deve usar?",
+              "options": [
+                "A propriedade `depends_on: [jobA]` no `jobB`.",
+                "A chave `after: jobA` dentro da configuração do workflow.",
+                "A ordem sequencial em que os jobs aparecem no arquivo YAML.",
+                "A propriedade `needs: [jobA]` no `jobB`."
+              ],
+              "answerIndex": 3,
+              "explanation": "Por padrão, todos os jobs rodam em paralelo. Para criar dependências entre eles, usa-se a chave 'needs'."
+            },
+            {
+              "id": "github-actions-workflows-4",
+              "question": "Qual é a finalidade da chave `runs-on` na definição de um job?",
+              "options": [
+                "Definir a URL do servidor externo onde o deploy será feito.",
+                "Estabelecer o tempo máximo em minutos que o job pode durar.",
+                "Indicar o sistema operacional do runner que executará o job.",
+                "Informar o ambiente de homologação ou produção do projeto."
+              ],
+              "answerIndex": 2,
+              "explanation": "A propriedade 'runs-on' especifica o tipo de máquina virtual (runner) fornecida pelo GitHub ou auto-hospedada onde o job rodará."
+            }
           ]
         },
         {
@@ -569,6 +1819,56 @@
             {
               "title": "Criando e publicando imagens Docker no GitHub Actions",
               "url": "https://docs.github.com/pt/actions/tutorials/publish-packages/publish-docker-images"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "pipeline-build-push-imagem-1",
+              "question": "No GitHub Actions, qual etapa deve ocorrer obrigatoriamente antes de executar o comando `docker push`?",
+              "options": [
+                "Autenticação no registro de imagens com `docker login`.",
+                "A criação automática da tag latest no repositório remoto.",
+                "A limpeza de cache do runner local para liberar memória.",
+                "O encerramento do serviço do Docker daemon no servidor."
+              ],
+              "answerIndex": 0,
+              "explanation": "Para enviar uma imagem para um registro como o Docker Hub ou GHCR, o runner precisa estar autenticado via docker login utilizando credenciais válidas."
+            },
+            {
+              "id": "pipeline-build-push-imagem-2",
+              "question": "Qual é a principal vantagem de executar os testes automatizados dentro de um job de CI antes de construir a imagem Docker?",
+              "options": [
+                "Reduzir o tamanho final da camada gerada no arquivo Dockerfile.",
+                "Evitar o empacotamento e publicação de código que contenha falhas.",
+                "Garantir que o Dockerfile use a versão mais recente do sistema base.",
+                "Acelerar o processo de build através do cache automático de pacotes."
+              ],
+              "answerIndex": 1,
+              "explanation": "Testar o código antes do build impede que artefatos com bugs sejam transformados em imagens Docker e enviados para o registro oficial."
+            },
+            {
+              "id": "pipeline-build-push-imagem-3",
+              "question": "Como o GitLab CI costuma disponibilizar o Docker daemon para que jobs possam construir imagens sem problemas?",
+              "options": [
+                "Instalando o pacote Docker manualmente via script no `before_script`.",
+                "Utilizando o comando nativo `docker-machine create` no runner.",
+                "Conectando diretamente ao cluster Kubernetes de gerenciamento.",
+                "Através do serviço `docker:dind` declarado no arquivo YAML."
+              ],
+              "answerIndex": 3,
+              "explanation": "O serviço Docker-in-Docker (dind) fornece um daemon Docker isolado e seguro dentro do container para que os comandos de build funcionem no GitLab CI."
+            },
+            {
+              "id": "pipeline-build-push-imagem-4",
+              "question": "Por que é considerado uma boa prática utilizar tags dinâmicas baseadas no hash do commit (`GITHUB_SHA`) nas imagens publicadas?",
+              "options": [
+                "Para forçar o download da imagem mais recente pelos servidores de produção.",
+                "Para reduzir o consumo de espaço em disco no registro de containers.",
+                "Para garantir a rastreabilidade exata entre o código fonte e a imagem gerada.",
+                "Para evitar conflitos de nomes com imagens criadas por outros desenvolvedores."
+              ],
+              "answerIndex": 2,
+              "explanation": "Usar o hash do commit na tag da imagem permite identificar imediatamente qual versão exata do código originou aquele container em produção."
             }
           ]
         },
@@ -590,6 +1890,56 @@
               "title": "Uso de Segredos e Variáveis no GitHub Actions",
               "url": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets"
             }
+          ],
+          "quiz": [
+            {
+              "id": "segredos-variaveis-pipeline-1",
+              "question": "Onde devem ser armazenados dados sensíveis, como senhas e chaves de API, para que fiquem seguros em um pipeline do GitHub Actions?",
+              "options": [
+                "No arquivo de configuração do workflow em texto plano",
+                "Em um comentário dentro do código-fonte da aplicação",
+                "Nos segredos do repositório ou da organização",
+                "Na seção de variáveis comuns do arquivo YAML"
+              ],
+              "answerIndex": 2,
+              "explanation": "Dados sensíveis precisam ser protegidos e mascarados, por isso são salvos como segredos criptografados nas configurações da plataforma."
+            },
+            {
+              "id": "segredos-variaveis-pipeline-2",
+              "question": "Como um segredo armazenado nas configurações do GitLab CI/CD é tipicamente consumido por um job no arquivo `.gitlab-ci.yml`?",
+              "options": [
+                "Através de variáveis de ambiente padrão do runner",
+                "Fazendo o download manual via comando curl",
+                "Importando o arquivo de segredos diretamente no script",
+                "Declarando a senha em texto visível no arquivo YAML"
+              ],
+              "answerIndex": 0,
+              "explanation": "O GitLab injeta automaticamente os segredos configurados como variáveis de ambiente disponíveis para o container que executa o job."
+            },
+            {
+              "id": "segredos-variaveis-pipeline-3",
+              "question": "Qual é a principal diferença de comportamento entre uma variável comum e um segredo (secret) em ferramentas de CI/CD?",
+              "options": [
+                "Variáveis comuns persistem após o término do pipeline",
+                "Segredos têm seus valores ocultados nos logs de execução",
+                "Segredos só funcionam em branches de produção",
+                "Variáveis comuns exigem criptografia obrigatória"
+              ],
+              "answerIndex": 1,
+              "explanation": "A principal função de um segredo é a segurança visual, mascarando o valor com asteriscos caso ele seja impresso no console."
+            },
+            {
+              "id": "segredos-variaveis-pipeline-4",
+              "question": "Em um workflow do GitHub Actions, como acessar um segredo chamado `API_KEY` dentro de uma etapa (step) do job?",
+              "options": [
+                "Acessando diretamente a variável global `API_KEY`",
+                "Lendo o arquivo `.env` gerado automaticamente",
+                "Utilizando o comando `get_secret('API_KEY')`",
+                "Usando a expressão `${{ secrets.API_KEY }}`"
+              ],
+              "answerIndex": 3,
+              "explanation": "O GitHub Actions exige o uso do contexto `secrets.` dentro da sintaxe de expressão do runner para liberar o valor com segurança."
+            }
           ]
         },
         {
@@ -610,6 +1960,56 @@
               "title": "Amazon ECS Deployment Types",
               "url": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "estrategias-deploy-1",
+              "question": "Em um deploy blue-green, qual é o principal mecanismo para alternar o tráfego dos usuários da versão antiga para a nova?",
+              "options": [
+                "Reiniciar os pods da versão antiga gradativamente.",
+                "Modificar as variáveis de ambiente no container ativo.",
+                "Atualizar o roteamento no balanceador de carga ou DNS.",
+                "Remover manualmente o IP do servidor antigo no firewall."
+              ],
+              "answerIndex": 2,
+              "explanation": "O blue-green mantém dois ambientes idênticos e o switch é feito instantaneamente redirecionando o load balancer ou DNS."
+            },
+            {
+              "id": "estrategias-deploy-2",
+              "question": "Qual é a principal vantagem de uma estratégia de deploy canary em relação à blue-green?",
+              "options": [
+                "Exigir menos recursos de hardware durante o processo de atualização.",
+                "Garantir rollback instantâneo sem necessidade de manter dois ambientes.",
+                "Eliminar completamente a necessidade de testes automatizados prévios.",
+                "Validar o comportamento em produção com uma fração real de usuários."
+              ],
+              "answerIndex": 3,
+              "explanation": "O canary envia apenas uma pequena porcentagem do tráfego para a nova versão, reduzindo o impacto caso haja um bug em produção."
+            },
+            {
+              "id": "estrategias-deploy-3",
+              "question": "Durante um rolling update no Kubernetes, o que acontece se a nova versão apresentar falha nos health checks (liveness/readiness)?",
+              "options": [
+                "O Kubernetes interrompe o processo de rollout e congela as alterações.",
+                "O cluster remove automaticamente o balanceador de carga inteiro.",
+                "A versão anterior é deletada imediatamente para forçar o uso da nova.",
+                "Os nós com falha são reiniciados em modo de segurança."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Kubernetes monitora as sondas de saúde e pausa o rolling update se os novos pods não ficarem prontos, evitando indisponibilidade."
+            },
+            {
+              "id": "estrategias-deploy-4",
+              "question": "Qual cenário representa um desafio crítico ao utilizar estratégias de deploy canary ou blue-green?",
+              "options": [
+                "A incapacidade de usar containers Docker para ambas as versões.",
+                "A gestão de migrações de esquema de banco de dados compatíveis.",
+                "A obrigatoriedade de usar servidores físicos dedicados para cada ambiente.",
+                "A impossibilidade técnica de reverter o tráfego para a versão anterior."
+              ],
+              "answerIndex": 1,
+              "explanation": "Como duas versões rodam simultaneamente, o banco deve aceitar alterações que funcionem tanto para o código antigo quanto para o novo."
+            }
           ]
         },
         {
@@ -629,6 +2029,56 @@
             {
               "title": "Estrutura do arquivo .gitlab-ci.yml",
               "url": "https://docs.gitlab.com/ci/yaml/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "gitlab-ci-1",
+              "question": "Qual é a principal função do arquivo `.gitlab-ci.yml` em um projeto?",
+              "options": [
+                "Armazenar as credenciais de acesso seguro ao servidor de produção.",
+                "Definir os estágios, comandos e regras de execução dos jobs do pipeline.",
+                "Configurar as regras de segurança e permissões dos membros do repositório.",
+                "Gerenciar o versionamento de código e o histórico de commits da branch."
+              ],
+              "answerIndex": 1,
+              "explanation": "O arquivo `.gitlab-ci.yml` é o local onde a estrutura do pipeline de CI/CD é declarada, especificando o que deve rodar em cada etapa."
+            },
+            {
+              "id": "gitlab-ci-2",
+              "question": "Como o GitLab CI agrupa os jobs para que eles sejam executados na mesma fase?",
+              "options": [
+                "Através da diretiva `stage`, que define a ordem lógica das etapas.",
+                "Através da palavra-chave `group`, que vincula jobs da mesma categoria.",
+                "Através da tag `parallel`, que força a execução simultânea dos scripts.",
+                "Através do nome do arquivo, separando os jobs por sufixos específicos."
+              ],
+              "answerIndex": 0,
+              "explanation": "A diretiva `stage` agrupa os jobs em fases (como build, test, deploy). Jobs de um mesmo stage rodam em paralelo se houver runners disponíveis."
+            },
+            {
+              "id": "gitlab-ci-3",
+              "question": "O que acontece por padrão quando ocorre uma falha em um job dentro de um stage?",
+              "options": [
+                "O GitLab tenta reexecutar o job falho automaticamente até três vezes.",
+                "O pipeline continua executando os demais jobs do mesmo estágio atual.",
+                "O sistema envia um alerta e pula apenas para o próximo estágio.",
+                "O pipeline é interrompido imediatamente e os próximos estágios não rodam."
+              ],
+              "answerIndex": 3,
+              "explanation": "O comportamento padrão de um pipeline no GitLab CI é parar assim que qualquer job falha, evitando que artefatos incorretos avancem."
+            },
+            {
+              "id": "gitlab-ci-4",
+              "question": "Para que serve a palavra-chave `artifacts` na configuração de um job?",
+              "options": [
+                "Para salvar dependências externas baixadas da internet durante o build.",
+                "Para registrar logs detalhados de erro em formato de texto para auditoria.",
+                "Para passar arquivos gerados para os próximos estágios do pipeline.",
+                "Para armazenar imagens Docker definitivas no container registry."
+              ],
+              "answerIndex": 2,
+              "explanation": "Artifacts permitem reter arquivos gerados por um job (como um binário compilado) para uso posterior em stages seguintes ou download."
             }
           ]
         }
@@ -662,6 +2112,56 @@
               "title": "O que é o IAM?",
               "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "aws-conta-iam-custos-1",
+              "question": "Qual é a principal recomendação de segurança para a conta root (raiz) da AWS logo após a sua criação?",
+              "options": [
+                "Compartilhar a senha da conta root com toda a equipe de desenvolvimento.",
+                "Desativar a conta root permanentemente para evitar acessos indesejados.",
+                "Criar usuários IAM para as tarefas diárias e proteger a conta root com MFA.",
+                "Utilizar a conta root exclusivamente para rodar instâncias EC2 de produção."
+              ],
+              "answerIndex": 2,
+              "explanation": "A conta root tem acesso total, por isso deve ser guardada e usada apenas quando necessário, adotando o IAM no dia a dia e ativando a autenticação multifator (MFA)."
+            },
+            {
+              "id": "aws-conta-iam-custos-2",
+              "question": "Para que servem as políticas do IAM (IAM Policies)?",
+              "options": [
+                "Para agrupar geograficamente diferentes regiões de servidores da AWS.",
+                "Para determinar o valor mensal estimado da fatura de serviços em nuvem.",
+                "Para realizar o backup automático de bancos de dados relacionais.",
+                "Para definir quais ações são permitidas ou negadas em quais recursos da AWS."
+              ],
+              "answerIndex": 3,
+              "explanation": "Políticas são documentos em JSON que definem permissões, especificando quem pode acessar o quê na AWS."
+            },
+            {
+              "id": "aws-conta-iam-custos-3",
+              "question": "Qual é a melhor prática ao conceder permissões a novos usuários no IAM?",
+              "options": [
+                "O princípio do privilégio mínimo, dando apenas o acesso necessário para a tarefa.",
+                "Atribuir acesso total de administrador para evitar bloqueios futuros de trabalho.",
+                "Copiar todas as permissões da conta root para agilizar a configuração inicial.",
+                "Conceder acesso público de leitura a todos os serviços para facilitar testes."
+              ],
+              "answerIndex": 0,
+              "explanation": "O princípio do privilégio mínimo garante que cada usuário tenha apenas as permissões estritamente necessárias para realizar suas funções, aumentando a segurança."
+            },
+            {
+              "id": "aws-conta-iam-custos-4",
+              "question": "Qual é a principal diferença entre usuários e grupos no IAM?",
+              "options": [
+                "Usuários cobram taxas por acesso, enquanto grupos de IAM são totalmente gratuitos.",
+                "Grupos servem para aplicar políticas comuns a vários usuários de uma vez.",
+                "Grupos só podem acessar recursos gratuitos, e usuários acessam recursos pagos.",
+                "Usuários identificam pessoas físicas, e grupos identificam servidores virtuais."
+              ],
+              "answerIndex": 1,
+              "explanation": "Grupos do IAM facilitam o gerenciamento ao permitir atribuir permissões a um conjunto de usuários simultaneamente, em vez de configurar um por um."
+            }
           ]
         },
         {
@@ -685,6 +2185,56 @@
             {
               "title": "Conectar-se à sua instância Linux usando SSH",
               "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "aws-ec2-instancias-1",
+              "question": "O que é uma instância Amazon EC2 no contexto de computação em nuvem?",
+              "options": [
+                "Um disco rígido virtual usado exclusivamente para backups.",
+                "Um banco de dados relacional gerenciado automaticamente.",
+                "Uma rede privada virtual usada para conectar data centers.",
+                "Um servidor virtual executando na infraestrutura da AWS."
+              ],
+              "answerIndex": 3,
+              "explanation": "O EC2 (Elastic Compute Cloud) fornece capacidade de computação redimensionável na nuvem, funcionando essencialmente como servidores virtuais."
+            },
+            {
+              "id": "aws-ec2-instancias-2",
+              "question": "Qual é a principal função do par de chaves (chave pública e privada) ao criar uma instância EC2?",
+              "options": [
+                "Criptografar todo o tráfego da rede da aplicação.",
+                "Aumentar a velocidade de processamento do servidor.",
+                "Autenticar o acesso seguro via SSH à instância.",
+                "Permitir o pagamento automático da fatura da AWS."
+              ],
+              "answerIndex": 2,
+              "explanation": "A AWS armazena a chave pública na instância e você guarda a chave privada, permitindo login seguro sem senha."
+            },
+            {
+              "id": "aws-ec2-instancias-3",
+              "question": "O que define o tipo de instância EC2 escolhido, como t2.micro ou m5.large?",
+              "options": [
+                "A versão exata do sistema operacional Linux instalado.",
+                "A proporção de recursos de hardware como CPU, memória e rede.",
+                "A região geográfica onde o servidor vai rodar fisicamente.",
+                "O tamanho máximo do disco rígido permitido na máquina."
+              ],
+              "answerIndex": 1,
+              "explanation": "Os tipos de instâncias agrupam combinações de capacidade de processamento, memória e rede para atender a diferentes cargas de trabalho."
+            },
+            {
+              "id": "aws-ec2-instancias-4",
+              "question": "Qual componente da AWS atua como um firewall virtual para controlar o tráfego de entrada e saída de uma instância EC2?",
+              "options": [
+                "Grupos de segurança (Security Groups).",
+                "Tabelas de roteamento (Route Tables).",
+                "Balanceadores de carga (Load Balancers).",
+                "Redes virtuais privadas (VPC Gateways)."
+              ],
+              "answerIndex": 0,
+              "explanation": "Security Groups funcionam no nível da instância, filtrando pacotes com base em portas e protocolos permitidos."
             }
           ]
         },
@@ -710,6 +2260,56 @@
               "title": "Security groups para a sua VPC",
               "url": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "aws-vpc-security-groups-1",
+              "question": "Qual é a principal diferença de comportamento entre Security Groups e Network ACLs na AWS?",
+              "options": [
+                "Security groups são stateful, lembrando do tráfego de entrada para permitir a saída automaticamente.",
+                "Network ACLs atuam no nível da instância, enquanto security groups protegem sub-redes inteiras.",
+                "Security groups são stateless, exigindo regras explícitas de saída para permitir respostas.",
+                "Network ACLs controlam apenas o tráfego interno entre instâncias da mesma zona de disponibilidade."
+              ],
+              "answerIndex": 0,
+              "explanation": "Security groups guardam o estado do tráfego (stateful), então pacotes de retorno são permitidos automaticamente. O erro comum é confundir com Network ACLs, que são stateless."
+            },
+            {
+              "id": "aws-vpc-security-groups-2",
+              "question": "Uma instância em uma sub-rede privada precisa baixar atualizações da internet. O que deve ser configurado?",
+              "options": [
+                "Um Internet Gateway diretamente associado à tabela de rotas da sub-rede privada.",
+                "Um Elastic IP atribuído diretamente à interface de rede da instância privada.",
+                "Um NAT Gateway na sub-rede pública conectado à rota da sub-rede privada.",
+                "Uma regra no Security Group permitindo todo o tráfego de saída para a porta 80."
+              ],
+              "answerIndex": 2,
+              "explanation": "Sub-redes privadas não têm IP público, logo usam um NAT Gateway na sub-rede pública para alcançar a internet de forma unidirecional. Um Internet Gateway direto tornaria a sub-rede pública."
+            },
+            {
+              "id": "aws-vpc-security-groups-3",
+              "question": "Como os Security Groups lidam com regras de negação explícita (deny)?",
+              "options": [
+                "Eles negam todo o tráfego por padrão, exceto as portas especificadas nas regras de entrada.",
+                "Eles não suportam regras de negação; apenas permitem tráfego explicitamente.",
+                "Eles permitem criar regras de negação desde que tenham prioridade menor que as permissões.",
+                "Eles negam automaticamente qualquer tráfego originado fora da mesma zona de disponibilidade."
+              ],
+              "answerIndex": 1,
+              "explanation": "Security groups funcionam apenas com listas de permissão (allow). Para negar tráfego explicitamente, deve-se usar Network ACLs, que possuem regras numeradas de deny."
+            },
+            {
+              "id": "aws-vpc-security-groups-4",
+              "question": "Um desenvolvedor criou uma nova instância EC2 em uma sub-rede pública, mas não consegue acessá-la via SSH. Qual dos itens abaixo é a causa mais provável?",
+              "options": [
+                "A sub-rede não possui um NAT Gateway configurado para receber conexões de entrada.",
+                "A tabela de rotas da VPC foi desativada por exceder o limite de instâncias.",
+                "O endereço IP privado da instância mudou automaticamente após o boot.",
+                "O Security Group associado à instância não possui uma regra permitindo a porta 22."
+              ],
+              "answerIndex": 3,
+              "explanation": "Por padrão, novos Security Groups bloqueiam todo o tráfego de entrada. Sem liberar a porta 22 explicitamente, o acesso SSH é negado, mesmo estando em sub-rede pública."
+            }
           ]
         },
         {
@@ -734,6 +2334,56 @@
               "title": "Uso de políticas baseadas em bucket para o Amazon S3",
               "url": "https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/example-bucket-policies.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "aws-s3-armazenamento-1",
+              "question": "O que diferencia fundamentalmente o Amazon S3 de um sistema de arquivos tradicional ou disco rígido (como o EBS)?",
+              "options": [
+                "O S3 armazena dados como objetos organizados em buckets e acessados via API HTTP.",
+                "O S3 permite instalar sistemas operacionais completos diretamente em seus volumes.",
+                "O S3 exige formatação previa com ext4 ou NTFS antes de receber qualquer arquivo.",
+                "O S3 funciona apenas como memória RAM virtual expansível para instâncias EC2."
+              ],
+              "answerIndex": 0,
+              "explanation": "O S3 é um armazenamento de objetos focado em escalabilidade via web, diferindo de volumes de bloco tradicionais."
+            },
+            {
+              "id": "aws-s3-armazenamento-2",
+              "question": "Ao configurar um bucket S3 para hospedar um site estático, qual arquivo a AWS busca por padrão para exibir na página inicial?",
+              "options": [
+                "home.php",
+                "default.asp",
+                "index.html",
+                "main.js"
+              ],
+              "answerIndex": 2,
+              "explanation": "Servidores web estáticos buscam tradicionalmente por arquivos chamados index.html para a rota raiz."
+            },
+            {
+              "id": "aws-s3-armazenamento-3",
+              "question": "Qual é o principal objetivo de aplicar uma política baseada em bucket (Bucket Policy) no Amazon S3?",
+              "options": [
+                "Definir o ciclo de vida dos arquivos para exclusão automática apos trinta dias.",
+                "Controlar permissões de acesso aos objetos e ao próprio bucket de forma centralizada.",
+                "Compactar automaticamente arquivos grandes para economizar espaço de armazenamento.",
+                "Acelerar a velocidade de download dos arquivos usando servidores edge globais."
+              ],
+              "answerIndex": 1,
+              "explanation": "Políticas de bucket utilizam JSON para definir quem pode ler ou gravar dados no bucket."
+            },
+            {
+              "id": "aws-s3-armazenamento-4",
+              "question": "Qual formato é obrigatoriamente utilizado para escrever as regras de uma Bucket Policy no Amazon S3?",
+              "options": [
+                "YAML",
+                "XML",
+                "INI",
+                "JSON"
+              ],
+              "answerIndex": 3,
+              "explanation": "As politicas de controle de acesso do IAM e do S3 são estruturadas exclusivamente utilizando JSON."
+            }
           ]
         },
         {
@@ -754,6 +2404,56 @@
               "title": "O que é o Amazon RDS?",
               "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "aws-rds-banco-gerenciado-1",
+              "question": "Qual é a principal vantagem de usar o Amazon RDS em vez de gerenciar um banco de dados relacional em uma instância EC2?",
+              "options": [
+                "Automação de backups, patches de segurança e redimensionamento.",
+                "Acesso root irrestrito ao sistema operacional do servidor de banco de dados.",
+                "Garantia de desempenho e latência zero em qualquer região global.",
+                "Isenção total de custos com armazenamento e transferência de dados."
+              ],
+              "answerIndex": 0,
+              "explanation": "O RDS elimina a necessidade de manutenção manual ao automatizar tarefas rotineiras como backups e atualizações, embora limite o acesso de nível de sistema operacional."
+            },
+            {
+              "id": "aws-rds-banco-gerenciado-2",
+              "question": "Como a opção Multi-AZ do Amazon RDS atua em caso de falha na zona de disponibilidade primária?",
+              "options": [
+                "Cria novas instâncias automaticamente na mesma zona para dividir a carga.",
+                "Realiza o failover automático para a instância standby em outra zona.",
+                "Reinicia o banco de dados na mesma zona usando backups salvos no S3.",
+                "Desliga o sistema temporariamente até que o usuário aprove o failover."
+              ],
+              "answerIndex": 1,
+              "explanation": "No modo Multi-AZ, o RDS mantém uma réplica síncrona em outra zona e promove essa réplica automaticamente se a primária falhar."
+            },
+            {
+              "id": "aws-rds-banco-gerenciado-3",
+              "question": "Para que servem as instâncias de leitura (Read Replicas) no Amazon RDS?",
+              "options": [
+                "Para servir como backup principal de recuperação em caso de desastres.",
+                "Para permitir operações de escrita simultâneas e acelerar o processamento.",
+                "Para reduzir automaticamente o custo da instância de banco principal.",
+                "Para descarregar o tráfego de consultas de leitura da instância principal."
+              ],
+              "answerIndex": 3,
+              "explanation": "Read Replicas processam consultas somente leitura, melhorando a escalabilidade de leitura, mas não substituem backups para recuperação de desastres."
+            },
+            {
+              "id": "aws-rds-banco-gerenciado-4",
+              "question": "O que acontece durante a janela de manutenção configurada em uma instância do Amazon RDS?",
+              "options": [
+                "O banco de dados fica totalmente inacessível para qualquer operação de escrita ou leitura por dias.",
+                "Novas instâncias são criadas e as antigas são descartadas sem aviso prévio.",
+                "Atualizações de sistema e correções de segurança podem reiniciar o banco.",
+                "O armazenamento é redimensionado de forma obrigatória e automatizada."
+              ],
+              "answerIndex": 2,
+              "explanation": "A janela de manutenção é o período em que a AWS aplica patches e atualizações, o que pode causar uma breve indisponibilidade se houver reinicialização."
+            }
           ]
         },
         {
@@ -773,6 +2473,56 @@
             {
               "title": "Guia do usuário do Amazon ECS com AWS Fargate",
               "url": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "aws-ecs-fargate-1",
+              "question": "Como o mapeamento de portas deve ser configurado em uma task definition do ECS quando utilizada com o AWS Fargate?",
+              "options": [
+                "Configurando o mapeamento de portas na faixa de 1 a 1024 no host e no contêiner.",
+                "Utilizando obrigatoriamente o driver de rede awsvpc para alocar um IP elástico próprio.",
+                "Utilizando o modo bridge para expor as portas diretamente na interface da nuvem privada.",
+                "Definindo portas dinâmicas onde a AWS gerencia a rotação automática de tráfego TCP."
+              ],
+              "answerIndex": 1,
+              "explanation": "No Fargate, o modo awsvpc é o padrão e obrigatório, dando a cada task sua própria interface de rede e IP privado. O modo bridge não é suportado."
+            },
+            {
+              "id": "aws-ecs-fargate-2",
+              "question": "O que acontece com o armazenamento efêmero anexado a uma tarefa do ECS rodando no Fargate quando a tarefa é interrompida?",
+              "options": [
+                "Os dados são migrados automaticamente para um bucket S3 de backup configurado na task definition.",
+                "O volume permanece ativo por 24 horas para permitir a recuperação em novas instâncias.",
+                "Todos os dados salvos nesse armazenamento são permanentemente perdidos.",
+                "O armazenamento é convertido em um EBS snapshot vinculado à conta da AWS."
+              ],
+              "answerIndex": 2,
+              "explanation": "O armazenamento efêmero do Fargate tem o mesmo ciclo de vida da tarefa. Para persistência, deve-se usar EFS."
+            },
+            {
+              "id": "aws-ecs-fargate-3",
+              "question": "Ao dimensionar aplicações no ECS com Fargate, qual métrica do Application Auto Scaling costuma ser mais eficiente para cargas web variáveis?",
+              "options": [
+                "Percentual de utilização de memória RAM da task definition.",
+                "Consumo de largura de banda de rede da VPC associada.",
+                "Quantidade de threads ativas abertas pelo processo principal.",
+                "RequestCountPerTarget do Load Balancer em vez de uso de CPU."
+              ],
+              "answerIndex": 3,
+              "explanation": "Como o Fargate abstrai CPU e RAM, muitas vezes a carga depende de requisições web. O uso de CPU pode flutuar de formas que não refletem o tráfego real."
+            },
+            {
+              "id": "aws-ecs-fargate-4",
+              "question": "Qual é a restrição crítica ao escolher os valores de CPU e memória na definição de uma task do Fargate?",
+              "options": [
+                "As combinações disponíveis seguem proporções fixas definidas pela AWS.",
+                "A memória máxima alocada nunca pode ultrapassar 4 gigabytes por vCPU.",
+                "O valor da CPU deve ser sempre um número primo para otimizar o escalonamento.",
+                "Apenas instâncias baseadas em arquitetura ARM permitem ajuste granular."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Fargate exige que você escolha combinações específicas de vCPU e memória que constam na tabela oficial de suporte da AWS."
             }
           ]
         }
@@ -810,6 +2560,56 @@
               "title": "O Ciclo de Vida do Terraform",
               "url": "https://developer.hashicorp.com/terraform/cli/commands/plan"
             }
+          ],
+          "quiz": [
+            {
+              "id": "iac-terraform-fundamentos-1",
+              "question": "Por que o arquivo de estado (`terraform.tfstate`) é essencial para o funcionamento do Terraform?",
+              "options": [
+                "Ele armazena as credenciais de acesso criptografadas de todos os provedores.",
+                "Ele executa a validação de sintaxe dos arquivos antes do comando apply.",
+                "Ele mapeia os recursos reais da nuvem para a configuração escrita no código.",
+                "Ele substitui o controle de versão do Git para rastrear alterações no código."
+              ],
+              "answerIndex": 2,
+              "explanation": "O estado mantém o vínculo entre o mundo real e a sua configuração local. Sem ele, o Terraform não saberia o que modificar ou destruir."
+            },
+            {
+              "id": "iac-terraform-fundamentos-2",
+              "question": "Qual é o principal objetivo do comando `terraform plan`?",
+              "options": [
+                "Exibir quais alterações serão feitas na infraestrutura antes de executá-las.",
+                "Aplicar diretamente as alterações no provedor de nuvem sem pedir confirmação.",
+                "Baixar e atualizar os plugins dos provedores definidos no código.",
+                "Remover o arquivo de estado atual e gerar um novo do zero."
+              ],
+              "answerIndex": 0,
+              "explanation": "O plan compara o estado atual com o código e a infraestrutura real para mostrar odiff. Ele serve apenas para inspeção e não altera recursos."
+            },
+            {
+              "id": "iac-terraform-fundamentos-3",
+              "question": "O que define um bloco `provider` no código Terraform?",
+              "options": [
+                "A ferramenta de linha de comando usada para compilar o código HCL.",
+                "O servidor remoto onde o arquivo de estado centralizado será armazenado.",
+                "O módulo principal que contém toda a lógica de rede da aplicação.",
+                "O plugin responsável por interagir com a API de uma plataforma específica."
+              ],
+              "answerIndex": 3,
+              "explanation": "Providers são plugins que traduzem as declarações do Terraform em chamadas de API para provedores como AWS, GCP ou Azure."
+            },
+            {
+              "id": "iac-terraform-fundamentos-4",
+              "question": "O que acontece ao executar `terraform apply` após alterar um atributo imutável de um recurso?",
+              "options": [
+                "O Terraform atualiza o atributo diretamente na API sem downtime.",
+                "O Terraform destrói o recurso antigo e cria um novo no lugar.",
+                "O Terraform falha e impede qualquer alteração na infraestrutura.",
+                "O Terraform ignora a mudança até que o comando destroy seja executado."
+              ],
+              "answerIndex": 1,
+              "explanation": "Como o atributo é imutável, a única forma de aplicar a mudança é recriar o recurso, o que o Terraform faz automaticamente quando necessário."
+            }
           ]
         },
         {
@@ -833,6 +2633,56 @@
             {
               "title": "Módulos no Terraform",
               "url": "https://developer.hashicorp.com/terraform/language/block/module"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "terraform-variaveis-modulos-state-1",
+              "question": "Como você passa o valor para uma variável de entrada chamada `instance_type` usando a linha de comando?",
+              "options": [
+                "Usando a flag -var=\"instance_type=t2.micro\".",
+                "Definindo a tag --env instance_type=t2.micro no comando.",
+                "Declarando export TF_VAR_instance_type=t2.micro no código.",
+                "Passando o argumento set instance_type=t2.micro no apply."
+              ],
+              "answerIndex": 0,
+              "explanation": "A flag -var permite injetar valores diretamente na execução. O prefixo TF_VAR_ é usado no ambiente, não como tag de linha de comando."
+            },
+            {
+              "id": "terraform-variaveis-modulos-state-2",
+              "question": "Qual é a principal função de um bloco `output` em um arquivo de configuração do Terraform?",
+              "options": [
+                "Salvar o estado atual da infraestrutura no arquivo de controle.",
+                "Armazenar credenciais de acesso de forma criptografada na nuvem.",
+                "Exibir dados importantes da infraestrutura criada após o apply.",
+                "Definir quais provedores de nuvem devem ser baixados no init."
+              ],
+              "answerIndex": 2,
+              "explanation": "Outputs servem para expor informações úteis dos recursos provisionados, como IPs públicos ou endpoints, para uso externo."
+            },
+            {
+              "id": "terraform-variaveis-modulos-state-3",
+              "question": "Ao utilizar módulos reutilizáveis no Terraform, qual é a finalidade principal do argumento `source`?",
+              "options": [
+                "Definir a região da nuvem onde os recursos do módulo serão aplicados.",
+                "Indicar o caminho ou repositório de onde o código do módulo será baixado.",
+                "Nomear a instância do módulo dentro do arquivo principal de configuração.",
+                "Estabelecer a versão mínima exigida do provedor para rodar o módulo."
+              ],
+              "answerIndex": 1,
+              "explanation": "O argumento source é obrigatório em chamadas de módulos e aponta para diretórios locais, git ou registry de onde o código vem."
+            },
+            {
+              "id": "terraform-variaveis-modulos-state-4",
+              "question": "Por que o arquivo `terraform.tfstate` remoto (em um S3, por exemplo) é recomendado em equipes?",
+              "options": [
+                "Para acelerar o processo de compilação do código em máquinas lentas.",
+                "Para impedir que o provedor de nuvem cobre taxas pelo uso dos recursos.",
+                "Para substituir a necessidade de usar variáveis de ambiente no projeto.",
+                "Para evitar conflitos e perda de dados ao sincronizar o estado entre membros."
+              ],
+              "answerIndex": 3,
+              "explanation": "O state remoto centraliza o controle da infraestrutura, permitindo lock e compartilhamento seguro entre vários desenvolvedores."
             }
           ]
         },
@@ -858,6 +2708,56 @@
               "title": "AWS Instance Resource",
               "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance"
             }
+          ],
+          "quiz": [
+            {
+              "id": "terraform-aws-rede-servidores-1",
+              "question": "Como garantir que uma instância `aws_instance` só seja criada após a criação bem-sucedida de sua respectiva `aws_subnet`?",
+              "options": [
+                "Usando exclusivamente a metatag depends_on em todos os blocos de recursos dependentes.",
+                "Através de referências implícitas usando o ID da subnet no atributo subnet_id da instância.",
+                "Definindo a ordem de execução diretamente no arquivo de configuração do provedor AWS.",
+                "Executando o comando terraform apply separadamente para cada recurso na ordem correta."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Terraform analisa as dependências implícitas quando você referencia atributos de um recurso em outro, tornando o depends_on redundante na maioria dos casos comuns."
+            },
+            {
+              "id": "terraform-aws-rede-servidores-2",
+              "question": "Qual é o comportamento padrão do Terraform ao atualizar a propriedade `ami` de uma instância `aws_instance` existente?",
+              "options": [
+                "A imagem da máquina virtual é atualizada em tempo de execução sem desligar o sistema operacional.",
+                "O Terraform rejeita a alteração por considerar a propriedade imutável após o provisionamento inicial.",
+                "Uma nova instância é criada em paralelo e a antiga é removida somente após o health check.",
+                "O recurso atual é destruído e um novo recurso de instância é criado no lugar."
+              ],
+              "answerIndex": 3,
+              "explanation": "A propriedade ami força a substituição (forces new resource). O Terraform apaga a instância atual e provisiona uma nova com a imagem informada."
+            },
+            {
+              "id": "terraform-aws-rede-servidores-3",
+              "question": "Como associar múltiplos blocos `ingress` em um `aws_security_group` criado inline na versão atual do provedor?",
+              "options": [
+                "Declarando múltiplos blocos ingress dentro do recurso de security group.",
+                "Utilizando uma string única concatenando as portas separadas por ponto e vírgula.",
+                "Repetindo o nome do recurso security_group várias vezes no mesmo arquivo .tf.",
+                "Atribuindo uma lista de objetos diretamente ao argumento único chamado inbound_rules."
+              ],
+              "answerIndex": 0,
+              "explanation": "O recurso aws_security_group aceita múltiplos blocos inline de ingress e egress, embora o uso de aws_security_group_rule seja recomendado para maior modularidade."
+            },
+            {
+              "id": "terraform-aws-rede-servidores-4",
+              "question": "Para garantir que recursos em uma `aws_subnet` tenham acesso à internet, qual recurso auxiliar é indispensável na VPC?",
+              "options": [
+                "Um bloco aws_nat_gateway configurado obrigatoriamente em zona pública.",
+                "Uma regra de security group liberando a porta 80 para o endereço 0.0.0.0/0.",
+                "Um `aws_internet_gateway` associado à tabela de rotas da sub-rede.",
+                "A ativação manual do parâmetro public_ip_enabled dentro da configuração da VPC."
+              ],
+              "answerIndex": 2,
+              "explanation": "A sub-rede precisa de uma rota padrão (0.0.0.0/0) apontando para um Internet Gateway para conseguir se comunicar com a internet pública."
+            }
           ]
         },
         {
@@ -873,6 +2773,56 @@
             {
               "title": "Usando o Terraform no CI/CD",
               "url": "https://developer.hashicorp.com/terraform/tutorials/automation/automate-terraform"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "terraform-no-pipeline-1",
+              "question": "Como gerenciar credenciais de nuvem de forma segura em um runner de CI/CD executando o Terraform?",
+              "options": [
+                "Salvando o arquivo terraform.tfvars criptografado diretamente no repositório de código.",
+                "Injetando variáveis de ambiente específicas do provedor ou usando OIDC para autenticação federada.",
+                "Configurando o token de acesso em texto plano dentro do bloco provider no arquivo main.tf.",
+                "Armazenando a chave privada no arquivo de estado remoto para uso automático."
+              ],
+              "answerIndex": 1,
+              "explanation": "Variáveis de ambiente (como AWS_ACCESS_KEY_ID) ou OIDC evitam que segredos fiquem expostos no código-fonte ou no backend."
+            },
+            {
+              "id": "terraform-no-pipeline-2",
+              "question": "Ao utilizar pull requests para revisar mudanças de infraestrutura, qual etapa do Terraform deve ser executada para feedback visual?",
+              "options": [
+                "Executar o `terraform apply --auto-approve` para testar o ambiente efêmeramente.",
+                "Executar o `terraform validate` para verificar apenas a sintaxe da linguagem HCL.",
+                "Executar o `terraform plan` e injetar a saída como comentário na pull request.",
+                "Executar o `terraform refresh` para atualizar o estado sem alterar os recursos reais."
+              ],
+              "answerIndex": 2,
+              "explanation": "O plan mostra o diff exato das alterações, permitindo que a equipe revise o impacto da infraestrutura antes do merge."
+            },
+            {
+              "id": "terraform-no-pipeline-3",
+              "question": "O que acontece se dois jobs de CI/CD tentarem executar `terraform apply` no mesmo backend remoto simultaneamente?",
+              "options": [
+                "O Terraform mesclará as alterações de ambos os jobs automaticamente no estado.",
+                "O primeiro job será cancelado para dar lugar ao mais recente no servidor de CI/CD.",
+                "Serão criados dois arquivos de estado separados para evitar conflitos de concorrência.",
+                "O segundo job falhará ou aguardará, pois o backend usa mecanismos de lock no estado."
+              ],
+              "answerIndex": 3,
+              "explanation": "Backends remotos suportam locking (como DynamoDB para S3) justamente para prevenir corrupção de estado causada por execuções paralelas."
+            },
+            {
+              "id": "terraform-no-pipeline-4",
+              "question": "Qual é a melhor prática para o comando `terraform init` em execuções efêmeras de CI/CD?",
+              "options": [
+                "Utilizar o parâmetro `-backend-config` para injetar configurações dinâmicas de backend.",
+                "Executar o init apenas na primeira vez que o repositório for clonado na máquina.",
+                "Desativar o download de provedores usando o argumento `-get-plugins=false`.",
+                "Copiar a pasta .terraform manualmente de um cache local para economizar largura de banda."
+              ],
+              "answerIndex": 0,
+              "explanation": "Como runners de CI/CD costumam ser efêmeros, configurar o backend dinamicamente via CLI garante que o ambiente localize o estado remoto corretamente a cada build."
             }
           ]
         },
@@ -893,6 +2843,56 @@
             {
               "title": "Introdução ao Ansible",
               "url": "https://docs.ansible.com/projects/ansible/latest/getting_started/index.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "ansible-gerenciamento-configuracao-1",
+              "question": "Por que o Ansible é considerado uma ferramenta sem agente (agentless)?",
+              "options": [
+                "Ele se conecta aos nós gerenciados via SSH ou WinRM sem precisar de daemon pré-instalado.",
+                "Ele executa toda a infraestrutura diretamente na nuvem sem servidores locais.",
+                "Ele utiliza containers Docker efêmeros para aplicar as configurações remotamente.",
+                "Ele não armazena nenhum tipo de log de execução nos servidores gerenciados."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Ansible se comunica via protocolos remotos padrão como SSH, dispensando a instalação de agentes dedicados."
+            },
+            {
+              "id": "ansible-gerenciamento-configuracao-2",
+              "question": "Qual é a função do arquivo hosts (Inventory) no Ansible?",
+              "options": [
+                "Definir as credenciais de acesso criptografadas para cada usuário do sistema.",
+                "Armazenar o histórico de todas as execuções bem-sucedidas no ambiente.",
+                "Configurar as variáveis globais de ambiente do nó de controle.",
+                "Listar e organizar os servidores gerenciados que receberão os playbooks."
+              ],
+              "answerIndex": 3,
+              "explanation": "O inventário define o escopo da infraestrutura, agrupando os hosts para facilitar a aplicação das regras."
+            },
+            {
+              "id": "ansible-gerenciamento-configuracao-3",
+              "question": "Como o Ansible lida com a ordem de execução dentro de um Playbook?",
+              "options": [
+                "Todas as tasks rodam em paralelo para otimizar o tempo de provisionamento.",
+                "A ordem é definida aleatoriamente baseada no hash do nome de cada task.",
+                "As tasks são executadas sequencialmente, de cima para baixo, em cada host do grupo.",
+                "As tasks que possuem dependências são executadas primeiro, ignorando a ordem visual."
+              ],
+              "answerIndex": 2,
+              "explanation": "Playbooks seguem uma execução linear e síncrona por padrão, task por task, host por host."
+            },
+            {
+              "id": "ansible-gerenciamento-configuracao-4",
+              "question": "Para que serve a ferramenta Ansible Galaxy?",
+              "options": [
+                "Para gerenciar clusters Kubernetes diretamente via playbooks.",
+                "Para compartilhar e reutilizar papéis (roles) criados pela comunidade.",
+                "Para monitorar métricas de desempenho dos nós gerenciados em tempo real.",
+                "Para armazenar imagens de containers utilizadas nos servidores."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Ansible Galaxy é um repositório público onde desenvolvedores compartilham estruturas prontas de roles."
             }
           ]
         }
@@ -930,6 +2930,56 @@
               "title": "Visão geral do kubectl",
               "url": "https://kubernetes.io/pt-br/docs/reference/kubectl/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "kubernetes-arquitetura-1",
+              "question": "Qual componente do plano de controle do Kubernetes armazena o estado atual e a configuração de todo o cluster?",
+              "options": [
+                "Kubelet",
+                "Kube-proxy",
+                "API Server",
+                "etcd"
+              ],
+              "answerIndex": 3,
+              "explanation": "O etcd é um banco de dados chave-valor distribuído que guarda o estado real do cluster. O API Server é a interface de acesso, mas quem persiste os dados é o etcd."
+            },
+            {
+              "id": "kubernetes-arquitetura-2",
+              "question": "Qual é a principal responsabilidade do Kubelet em um nó do Kubernetes?",
+              "options": [
+                "Gerenciar as regras de iptables para o balanceamento de carga da rede.",
+                "Executar diretamente a criação das imagens de container a partir dos Dockerfiles.",
+                "Garantir que os containers especificados nos Pods estejam rodando e saudáveis.",
+                "Distribuir automaticamente os novos Pods entre os nós disponíveis no cluster."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Kubelet é o agente que roda em cada nó e faz a comunicação com o plano de controle para gerenciar os containers locais."
+            },
+            {
+              "id": "kubernetes-arquitetura-3",
+              "question": "O que o comando `kubectl apply -f deployment.yaml` faz em um cluster Kubernetes?",
+              "options": [
+                "Cria ou atualiza recursos declarados no arquivo YAML de forma idempotente.",
+                "Exclui imediatamente todos os recursos descritos no arquivo YAML.",
+                "Executa testes unitários na aplicação descrita antes de subir para o cluster.",
+                "Apenas valida a sintaxe do arquivo YAML sem aplicar mudanças no cluster."
+              ],
+              "answerIndex": 0,
+              "explanation": "O comando apply envia a configuração declarativa ao API Server, criando o recurso se ele não existir ou atualizando-o caso já exista."
+            },
+            {
+              "id": "kubernetes-arquitetura-4",
+              "question": "Qual é a função do componente kube-proxy dentro de um nó do Kubernetes?",
+              "options": [
+                "Fazer o cache de imagens de containers para acelerar o deploy.",
+                "Manter regras de rede para permitir a comunicação com os Pods.",
+                "Agendar os Pods recém-criados nos nós com menor uso de CPU.",
+                "Monitorar o uso de memória e disco de cada container em execução."
+              ],
+              "answerIndex": 1,
+              "explanation": "O kube-proxy gerencia o roteamento de rede e regras de iptables ou IPVS, permitindo que serviços alcancem os Pods corretamente."
+            }
           ]
         },
         {
@@ -953,6 +3003,56 @@
             {
               "title": "Conceitos Básicos de Services",
               "url": "https://kubernetes.io/docs/concepts/services-networking/service/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "kubernetes-pods-deployments-services-1",
+              "question": "O que acontece quando um Pod gerenciado por um Deployment falha e é encerrado?",
+              "options": [
+                "Um novo Pod com IP diferente é criado automaticamente para substituí-lo.",
+                "O mesmo Pod é reiniciado mantendo o seu endereço IP original.",
+                "O Deployment é pausado até que o administrador intervenha manualmente.",
+                "O serviço associado remove permanentemente a aplicação do cluster."
+              ],
+              "answerIndex": 0,
+              "explanation": "Deployments gerenciam a replicação recriando Pods que falham, gerando novos Pods com novos IPs. Por isso usamos Services para acesso estável."
+            },
+            {
+              "id": "kubernetes-pods-deployments-services-2",
+              "question": "Qual é a principal função de um objeto Service do tipo ClusterIP?",
+              "options": [
+                "Permitir acesso direto à aplicação a partir da rede externa da internet.",
+                "Realizar o balanceamento de carga automático entre múltiplos clusters Kubernetes.",
+                "Expor a aplicação apenas para outros componentes dentro do mesmo cluster.",
+                "Armazenar credenciais de acesso para os Pods de forma segura."
+              ],
+              "answerIndex": 2,
+              "explanation": "O ClusterIP expõe o serviço em um IP interno do cluster, sendo acessível apenas por dentro dele. Para acesso externo, usa-se NodePort ou LoadBalancer."
+            },
+            {
+              "id": "kubernetes-pods-deployments-services-3",
+              "question": "Por que é desaconselhável criar Pods avulsos (soltos) em produção sem um Deployment?",
+              "options": [
+                "Porque eles não conseguem se comunicar com outros serviços do cluster.",
+                "Porque o Kubernetes impede a criação de Pods sem rotas de rede.",
+                "Porque eles consomem mais memória do que os gerenciados por Deployments.",
+                "Porque eles não se regeneram automaticamente se o nó físico cair."
+              ],
+              "answerIndex": 3,
+              "explanation": "Pods avulsos não possuem um controlador como o Deployment. Se o nó onde rodam falhar, o Pod morre para sempre e não é recriado."
+            },
+            {
+              "id": "kubernetes-pods-deployments-services-4",
+              "question": "Como um Service identifica quais Pods devem receber o tráfego que ele direciona?",
+              "options": [
+                "Através do endereço IP estático configurado manualmente no manifesto do Pod.",
+                "Através do seletor de rótulos (selector) que casa com as labels dos Pods.",
+                "Através do nome único (name) atribuído a cada réplica no arquivo YAML.",
+                "Através da ordem cronológica em que os Pods foram iniciados no cluster."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Service usa labels e selectors para descobrir dinamicamente quais Pods pertencem a ele, mesmo quando os IPs mudam."
             }
           ]
         },
@@ -978,6 +3078,56 @@
               "title": "Persistent Volumes no Kubernetes",
               "url": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "kubernetes-configmaps-secrets-1",
+              "question": "Qual é a principal diferença de segurança entre o uso de ConfigMaps e Secrets no Kubernetes?",
+              "options": [
+                "Secrets impedem totalmente o acesso não autorizado mesmo sem criptografia extra.",
+                "ConfigMaps armazenam dados binários grandes e Secrets guardam apenas textos curtos.",
+                "Secrets são criptografados automaticamente em repouso no banco de dados do cluster.",
+                "Secrets são codificados em Base64 por padrão, enquanto ConfigMaps usam texto plano."
+              ],
+              "answerIndex": 3,
+              "explanation": "Tanto ConfigMaps quanto Secrets armazenam dados em texto plano no etcd por padrão, sendo que Secrets apenas aplicam codificação Base64, exigindo configuração externa para criptografia real."
+            },
+            {
+              "id": "kubernetes-configmaps-secrets-2",
+              "question": "Como um pod normalmente consome o conteúdo de um ConfigMap em tempo de execução?",
+              "options": [
+                "Por meio de chamadas HTTP automáticas direcionadas à API do Kubernetes.",
+                "Compilando o ConfigMap diretamente dentro do código binário da aplicação.",
+                "Através de variáveis de ambiente ou montagem de arquivos em volumes.",
+                "Através de injeção direta de memória RAM gerenciada pelo Container Runtime."
+              ],
+              "answerIndex": 2,
+              "explanation": "ConfigMaps são injetados em pods principalmente como variáveis de ambiente ou mapeados como arquivos de configuração através de volumes."
+            },
+            {
+              "id": "kubernetes-configmaps-secrets-3",
+              "question": "Qual é a função do PersistentVolumeClaim (PVC) em um ambiente Kubernetes?",
+              "options": [
+                "Executar backups automáticos dos dados armazenados no disco físico.",
+                "Solicitar armazenamento com base em tamanho e modo de acesso desejados.",
+                "Formatar o disco rígido do nó worker para o sistema de arquivos correto.",
+                "Definir a política de rede para acesso seguro ao banco de dados."
+              ],
+              "answerIndex": 1,
+              "explanation": "O PVC atua como uma requisição de recursos de armazenamento feita pelo usuário, abstraindo os detalhes de infraestrutura do PersistentVolume subjacente."
+            },
+            {
+              "id": "kubernetes-configmaps-secrets-4",
+              "question": "O que acontece com os dados de um PersistentVolume (PV) quando o PersistentVolumeClaim associado é deletado, se a política de retenção for 'Retain'?",
+              "options": [
+                "Os dados permanecem intactos e o volume fica no estado Released.",
+                "Os dados são apagados imediatamente e o volume é destruído.",
+                "O volume é migrado automaticamente para outro cluster disponível.",
+                "O volume continua montado no pod até que o nó seja reiniciado."
+              ],
+              "answerIndex": 0,
+              "explanation": "Com a política 'Retain', o PV não é excluído automaticamente após a exclusão do PVC, permitindo a recuperação manual dos dados pelo administrador."
+            }
           ]
         },
         {
@@ -997,6 +3147,56 @@
             {
               "title": "Controladores Ingress",
               "url": "https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "kubernetes-ingress-1",
+              "question": "Qual é a função principal de um Ingress Controller em um cluster Kubernetes?",
+              "options": [
+                "Criar endereços IP públicos automaticamente para cada Pod em execução.",
+                "Substituir completamente o uso de Services do tipo ClusterIP na rede interna.",
+                "Implementar as regras definidas no recurso Ingress roteando tráfego externo.",
+                "Gerenciar o armazenamento persistente usado pelos certificados SSL."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Ingress Controller é o componente que lê os recursos Ingress do cluster e aplica as regras reais de proxy reverso. O Kubernetes por si só precisa desse controller para que o objeto Ingress funcione."
+            },
+            {
+              "id": "kubernetes-ingress-2",
+              "question": "Como o Ingress lida tipicamente com a terminação de HTTPS (TLS)?",
+              "options": [
+                "Lendo diretamente os arquivos PEM salvos na pasta /etc/ssl do nó mestre.",
+                "Utilizando um secret do tipo kubernetes.io/tls que armazena chave e certificado.",
+                "Exigindo que cada Pod configure seu próprio certificado autoassinado na porta 443.",
+                "Aplicando regras de criptografia diretamente no objeto Service associado."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Ingress faz a terminação TLS referenciando um Secret do Kubernetes que contém o certificado e a chave privada. O tráfego interno para o Pod pode continuar em HTTP."
+            },
+            {
+              "id": "kubernetes-ingress-3",
+              "question": "Dada uma regra de Ingress mapeando o host 'api.exemplo.com' para um Service, o que ocorre se uma requisição chegar com o header 'Host: outro.com'?",
+              "options": [
+                "O Ingress retorna um erro HTTP padrão, como 404 ou 503, por falta de regra correspondente.",
+                "A requisição é encaminhada para o primeiro Service listado no arquivo de configuração.",
+                "O Ingress altera automaticamente o header Host para corresponder ao domínio cadastrado.",
+                "O tráfego é rejeitado na camada de rede antes mesmo de chegar ao controlador."
+              ],
+              "answerIndex": 0,
+              "explanation": "Se o host da requisição não bater com nenhuma regra de roteamento baseada em nome de host (vhost), o controlador descarta ou rejeita a chamada por falta de rota."
+            },
+            {
+              "id": "kubernetes-ingress-4",
+              "question": "Qual é o comportamento padrão ao definir múltiplos caminhos (paths) em um único recurso Ingress para o mesmo host?",
+              "options": [
+                "Apenas o primeiro caminho cadastrado na lista YAML será considerado válido pelo cluster.",
+                "O tráfego é enviado simultaneamente para todos os caminhos em formato de broadcast.",
+                "O Kubernetes rejeita a aplicação se houver mais de um path por regra de host.",
+                "O controlador avalia os caminhos com base em regras de prefixo ou correspondência exata."
+              ],
+              "answerIndex": 3,
+              "explanation": "É possível rotear `/app/v1` para um serviço e `/app/v2` para outro usando a mesma regra de host, dependendo da ordem e do tipo de pathType configurados."
             }
           ]
         },
@@ -1018,6 +3218,56 @@
               "title": "Guia de Desenvolvimento de Charts no Helm",
               "url": "https://helm.sh/docs/topics/charts/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "helm-charts-1",
+              "question": "Como o Helm lida com a ordem de instalação de recursos altamente acoplados, como um Deployment e seu respectivo PersistentVolumeClaim?",
+              "options": [
+                "Lê os arquivos YAML em ordem alfabética estrita para definir dependências.",
+                "Aguarda o pod principal iniciar antes de criar o volume persistente.",
+                "Executa uma árvore de decisão baseada no tamanho dos arquivos de manifesto.",
+                "Usa hooks do Helm combinados com prioridades nativas do Kubernetes."
+              ],
+              "answerIndex": 3,
+              "explanation": "O Helm utiliza hooks combinados com a API do Kubernetes para gerenciar a ordem correta, já que o sequenciamento puramente por ordem alfabética no diretório templates não resolve dependências complexas."
+            },
+            {
+              "id": "helm-charts-2",
+              "question": "Qual é a principal utilidade do arquivo `values.yaml` em um Helm Chart avançado?",
+              "options": [
+                "Fornecer valores padrão que podem ser sobrescritos por arquivos externos.",
+                "Validar o tipo de dados de todas as variáveis de ambiente em tempo de execução.",
+                "Definir a estrutura fixa dos pods que não pode ser alterada no deploy.",
+                "Compilar os templates Go em binários executáveis pelo cluster."
+              ],
+              "answerIndex": 0,
+              "explanation": "O arquivo `values.yaml` armazena as configurações padrão do chart, permitindo que operadores personalizem a instalação através de flags ou outros arquivos sem alterar os templates."
+            },
+            {
+              "id": "helm-charts-3",
+              "question": "O que acontece quando você executa `helm upgrade --install` em um release existente?",
+              "options": [
+                "O release anterior é completamente apagado antes da criação do novo.",
+                "O Helm compara a nova versão com a anterior e aplica apenas as diferenças.",
+                "O cluster rejeita a operação por conflito de nomes no namespace.",
+                "Apenas os pods reiniciam, mantendo a configuração antiga no etcd."
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando realiza um diff entre o estado atual e o desejado, executando um update incremental e preservando o histórico de revisões."
+            },
+            {
+              "id": "helm-charts-4",
+              "question": "Qual é a função do objeto `.Capabilities` dentro dos templates de um Helm Chart?",
+              "options": [
+                "Listar todas as credenciais de acesso aos nós do cluster.",
+                "Armazenar variáveis de ambiente injetadas pelo container em execução.",
+                "Verificar a versão do Kubernetes e recursos suportados pelo cluster.",
+                "Medir a capacidade de processamento disponível antes do deploy."
+              ],
+              "answerIndex": 2,
+              "explanation": "O `.Capabilities` fornece informações sobre a API do Kubernetes, permitindo que o chart se adapte a diferentes versões do cluster."
+            }
           ]
         },
         {
@@ -1037,6 +3287,56 @@
             {
               "title": "Guia do usuário do Amazon EKS",
               "url": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "aws-eks-1",
+              "question": "Qual é a principal responsabilidade do Amazon EKS na arquitetura de controle do Kubernetes?",
+              "options": [
+                "Executar diretamente os pods de aplicação dos usuários.",
+                "Gerenciar a infraestrutura física de rede da nuvem.",
+                "Gerenciar o plano de controle e a API do Kubernetes.",
+                "Fornecer ferramentas de CI/CD para os desenvolvedores."
+              ],
+              "answerIndex": 2,
+              "explanation": "O EKS gerencia o plano de controle (master nodes) e a API, enquanto os nós de trabalho ficam sob responsabilidade do usuário."
+            },
+            {
+              "id": "aws-eks-2",
+              "question": "Como o EKS gerencia a alta disponibilidade do plano de controle?",
+              "options": [
+                "Duplicando o cluster inteiro em regiões geográficas distintas.",
+                "Mantendo nós de backup ociosos na mesma zona principal.",
+                "Executando instâncias extras apenas quando há falha de hardware.",
+                "Distribuindo os componentes por múltiplas zonas de disponibilidade."
+              ],
+              "answerIndex": 3,
+              "explanation": "O EKS provisiona automaticamente o plano de controle redundante em múltiplas zonas de disponibilidade para garantir resiliência."
+            },
+            {
+              "id": "aws-eks-3",
+              "question": "Qual componente é utilizado nativamente no EKS para gerenciar permissões da AWS em pods do Kubernetes?",
+              "options": [
+                "Security Groups for Pods na camada de aplicação.",
+                "IAM Roles for Service Accounts (IRSA).",
+                "AWS Identity Provider integrado ao Kubelet.",
+                "Access Keys injetadas via variáveis de ambiente."
+              ],
+              "answerIndex": 1,
+              "explanation": "O IRSA permite associar uma função IAM diretamente a uma Service Account do Kubernetes para controle seguro de acesso."
+            },
+            {
+              "id": "aws-eks-4",
+              "question": "Qual é a vantagem de utilizar nós gerenciados (Managed Node Groups) no EKS?",
+              "options": [
+                "Automatizam atualizações e substituição de nós com falha.",
+                "Eliminam completamente a necessidade de pagar por instâncias EC2.",
+                "Permitem usar qualquer sistema operacional independente do kernel Linux.",
+                "Garantem acesso root irrestrito ao plano de controle do EKS."
+              ],
+              "answerIndex": 0,
+              "explanation": "Managed Node Groups simplificam o ciclo de vida dos nós, automatizando patches, atualizações de versão e substituições."
             }
           ]
         }
@@ -1070,6 +3370,56 @@
               "title": "Introdução ao Grafana",
               "url": "https://grafana.com/docs/grafana/latest/introduction/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "observabilidade-conceitos-1",
+              "question": "Qual é a principal função das métricas em um sistema de observabilidade?",
+              "options": [
+                "Armazenar o histórico completo de interações de cada usuário.",
+                "Medir valores numéricos agregados ao longo do tempo.",
+                "Registrar mensagens de erro detalhadas com stack trace.",
+                "Monitorar o fluxo exato de uma requisição entre microsserviços."
+              ],
+              "answerIndex": 1,
+              "explanation": "Métricas fornecem dados numéricos agregados ideais para acompanhar tendências e criar alertas de desempenho."
+            },
+            {
+              "id": "observabilidade-conceitos-2",
+              "question": "Qual é o papel do OpenTelemetry em um ambiente moderno de nuvem?",
+              "options": [
+                "Substituir completamente a ferramenta de visualização de dados.",
+                "Armazenar os dados coletados em bancos de dados relacionais.",
+                "Executar testes automatizados de carga na aplicação.",
+                "Padronizar a coleta e o envio de métricas, logs e traces."
+              ],
+              "answerIndex": 3,
+              "explanation": "OpenTelemetry é um framework neutro focado em padronizar a geração e exportação de telemetria."
+            },
+            {
+              "id": "observabilidade-conceitos-3",
+              "question": "Qual é a utilidade principal do Grafana em um projeto de observabilidade?",
+              "options": [
+                "Coletar diretamente os logs brutos dentro do código da aplicação.",
+                "Gerar alertas automáticos e disparar correções no código.",
+                "Criar dashboards visuais para analisar dados coletados.",
+                "Armazenar permanentemente os dados em formato compactado."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Grafana é uma ferramenta de visualização que se conecta a fontes de dados para exibir gráficos e painéis."
+            },
+            {
+              "id": "observabilidade-conceitos-4",
+              "question": "Por que dizemos que métricas, logs e os traces formam os três pilares da observabilidade?",
+              "options": [
+                "Porque cobrem desde dados agregados até eventos detalhados e fluxos.",
+                "Porque são os únicos três tipos de arquivos aceitos na nuvem.",
+                "Porque cada pilar substitui a necessidade de usar os outros dois.",
+                "Porque funcionam exclusivamente integrados com bancos relacionais."
+              ],
+              "answerIndex": 0,
+              "explanation": "Cada pilar traz uma perspectiva única: métricas mostram tendências, logs mostram eventos e traces mostram o fluxo."
+            }
           ]
         },
         {
@@ -1089,6 +3439,56 @@
             {
               "title": "Conceitos de metricas do Prometheus",
               "url": "https://prometheus.io/docs/concepts/metric_types/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "prometheus-metricas-1",
+              "question": "Como o Prometheus coleta métricas por padrão da maioria das aplicações?",
+              "options": [
+                "Por meio do envio push via protocolo UDP direto para o banco de dados.",
+                "Através de eventos em tempo real transmitidos por WebSockets.",
+                "Através de requisições HTTP GET em um endpoint exposto pela aplicação.",
+                "Por meio de scripts de callback executados pelo agente na aplicação."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Prometheus utiliza um modelo baseado em pull, fazendo requisições HTTP GET periódicas para coletar métricas em um endpoint, geralmente chamado /metrics."
+            },
+            {
+              "id": "prometheus-metricas-2",
+              "question": "Qual é a principal característica do modelo de dados do Prometheus?",
+              "options": [
+                "Identificação baseada em nome da métrica e pares de chave-valor chamados labels.",
+                "Estrutura estrita de árvore hierárquica baseada em diretórios e caminhos.",
+                "Armazenamento orientado a documentos JSON com esquemas flexíveis.",
+                "Tabelas relacionais com chaves primárias e estrangeiras fixas."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Prometheus usa séries temporais identificadas por um nome de métrica e um conjunto de pares chave-valor chamados labels, permitindo buscas multidimensionais."
+            },
+            {
+              "id": "prometheus-metricas-3",
+              "question": "Quando se deve utilizar a métrica do tipo 'Gauge' no Prometheus?",
+              "options": [
+                "Para contabilizar o número total de acessos acumulados desde o início da aplicação.",
+                "Para medir valores que podem subir e descer, como uso de memória ou temperatura.",
+                "Para armazenar amostras de dados que não mudam durante todo o ciclo de vida.",
+                "Para calcular médias móveis automáticas de requisições por segundo."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Gauge representa um único valor numérico que pode arbitrariamente subir e descer, sendo perfeito para métricas instantâneas como uso de CPU ou tamanho de filas."
+            },
+            {
+              "id": "prometheus-metricas-4",
+              "question": "Por que o Prometheus adota o modelo de coleta por 'pull' em vez de 'push'?",
+              "options": [
+                "Garante a entrega de 100% dos eventos sem perda de pacotes na rede interna.",
+                "Elimina a necessidade de configurar endereços IP e portas nos arquivos de configuração.",
+                "Permite que aplicações enviem dados mesmo quando estão desconectadas da rede.",
+                "Facilita checar a saúde dos alvos e protege o servidor contra sobrecarga de tráfego."
+              ],
+              "answerIndex": 3,
+              "explanation": "O modelo pull permite que o próprio servidor controle a taxa de scraping, saiba imediatamente se um alvo caiu e evite ser soterrado por dados enviados por clientes."
             }
           ]
         },
@@ -1114,6 +3514,56 @@
               "title": "Criar e gerenciar dashboards",
               "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "grafana-dashboards-alertas-1",
+              "question": "Como o Grafana lida nativamente com dados de múltiplas fontes em um único painel?",
+              "options": [
+                "Unifica automaticamente todas as fontes em um único banco relacional interno.",
+                "Permite adicionar painéis conectados a data sources diferentes no mesmo dashboard.",
+                "Exige que todos os dados sejam convertidos para o formato JSON antes do envio.",
+                "Requer o uso obrigatório do Prometheus como intermediário para qualquer consulta."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Grafana permite combinar diferentes data sources por painel ou no mesmo dashboard. O erro comum é achar que ele faz ETL ou unificação automática dos dados."
+            },
+            {
+              "id": "grafana-dashboards-alertas-2",
+              "question": "Qual a diferença conceitual entre um painel (Panel) e um dashboard no Grafana?",
+              "options": [
+                "O dashboard processa alertas, enquanto o panel apenas exibe gráficos estáticos.",
+                "O panel armazena dados permanentemente, enquanto o dashboard é volátil.",
+                "O dashboard é a visão geral, enquanto o panel é a visualização individual.",
+                "O dashboard é exclusivo para logs, enquanto o panel é apenas para métricas."
+              ],
+              "answerIndex": 2,
+              "explanation": "Um dashboard é a tela que agrupa vários elementos, e cada gráfico ou tabela individual é chamado de panel. Ambos podem lidar com diferentes tipos de dados."
+            },
+            {
+              "id": "grafana-dashboards-alertas-3",
+              "question": "Como funcionam as regras de notificação (Notification Policies) no Grafana?",
+              "options": [
+                "Direcionam os alertas disparados para os contatos corretos com base em rótulos.",
+                "Controlam quais usuários têm permissão para editar os dashboards de alertas.",
+                "Geram relatórios em PDF automaticamente em horários agendados.",
+                "Ajustam o limiar dos gráficos de forma autônoma usando inteligência artificial."
+              ],
+              "answerIndex": 0,
+              "explanation": "As Notification Policies usam matchers baseados em labels para decidir para onde enviar cada alerta, como Slack, PagerDuty ou e-mail."
+            },
+            {
+              "id": "grafana-dashboards-alertas-4",
+              "question": "Por que o uso excessivo de painéis em um único dashboard pode degradar a performance?",
+              "options": [
+                "O navegador precisa renderizar muitas imagens em formato PNG estático.",
+                "O Grafana sobrecarrega a CPU do cliente ao criptografar o layout em SSL.",
+                "O limite máximo de conexões TCP do sistema operacional é atingido no login.",
+                "Cada painel dispara requisições simultâneas para as fontes de dados."
+              ],
+              "answerIndex": 3,
+              "explanation": "Cada painel executa suas próprias queries na fonte de dados a cada atualização, gerando alto volume de requisições se houver muitos gráficos."
+            }
           ]
         },
         {
@@ -1133,6 +3583,56 @@
             {
               "title": "Grafana Loki Promtail",
               "url": "https://grafana.com/docs/loki/latest/send-data/promtail/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "logs-centralizados-loki-1",
+              "question": "Qual é a principal diferença arquitetural do Grafana Loki em comparação ao Elasticsearch?",
+              "options": [
+                "O Loki indexa apenas metadados e rótulos dos logs, enquanto o Elasticsearch indexa o conteúdo completo do texto.",
+                "O Loki armazena dados em blocos relacionais, enquanto o Elasticsearch utiliza tabelas hash.",
+                "O Loki executa buscas diretamente na memória RAM, enquanto o Elasticsearch usa armazenamento em disco.",
+                "O Loki comprime arquivos binários inteiros, enquanto o Elasticsearch analisa o fluxo de bytes via streaming."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Loki economiza recursos ao não indexar o corpo dos logs, indexando apenas os labels e metadados, diferentemente de motores baseados em texto completo como o Elasticsearch."
+            },
+            {
+              "id": "logs-centralizados-loki-2",
+              "question": "Como os streams de logs são identificados de forma única no Grafana Loki?",
+              "options": [
+                "Através de um identificador UUID gerado automaticamente para cada linha.",
+                "Através do endereço IP de origem e da porta de rede do cliente.",
+                "Através da combinação de um conjunto de rótulos (labels) chave-valor.",
+                "Através de um hash criptográfico gerado a partir do conteúdo bruto da mensagem."
+              ],
+              "answerIndex": 2,
+              "explanation": "No Loki, o stream é definido estritamente pela combinação dos labels anexados aos logs, o que ajuda a manter a eficiência na indexação."
+            },
+            {
+              "id": "logs-centralizados-loki-3",
+              "question": "Como o Promtail lida com a descoberta e coleta de logs em ambientes Kubernetes?",
+              "options": [
+                "Ele exige a instalação de um daemonset dedicado para cada container em execução.",
+                "Ele utiliza os metadados dos pods injetados pela API do Kubernetes para rotular os logs.",
+                "Ele intercepta diretamente o tráfego de rede das aplicações na camada de socket.",
+                "Ele lê os arquivos de log centralizados a partir do disco persistente do cluster master."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Promtail se integra ao Kubernetes para extrair metadados dos pods e aplicar automaticamente como labels nos fluxos de logs coletados."
+            },
+            {
+              "id": "logs-centralizados-loki-4",
+              "question": "Em uma consulta LogQL no Loki, qual é a função do operador de filtro de linha (line filter) `{app=\"nginx\"} |= \"error\"`?",
+              "options": [
+                "Filtrar todos os logs que possuem o rótulo \"error\" associado ao aplicativo nginx.",
+                "Exibir o número total de ocorrências da palavra \"error\" nos logs do nginx.",
+                "Agrupar os logs do nginx em janelas de tempo baseadas na string \"error\".",
+                "Retornar apenas as linhas de log do app nginx que contenham a palavra \"error\"."
+              ],
+              "answerIndex": 3,
+              "explanation": "O operador `|=` realiza uma busca de texto dentro do conteúdo bruto do log, filtrando as linhas que contêm a string especificada após o seletor de labels."
             }
           ]
         },
@@ -1154,6 +3654,56 @@
               "title": "Primeiros Passos com OpenTelemetry em Aplicações",
               "url": "https://opentelemetry.io/docs/languages/js/getting-started/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "tracing-opentelemetry-1",
+              "question": "Qual é a principal responsabilidade do componente TracerProvider no ciclo de vida de uma aplicação instrumentada com OpenTelemetry?",
+              "options": [
+                "Enviar diretamente os spans formatados para o backend de armazenamento.",
+                "Gerenciar a criação e configuração de Tracers no SDK.",
+                "Interceptar requisições HTTP recebidas na borda da rede.",
+                "Armazenar em cache o contexto de propagação entre threads."
+              ],
+              "answerIndex": 1,
+              "explanation": "O TracerProvider atua como uma fábrica para criar instâncias de Tracers. O envio dos dados é delegado aos SpanProcessors e Exporters."
+            },
+            {
+              "id": "tracing-opentelemetry-2",
+              "question": "Qual é o comportamento esperado de um SpanProcessor configurado no modo Batch em relação ao modo Simples?",
+              "options": [
+                "Envia cada span instantaneamente assim que ele é finalizado pelo código.",
+                "Descarta spans excedentes para evitar consumo excessivo de memória RAM.",
+                "Executa amostragem probabilística diretamente no buffer de saída.",
+                "Acumula spans em fila e os envia em lotes para otimizar o uso de rede."
+              ],
+              "answerIndex": 3,
+              "explanation": "O BatchSpanProcessor agrupa múltiplos spans para envio coletivo, reduzindo o overhead de chamadas de rede em sistemas de alta carga."
+            },
+            {
+              "id": "tracing-opentelemetry-3",
+              "question": "O que acontece quando ativamos uma estratégia de amostragem (Sampling) baseada em probabilidade no SDK?",
+              "options": [
+                "Apenas uma porcentagem dos traces tem seus spans gravados e exportados.",
+                "Todos os spans são criados, mas apenas alguns recebem atributos detalhados.",
+                "O sistema reduz a precisão dos timestamps para economizar CPU.",
+                "A aplicação rejeita requisições extras quando o limite de tráfego é atingido."
+              ],
+              "answerIndex": 0,
+              "explanation": "A amostragem decide no início do trace se ele será gravado ou ignorado, reduzindo custos de armazenamento em ambientes de alto volume."
+            },
+            {
+              "id": "tracing-opentelemetry-4",
+              "question": "Por que devemos finalizar manualmente um span criado de forma customizada usando `span.end()`?",
+              "options": [
+                "Para liberar a thread atual para outras tarefas assíncronas.",
+                "Para garantir que os logs gerados sejam associados ao trace correto.",
+                "Para calcular corretamente a duração e permitir que ele seja exportado.",
+                "Para fechar a conexão de rede aberta com o coletor."
+              ],
+              "answerIndex": 2,
+              "explanation": "O tempo de execução do span depende do momento em que o método end é chamado. Sem ele, o span permanece aberto e não é exportado."
+            }
           ]
         },
         {
@@ -1173,6 +3723,56 @@
             {
               "title": "Indicadores de Nível de Serviço na SRE",
               "url": "https://sre.google/sre-book/service-level-objectives/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "sre-slo-incidentes-1",
+              "question": "O que diferencia essencialmente um SLO de um SLA em um contrato de serviço?",
+              "options": [
+                "O SLO é uma meta interna de confiabilidade sem penalidades financeiras diretas.",
+                "O SLA define o limite técnico estrito, enquanto o SLO define o custo de infraestrutura.",
+                "O SLO é acordado com clientes externos e o SLA é focado apenas em métricas de hardware.",
+                "O SLA não possui métricas numéricas associadas, ao contrário do SLO."
+              ],
+              "answerIndex": 0,
+              "explanation": "SLOs guiam as decisões de engenharia internamente, enquanto SLAs envolvem consequências de negócio com clientes."
+            },
+            {
+              "id": "sre-slo-incidentes-2",
+              "question": "Qual é a principal utilidade prática de um orçamento de erros (error budget) esgotado?",
+              "options": [
+                "Aplicar descontos automáticos na fatura dos clientes afetados pela indisponibilidade.",
+                "Aumentar o orçamento financeiro da equipe para compra imediata de servidores.",
+                "Encerrar automaticamente o plantão da equipe de resposta a incidentes.",
+                "Congelar deplougs de novas funcionalidades até que a estabilidade seja recuperada."
+              ],
+              "answerIndex": 3,
+              "explanation": "Quando o error budget acaba, o foco muda de velocidade de entrega para confiabilidade, pausando novas features."
+            },
+            {
+              "id": "sre-slo-incidentes-3",
+              "question": "Em uma situação de incidente crítico, qual deve ser a prioridade número um do comandante do incidente?",
+              "options": [
+                "Identificar a causa raiz exata do problema para evitar recorrência imediata.",
+                "Mitigar o impacto e restaurar o serviço o mais rápido possível.",
+                "Comunicar detalhadamente os bugs encontrados aos desenvolvedores responsáveis.",
+                "Isolar os logs do sistema afetado para fins de auditoria forense."
+              ],
+              "answerIndex": 1,
+              "explanation": "A prioridade durante o incidente é a mitigação rápida. A busca profunda pela causa raiz ocorre no pós-mortem."
+            },
+            {
+              "id": "sre-slo-incidentes-4",
+              "question": "Qual é a principal característica de um relatório de pós-mortem focado na cultura SRE?",
+              "options": [
+                "Apontar nominalmente os engenheiros responsáveis pelo erro de configuração.",
+                "Focar exclusivamente na correção do código que gerou o bug original.",
+                "Ser livre de culpa, focado nos fatores sistêmicos que permitiram a falha.",
+                "Listar as punições aplicadas aos envolvidos para evitar reincidência."
+              ],
+              "answerIndex": 2,
+              "explanation": "Pós-mortems eficazes evitam o jogo da culpa e analisam falhas de processos e sistemas para criar barreiras melhores."
             }
           ]
         }
