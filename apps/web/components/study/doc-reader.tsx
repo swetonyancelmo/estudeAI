@@ -15,6 +15,7 @@ import { isMdnDocUrl } from "@/lib/docs/sites";
 import { useRoadmap, useUpdateResourceProgress } from "@/lib/roadmaps/api";
 import { locateTopic, studyHref } from "@/lib/roadmaps/study";
 import { TRACK_CLASS } from "@/lib/roadmaps/track";
+import { useStudyTime } from "./use-study-time";
 
 const LICENSE_URL = "https://creativecommons.org/licenses/by-sa/2.5/";
 
@@ -75,6 +76,8 @@ function Reader({
 }) {
   const article = useMdnArticle(resource.url);
   const progress = useUpdateResourceProgress(roadmap.id, topicId);
+  // Fase 5: ler a documentação também conta como tempo de estudo.
+  useStudyTime(roadmap.id);
   const backHref = studyHref(roadmap.id, topicId);
 
   // Abrir a leitura conta como "em andamento", uma vez por visita.

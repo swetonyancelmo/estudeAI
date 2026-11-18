@@ -20,6 +20,8 @@ import { QuizAttempt } from './entities/quiz-attempt.entity';
 import { TrackQuizQuestion } from '../tracks/entities/track-quiz-question.entity';
 import { QuizService } from './quiz.service';
 import { ChallengeService } from './challenge.service';
+import { StudyService } from './study.service';
+import { StudyDay } from './entities/study-day.entity';
 import { ChallengeProgress } from './entities/challenge-progress.entity';
 import { TrackChallenge } from '../tracks/entities/track-challenge.entity';
 
@@ -35,6 +37,7 @@ import { TrackChallenge } from '../tracks/entities/track-challenge.entity';
       // Só leitura: as perguntas são gravadas pelo sync das trilhas.
       TrackQuizQuestion,
       ChallengeProgress,
+      StudyDay,
       // Só leitura: os desafios são gravados pelo sync das trilhas.
       TrackChallenge,
       // Só leitura: quem escreve nas trilhas é o TracksModule (que depende
@@ -56,6 +59,7 @@ import { TrackChallenge } from '../tracks/entities/track-challenge.entity';
     UserRoadmapService,
     QuizService,
     ChallengeService,
+    StudyService,
   ],
   // O catálogo de trilhas reusa a descoberta de recursos (TracksModule).
   exports: [ResourceDiscoveryService],

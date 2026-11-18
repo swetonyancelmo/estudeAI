@@ -10,6 +10,7 @@ import {
   Patch,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
@@ -19,6 +20,7 @@ import type {
   ChallengeSolutionDto,
   TopicChallengesDto,
   QuizAnswerResultDto,
+  RoadmapStatsDto,
   QuizDto,
   ResourceProgressDto,
   RoadmapDetailDto,
@@ -31,6 +33,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/strategies/jwt.strategy';
 import { AdjustRoadmapDto } from './dto/adjust-roadmap.dto';
 import { SaveChallengeDto } from './dto/save-challenge.dto';
+import { StatsQueryDto, StudyTimeDto } from './dto/study.dto';
 import { SubmitQuizAnswerDto } from './dto/submit-quiz-answer.dto';
 import { UpdateResourceProgressDto } from './dto/update-resource-progress.dto';
 import { UpdateTopicNoteDto } from './dto/update-topic-note.dto';
@@ -39,6 +42,7 @@ import { RoadmapService } from './roadmap.service';
 import { RoadmapAdjustService } from './roadmap-adjust.service';
 import { QuizService } from './quiz.service';
 import { ChallengeService } from './challenge.service';
+import { StudyService } from './study.service';
 import { UserRoadmapService } from './user-roadmap.service';
 
 /**
@@ -55,6 +59,7 @@ export class RoadmapController {
     private readonly adjustService: RoadmapAdjustService,
     private readonly quizzes: QuizService,
     private readonly challenges: ChallengeService,
+    private readonly study: StudyService,
   ) {}
 
   /**
@@ -183,6 +188,30 @@ export class RoadmapController {
     @Param('challengeId', ParseUUIDPipe) challengeId: string,
   ): Promise<ChallengeSolutionDto> {
     return this.challenges.solution(user.id, id, topicId, challengeId);
+  }
+
+  /**
+   * Fase 5 — "estou estudando": a sala de estudo avisa a cada minuto enquanto
+   * está visível e em uso. Sem corpo na resposta.
+   */
+  @Post(':id/study-time')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  recordStudyTime(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: StudyTimeDto,
+  ): Promise<void> {
+    return this.study.recordMinute(user.id, id, dto.day);
+  }
+
+  /** Fase 5 — painel de evolução do roadmap. */
+  @Get(':id/stats')
+  stats(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query() query: StatsQueryDto,
+  ): Promise<RoadmapStatsDto> {
+    return this.study.stats(user.id, id, query.today, query.tz);
   }
 
   /** Sala de estudo — anotação do tópico. */

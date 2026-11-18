@@ -8,6 +8,7 @@ import { EntityManager, In, Repository } from 'typeorm';
 import type {
   AdjustRoadmapResponseDto,
   AdjustedRoadmapDto,
+  NextTopicDto,
   ResourceContentDto,
   ResourceProgressDto,
   ResourceStatus,
@@ -36,6 +37,14 @@ const STATUS_RANK: Record<ResourceStatus, number> = {
   in_progress: 1,
   completed: 2,
 };
+
+/** Linha da consulta do "continuar de onde parou". */
+interface NextTopicRow {
+  roadmapId: string;
+  id: string;
+  title: string;
+  moduleTitle: string;
+}
 
 /** Linha crua da query agregada da lista (COUNT volta como string no pg). */
 interface RoadmapListRow {
@@ -180,6 +189,8 @@ export class UserRoadmapService {
       .orderBy('r.createdAt', 'DESC')
       .getRawMany<RoadmapListRow>();
 
+    const nextByRoadmap = await this.nextTopicsOf(rows.map((row) => row.id));
+
     return rows.map((row) => ({
       id: row.id,
       targetArea: row.targetArea,
@@ -189,7 +200,34 @@ export class UserRoadmapService {
         Number(row.completedTopics),
         Number(row.totalTopics),
       ),
+      nextTopic: nextByRoadmap.get(row.id) ?? null,
     }));
+  }
+
+  /**
+   * "Continuar de onde parou": o primeiro item pendente de cada roadmap, na
+   * ordem de estudo (módulo, depois tópico). Uma consulta para a lista toda.
+   */
+  private async nextTopicsOf(
+    roadmapIds: string[],
+  ): Promise<Map<string, NextTopicDto>> {
+    if (roadmapIds.length === 0) return new Map();
+    const rows: NextTopicRow[] = await this.roadmaps.query(
+      `SELECT DISTINCT ON (m."roadmap_id")
+              m."roadmap_id" AS "roadmapId", t."id", t."title",
+              m."title" AS "moduleTitle"
+         FROM "roadmap_topics" t
+         JOIN "roadmap_modules" m ON m."id" = t."module_id"
+        WHERE m."roadmap_id" = ANY($1::uuid[]) AND NOT t."is_completed"
+        ORDER BY m."roadmap_id", m."order_index", t."order_index"`,
+      [roadmapIds],
+    );
+    return new Map(
+      rows.map((row) => [
+        row.roadmapId,
+        { id: row.id, title: row.title, moduleTitle: row.moduleTitle },
+      ]),
+    );
   }
 
   /** Detalhe completo (módulos + tópicos), já validando ownership. */
@@ -221,6 +259,7 @@ export class UserRoadmapService {
     }
 
     topic.isCompleted = !topic.isCompleted;
+    topic.completedAt = topic.isCompleted ? new Date() : null;
     await this.topics.save(topic);
 
     // A árvore em memória já reflete o toggle — o progresso sai dela, sem
@@ -532,6 +571,29 @@ export class UserRoadmapService {
       throw new ForbiddenException('Este roadmap pertence a outro usuário.');
     }
     return roadmap;
+  }
+
+  /**
+   * Checagem de dono sem carregar a árvore do roadmap: para rotas chamadas com
+   * frequência (o aviso de tempo de estudo vem a cada minuto). Mesmas regras
+   * do `loadOwned`: 404 se não existe, 403 se é de outra pessoa.
+   */
+  async assertOwner(userId: string, roadmapId: string): Promise<void> {
+    const roadmap = await this.roadmaps.findOne({
+      where: { id: roadmapId },
+      select: { id: true, userId: true },
+    });
+    if (!roadmap) {
+      throw new NotFoundException('Roadmap não encontrado.');
+    }
+    if (roadmap.userId !== userId) {
+      throw new ForbiddenException('Este roadmap pertence a outro usuário.');
+    }
+  }
+
+  /** Roadmap completo do usuário (módulos e tópicos), com a checagem de dono. */
+  async loadOwnedRoadmap(userId: string, roadmapId: string): Promise<Roadmap> {
+    return this.loadOwned(userId, roadmapId);
   }
 
   /**

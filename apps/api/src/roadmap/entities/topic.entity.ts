@@ -50,6 +50,14 @@ export class Topic {
   @Column({ type: 'boolean', name: 'is_completed', default: false })
   isCompleted: boolean;
 
+  /**
+   * Quando a pessoa concluiu o tópico (Fase 5: tópicos por semana). Nulo
+   * enquanto pendente, nos concluídos antes desta coluna existir e nos que
+   * nascem concluídos por habilidade declarada no wizard.
+   */
+  @Column({ type: 'timestamptz', name: 'completed_at', nullable: true })
+  completedAt: Date | null;
+
   @Column({ type: 'int', name: 'order_index' })
   order: number;
 
