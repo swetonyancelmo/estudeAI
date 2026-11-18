@@ -449,3 +449,61 @@ export interface MdnArticleDto {
 
 /** Endereço (host) da MDN, para reconhecer quais links abrem no leitor. */
 export const MDN_HOST = "developer.mozilla.org";
+
+// ---------------------------------------------------------------------------
+// Fase 3 — quizzes por tópico.
+//
+// As perguntas são conteúdo da trilha (curado no JSON e revisado), não do
+// usuário. O gabarito NUNCA vai para o cliente antes da resposta: a API corrige
+// cada resposta, grava a tentativa e só então devolve a alternativa certa e a
+// explicação.
+// ---------------------------------------------------------------------------
+
+/** Alternativas por pergunta. */
+export const QUIZ_OPTION_COUNT = 4;
+
+/** Fração de acertos a partir da qual o quiz sugere concluir o tópico. */
+export const QUIZ_PASS_RATIO = 0.7;
+
+/** Pergunta como o cliente recebe: sem a resposta certa. */
+export interface QuizQuestionDto {
+  id: string;
+  question: string;
+  options: string[];
+}
+
+/**
+ * Situação do quiz para o usuário, pela ÚLTIMA resposta de cada pergunta.
+ * Nulo enquanto nenhuma pergunta foi respondida.
+ */
+export interface QuizSummaryDto {
+  total: number;
+  answered: number;
+  correct: number;
+  /** ISO 8601 da resposta mais recente. */
+  lastAnsweredAt: string;
+}
+
+/** Resposta de GET /roadmap/:id/topics/:topicId/quiz. */
+export interface QuizDto {
+  topicId: string;
+  /** Vazio quando o tópico não tem quiz (a seção some na sala de estudo). */
+  questions: QuizQuestionDto[];
+  summary: QuizSummaryDto | null;
+}
+
+/** Payload de POST /roadmap/:id/topics/:topicId/quiz/answers. */
+export interface SubmitQuizAnswerRequestDto {
+  questionId: string;
+  chosenIndex: number;
+}
+
+/** Resposta do POST acima: a correção e a situação atualizada. */
+export interface QuizAnswerResultDto {
+  questionId: string;
+  chosenIndex: number;
+  correct: boolean;
+  answerIndex: number;
+  explanation: string;
+  summary: QuizSummaryDto;
+}

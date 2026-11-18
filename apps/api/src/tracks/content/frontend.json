@@ -30,6 +30,56 @@
               "title": "Mensagens HTTP",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Messages"
             }
+          ],
+          "quiz": [
+            {
+              "id": "como-a-web-funciona-1",
+              "question": "O que caracteriza o papel de um navegador (browser) ao acessar uma página web?",
+              "options": [
+                "Ele armazena permanentemente os arquivos do site no disco do usuário.",
+                "Ele atua como o cliente que envia solicitações e exibe os dados recebidos.",
+                "Ele processa todas as regras de negócio e consultas ao banco de dados.",
+                "Ele cria o protocolo de rede usado para transferir os dados na internet."
+              ],
+              "answerIndex": 1,
+              "explanation": "O navegador é o cliente que faz requisições ao servidor. A lógica de negócios e o banco de dados ficam no servidor."
+            },
+            {
+              "id": "como-a-web-funciona-2",
+              "question": "Qual é a principal função do protocolo HTTP na comunicação web?",
+              "options": [
+                "Padronizar o formato das mensagens trocadas entre cliente e servidor.",
+                "Garantir que os dados sejam criptografados de ponta a ponta na rede.",
+                "Acelerar o tempo de download de arquivos pesados via conexões móveis.",
+                "Impedir que o servidor caia quando houver muitos acessos simultâneos."
+              ],
+              "answerIndex": 0,
+              "explanation": "O HTTP define a estrutura das requisições e respostas. A criptografia é papel de protocolos adicionais como o TLS."
+            },
+            {
+              "id": "como-a-web-funciona-3",
+              "question": "Quando um usuário digita um endereço no navegador e pressiona Enter, o que o computador faz primeiro?",
+              "options": [
+                "Baixa todo o código fonte do site e executa o compilador localmente.",
+                "Inicia um servidor web na máquina do usuário para processar a página.",
+                "Cria uma nova versão do arquivo HTML para exibir na tela.",
+                "Envia uma requisição HTTP ao servidor responsável por aquele domínio."
+              ],
+              "answerIndex": 3,
+              "explanation": "A ação inicial é sempre enviar uma requisição HTTP (via cliente) para o servidor remoto que hospeda o site."
+            },
+            {
+              "id": "como-a-web-funciona-4",
+              "question": "O que significa o código de status HTTP 404 retornado por um servidor?",
+              "options": [
+                "O servidor encontrou um erro interno e não conseguiu processar o pedido.",
+                "A página foi movida permanentemente para um novo endereço seguro.",
+                "O servidor não encontrou o recurso solicitado no endereço indicado.",
+                "O cliente não tem permissão para visualizar o conteúdo da página."
+              ],
+              "answerIndex": 2,
+              "explanation": "O código 404 indica que o recurso não foi localizado. Erros internos usam a faixa 500 e permissões usam a faixa 403."
+            }
           ]
         },
         {
@@ -49,6 +99,56 @@
             {
               "title": "Visão geral do Chrome DevTools",
               "url": "https://developer.chrome.com/docs/devtools"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "ambiente-de-desenvolvimento-1",
+              "question": "O que acontece ao alterar um arquivo no VS Code com o Auto Save desativado e atualizar a página no navegador?",
+              "options": [
+                "O navegador exibe a versão anterior salva no disco.",
+                "O navegador mostra as novas alterações automaticamente.",
+                "O VS Code força o navegador a recarregar a página.",
+                "O arquivo é salvo na memória temporária do navegador."
+              ],
+              "answerIndex": 0,
+              "explanation": "Sem o salvamento automático, o disco rígido ainda contém o arquivo antigo, que é o que o navegador lê ao ser atualizado."
+            },
+            {
+              "id": "ambiente-de-desenvolvimento-2",
+              "question": "Qual é a principal utilidade da aba Elements no Chrome DevTools para quem está desenvolvendo em HTML e CSS?",
+              "options": [
+                "Verificar erros de sintaxe no código JavaScript do projeto.",
+                "Monitorar o consumo de memória RAM do computador.",
+                "Inspecionar e modificar o DOM e os estilos em tempo real.",
+                "Testar a velocidade de download de imagens e fontes."
+              ],
+              "answerIndex": 2,
+              "explanation": "A aba Elements permite ver a árvore do DOM e testar regras CSS na hora, sem precisar alterar o código-fonte original do projeto."
+            },
+            {
+              "id": "ambiente-de-desenvolvimento-3",
+              "question": "Para que serve a aba Console no Chrome DevTools durante o desenvolvimento frontend?",
+              "options": [
+                "Para editar diretamente a estrutura dos arquivos HTML salvos.",
+                "Para criar novas pastas e arquivos dentro do projeto no VS Code.",
+                "Para gerenciar as extensões instaladas no navegador.",
+                "Para visualizar mensagens de log e executar comandos JavaScript."
+              ],
+              "answerIndex": 3,
+              "explanation": "O console é o ambiente interativo de JavaScript do navegador e exibe avisos ou erros gerados pelo código da página."
+            },
+            {
+              "id": "ambiente-de-desenvolvimento-4",
+              "question": "Qual é a função do arquivo `settings.json` no VS Code?",
+              "options": [
+                "Listar todas as dependências e bibliotecas externas do projeto.",
+                "Armazenar as preferências e configurações personalizadas do editor.",
+                "Guardar o histórico de commits feitos no sistema de controle de versão.",
+                "Conectar o editor diretamente aos servidores de hospedagem."
+              ],
+              "answerIndex": 1,
+              "explanation": "O `settings.json` centraliza as preferências do usuário, como tamanho de fonte, tema e comportamento do editor."
             }
           ]
         },
@@ -74,6 +174,56 @@
               "title": "Guia de introdução ao terminal no VS Code",
               "url": "https://code.visualstudio.com/docs/terminal/basics"
             }
+          ],
+          "quiz": [
+            {
+              "id": "terminal-basico-1",
+              "question": "Qual comando você deve digitar no terminal para ver a lista de arquivos e pastas do diretório atual?",
+              "options": [
+                "cd",
+                "pwd",
+                "ls",
+                "mkdir"
+              ],
+              "answerIndex": 2,
+              "explanation": "O comando ls lista os arquivos da pasta atual. O comando cd serve para navegar entre pastas."
+            },
+            {
+              "id": "terminal-basico-2",
+              "question": "Ao usar o terminal, você está dentro da pasta 'projetos' e quer entrar na pasta 'site'. Qual comando usar?",
+              "options": [
+                "cd /site",
+                "cd site",
+                "ls site",
+                "pwd site"
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando cd seguido do nome da pasta navega para dentro dela caso ela seja filha do diretório atual."
+            },
+            {
+              "id": "terminal-basico-3",
+              "question": "Você entrou demais nas pastas e precisa voltar para o diretório imediatamente superior. O que digitar?",
+              "options": [
+                "cd ..",
+                "cd /",
+                "cd back",
+                "cd ~"
+              ],
+              "answerIndex": 0,
+              "explanation": "Os dois pontos (..) representam a pasta pai, permitindo subir um nível na árvore de diretórios."
+            },
+            {
+              "id": "terminal-basico-4",
+              "question": "Como você pode descobrir o caminho completo da pasta em que o terminal está posicionado no momento?",
+              "options": [
+                "path",
+                "where",
+                "dir",
+                "pwd"
+              ],
+              "answerIndex": 3,
+              "explanation": "O comando pwd exibe o diretório de trabalho atual. Em alguns sistemas Windows o equivalente pode variar, mas pwd é o padrão."
+            }
           ]
         },
         {
@@ -98,6 +248,56 @@
               "title": "Branches no Git em poucas palavras",
               "url": "https://git-scm.com/book/pt-br/v2/Ramifica%C3%A7%C3%A3o-Branching-no-Git-Branches-em-Poucas-Palavras"
             }
+          ],
+          "quiz": [
+            {
+              "id": "git-fundamentos-1",
+              "question": "Qual é a principal função do comando `git commit`?",
+              "options": [
+                "Enviar o código local diretamente para o repositório remoto na nuvem.",
+                "Baixar as atualizações mais recentes feitas por outros desenvolvedores.",
+                "Salvar um instantâneo das alterações adicionadas na área de stage.",
+                "Criar uma nova branch separada para iniciar uma funcionalidade."
+              ],
+              "answerIndex": 2,
+              "explanation": "O comando commit grava permanentemente o estado atual dos arquivos que estavam no stage. Enviar para a nuvem é feito com push."
+            },
+            {
+              "id": "git-fundamentos-2",
+              "question": "Qual é a utilidade do comando `git log`?",
+              "options": [
+                "Mostrar a lista de erros gerados durante a execução do último commit.",
+                "Exibir o histórico cronológico de commits realizados no repositório.",
+                "Acompanhar em tempo real as modificações feitas por outros colegas.",
+                "Registrar logs de acesso dos usuários na aplicação web."
+              ],
+              "answerIndex": 1,
+              "explanation": "O git log serve exclusivamente para inspecionar o histórico de versões salvas, mostrando autor, data e mensagem de cada commit."
+            },
+            {
+              "id": "git-fundamentos-3",
+              "question": "O que significa colocar um arquivo em 'stage' antes de fazer um commit?",
+              "options": [
+                "Fazer um backup automático do arquivo em um servidor externo seguro.",
+                "Compilar o código fonte para garantir que não existem erros de sintaxe.",
+                "Proteger o arquivo contra edições acidentais feitas por outros programas.",
+                "Selecionar quais alterações específicas farão parte do próximo commit."
+              ],
+              "answerIndex": 3,
+              "explanation": "A área de stage (ou index) funciona como uma antevéspera onde você escolhe quais modificações entram no pacote do próximo commit."
+            },
+            {
+              "id": "git-fundamentos-4",
+              "question": "Como você muda o seu contexto de trabalho para uma branch já existente?",
+              "options": [
+                "Usando o comando `git checkout nome-da-branch`.",
+                "Usando o comando `git commit -m \"mudar branch\"`.",
+                "Usando o comando `git status nome-da-branch`.",
+                "Usando o comando `git log nome-da-branch`."
+              ],
+              "answerIndex": 0,
+              "explanation": "O comando checkout (ou switch) altera os arquivos do seu diretório para refletir o estado da branch selecionada."
+            }
           ]
         },
         {
@@ -118,6 +318,56 @@
               "title": "Sobre os pull requests",
               "url": "https://docs.github.com/pt/pull-requests/reference/pull-requests"
             }
+          ],
+          "quiz": [
+            {
+              "id": "github-repositorios-remotos-1",
+              "question": "Qual é a principal função do comando `git push` ao trabalhar em equipe?",
+              "options": [
+                "Baixar as atualizações do repositório remoto para a máquina.",
+                "Enviar as alterações locais para o repositório remoto.",
+                "Criar uma nova ramificação paralela no projeto local.",
+                "Desfazer o último commit realizado no histórico local."
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando push empurra seus commits locais para o servidor remoto. Baixar atualizações é feito com o pull."
+            },
+            {
+              "id": "github-repositorios-remotos-2",
+              "question": "O que o comando `git pull` faz essencialmente no seu ambiente de trabalho?",
+              "options": [
+                "Baixa e mescla as alterações do remoto no seu branch atual.",
+                "Apenas verifica se há novas atualizações sem alterar arquivos.",
+                "Envia o seu código atual para a branch principal do remoto.",
+                "Apaga o repositório remoto e clona ele novamente do zero."
+              ],
+              "answerIndex": 0,
+              "explanation": "O pull combina a busca (fetch) de novos commits remotos com a integração (merge) deles na sua branch ativa."
+            },
+            {
+              "id": "github-repositorios-remotos-3",
+              "question": "Para que serve um Pull Request em plataformas como o GitHub?",
+              "options": [
+                "Forçar a sobrescrita imediata do código oficial na branch principal.",
+                "Fazer o download automático de arquivos pesados direto do servidor.",
+                "Propor a integração de alterações feitas em uma branch para outra.",
+                "Enviar uma mensagem direta para o criador original do repositório."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Pull Request é um pedido para que outros desenvolvedores revisem e aceitem o seu código antes de entrar na branch principal."
+            },
+            {
+              "id": "github-repositorios-remotos-4",
+              "question": "O que significa dizer que um repositório remoto está desatualizado em relação ao seu?",
+              "options": [
+                "O servidor caiu e não aceita mais nenhuma conexão via terminal.",
+                "Alguém apagou arquivos importantes da pasta oculta git local.",
+                "Sua versão do Git instalada no computador precisa ser atualizada.",
+                "Sua máquina possui commits que ainda não foram enviados para lá."
+              ],
+              "answerIndex": 3,
+              "explanation": "Se você fez commits locais, o remoto fica desatualizado até que você use o `git push` para sincronizá-los."
+            }
           ]
         },
         {
@@ -133,6 +383,56 @@
             {
               "title": "Como a Web funciona",
               "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "dns-dominios-hospedagem-1",
+              "question": "Qual é a principal função do DNS na arquitetura da web?",
+              "options": [
+                "Criptografar os dados enviados entre o navegador e o servidor.",
+                "Armazenar os arquivos HTML e CSS do site para acesso público.",
+                "Traduzir nomes de domínios em endereços IP numéricos.",
+                "Gerenciar o layout das páginas exibidas nos navegadores."
+              ],
+              "answerIndex": 2,
+              "explanation": "O DNS atua como a agenda da internet, convertendo endereços legíveis em IPs que os computadores usam para se conectar."
+            },
+            {
+              "id": "dns-dominios-hospedagem-2",
+              "question": "O que armazena os arquivos de um site, como imagens, HTML e scripts, para que fiquem acessíveis 24h?",
+              "options": [
+                "Um provedor de registro de domínio.",
+                "Um certificado de segurança SSL.",
+                "O navegador do usuário final.",
+                "Um servidor de hospedagem web."
+              ],
+              "answerIndex": 3,
+              "explanation": "A hospedagem consiste em alugar espaço em um servidor conectado à internet para manter os arquivos do site sempre disponíveis."
+            },
+            {
+              "id": "dns-dominios-hospedagem-3",
+              "question": "Qual é a utilidade prática de registrar um nome de domínio na web?",
+              "options": [
+                "Aumentar automaticamente a velocidade de carregamento das páginas.",
+                "Garantir um endereço exclusivo e fácil de lembrar para o site.",
+                "Substituir a necessidade de contratar um serviço de hospedagem.",
+                "Impedir que qualquer vírus infecte os visitantes da página."
+              ],
+              "answerIndex": 1,
+              "explanation": "O domínio serve apenas como o endereço amigável para localizar o site, sem relação direta com desempenho ou segurança do servidor."
+            },
+            {
+              "id": "dns-dominios-hospedagem-4",
+              "question": "Quando um usuário digita um endereço no navegador, quem faz a requisição inicial para buscar a página?",
+              "options": [
+                "O navegador atuando como cliente.",
+                "O servidor DNS local.",
+                "O banco de dados da hospedagem.",
+                "O provedor de registro do domínio."
+              ],
+              "answerIndex": 0,
+              "explanation": "O navegador é o cliente que inicia o ciclo requisitando a página, enquanto o servidor remoto processa e devolve a resposta."
             }
           ]
         }
@@ -166,6 +466,56 @@
               "title": "Elementos HTML",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTML/Reference/Elements"
             }
+          ],
+          "quiz": [
+            {
+              "id": "html-estrutura-semantica-1",
+              "question": "Qual elemento deve envolver todo o conteúdo visível e interativo de uma página web?",
+              "options": [
+                "<main>",
+                "<section>",
+                "<html>",
+                "<body>"
+              ],
+              "answerIndex": 3,
+              "explanation": "O elemento <body> abriga todo o conteúdo exibido aos usuários, enquanto o <html> engloba o documento inteiro, incluindo o <head>."
+            },
+            {
+              "id": "html-estrutura-semantica-2",
+              "question": "Onde devem ser colocadas informações como o título da aba e metadados da página?",
+              "options": [
+                "No início da tag <body>.",
+                "Dentro da tag <header>.",
+                "Dentro da tag <head>.",
+                "Logo após a tag de fechamento </html>."
+              ],
+              "answerIndex": 2,
+              "explanation": "A tag <head> armazena metadados que não são exibidos diretamente na página, mas que ajudam navegadores e mecanismos de busca."
+            },
+            {
+              "id": "html-estrutura-semantica-3",
+              "question": "Qual tag semântica deve ser usada para representar o conteúdo principal de um documento?",
+              "options": [
+                "<article>",
+                "<main>",
+                "<section>",
+                "<div>"
+              ],
+              "answerIndex": 1,
+              "explanation": "A tag <main> indica o conteúdo central e exclusivo daquela página, sendo única por documento."
+            },
+            {
+              "id": "html-estrutura-semantica-4",
+              "question": "Qual tag é a mais adequada para agrupar links de rodapé, como política de privacidade e contato?",
+              "options": [
+                "<footer>",
+                "<bottom>",
+                "<section>",
+                "<aside>"
+              ],
+              "answerIndex": 0,
+              "explanation": "O elemento <footer> representa o rodapé de seu ancestral mais próximo, contendo informações sobre autor, links legais ou dados de contato."
+            }
           ]
         },
         {
@@ -189,6 +539,56 @@
             {
               "title": "Form data validation",
               "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Extensions/Forms/Form_validation"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "html-formularios-1",
+              "question": "O que acontece se você enviar um formulário com um input que possui o atributo `required` vazio?",
+              "options": [
+                "O formulário é enviado e o campo recebe o valor nulo no servidor.",
+                "O JavaScript é executado automaticamente para preencher o campo.",
+                "O navegador converte o input obrigatório em opcional temporariamente.",
+                "O navegador bloqueia o envio e exibe uma mensagem nativa de erro."
+              ],
+              "answerIndex": 3,
+              "explanation": "O atributo `required` ativa a validação nativa do navegador, impedindo o envio do formulário caso o campo esteja vazio."
+            },
+            {
+              "id": "html-formularios-2",
+              "question": "Qual tipo de `<input>` você deve usar para garantir que o navegador valide se o valor digitado possui o formato de um endereço eletrônico?",
+              "options": [
+                "type=\"text\"",
+                "type=\"email\"",
+                "type=\"url\"",
+                "type=\"address\""
+              ],
+              "answerIndex": 1,
+              "explanation": "O tipo `email` aciona validações nativas específicas para verificar o formato básico de um e-mail."
+            },
+            {
+              "id": "html-formularios-3",
+              "question": "Para que serve o atributo `name` em um elemento `<input>` dentro de um formulário?",
+              "options": [
+                "Identificar a chave do dado enviado no corpo da requisição.",
+                "Definir o texto de dica que aparece dentro da caixa de texto.",
+                "Vincular o estilo CSS específico para aquele campo.",
+                "Permitir que o JavaScript selecione o elemento por ID."
+              ],
+              "answerIndex": 0,
+              "explanation": "O atributo `name` define a chave associada ao valor digitado quando o formulário é submetido, formando pares chave-valor."
+            },
+            {
+              "id": "html-formularios-4",
+              "question": "Como o atributo `placeholder` deve ser utilizado corretamente em um formulário?",
+              "options": [
+                "Como substituto permanente para a tag label.",
+                "Para definir o valor padrão que será enviado se o campo ficar vazio.",
+                "Para fornecer um exemplo breve do formato esperado do dado.",
+                "Para tornar o preenchimento do campo obrigatório."
+              ],
+              "answerIndex": 2,
+              "explanation": "O placeholder serve como dica visual rápida do formato esperado, mas nunca deve substituir o label, pois some ao digitar e pode sumir em leitores de tela."
             }
           ]
         },
@@ -214,6 +614,56 @@
               "title": "WAI-ARIA basics",
               "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/WAI-ARIA_basics"
             }
+          ],
+          "quiz": [
+            {
+              "id": "html-acessibilidade-basica-1",
+              "question": "Qual é a principal função do atributo `alt` em uma imagem informativa?",
+              "options": [
+                "Aumentar o SEO da página nos motores de busca.",
+                "Descrever o conteúdo visual para leitores de tela.",
+                "Exibir um texto flutuante quando o mouse passa por cima.",
+                "Servir de legenda visível abaixo da foto."
+              ],
+              "answerIndex": 1,
+              "explanation": "O atributo alt fornece um texto alternativo essencial para usuários com deficiência visual que utilizam leitores de tela. Ele não deve ser usado apenas para SEO ou tooltips."
+            },
+            {
+              "id": "html-acessibilidade-basica-2",
+              "question": "Como a hierarquia de títulos (`<h1>` a `<h6>`) deve ser estruturada em uma página?",
+              "options": [
+                "De forma sequencial, sem pular níveis de cabeçalho.",
+                "Sempre usando a mesma tag para manter o design padronizado.",
+                "Baseada unicamente no tamanho de fonte desejado para o texto.",
+                "Colocando vários `<h1>` para destacar diferentes seções."
+              ],
+              "answerIndex": 0,
+              "explanation": "A ordem lógica dos títulos ajuda tecnologias assistivas a entenderem a estrutura do documento. Pular níveis, como ir de `<h1>` direto para `<h4>`, confunde a navegação."
+            },
+            {
+              "id": "html-acessibilidade-basica-3",
+              "question": "Por que o uso excessivo de atributos ARIA avançados pode ser prejudicial?",
+              "options": [
+                "Eles deixam o código HTML mais pesado e lento para carregar.",
+                "Os navegadores modernos bloqueiam tags ARIA desconhecidas.",
+                "Eles quebram a estilização feita com CSS.",
+                "Eles podem conflitar com a semântica nativa do HTML."
+              ],
+              "answerIndex": 3,
+              "explanation": "A regra de ouro do ARIA é priorizar elementos HTML nativos sempre que possível, pois o uso incorreto de ARIA pode confundir leitores de tela em vez de ajudar."
+            },
+            {
+              "id": "html-acessibilidade-basica-4",
+              "question": "Qual elemento HTML deve ser usado para o rodapé principal de um site?",
+              "options": [
+                "<bottom>",
+                "<section>",
+                "`<footer>`",
+                "<div id=\"footer\">"
+              ],
+              "answerIndex": 2,
+              "explanation": "O elemento footer possui semântica própria para rodapés, enquanto bottom não existe no HTML padrão e div não transmite significado de acessibilidade."
+            }
           ]
         },
         {
@@ -230,6 +680,56 @@
               "title": "Conteúdo de vídeo e áudio",
               "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Core/Structuring_content/HTML_video_and_audio"
             }
+          ],
+          "quiz": [
+            {
+              "id": "html-imagens-midia-1",
+              "question": "Qual elemento HTML é recomendado para incorporar um vídeo com controles nativos de reprodução?",
+              "options": [
+                "<media>",
+                "<movie>",
+                "<video>",
+                "<player>"
+              ],
+              "answerIndex": 2,
+              "explanation": "A tag <video> é a padrão na HTML5 para incorporar vídeos, aceitando atributos como controls para exibir os botões de reprodução."
+            },
+            {
+              "id": "html-imagens-midia-2",
+              "question": "Para que serve o atributo controls nas tags de áudio e vídeo?",
+              "options": [
+                "Permitir reprodução automática ao carregar a página.",
+                "Garantir compatibilidade com navegadores antigos.",
+                "Definir a largura máxima do elemento na tela.",
+                "Exibir a barra com botões de play, pause e volume."
+              ],
+              "answerIndex": 3,
+              "explanation": "O atributo boolean controls adiciona a interface padrão do navegador para o usuário controlar a mídia, como play e volume."
+            },
+            {
+              "id": "html-imagens-midia-3",
+              "question": "Como podemos fornecer múltiplos formatos de áudio para garantir suporte em diferentes navegadores?",
+              "options": [
+                "Repetindo o atributo src com URLs separadas por vírgula.",
+                "Usando várias tags <source> dentro do elemento <audio>.",
+                "Convertendo o arquivo via CSS antes de renderizar.",
+                "Adicionando múltiplos atributos controls no elemento."
+              ],
+              "answerIndex": 1,
+              "explanation": "O elemento <audio> pode conter várias tags <source> com diferentes tipos MIME. O navegador escolhe o primeiro formato que consegue reproduzir."
+            },
+            {
+              "id": "html-imagens-midia-4",
+              "question": "Qual é a principal vantagem de usar o elemento <source> dentro de <video>?",
+              "options": [
+                "Permitir que o navegador escolha o formato compatível.",
+                "Aumentar a velocidade de download do arquivo.",
+                "Ocultar o vídeo caso o dispositivo esteja sem som.",
+                "Carregar legendas automáticas em múltiplos idiomas."
+              ],
+              "answerIndex": 0,
+              "explanation": "O uso de <source> permite oferecer diferentes formatos e resoluções, dando flexibilidade para o navegador escolher a melhor opção."
+            }
           ]
         },
         {
@@ -245,6 +745,56 @@
             {
               "title": "O que está no cabeçalho? Metadados em HTML",
               "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Core/Structuring_content/Webpage_metadata"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "seo-meta-tags-1",
+              "question": "Para que serve a tag `<title>` dentro da seção `<head>` de uma página web?",
+              "options": [
+                "Criar o título principal que aparece visível no topo do conteúdo da página.",
+                "Adicionar um estilo visual padrão para os textos do corpo do site.",
+                "Definir o título exibido na aba do navegador e nos resultados de busca.",
+                "Garantir que a página seja carregada mais rapidamente pelos buscadores."
+              ],
+              "answerIndex": 2,
+              "explanation": "A tag title define o texto da aba e o título principal nos motores de busca. O título visível na página é feito com h1."
+            },
+            {
+              "id": "seo-meta-tags-2",
+              "question": "Qual é a principal função da meta tag description para os mecanismos de busca?",
+              "options": [
+                "Indexar automaticamente todas as imagens presentes no corpo do site.",
+                "Fornecer uma lista de palavras-chave para o algoritmo ranquear o site.",
+                "Determinar a ordem exata em que o site aparecerá no topo da busca.",
+                "Resumir o conteúdo da página para atrair cliques nos resultados de pesquisa."
+              ],
+              "answerIndex": 3,
+              "explanation": "A meta description serve como um resumo exibido sob o link nos buscadores. Palavras-chave em meta keywords já não são usadas para ranqueamento."
+            },
+            {
+              "id": "seo-meta-tags-3",
+              "question": "Para que servem as propriedades Open Graph, como `og:title` e `og:image`, no `<head>`?",
+              "options": [
+                "Controlar como o link da página aparece quando compartilhado em redes sociais.",
+                "Melhorar a acessibilidade para leitores de tela usados por deficientes visuais.",
+                "Definir o layout responsivo do site para diferentes tamanhos de tela.",
+                "Proteger o código fonte contra cópias não autorizadas por outros usuários."
+              ],
+              "answerIndex": 0,
+              "explanation": "O protocolo Open Graph padroniza a exibição de prévias ricas com títulos, descrições e imagens em redes sociais."
+            },
+            {
+              "id": "seo-meta-tags-4",
+              "question": "Qual é a prática recomendada ao definir a tag description de uma página?",
+              "options": [
+                "Colocar uma lista longa com dezenas de palavras-chave separadas por vírgula.",
+                "Escrever um texto conciso e único que descreva fielmente o conteúdo.",
+                "Repetir o nome da marca vinte vezes para aumentar a relevância.",
+                "Copiar exatamente a mesma descrição em todas as páginas do site."
+              ],
+              "answerIndex": 1,
+              "explanation": "A descrição deve ser única, clara e relevante para o usuário. Textos repetidos ou cheios de palavras-chave artificiais são desvalorizados."
             }
           ]
         }
@@ -282,6 +832,56 @@
               "title": "Seletores CSS",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Selectors"
             }
+          ],
+          "quiz": [
+            {
+              "id": "css-seletores-cascata-1",
+              "question": "Como o navegador decide qual regra CSS aplicar quando dois seletores diferentes competem pelo mesmo elemento?",
+              "options": [
+                "Aplica sempre a regra que foi escrita por último na folha de estilos.",
+                "Combina as propriedades de ambos os seletores em uma única regra.",
+                "Prioriza seletores que usam nomes de tags em vez de classes.",
+                "Calcula a especificidade de cada seletor para determinar a prioridade."
+              ],
+              "answerIndex": 3,
+              "explanation": "A especificidade é o peso calculado com base nos tipos de seletores usados. A ordem de aparição só importa se a especificidade for exatamente igual."
+            },
+            {
+              "id": "css-seletores-cascata-2",
+              "question": "Qual é o nível de especificidade dos seletores de classe comparados aos seletores de ID?",
+              "options": [
+                "Classes e IDs possuem exatamente a mesma especificidade.",
+                "Classes possuem especificidade maior que IDs.",
+                "Classes possuem especificidade menor que IDs.",
+                "Classes só funcionam se não houver IDs na página."
+              ],
+              "answerIndex": 2,
+              "explanation": "IDs têm o peso mais alto na especificidade básica, enquanto classes têm peso intermediário, superadas apenas por IDs e estilos inline."
+            },
+            {
+              "id": "css-seletores-cascata-3",
+              "question": "O que acontece com propriedades relacionadas a fontes e cores quando nenhum estilo é definido diretamente em um elemento filho?",
+              "options": [
+                "Elas assumem valores aleatórios definidos pelo navegador.",
+                "Elas são herdadas do elemento pai por padrão.",
+                "Elas ficam invisíveis até que uma classe seja aplicada.",
+                "Elas são sempre resetadas para o padrão inicial da tag."
+              ],
+              "answerIndex": 1,
+              "explanation": "Propriedades de texto e cor são herdadas dos elementos ancestrais. O erro comum é achar que todas as propriedades do CSS se comportam assim."
+            },
+            {
+              "id": "css-seletores-cascata-4",
+              "question": "Qual seletor CSS você usaria para estilizar especificamente um elemento que possui o atributo `id='principal'`?",
+              "options": [
+                "#principal",
+                ".principal",
+                "id.principal",
+                "*principal"
+              ],
+              "answerIndex": 0,
+              "explanation": "O caractere cerquilha (#) denota um seletor de ID no CSS. O ponto (.) é usado para classes."
+            }
           ]
         },
         {
@@ -306,6 +906,56 @@
               "title": "Fundamental text and font styling",
               "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Fundamentals"
             }
+          ],
+          "quiz": [
+            {
+              "id": "css-box-model-unidades-1",
+              "question": "Como o tamanho total de um elemento na largura é calculado no box model padrão do CSS?",
+              "options": [
+                "Apenas a largura definida na propriedade width.",
+                "Largura mais margens, bordas e preenchimento.",
+                "Largura somada apenas com as margens laterais.",
+                "Largura definida subtraindo o preenchimento."
+              ],
+              "answerIndex": 1,
+              "explanation": "No box model padrão, padding e border são somados às dimensões especificadas pelo width. O erro comum é achar que width define o tamanho total visível."
+            },
+            {
+              "id": "css-box-model-unidades-2",
+              "question": "Qual é a principal diferença entre as unidades de medida `rem` e `em`?",
+              "options": [
+                "`rem` é relativo à janela e `em` ao elemento pai.",
+                "`rem` é fixo em pixels e `em` é relativo ao elemento pai.",
+                "`rem` baseia-se no elemento pai e `em` na raiz do documento.",
+                "`rem` baseia-se na raiz, enquanto `em` no elemento pai."
+              ],
+              "answerIndex": 3,
+              "explanation": "A unidade rem calcula seu valor com base na fonte do elemento raiz (html), evitando o acúmulo indesejado que ocorre com o em em elementos aninhados."
+            },
+            {
+              "id": "css-box-model-unidades-3",
+              "question": "O que acontece com a altura de um bloco quando definimos `height: 100%`?",
+              "options": [
+                "Assume 100% da altura do elemento pai direto.",
+                "Assume 100% da altura total da janela de visualização.",
+                "Adapta-se automaticamente ao conteúdo interno do bloco.",
+                "Garante que o elemento ocupe toda a tela do dispositivo."
+              ],
+              "answerIndex": 0,
+              "explanation": "A porcentagem em height é relativa à altura do elemento pai. Para ocupar a tela toda, a unidade correta costuma ser vw ou vh."
+            },
+            {
+              "id": "css-box-model-unidades-4",
+              "question": "Para que serve a propriedade `box-sizing: border-box`?",
+              "options": [
+                "Remove completamente as margens externas do elemento.",
+                "Transforma o elemento em um bloco flexível na tela.",
+                "Inclui borda e preenchimento dentro da largura total.",
+                "Adiciona uma borda automática ao redor do conteúdo."
+              ],
+              "answerIndex": 2,
+              "explanation": "O border-box altera o cálculo padrão, fazendo com que padding e border fiquem contidos dentro do width informado, facilitando o layout."
+            }
           ]
         },
         {
@@ -325,6 +975,56 @@
             {
               "title": "Dominando o Flexbox",
               "url": "https://web.dev/learn/css/flexbox"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "flexbox-alinhamento-1",
+              "question": "Qual propriedade do Flexbox alinha os itens no sentido do eixo principal (main axis)?",
+              "options": [
+                "justify-content",
+                "align-items",
+                "align-content",
+                "flex-direction"
+              ],
+              "answerIndex": 0,
+              "explanation": "O justify-content controla a distribuição dos itens ao longo do eixo principal. O align-items cuida do eixo cruzado."
+            },
+            {
+              "id": "flexbox-alinhamento-2",
+              "question": "Para alinhar os itens no eixo cruzado (cross axis) em um container flexível, qual propriedade devemos usar?",
+              "options": [
+                "justify-content",
+                "align-items",
+                "align-self",
+                "flex-align"
+              ],
+              "answerIndex": 1,
+              "explanation": "A propriedade align-items define o alinhamento padrão dos itens ao longo do eixo cruzado. Para um item específico, usamos align-self."
+            },
+            {
+              "id": "flexbox-alinhamento-3",
+              "question": "Como podemos fazer com que os itens flexíveis que não cabem em uma linha passem para a linha seguinte?",
+              "options": [
+                "flex-flow: nowrap",
+                "overflow: wrap",
+                "flex-direction: wrap",
+                "flex-wrap: wrap"
+              ],
+              "answerIndex": 3,
+              "explanation": "Por padrão, o flexbox tenta colocar tudo em uma linha. Usar flex-wrap: wrap permite quebra de linha automática."
+            },
+            {
+              "id": "flexbox-alinhamento-4",
+              "question": "Qual valor de justify-content distribui o espaço disponível de forma igual ao redor de cada item?",
+              "options": [
+                "space-between",
+                "space-evenly",
+                "space-around",
+                "center"
+              ],
+              "answerIndex": 2,
+              "explanation": "O space-around coloca espaços iguais nas duas extremidades de cada item, fazendo com que o espaço entre itens seja o dobro do espaço nas pontas."
             }
           ]
         },
@@ -346,6 +1046,56 @@
               "title": "CSS Grid Layout",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Grid_layout"
             }
+          ],
+          "quiz": [
+            {
+              "id": "css-grid-layout-1",
+              "question": "Qual propriedade CSS transforma um elemento container em um Grid Container?",
+              "options": [
+                "display: grid;",
+                "grid-type: container;",
+                "layout: grid;",
+                "display: flexgrid;"
+              ],
+              "answerIndex": 0,
+              "explanation": "Para ativar o Grid Layout, define-se a propriedade display como grid no elemento pai. Os demais valores listados não existem na especificação."
+            },
+            {
+              "id": "css-grid-layout-2",
+              "question": "Como definir três colunas de tamanhos iguais em um container Grid?",
+              "options": [
+                "grid-columns: repeat(3, equal);",
+                "grid-template-columns: 1fr 1fr 1fr;",
+                "columns: 3fr;",
+                "grid-template-columns: 33% 33% 33%;"
+              ],
+              "answerIndex": 1,
+              "explanation": "A unidade fr representa uma fração do espaço disponível no container. Usar 1fr três vezes divide o espaço igualmente."
+            },
+            {
+              "id": "css-grid-layout-3",
+              "question": "Qual propriedade define o espaçamento entre as linhas e colunas de um Grid?",
+              "options": [
+                "spacing",
+                "grid-space",
+                "margin-grid",
+                "gap"
+              ],
+              "answerIndex": 3,
+              "explanation": "A propriedade gap (ou grid-gap) define a distância entre as células do grid de forma simples e direta."
+            },
+            {
+              "id": "css-grid-layout-4",
+              "question": "Para que serve a unidade fr no CSS Grid?",
+              "options": [
+                "Para definir medidas fixas baseadas em pixels.",
+                "Para ajustar o tamanho com base na fonte.",
+                "Para distribuir o espaço livre proporcionalmente.",
+                "Para criar colunas com largura automática."
+              ],
+              "answerIndex": 2,
+              "explanation": "A unidade fr calcula o tamanho com base no espaço livre restante do container, adaptando-se a diferentes telas."
+            }
           ]
         },
         {
@@ -361,6 +1111,56 @@
             {
               "title": "Usando Media Queries",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Media_queries/Using"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "responsividade-media-queries-1",
+              "question": "O que significa adotar a abordagem \"mobile first\" no desenvolvimento CSS?",
+              "options": [
+                "Criar arquivos CSS separados exclusivamente para dispositivos móveis e desktops.",
+                "Escrever os estilos base para telas pequenas primeiro e usar media queries para telas maiores.",
+                "Usar JavaScript para detectar o tamanho da tela antes de carregar as folhas de estilo.",
+                "Aplicar efeitos visuais apenas em smartphones e deixar desktops sem estilização."
+              ],
+              "answerIndex": 1,
+              "explanation": "Mobile first significa projetar e codificar para dispositivos móveis antes, expandindo o layout com media queries para telas maiores."
+            },
+            {
+              "id": "responsividade-media-queries-2",
+              "question": "Na abordagem mobile first, qual operador em media queries costuma ser mais utilizado?",
+              "options": [
+                "max-width",
+                "device-pixel-ratio",
+                "orientation",
+                "min-width"
+              ],
+              "answerIndex": 3,
+              "explanation": "No mobile first, usamos \"min-width\" para adicionar regras à medida que a tela cresce a partir de um valor mínimo."
+            },
+            {
+              "id": "responsividade-media-queries-3",
+              "question": "Se um estilo CSS está fora de qualquer media query em um projeto mobile first, onde ele será aplicado?",
+              "options": [
+                "Em telas de todos os tamanhos, servindo de base para o layout.",
+                "Apenas em computadores de mesa e notebooks.",
+                "Exclusivamente em smartphones na orientação retrato.",
+                "Em nenhum lugar, pois todo CSS precisa estar dentro de uma media query."
+              ],
+              "answerIndex": 0,
+              "explanation": "Os estilos globais fora das media queries aplicam-se a qualquer dispositivo e são sobrescritos ou complementados nas media queries."
+            },
+            {
+              "id": "responsividade-media-queries-4",
+              "question": "Qual destas regras CSS aplica estilos quando a largura da tela for de pelo menos 768 pixels?",
+              "options": [
+                "@media (max-width: 768px) { ... }",
+                "@media (width > 768px) { ... }",
+                "@media (min-width: 768px) { ... }",
+                "@media screen and (min: 768px) { ... }"
+              ],
+              "answerIndex": 2,
+              "explanation": "A propriedade min-width indica que a regra vale para 768px ou mais."
             }
           ]
         },
@@ -385,6 +1185,56 @@
             {
               "title": "Usando animações CSS",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Animations/Using"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "css-variaveis-animacoes-1",
+              "question": "Como você define uma variável CSS de escopo global em um documento?",
+              "options": [
+                "Declarando a variável diretamente no corpo da tag script.",
+                "Utilizando o seletor :root com a sintaxe --nome-var: valor.",
+                "Utilizando o seletor body com a sintaxe var(--nome-var: valor).",
+                "Definindo a propriedade global na tag html sem hífens."
+              ],
+              "answerIndex": 1,
+              "explanation": "Variáveis CSS globais são declaradas no seletor :root usando dois hífens antes do nome. O erro comum é tentar definir usando a função var() na declaração."
+            },
+            {
+              "id": "css-variaveis-animacoes-2",
+              "question": "Como você aplica uma animação `@keyframes` chamada 'fade' a um elemento?",
+              "options": [
+                "Chamando a função transition: fade no seletor.",
+                "Atribuindo o nome diretamente na propriedade display: fade;",
+                "Usando a propriedade animation-name: fade;",
+                "Inserindo o identificador em animation-trigger: fade;"
+              ],
+              "answerIndex": 2,
+              "explanation": "Para associar um keyframe criado, utiliza-se a propriedade animation-name. Transições e triggers não são propriedades válidas para essa finalidade."
+            },
+            {
+              "id": "css-variaveis-animacoes-3",
+              "question": "Para que serve a propriedade animation-fill-mode com o valor 'forwards'?",
+              "options": [
+                "Faz a animação rodar de trás para frente a cada repetição.",
+                "Acelera o início da animação ignorando os primeiros quadros.",
+                "Preenche o fundo do elemento com a cor do último keyframe.",
+                "Mantém os estilos finais aplicados após o término da animação."
+              ],
+              "answerIndex": 3,
+              "explanation": "O valor forwards faz com que o elemento retenha os estilos definidos no último keyframe após o término da execução. O erro comum é confundir com direção."
+            },
+            {
+              "id": "css-variaveis-animacoes-4",
+              "question": "Como atualizar o valor de uma variável CSS via JavaScript?",
+              "options": [
+                "Usando element.style.setProperty('--cor', 'red').",
+                "Alterando diretamente via element.style.var.cor = 'red'.",
+                "Modificando a propriedade com element.css('--cor', 'red').",
+                "Atribuindo o novo valor com element.variable['cor'] = 'red'."
+              ],
+              "answerIndex": 0,
+              "explanation": "Variáveis CSS são manipuladas em JavaScript através do método setProperty no objeto style do elemento. Acesso direto por ponto não funciona."
             }
           ]
         }
@@ -422,6 +1272,56 @@
               "title": "Expressões e operadores",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators"
             }
+          ],
+          "quiz": [
+            {
+              "id": "js-variaveis-tipos-operadores-1",
+              "question": "Qual é a principal diferença entre declarar uma variável com `let` e com `var`?",
+              "options": [
+                "O `let` possui escopo de bloco, enquanto o `var` possui escopo de função.",
+                "O `let` cria constantes que não podem ser alteradas após a atribuição.",
+                "O `var` é a forma moderna recomendada para evitar erros globais.",
+                "O `let` sofre de içamento (hoisting), tornando-se acessível antes da linha de declaração."
+              ],
+              "answerIndex": 0,
+              "explanation": "O `let` respeita o bloco onde foi declarado (como dentro de um if ou for), enquanto o `var` vaza para fora do bloco, limitando-se apenas ao escopo da função."
+            },
+            {
+              "id": "js-variaveis-tipos-operadores-2",
+              "question": "O que o operador de igualdade estrita (`===`) faz em JavaScript?",
+              "options": [
+                "Compara apenas o valor, convertendo os tipos automaticamente se necessário.",
+                "Compara se os dois operandos apontam para o mesmo espaço na memória.",
+                "Atribui o valor da direita para a variável da esquerda e retorna verdadeiro.",
+                "Compara tanto o valor quanto o tipo de dado dos dois operandos."
+              ],
+              "answerIndex": 3,
+              "explanation": "A igualdade estrita (`===`) exige que ambos os valores sejam idênticos e do mesmo tipo, evitando conversões implícitas indesejadas que ocorrem com o `==`."
+            },
+            {
+              "id": "js-variaveis-tipos-operadores-3",
+              "question": "Qual é o resultado da expressão `3 + 2 + '1'` em JavaScript?",
+              "options": [
+                "\"321\"",
+                "6",
+                "\"51\"",
+                "\"33\""
+              ],
+              "answerIndex": 2,
+              "explanation": "A adição é avaliada da esquerda para a direita. Primeiro, 3 + 2 resulta em 5; depois, 5 é somado à string \"1\", resultando na concatenação \"51\"."
+            },
+            {
+              "id": "js-variaveis-tipos-operadores-4",
+              "question": "Como você deve proceder se precisar declarar uma variável cujo valor inicial não será reatribuído no código?",
+              "options": [
+                "Utilizar a palavra-chave `let`, pois ela protege o valor contra modificações acidentais.",
+                "Utilizar a palavra-chave `const` para indicar que a referência é imutável.",
+                "Utilizar a palavra-chave `var` para garantir compatibilidade global.",
+                "Declarar a variável sem nenhuma palavra-chave antes do nome."
+              ],
+              "answerIndex": 1,
+              "explanation": "O `const` é ideal para valores fixos, pois gera um erro se você tentar atribuir um novo valor a essa variável posteriormente, aumentando a segurança do código."
+            }
           ]
         },
         {
@@ -445,6 +1345,56 @@
             {
               "title": "Laços e iterações",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Loops_and_iteration"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "js-condicionais-lacos-1",
+              "question": "Como você deve proceder se precisar executar um bloco de código repetidamente enquanto uma condição for verdadeira, mas garantindo que o bloco execute pelo menos uma vez?",
+              "options": [
+                "Utilizar a estrutura `while` padrão.",
+                "Utilizar um laço `for` tradicional.",
+                "Utilizar o método `forEach` em um array vazio.",
+                "Utilizar a estrutura `do...while`."
+              ],
+              "answerIndex": 3,
+              "explanation": "O laço `do...while` testa a condição apenas no final de cada iteração, garantindo que o corpo do laço seja executado ao menos uma vez antes da checagem."
+            },
+            {
+              "id": "js-condicionais-lacos-2",
+              "question": "Ao utilizar um laço `for` clássico com a declaração `let` no inicializador, qual é o escopo da variável de controle?",
+              "options": [
+                "A variável de controle possui escopo de bloco restrito apenas ao interior do laço.",
+                "A variável fica disponível globalmente em todo o arquivo script.",
+                "A variável possui escopo de função, visível em toda a função onde o laço está.",
+                "A variável é recriada com escopo mutável apenas após o término da última iteração."
+              ],
+              "answerIndex": 0,
+              "explanation": "O uso de `let` cria uma nova ligação de escopo para cada iteração do laço, limitando a visibilidade da variável de controle ao bloco do `for`."
+            },
+            {
+              "id": "js-condicionais-lacos-3",
+              "question": "Qual instrução deve ser usada dentro de um laço de repetição para interromper imediatamente a execução de todo o laço e avançar para o código seguinte?",
+              "options": [
+                "continue",
+                "break",
+                "return",
+                "skip"
+              ],
+              "answerIndex": 1,
+              "explanation": "A instrução `break` encerra o laço por completo. Já o `continue` apenas pula a iteração atual e avança para a próxima."
+            },
+            {
+              "id": "js-condicionais-lacos-4",
+              "question": "O que acontece se a condição de um laço `while` nunca se tornar falsa durante a execução?",
+              "options": [
+                "O JavaScript converte automaticamente a condição para falsa após dez mil iterações.",
+                "O interpretador ignora o laço e gera um erro de sintaxe no console.",
+                "Ocorre um loop infinito, travando a aba do navegador ou o processo.",
+                "O laço é convertido silenciosamente em um laço `for` estruturado."
+              ],
+              "answerIndex": 2,
+              "explanation": "Se a expressão avaliada no `while` permanecer sempre verdadeira, o código continuará executando indefinidamente, causando travamento."
             }
           ]
         },
@@ -470,6 +1420,56 @@
               "title": "Closures",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures"
             }
+          ],
+          "quiz": [
+            {
+              "id": "js-funcoes-escopo-1",
+              "question": "Qual é a principal diferença de comportamento do `this` em uma arrow function em comparação com uma função tradicional?",
+              "options": [
+                "A arrow function cria seu próprio `this` vinculado ao objeto global.",
+                "A arrow function herda o `this` do contexto léxico onde foi criada.",
+                "O `this` na arrow function muda dependendo de quem chama a função.",
+                "A arrow function não permite o uso da palavra-chave `this` no escopo."
+              ],
+              "answerIndex": 1,
+              "explanation": "Arrow functions não possuem seu propio `this`, capturando o valor do escopo pai (léxico). Isso evita problemas comuns em callbacks."
+            },
+            {
+              "id": "js-funcoes-escopo-2",
+              "question": "O que acontece ao tentar acessar uma variável declarada com `let` dentro de uma função antes da linha de sua declaração?",
+              "options": [
+                "A variável retorna o valor `undefined` sem gerar erros.",
+                "A variável é elevada automaticamente com o valor `null`.",
+                "O interpretador ignora a linha e executa o restante do código.",
+                "Ocorre um erro de referência devido à zona morta temporal."
+              ],
+              "answerIndex": 3,
+              "explanation": "Variáveis com `let` sofrem hoisting, mas ficam em uma Zona Morta Temporal (TDZ) até a linha de inicialização, lançando um ReferenceError se acessadas antes."
+            },
+            {
+              "id": "js-funcoes-escopo-3",
+              "question": "Qual é a sintaxe correta para uma arrow function sem parâmetros e que retorna um objeto literal `{ status: true }`?",
+              "options": [
+                "() => { status: true }",
+                "() => return { status: true }",
+                "() => ({ status: true })",
+                "() => { return status: true }"
+              ],
+              "answerIndex": 2,
+              "explanation": "Como chaves delimitam blocos de código em arrow functions, para retornar um objeto literal diretamente é necessário envolvê-lo entre parênteses."
+            },
+            {
+              "id": "js-funcoes-escopo-4",
+              "question": "Qual é o valor impresso no console ao executar: `let x = 10; function teste() { console.log(x); let x = 20; } teste();`?",
+              "options": [
+                "Um erro de referência (ReferenceError).",
+                "O número 10, pois a variável global é lida primeiro.",
+                "O número 20, devido ao encadeamento de escopos.",
+                "O valor `undefined`, pois a variável foi içada."
+              ],
+              "answerIndex": 0,
+              "explanation": "A declaração `let x = 20` dentro da função cria uma nova variável local que sofre hoisting para o topo da função, ativando a TDZ para o identificador `x` antes de sua atribuição."
+            }
           ]
         },
         {
@@ -489,6 +1489,56 @@
             {
               "title": "Trabalhando com objetos",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Working_with_objects"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "js-arrays-objetos-1",
+              "question": "Como você acessa a propriedade 'nome' de um objeto chamado 'usuario'?",
+              "options": [
+                "usuario[nome]",
+                "usuario(nome)",
+                "usuario.nome",
+                "nome.usuario"
+              ],
+              "answerIndex": 2,
+              "explanation": "A notação de ponto (usuario.nome) é a forma padrão para acessar propriedades de objetos. Usar usuario[nome] sem aspas tentaria buscar o valor de uma variável chamada nome."
+            },
+            {
+              "id": "js-arrays-objetos-2",
+              "question": "Qual método adiciona um novo elemento ao final de um array em JavaScript?",
+              "options": [
+                "push()",
+                "pop()",
+                "shift()",
+                "unshift()"
+              ],
+              "answerIndex": 0,
+              "explanation": "O método push() adiciona elementos no final do array. O pop() remove do final, shift() remove do início e unshift() adiciona no início."
+            },
+            {
+              "id": "js-arrays-objetos-3",
+              "question": "Como verificar se a chave 'idade' existe em um objeto chamado 'pessoa'?",
+              "options": [
+                "pessoa.has('idade')",
+                "pessoa.contem('idade')",
+                "existe(pessoa.idade)",
+                "'idade' in pessoa"
+              ],
+              "answerIndex": 3,
+              "explanation": "O operador 'in' verifica se uma chave específica existe diretamente no objeto. Objetos literais em JavaScript não possuem um método .has()."
+            },
+            {
+              "id": "js-arrays-objetos-4",
+              "question": "O que a propriedade .length retorna quando aplicada a um array?",
+              "options": [
+                "O índice do último elemento do array.",
+                "A quantidade total de elementos presentes no array.",
+                "A quantidade de bytes ocupados pelo array na memória.",
+                "O número máximo de elementos que o array pode armazenar."
+              ],
+              "answerIndex": 1,
+              "explanation": "A propriedade length retorna o número de itens no array, que é sempre um a mais do que o índice do último elemento devido à indexação baseada em zero."
             }
           ]
         },
@@ -514,6 +1564,56 @@
               "title": "Array.prototype.reduce()",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"
             }
+          ],
+          "quiz": [
+            {
+              "id": "js-metodos-de-array-1",
+              "question": "Qual é o principal comportamento retornado pelo método `map()` ao ser executado em um array?",
+              "options": [
+                "Um novo array com o mesmo número de elementos transformados.",
+                "Um único valor resultante da acumulação dos itens.",
+                "O array original modificado diretamente na memória.",
+                "Um novo array contendo apenas os elementos que passaram em um teste lógico."
+              ],
+              "answerIndex": 0,
+              "explanation": "O map() sempre retorna um array do mesmo tamanho do original, aplicando a função callback a cada elemento. O erro comum é confundi-lo com o filter()."
+            },
+            {
+              "id": "js-metodos-de-array-2",
+              "question": "Deseja-se obter apenas os números pares de um array numérico. Qual método é o mais adequado?",
+              "options": [
+                "map()",
+                "reduce()",
+                "filter()",
+                "sort()"
+              ],
+              "answerIndex": 2,
+              "explanation": "O filter() cria um novo array com todos os elementos que passam no teste implementado pela função fornecida. Usar o map() retornaria booleanos em vez dos números."
+            },
+            {
+              "id": "js-metodos-de-array-3",
+              "question": "O método `reduce()` pode ser utilizado para transformar um array em um único valor final. O que representa o segundo parâmetro opcional passado após a função callback?",
+              "options": [
+                "O índice do elemento atual sendo processado.",
+                "O valor inicial do acumulador.",
+                "O tamanho total do array original.",
+                "A função de callback a ser executada no próximo ciclo."
+              ],
+              "answerIndex": 1,
+              "explanation": "O segundo argumento do reduce() define o valor inicial (initialValue) do acumulador. Se omitido, o primeiro elemento do array assume esse papel."
+            },
+            {
+              "id": "js-metodos-de-array-4",
+              "question": "Ao utilizar o método `sort()` em um array de números sem passar uma função de comparação, qual é o resultado inesperado comum?",
+              "options": [
+                "O array original permanece inalterado e um novo array ordenado é retornado.",
+                "O JavaScript gera um erro de execução por falta de parâmetros.",
+                "Os números são ordenados do maior para o menor automaticamente.",
+                "Os números são ordenados convertendo-os em strings em ordem alfabética."
+              ],
+              "answerIndex": 3,
+              "explanation": "Por padrão, o sort() converte os elementos para string e os compara pela tabela UTF-16, o que faz '10' vir antes de '2'."
+            }
           ]
         },
         {
@@ -537,6 +1637,56 @@
             {
               "title": "Módulos JavaScript",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Modules"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "js-moderno-modulos-1",
+              "question": "Como extrair a propriedade 'nome' de um objeto 'usuario' renomeando-a para 'nomeUsuario'?",
+              "options": [
+                "const { nome: { nomeUsuario } } = usuario;",
+                "const { nomeUsuario } = usuario.nome;",
+                "const { nome: nomeUsuario } = usuario;",
+                "const [ nome: nomeUsuario ] = usuario;"
+              ],
+              "answerIndex": 2,
+              "explanation": "Utilizamos dois pontos após o nome da propriedade original para definir um novo nome para a variável na desestruturação de objetos."
+            },
+            {
+              "id": "js-moderno-modulos-2",
+              "question": "Qual é o comportamento ao usar o operador spread (...) para copiar um objeto que possui propriedades aninhadas?",
+              "options": [
+                "Ele realiza uma cópia rasa (shallow copy), mantendo as referências dos objetos internos.",
+                "Ele cria uma cópia profunda (deep copy) de todas as propriedades e objetos internos.",
+                "Ele gera um erro de execução, pois o spread não é compatível com objetos aninhados.",
+                "Ele ignora completamente as propriedades aninhadas na nova estrutura criada."
+              ],
+              "answerIndex": 0,
+              "explanation": "O operador spread cria apenas uma cópia rasa, o que significa que objetos dentro do objeto copiado ainda apontam para a mesma referência."
+            },
+            {
+              "id": "js-moderno-modulos-3",
+              "question": "Como importar uma função exportada como padrão (default) de um arquivo chamado 'api.js'?",
+              "options": [
+                "import { minhaFuncao } from './api.js';",
+                "import minhaFuncao from './api.js';",
+                "import * as minhaFuncao from './api.js';",
+                "const minhaFuncao = require('./api.js');"
+              ],
+              "answerIndex": 1,
+              "explanation": "Exportações padrão (default) são importadas sem o uso de chaves ao redor do nome, ao contrário das exportações nomeadas."
+            },
+            {
+              "id": "js-moderno-modulos-4",
+              "question": "O que acontece ao tentar usar a desestruturação para extrair uma propriedade que não existe em um objeto?",
+              "options": [
+                "O interpretador JavaScript interrompe a execução com um erro crítico.",
+                "A propriedade é criada automaticamente com um valor booleano falso.",
+                "O programa busca a propriedade de forma recursiva no protótipo global.",
+                "A variável correspondente recebe o valor undefined."
+              ],
+              "answerIndex": 3,
+              "explanation": "Quando a chave buscada não existe no objeto, a variável criada via desestruturação assume o valor undefined por padrão."
             }
           ]
         }
@@ -570,6 +1720,56 @@
               "title": "Document",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Document"
             }
+          ],
+          "quiz": [
+            {
+              "id": "dom-selecao-manipulacao-1",
+              "question": "Qual método é mais recomendado para selecionar um elemento específico usando o seu atributo id?",
+              "options": [
+                "document.querySelector()",
+                "document.getElementsByClassName()",
+                "document.getElementById()",
+                "document.createElement()"
+              ],
+              "answerIndex": 2,
+              "explanation": "O método getElementById é focado e otimizado para buscar elementos pelo ID. O querySelector também funciona, mas o getId é direto para esse caso."
+            },
+            {
+              "id": "dom-selecao-manipulacao-2",
+              "question": "Qual propriedade permite alterar o texto visível dentro de um elemento HTML selecionado?",
+              "options": [
+                "textContent",
+                "innerTextNode",
+                "htmlValue",
+                "nodeText"
+              ],
+              "answerIndex": 0,
+              "explanation": "A propriedade textContent define ou retorna o texto contido em um nó e seus descendentes. É a forma padrão e segura para textos."
+            },
+            {
+              "id": "dom-selecao-manipulacao-3",
+              "question": "Qual método é usado para anexar um novo elemento criado como o último filho de um elemento pai?",
+              "options": [
+                "insertLast()",
+                "appendChild()",
+                "pushChild()",
+                "addChild()"
+              ],
+              "answerIndex": 1,
+              "explanation": "O método appendChild adiciona um nó ao final da lista de filhos de um elemento pai especificado. Push é usado em arrays."
+            },
+            {
+              "id": "dom-selecao-manipulacao-4",
+              "question": "Como você remove um elemento filho diretamente da página usando uma referência a ele?",
+              "options": [
+                "elemento.delete()",
+                "elemento.clear()",
+                "elemento.destroy()",
+                "elemento.remove()"
+              ],
+              "answerIndex": 3,
+              "explanation": "O método moderno remove() apaga o próprio elemento do DOM de forma direta. O método antigo exige chamar removeChild no elemento pai."
+            }
           ]
         },
         {
@@ -589,6 +1789,56 @@
             {
               "title": "Element.addEventListener()",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/EventTarget/addEventListener"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "eventos-dom-1",
+              "question": "Como você adiciona corretamente uma função chamada `tratarClique` para ser executada quando um botão for clicado?",
+              "options": [
+                "botao.addEventListener('click', tratarClique());",
+                "botao.onclique = tratarClique;",
+                "botao.addEventListener('click', tratarClique);",
+                "botao.click(tratarClique);"
+              ],
+              "answerIndex": 2,
+              "explanation": "Passamos a referência da função sem parênteses para o addEventListener. O erro comum é executar a função imediatamente colocando os parênteses."
+            },
+            {
+              "id": "eventos-dom-2",
+              "question": "Qual propriedade do objeto de evento (`event`) indica exatamente qual tecla foi pressionada em um evento de teclado?",
+              "options": [
+                "event.text",
+                "event.key",
+                "event.value",
+                "event.codeChar"
+              ],
+              "answerIndex": 1,
+              "explanation": "A propriedade `event.key` retorna o valor literal da tecla pressionada, como 'Enter' ou 'a'. O erro comum é buscar propriedades inexistentes como text."
+            },
+            {
+              "id": "eventos-dom-3",
+              "question": "Por que usamos a delegação de eventos em listas grandes com vários itens gerados dinamicamente?",
+              "options": [
+                "Para escutar eventos no elemento pai e economizar memória.",
+                "Para impedir que o evento suba na árvore do DOM.",
+                "Para carregar os itens mais rápido via requisição HTTP.",
+                "Para garantir que o CSS seja aplicado corretamente nos filhos."
+              ],
+              "answerIndex": 0,
+              "explanation": "A delegação aproveita a propagação (bubbling) para gerenciar eventos no elemento pai, evitando adicionar listeners em cada novo item."
+            },
+            {
+              "id": "eventos-dom-4",
+              "question": "O que o método `event.preventDefault()` faz em um manipulador de eventos?",
+              "options": [
+                "Para a propagação do evento para os elementos pai.",
+                "Apaga o elemento do DOM permanentemente.",
+                "Desativa o botão para evitar cliques duplos.",
+                "Cancela o comportamento padrão associado àquele evento."
+              ],
+              "answerIndex": 3,
+              "explanation": "Ele impede a ação nativa do navegador, como o envio de formulários ou a navegação de links. Parar a propagação é papel do stopPropagation."
             }
           ]
         },
@@ -614,6 +1864,56 @@
               "title": "Promise",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise"
             }
+          ],
+          "quiz": [
+            {
+              "id": "js-assincrono-promises-1",
+              "question": "Qual é a principal vantagem de usar `async/await` em vez de encadear vários `.then()` em Promises?",
+              "options": [
+                "Eliminar totalmente a necessidade de tratamento de erros com blocos try/catch.",
+                "Acelerar a execução das requisições de rede executando-as em paralelo por padrão.",
+                "Tornar o código assíncrono com uma leitura sequencial linear semelhante ao código síncrono.",
+                "Transformar funções assíncronas em funções síncronas que bloqueiam a thread principal."
+              ],
+              "answerIndex": 2,
+              "explanation": "O async/await melhora a legibilidade do código assíncrono usando a mesma estrutura visual do código síncrono. O erro comum é achar que ele muda o comportamento subjacente para síncrono ou elimina a assincronicidade."
+            },
+            {
+              "id": "js-assincrono-promises-2",
+              "question": "O que acontece se uma Promise dentro de uma função `async` retornar um erro e ele não for capturado?",
+              "options": [
+                "A função async retorna uma nova Promise rejeitada com esse erro.",
+                "O script inteiro é interrompido imediatamente com um erro fatal na console.",
+                "O navegador exibe um alerta nativo informando a falha não tratada.",
+                "A execução continua ignorando o erro silenciosamente e retorna undefined."
+              ],
+              "answerIndex": 0,
+              "explanation": "Funções async sempre retornam uma Promise. Se ocorrer um erro interno e não tratado, a Promise resultante é rejeitada."
+            },
+            {
+              "id": "js-assincrono-promises-3",
+              "question": "Dada uma função `async function f() { return 42; }`, o que o seu retorno produz quando chamada?",
+              "options": [
+                "O número inteiro 42 de forma síncrona.",
+                "Uma Promise pendente que aguarda um .then para definir o valor.",
+                "Um erro de sintaxe pois falta a palavra return junto com await.",
+                "Uma Promise resolvida com o valor 42."
+              ],
+              "answerIndex": 3,
+              "explanation": "Qualquer valor retornado de uma função async é automaticamente envolvido em uma Promise resolvida. O erro comum é pensar que retorna o valor primitivo diretamente."
+            },
+            {
+              "id": "js-assincrono-promises-4",
+              "question": "Qual é o principal problema clássico do uso excessivo de callbacks aninhados que as Promises ajudam a resolver?",
+              "options": [
+                "O vazamento de memória causado por escopos de funções não limpas.",
+                "A pirâmide de doom, que dificulta a leitura e a manutenção do código.",
+                "A execução síncrona acidental de códigos que deveriam rodar em segundo plano.",
+                "A impossibilidade de retornar valores entre diferentes arquivos de script."
+              ],
+              "answerIndex": 1,
+              "explanation": "Callbacks aninhados criam o problema conhecido como pyramid of doom. As promises permitem encadear operações de forma linear."
+            }
           ]
         },
         {
@@ -634,6 +1934,56 @@
               "title": "fetch()",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Window/fetch"
             }
+          ],
+          "quiz": [
+            {
+              "id": "fetch-apis-json-1",
+              "question": "O que a função `fetch()` retorna quando a requisição é bem-sucedida?",
+              "options": [
+                "Os dados JSON parseados diretamente da resposta.",
+                "Uma Promise que resolve para um objeto Response.",
+                "Um objeto contendo o corpo da resposta em formato de texto.",
+                "O código de status HTTP numérico da requisição."
+              ],
+              "answerIndex": 1,
+              "explanation": "O `fetch` não retorna os dados diretamente, mas sim uma Promise que resolve em um objeto Response, o qual precisa ser processado com métodos como `.json()`."
+            },
+            {
+              "id": "fetch-apis-json-2",
+              "question": "Qual é a forma correta de enviar dados JSON em uma requisição POST com `fetch`?",
+              "options": [
+                "Usar `body: JSON.stringify(dados)` e o cabeçalho 'Content-Type'.",
+                "Passar o objeto JavaScript diretamente na propriedade `body`.",
+                "Atribuir o objeto JSON serializado diretamente à URL da requisição.",
+                "Utilizar o método `response.json()` antes de enviar os dados."
+              ],
+              "answerIndex": 0,
+              "explanation": "O corpo de uma requisição POST precisa ser uma string, exigindo o uso de `JSON.stringify()`, além de indicar o tipo do conteúdo no cabeçalho."
+            },
+            {
+              "id": "fetch-apis-json-3",
+              "question": "Qual o propósito de usar `AbortController` em conjunto com o `fetch()`?",
+              "options": [
+                "Forçar o `fetch` a rejeitar a Promise caso demore mais de 2 segundos.",
+                "Tentar novamente a requisição de forma automática se houver falha de rede.",
+                "Permitir o cancelamento de uma requisição HTTP emandamento.",
+                "Validar se o servidor remoto está ativo antes de iniciar o envio."
+              ],
+              "answerIndex": 2,
+              "explanation": "O `AbortController` fornece um sinal (`signal`) que pode ser passado ao `fetch` para cancelar a operação assíncrona caso não seja mais necessária."
+            },
+            {
+              "id": "fetch-apis-json-4",
+              "question": "O que acontece se uma requisição `fetch` falhar devido a uma queda de conexão?",
+              "options": [
+                "A resposta retornará com a propriedade `ok` definida como falsa.",
+                "O navegador tentará reenviar a requisição três vezes antes de falhar.",
+                "A função `fetch` lançará um erro síncrono que interrompe a aplicação.",
+                "A Promise é rejeitada e o erro pode ser capturado no bloco `catch`."
+              ],
+              "answerIndex": 3,
+              "explanation": "Problemas de rede impedem que a requisição seja concluída, resultando na rejeição da Promise capturada pelo `catch`."
+            }
           ]
         },
         {
@@ -653,6 +2003,56 @@
             {
               "title": "Window.localStorage",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Window/localStorage"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "localstorage-armazenamento-1",
+              "question": "Qual é o tipo de dado que o localStorage aceita nativamente para armazenamento?",
+              "options": [
+                "Qualquer tipo de dado JavaScript",
+                "Apenas números e booleanos",
+                "Apenas strings",
+                "Objetos JSON diretamente"
+              ],
+              "answerIndex": 2,
+              "explanation": "O localStorage converte automaticamente qualquer dado inserido para o formato de string. Para salvar objetos complexos, é necessário usar JSON.stringify antes."
+            },
+            {
+              "id": "localstorage-armazenamento-2",
+              "question": "O que acontece com os dados salvos no localStorage quando o navegador é fechado?",
+              "options": [
+                "Eles são apagados imediatamente",
+                "Eles continuam salvos indefinidamente",
+                "Eles expiram após 24 horas",
+                "Eles são movidos para o sessionStorage"
+              ],
+              "answerIndex": 1,
+              "explanation": "Diferente do sessionStorage, os dados no localStorage persistem mesmo após fechar o navegador ou reiniciar o computador, até que sejam removidos manualmente."
+            },
+            {
+              "id": "localstorage-armazenamento-3",
+              "question": "Como podemos recuperar um valor armazenado chamado 'usuario' no localStorage?",
+              "options": [
+                "localStorage.fetch('usuario')",
+                "localStorage.load('usuario')",
+                "localStorage.read('usuario')",
+                "localStorage.getItem('usuario')"
+              ],
+              "answerIndex": 3,
+              "explanation": "O método correto para ler um valor guardado é o getItem passando a chave correspondente. O erro comum é tentar inventar nomes de métodos como read ou fetch."
+            },
+            {
+              "id": "localstorage-armazenamento-4",
+              "question": "Se tentarmos ler uma chave que não existe no localStorage, o que o método retorna?",
+              "options": [
+                "null",
+                "undefined",
+                "Uma string vazia",
+                "Um erro de exceção"
+              ],
+              "answerIndex": 0,
+              "explanation": "Quando a chave buscada não é encontrada no armazenamento, a API retorna o valor null. Um erro comum é achar que o retorno será undefined."
             }
           ]
         },
@@ -677,6 +2077,56 @@
             {
               "title": "Comece a depurar JavaScript no Chrome DevTools",
               "url": "https://developer.chrome.com/docs/devtools/javascript"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "erros-e-debug-devtools-1",
+              "question": "Como o bloco `catch` lida com um erro lançado dentro de uma função assíncrona usando `async/await`?",
+              "options": [
+                "Ele intercepta erros de sintaxe ocorridos no carregamento do script.",
+                "Ele recupera automaticamente falhas de rede do servidor HTTP.",
+                "Ele captura erros gerados caso a Promise seja rejeitada.",
+                "Ele reinicia a execução da função a partir da linha que falhou."
+              ],
+              "answerIndex": 2,
+              "explanation": "O mecanismo de try/catch funciona com async/await porque rejeições de Promise são convertidas em exceções que o catch consegue interceptar."
+            },
+            {
+              "id": "erros-e-debug-devtools-2",
+              "question": "Qual é a principal utilidade do comando `debugger;` inserido diretamente no código JavaScript?",
+              "options": [
+                "Forçar o recarregamento imediato da página para limpar o cache.",
+                "Imprimir o rastreamento da pilha de chamadas diretamente na página.",
+                "Desativar temporariamente todos os event listeners da página.",
+                "Pausar a execução do script no navegador se o DevTools estiver aberto."
+              ],
+              "answerIndex": 3,
+              "explanation": "A instrução debugger age como um ponto de interrupção (breakpoint) programático, paralisando o código para inspeção no navegador."
+            },
+            {
+              "id": "erros-e-debug-devtools-3",
+              "question": "Para que serve a aba 'Network' do Chrome DevTools ao debugar problemas em uma aplicação frontend?",
+              "options": [
+                "Para monitorar o consumo de memória RAM e vazamentos de variáveis.",
+                "Para inspecionar requisições HTTP, cabeçalhos e respostas de APIs.",
+                "Para testar a responsividade do layout em diferentes tamanhos de tela.",
+                "Para visualizar os erros de sintaxe detectados antes da compilação."
+              ],
+              "answerIndex": 1,
+              "explanation": "A aba Network é dedicada ao tráfego de rede, permitindo verificar status, payloads e tempos de resposta das requisições fetch ou XMLHttpRequest."
+            },
+            {
+              "id": "erros-e-debug-devtools-4",
+              "question": "O que acontece quando ocorre um erro não tratado dentro de um bloco `try...catch`?",
+              "options": [
+                "O fluxo de execução é desviado para o bloco catch correspondente.",
+                "O navegador fecha a aba atual automaticamente por segurança.",
+                "O código continua rodando a partir da linha seguinte ao erro.",
+                "A variável global de erros é atualizada com a mensagem do problema."
+              ],
+              "answerIndex": 0,
+              "explanation": "Quando um erro ocorre no bloco try, a execução pula imediatamente para o bloco catch, evitando que o script pare totalmente de funcionar."
             }
           ]
         }
@@ -706,6 +2156,56 @@
               "title": "Guia Oficial do Vite",
               "url": "https://vite.dev/guide/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "npm-pacotes-vite-1",
+              "question": "Qual comando do npm é utilizado para criar a estrutura inicial de um projeto Node.js gerando o arquivo package.json de forma interativa?",
+              "options": [
+                "npm init",
+                "npm start",
+                "npm create",
+                "npm install"
+              ],
+              "answerIndex": 0,
+              "explanation": "O comando `npm init` inicia o assistente interativo para criar o package.json. O npm start serve para executar scripts definidos no projeto."
+            },
+            {
+              "id": "npm-pacotes-vite-2",
+              "question": "No arquivo package.json, qual seção deve conter as bibliotecas necessárias para a aplicação rodar em produção, como o React?",
+              "options": [
+                "devDependencies",
+                "scripts",
+                "dependencies",
+                "peerDependencies"
+              ],
+              "answerIndex": 2,
+              "explanation": "Dependências de produção ficam em dependencies. O Vite e ferramentas de build costumam ficar em devDependencies."
+            },
+            {
+              "id": "npm-pacotes-vite-3",
+              "question": "Ao clonar um projeto existente que possui o arquivo package.json, qual comando você deve executar para baixar todas as dependências necessárias?",
+              "options": [
+                "npm update",
+                "npm install",
+                "npm add",
+                "npm get"
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando `npm install` lê o package.json e baixa tudo o que está faltando na pasta node_modules. O npm add não é o comando padrão do npm."
+            },
+            {
+              "id": "npm-pacotes-vite-4",
+              "question": "Qual comando executa o servidor de desenvolvimento do Vite em um projeto configurado corretamente?",
+              "options": [
+                "npm run build",
+                "npm serve",
+                "npm start vite",
+                "npm run dev"
+              ],
+              "answerIndex": 3,
+              "explanation": "O script de desenvolvimento padrão gerado pelo Vite no package.json é chamado via `npm run dev`. O build serve para gerar a versão de produção."
+            }
           ]
         },
         {
@@ -729,6 +2229,56 @@
             {
               "title": "Objetos no TypeScript",
               "url": "https://www.typescriptlang.org/docs/handbook/2/objects.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "typescript-tipos-basicos-1",
+              "question": "Como declarar explicitamente um array de números no TypeScript?",
+              "options": [
+                "number[]",
+                "Array(number)",
+                "number.list",
+                "list<number>"
+              ],
+              "answerIndex": 0,
+              "explanation": "A sintaxe padrão e mais recomendada para arrays no TypeScript utiliza o tipo seguido por colchetes, como number[]."
+            },
+            {
+              "id": "typescript-tipos-basicos-2",
+              "question": "O que acontece ao tentar atribuir uma string a uma variável declarada como number?",
+              "options": [
+                "A variável converte o valor automaticamente para string.",
+                "O código compila, mas gera um erro no console em tempo de execução.",
+                "O TypeScript ignora a tipagem por inferência fraca.",
+                "Erro de compilação bloqueia a geração do código."
+              ],
+              "answerIndex": 3,
+              "explanation": "O TypeScript realiza checagem estática em tempo de compilação, impedindo a geração do JavaScript se houver incompatibilidade de tipos."
+            },
+            {
+              "id": "typescript-tipos-basicos-3",
+              "question": "Como definir uma propriedade opcional em um tipo de objeto?",
+              "options": [
+                "Utilizando a palavra-chave optional antes da propriedade.",
+                "Atribuindo o valor null explicitamente à chave.",
+                "Usando um ponto de interrogação após o nome da propriedade.",
+                "Colocando um asterisco no final do tipo da propriedade."
+              ],
+              "answerIndex": 2,
+              "explanation": "O ponto de interrogação (?) indica que a propriedade pode ou não estar presente no objeto."
+            },
+            {
+              "id": "typescript-tipos-basicos-4",
+              "question": "Qual é a forma correta de tipar o retorno de uma função que não retorna nenhum valor?",
+              "options": [
+                "null",
+                "void",
+                "undefined",
+                "empty"
+              ],
+              "answerIndex": 1,
+              "explanation": "O tipo void é utilizado especificamente para indicar que uma função não possui valor de retorno."
             }
           ]
         },
@@ -754,6 +2304,56 @@
               "title": "Generics no TypeScript",
               "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "typescript-interfaces-generics-1",
+              "question": "Como você tipa corretamente uma função genérica em TypeScript que aceita qualquer tipo de argumento mas deve retornar exatamente o mesmo tipo recebido?",
+              "options": [
+                "function identidade(valor: any): any { return valor; }",
+                "function identidade<T>(valor: unknown): T { return valor as T; }",
+                "function identidade<T>(valor: T): unknown { return valor; }",
+                "function identidade<T>(valor: T): T { return valor; }"
+              ],
+              "answerIndex": 3,
+              "explanation": "Usar a variável de tipo <T> tanto no parâmetro quanto no retorno garante que o TypeScript preserve a informação exata do tipo passado."
+            },
+            {
+              "id": "typescript-interfaces-generics-2",
+              "question": "Dado o tipo `type Status = 'ativo' | 'inativo' | 'pendente';`, o que acontece se você tentar atribuir a string `'cancelado'` a uma variável desse tipo?",
+              "options": [
+                "O TypeScript converte automaticamente a string para o valor padrão 'pendente'.",
+                "O compilador emite um erro informando que o valor não pertence ao union type.",
+                "A variável assume o tipo string genérico em tempo de execução.",
+                "O código compila com sucesso, mas gera um alerta no console do navegador."
+              ],
+              "answerIndex": 1,
+              "explanation": "Union types funcionam como restrições estritas. Atribuir um valor fora do conjunto especificado resulta em erro de compilação imediato."
+            },
+            {
+              "id": "typescript-interfaces-generics-3",
+              "question": "Dada uma interface `type User = { id: number; name: string; }`, como criar um novo tipo `Admin` que adiciona a propriedade `permissions: string[]`?",
+              "options": [
+                "type Admin = User & { permissions: string[] };",
+                "type Admin = User + { permissions: string[] };",
+                "type Admin = { User, permissions: string[] };",
+                "type Admin = User.extend({ permissions: string[] });"
+              ],
+              "answerIndex": 0,
+              "explanation": "O operador `&` (intersection type) combina múltiplos tipos em um único tipo que possui todas as propriedades combinadas."
+            },
+            {
+              "id": "typescript-interfaces-generics-4",
+              "question": "Qual é a melhor abordagem para tipar uma propriedade que pode conter um objeto User ou ser nula (`null`)?",
+              "options": [
+                "user: User?",
+                "user: Optional<User>",
+                "user: User | null",
+                "user: User & null"
+              ],
+              "answerIndex": 2,
+              "explanation": "O operador pipe (`|`) cria um union type permitindo múltiplos tipos válidos para a mesma variável, neste caso o objeto ou null."
+            }
           ]
         },
         {
@@ -778,6 +2378,56 @@
               "title": "Referência do tsconfig.json",
               "url": "https://www.typescriptlang.org/tsconfig/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "typescript-narrowing-utility-types-1",
+              "question": "Como o TypeScript realiza o narrowing de uma união usando um predicado de tipo personalizado?",
+              "options": [
+                "Através de uma função que retorna um booleano usando o operador `is`.",
+                "Usando a asserção de tipo com o operador `as` na verificação.",
+                "Verificando a presença de propriedades diretamente com o operador `in`.",
+                "Checando o tipo primitivo retornado pela função `typeof`."
+              ],
+              "answerIndex": 0,
+              "explanation": "Um type guard personalizado usa o tipo de retorno `param is Type` para informar ao compilador qual é o tipo narrowing aplicado no escopo."
+            },
+            {
+              "id": "typescript-narrowing-utility-types-2",
+              "question": "Qual utilitário transforma todas as propriedades de um tipo em opcionais?",
+              "options": [
+                "Required<T>",
+                "Readonly<T>",
+                "Pick<T>",
+                "Partial<T>"
+              ],
+              "answerIndex": 3,
+              "explanation": "O utilitário Partial<T> percorre todas as chaves do tipo T e adiciona o modificador de opcionalidade (?) a elas."
+            },
+            {
+              "id": "typescript-narrowing-utility-types-3",
+              "question": "Como remover determinadas propriedades de um tipo existente usando tipos utilitários?",
+              "options": [
+                "Utilizando Pick<T, K> para selecionar as chaves indesejadas.",
+                "Utilizando Exclude<T, K> diretamente na interface do objeto.",
+                "Utilizando Omit<T, K> para excluir as chaves especificadas.",
+                "Utilizando Extract<T, K> para filtrar as propriedades do objeto."
+              ],
+              "answerIndex": 2,
+              "explanation": "Omit<T, K> constrói um tipo pegando todas as propriedades de T e removendo a união de chaves K especificada."
+            },
+            {
+              "id": "typescript-narrowing-utility-types-4",
+              "question": "Qual é o comportamento da verificação de narrowing ao usar `typeof` em tipos de referência?",
+              "options": [
+                "Ele diferencia perfeitamente arrays de objetos literais automaticamente.",
+                "O `typeof` retorna 'object' para arrays e null, limitando o narrowing refinado.",
+                "Ele converte o tipo dinamicamente para a interface correspondente.",
+                "Ele dispara um erro de compilação por ser inválido em objetos."
+              ],
+              "answerIndex": 1,
+              "explanation": "O operador typeof possui limitações em tempo de execução no JS, retornando 'object' para null e arrays, exigindo outras checagens."
+            }
           ]
         },
         {
@@ -797,6 +2447,56 @@
             {
               "title": "Opções de configuração do Prettier",
               "url": "https://prettier.io/docs/options.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "eslint-prettier-1",
+              "question": "Qual é a principal função do Prettier em um projeto frontend?",
+              "options": [
+                "Encontrar bugs lógicos no código JavaScript.",
+                "Formatar o código de maneira padronizada.",
+                "Executar os testes automatizados da aplicação.",
+                "Converter arquivos TypeScript em JavaScript puro."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Prettier é um formatador de código opinativo focado no estilo visual, como espaçamentos e quebras de linha."
+            },
+            {
+              "id": "eslint-prettier-2",
+              "question": "O que o ESLint faz principalmente que o diferencia de um formatador de código?",
+              "options": [
+                "Define a indentação exata usada em todo o projeto.",
+                "Adiciona ponto e vírgula automaticamente onde falta.",
+                "Identifica padrões problemáticos e erros lógicos.",
+                "Organiza a ordem dos imports de forma alfabética."
+              ],
+              "answerIndex": 2,
+              "explanation": "Enquanto o Prettier cuida da estética, o ESLint foca na qualidade do código e na detecção de potenciais bugs."
+            },
+            {
+              "id": "eslint-prettier-3",
+              "question": "Por que muitas vezes usamos ESLint e Prettier juntos no mesmo projeto?",
+              "options": [
+                "Para que o ESLint cuide das regras lógicas e o Prettier da formatação.",
+                "Porque o Prettier precisa do ESLint para conseguir rodar no navegador.",
+                "Para substituir completamente a necessidade de testes unitários.",
+                "Porque o ESLint não consegue ler arquivos que usam TypeScript."
+              ],
+              "answerIndex": 0,
+              "explanation": "Eles se complementam: o ESLint analisa o código estaticamente e o Prettier garante a consistência visual."
+            },
+            {
+              "id": "eslint-prettier-4",
+              "question": "Onde geralmente ficam armazenadas as regras personalizadas de formatação do Prettier?",
+              "options": [
+                "No arquivo `package-lock.json` na pasta principal.",
+                "Na pasta `node_modules` junto com as dependências.",
+                "Diretamente dentro do arquivo HTML principal.",
+                "No arquivo `.prettierrc` na raiz do projeto."
+              ],
+              "answerIndex": 3,
+              "explanation": "O Prettier utiliza arquivos de configuração dedicados, sendo o `.prettierrc` um dos mais comuns."
             }
           ]
         },
@@ -821,6 +2521,56 @@
             {
               "title": "Manipulação de Hover, Focus e outros Estados",
               "url": "https://tailwindcss.com/docs/hover-focus-and-other-states"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "tailwind-css-1",
+              "question": "Qual é a forma correta de aplicar um estilo que só deve ocorrer quando o mouse estiver sobre o elemento?",
+              "options": [
+                "Adicionar a pseudo-classe tradicional `hover` diretamente dentro da tag de estilo inline.",
+                "Criar um evento JavaScript separado que altera a classe CSS no momento do clique.",
+                "Utilizar o prefixo `hover:` seguido da classe utilitária desejada.",
+                "Utilizar a classe utilitária `mouse-over` para disparar o comportamento padrão."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Tailwind usa modificadores de estado antes dos dois-pontos, como `hover:bg-blue-500`, para aplicar estilos condicionais de forma declarativa."
+            },
+            {
+              "id": "tailwind-css-2",
+              "question": "Como aplicar um estilo responsivo que seja ativado apenas em telas a partir do tamanho 'medium' (md)?",
+              "options": [
+                "Escrever a regra de mídia dentro de um arquivo CSS separado usando `@media md`.",
+                "Usar a classe `screen-md` para encapsular os elementos que mudam de tamanho.",
+                "Adicionar o atributo `responsive=\"md\"` diretamente na tag HTML desejada.",
+                "Usar o prefixo `md:` antes da classe utilitária correspondente."
+              ],
+              "answerIndex": 3,
+              "explanation": "Prefixos de breakpoint como `md:` aplicam a classe a partir da largura mínima configurada para aquele ponto de interrupção, seguindo uma abordagem mobile-first."
+            },
+            {
+              "id": "tailwind-css-3",
+              "question": "Como combinar múltiplos estados condicionais em um único elemento, como um botão com foco e hover?",
+              "options": [
+                "Aplicando apenas o estado mais prioritário, pois o Tailwind não permite múltiplos estados.",
+                "Encadeando os modificadores separados por dois-pontos, como `hover:focus:bg-red-500`.",
+                "Utilizando o operador de adição para somar as regras, como `hover+focus:bg-red-500`.",
+                "Criando uma nova classe personalizada no arquivo de configuração para cada combinação."
+              ],
+              "answerIndex": 1,
+              "explanation": "Os modificadores de estado podem ser empilhados na ordem desejada para aplicar estilos quando múltiplas condições forem atendidas simultaneamente."
+            },
+            {
+              "id": "tailwind-css-4",
+              "question": "Por que o uso excessivo de classes utilitárias longas em uma única tag HTML costuma gerar debates na comunidade?",
+              "options": [
+                "Pode dificultar a leitura visual do HTML devido ao alto volume de classes na mesma linha.",
+                "Invalida automaticamente a validação de sintaxe padrão feita pelos navegadores modernos.",
+                "Gera falhas graves de performance no carregamento inicial da página web.",
+                "Impede o uso posterior de estilizações dinâmicas baseadas em variáveis CSS."
+              ],
+              "answerIndex": 0,
+              "explanation": "O principal ponto de discussão é a poluição visual do HTML (conhecida como 'HTML soup'), o que muitas vezes leva desenvolvedores a extraírem componentes."
             }
           ]
         }
@@ -858,6 +2608,56 @@
               "title": "Usando TypeScript com React",
               "url": "https://react.dev/learn/typescript"
             }
+          ],
+          "quiz": [
+            {
+              "id": "react-componentes-jsx-props-1",
+              "question": "Como você tipa corretamente as props de um componente funcional que recebe uma propriedade opcional `title` do tipo string?",
+              "options": [
+                "Usando `{ title: string | null }` na interface das props.",
+                "Usando `{ title!: string }` na interface das props.",
+                "Usando `{ title?: string }` na interface das props.",
+                "Usando `{ title: optional string }` na interface das props."
+              ],
+              "answerIndex": 2,
+              "explanation": "O operador `?` indica que a propriedade é opcional no TypeScript. Usar `null` exigiria passar explicitamente o valor nulo, o que difere de omitir a prop."
+            },
+            {
+              "id": "react-componentes-jsx-props-2",
+              "question": "Qual é a melhor forma de tipar a propriedade `children` que recebe qualquer elemento JSX válido em um componente?",
+              "options": [
+                "Utilizando o tipo `JSX.Element`.",
+                "Utilizando o tipo `React.ReactNode`.",
+                "Utilizando o tipo `React.Component`.",
+                "Utilizando o tipo `string[]`."
+              ],
+              "answerIndex": 1,
+              "explanation": "`React.ReactNode` engloba elementos JSX, strings, números, fragmentos e nulos, sendo o tipo mais abrangente e correto para `children`."
+            },
+            {
+              "id": "react-componentes-jsx-props-3",
+              "question": "Como definir um valor padrão para uma prop desestruturada em um componente tipado com TypeScript?",
+              "options": [
+                "Escrevendo `function Card({ title = 'Padrão' }: Props)`.",
+                "Escrevendo `function Card({ title }: Props = 'Padrão')`.",
+                "Definindo `Card.defaultProps = { title: 'Padrão' }` obrigatório.",
+                "Escrevendo `function Card({ title?: 'Padrão' }: Props)`."
+              ],
+              "answerIndex": 0,
+              "explanation": "Atribuir um valor padrão na desestruturação dos parâmetros é a forma moderna e recomendada no ES6/TypeScript para definir valores default."
+            },
+            {
+              "id": "react-componentes-jsx-props-4",
+              "question": "Qual a diferença prática entre passar uma prop como `count={5}` versus `count=\"5\"`?",
+              "options": [
+                "A primeira é tratada como estado e a segunda como prop.",
+                "Não há diferença, pois o JSX converte ambas automaticamente.",
+                "A primeira causa erro no TypeScript se o tipo for string.",
+                "A primeira passa um número e a segunda passa uma string."
+              ],
+              "answerIndex": 3,
+              "explanation": "Usar chaves `{}` permite passar tipos primitivos em JavaScript como numbers, booleans e objetos, enquanto aspas criam sempre uma string."
+            }
           ]
         },
         {
@@ -881,6 +2681,56 @@
             {
               "title": "Usando o TypeScript com o React",
               "url": "https://react.dev/learn/typescript"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "react-estado-eventos-1",
+              "question": "Como o TypeScript geralmente infere o tipo do estado inicial em `const [idade, setIdade] = useState(25)`?",
+              "options": [
+                "Como um número devido ao valor inicial passado.",
+                "Como um tipo genérico indefinido até a primeira alteração.",
+                "Como uma string, pois valores numéricos precisam de coerção.",
+                "Como um tipo any, exigindo definição manual posterior."
+              ],
+              "answerIndex": 0,
+              "explanation": "O TypeScript usa a inferência de tipos a partir do valor inicial fornecido. Como passamos 25, o tipo inferido automaticamente é number."
+            },
+            {
+              "id": "react-estado-eventos-2",
+              "question": "Qual é a forma correta de tipar explicitamente um estado que pode ser um objeto de usuário ou nulo?",
+              "options": [
+                "const [user, setUser] = useState<User>(null as any);",
+                "const [user, setUser] = useState(null as User);",
+                "const [user, setUser] = useState<User | undefined>({});",
+                "const [user, setUser] = useState<User | null>(null);"
+              ],
+              "answerIndex": 3,
+              "explanation": "Utilizamos generics no useState informando a união de tipos `User | null` para permitir que o estado comece nulo mas aceite o objeto depois."
+            },
+            {
+              "id": "react-estado-eventos-3",
+              "question": "Ao lidar com o evento de submit de um formulário em React com TypeScript, qual o tipo correto para o parâmetro `e`?",
+              "options": [
+                "React.ChangeEvent<HTMLInputElement>",
+                "React.FormEvent<HTMLFormElement>",
+                "MouseEvent<HTMLElement>",
+                "FormEvent<HTMLDivElement>"
+              ],
+              "answerIndex": 1,
+              "explanation": "Eventos de submissão de formulário usam React.FormEvent tipados para o elemento HTMLFormElement correspondente."
+            },
+            {
+              "id": "react-estado-eventos-4",
+              "question": "O que acontece se você tentar atualizar o estado passando o novo valor diretamente sem usar a função setter `setCount(count + 1)` dentro de múltiplos cliques rápidos?",
+              "options": [
+                "O React vai travar a aplicação por conflito de concorrência.",
+                "O TypeScript emitirá um erro de compilação imediato.",
+                "Pode ocorrer perda de atualizações devido ao estado assíncrono.",
+                "O valor final será sempre o dobro do esperado."
+              ],
+              "answerIndex": 2,
+              "explanation": "O estado no React é atualizado de forma assíncrona. Usar o valor atual direto pode causar leituras desatualizadas, sendo preferível usar a função de callback `setCount(prev => prev + 1)`."
             }
           ]
         },
@@ -906,6 +2756,56 @@
               "title": "Manipulacao de Formularios no React",
               "url": "https://react.dev/reference/react-dom/components/input"
             }
+          ],
+          "quiz": [
+            {
+              "id": "react-listas-formularios-1",
+              "question": "Qual é a principal característica de um componente de formulário controlado no React?",
+              "options": [
+                "O formulário valida os campos automaticamente usando atributos HTML nativos como `required`.",
+                "Os dados só são capturados do DOM quando o usuário clica no botão de envio.",
+                "O valor do input é mantido no estado do componente através do hook `useState`.",
+                "O componente gerencia o envio dos dados via requisição HTTP sem precisar de funções."
+              ],
+              "answerIndex": 2,
+              "explanation": "Em inputs controlados, o React é a única fonte da verdade para o valor do campo. Muitos confundem com validação nativa do HTML."
+            },
+            {
+              "id": "react-listas-formularios-2",
+              "question": "Ao usar renderização condicional com o operador lógico `&&`, qual problema pode ocorrer se a condição for um número zero (`0`)?",
+              "options": [
+                "O React lança um erro fatal no console interrompendo a aplicação.",
+                "A condição é ignorada e o código seguinte é executado independentemente.",
+                "O TypeScript exige que o valor seja convertido para booleano com `!!`.",
+                "O número zero (`0`) é renderizado visualmente na tela em vez de ser ignorado."
+              ],
+              "answerIndex": 3,
+              "explanation": "No JavaScript, `0 && JSX` resulta em `0`, e o React exibe o número na tela. O correto é usar uma comparação booleana explícita."
+            },
+            {
+              "id": "react-listas-formularios-3",
+              "question": "Como o evento de mudança (`onChange`) deve ser tipado no TypeScript ao lidar com um input de texto controlado?",
+              "options": [
+                "React.ChangeEvent<HTMLInputElement>",
+                "React.FormEvent<HTMLFormElement>",
+                "React.MouseEvent<HTMLButtonElement>",
+                "React.KeyboardEvent<HTMLDivElement>"
+              ],
+              "answerIndex": 0,
+              "explanation": "O evento ChangeEvent é específico para alterações em elementos de formulário, parametrizado com o tipo do elemento HTML correspondente."
+            },
+            {
+              "id": "react-listas-formularios-4",
+              "question": "Qual é a abordagem ideal ao renderizar uma lista de itens que podem ser adicionados ou removidos frequentemente?",
+              "options": [
+                "Utilizar o índice (`index`) do array fornecido pelo método `map` como `key`.",
+                "Utilizar IDs únicos gerados no momento da criação do item como `key`.",
+                "Evitar o uso de `key` se os elementos forem do mesmo tipo de componente.",
+                "Utilizar um número randômico gerado a cada renderização como `key`."
+              ],
+              "answerIndex": 1,
+              "explanation": "Usar índices como key em listas dinâmicas causa bugs visuais e de estado. IDs únicos garantem a estabilidade da árvore de componentes."
+            }
           ]
         },
         {
@@ -925,6 +2825,56 @@
             {
               "title": "Buscando dados no React",
               "url": "https://react.dev/learn/synchronizing-with-effects"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "react-useeffect-dados-1",
+              "question": "Por que é importante incluir uma função de limpeza (cleanup) ao buscar dados em um `useEffect`?",
+              "options": [
+                "Para garantir que a requisição seja feita novamente de forma automática.",
+                "Para limpar o cache do navegador e economizar banda de internet.",
+                "Para evitar atualizar o estado de um componente que já foi desmontado.",
+                "Para fechar a conexão WebSocket aberta pelo hook de busca."
+              ],
+              "answerIndex": 2,
+              "explanation": "Se a requisição demorar e o usuário sair da página, tentar atualizar o estado do componente desmontado causa um memory leak. A limpeza com flags ou AbortController evita isso."
+            },
+            {
+              "id": "react-useeffect-dados-2",
+              "question": "Como podemos cancelar uma requisição `fetch` em andamento quando o componente é desmontado?",
+              "options": [
+                "Utilizando a API `AbortController` combinada com o `useEffect`.",
+                "Chamando o método `cancel()` diretamente na Promise retornada.",
+                "Definindo o tempo limite de espera com `setTimeout` no cleanup.",
+                "Removendo a URL da lista de dependências do hook."
+              ],
+              "answerIndex": 0,
+              "explanation": "O `AbortController` permite enviar um sinal para cancelar requisições HTTP fetch em andamento, sendo ideal para evitar processamento desnecessário no cleanup."
+            },
+            {
+              "id": "react-useeffect-dados-3",
+              "question": "O que acontece se omitirmos o array de dependências em um `useEffect` que realiza uma chamada de API?",
+              "options": [
+                "A busca será executada apenas uma vez na montagem inicial.",
+                "A busca será executada após cada renderização do componente.",
+                "O React exibirá um erro de sintaxe crítico no console.",
+                "A aplicação entrará em pausa aguardando o retorno da API."
+              ],
+              "answerIndex": 1,
+              "explanation": "Sem o array de dependências, o `useEffect` roda após cada ciclo de renderização. Se houver uma atualização de estado dentro dele, cria-se um loop infinito de requisições."
+            },
+            {
+              "id": "react-useeffect-dados-4",
+              "question": "Como lidar corretamente com erros gerados por uma chamada de API dentro de um `useEffect`?",
+              "options": [
+                "Colocando um bloco `try...catch` envolvendo todo o componente React.",
+                "Adicionando um parâmetro de erro direto na assinatura do useEffect.",
+                "Capturando o erro no array de dependências do hook.",
+                "Envolvendo o código assíncrono em um bloco `try...catch` interno."
+              ],
+              "answerIndex": 3,
+              "explanation": "Como o callback do useEffect não pode ser async, criamos uma função interna async dentro dele e usamos `try...catch` para capturar falhas de rede."
             }
           ]
         },
@@ -950,6 +2900,56 @@
               "title": "Hooks em TypeScript",
               "url": "https://react.dev/reference/react/hooks"
             }
+          ],
+          "quiz": [
+            {
+              "id": "react-context-hooks-customizados-1",
+              "question": "Por que encapsular um Context em um hook customizado e exportá-lo é uma prática recomendada em TypeScript?",
+              "options": [
+                "Garante que o estado do contexto seja persistido no armazenamento local.",
+                "Acelera a renderização dos componentes filhos ignorando o Virtual DOM.",
+                "Evita verificar se o contexto é undefined em todo componente consumidor.",
+                "Torna o componente provedor imune a re-renderizações desnecessárias."
+              ],
+              "answerIndex": 2,
+              "explanation": "O hook customizado centraliza a verificação de null/undefined, simplificando o uso do useContext nos componentes."
+            },
+            {
+              "id": "react-context-hooks-customizados-2",
+              "question": "O que acontece quando criamos um hook customizado que chama `useState` e o utilizamos em dois componentes diferentes?",
+              "options": [
+                "O estado é compartilhado e sincronizado automaticamente entre os dois.",
+                "Cada componente recebe uma instância de estado totalmente independente.",
+                "O segundo componente sobrescreve o valor armazenado pelo primeiro.",
+                "O compilador gera um erro informando que o hook foi chamado duas vezes."
+              ],
+              "answerIndex": 1,
+              "explanation": "Hooks customizados encapsulam a lógica, mas cada chamada cria seu próprio espaço de estado isolado."
+            },
+            {
+              "id": "react-context-hooks-customizados-3",
+              "question": "Qual é a forma ideal de tipar a propriedade `children` em um componente Provider customizado em TypeScript?",
+              "options": [
+                "Usando o tipo `React.ReactNode`.",
+                "Utilizando o tipo primitivo `JSX.Element`.",
+                "Declarando explicitamente como `string[]`.",
+                "Definindo o tipo como `any` para evitar erros."
+              ],
+              "answerIndex": 0,
+              "explanation": "React.ReactNode cobre elementos JSX, strings, números e fragmentos, sendo o tipo correto para children."
+            },
+            {
+              "id": "react-context-hooks-customizados-4",
+              "question": "Quando devemos optar por um hook customizado em vez de criar um Context em React?",
+              "options": [
+                "Sempre que a aplicação precisar gerenciar rotas e navegação entre páginas.",
+                "Quando o objetivo principal for otimizar requisições HTTP feitas em múltiplos componentes.",
+                "Para substituir completamente o uso de props em componentes de formulário.",
+                "Quando precisamos reutilizar lógica com estado sem a necessidade de compartilhar dados globais."
+              ],
+              "answerIndex": 3,
+              "explanation": "Hooks customizados encapsulam comportamento e lógica reutilizável, enquanto o Context resolve compartilhamento global."
+            }
           ]
         },
         {
@@ -969,6 +2969,56 @@
             {
               "title": "Guia de Rotas no React Router",
               "url": "https://reactrouter.com/start/framework/routing"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "react-router-1",
+              "question": "Qual componente do React Router v6 deve envolver toda a aplicação para habilitar o sistema de navegação baseado em rotas?",
+              "options": [
+                "RouterDom",
+                "NavigationProvider",
+                "BrowserRouter",
+                "RouteContainer"
+              ],
+              "answerIndex": 2,
+              "explanation": "O BrowserRouter utiliza a API de histórico do HTML5 para manter a UI em sincronia com a URL, sendo o wrapper padrão exigido no topo da árvore de componentes."
+            },
+            {
+              "id": "react-router-2",
+              "question": "Como você define uma rota dinâmica que aceita um parâmetro chamado id no React Router v6?",
+              "options": [
+                "path=\"/usuarios/:id\"",
+                "path=\"/usuarios/{id}\"",
+                "path=\"/usuarios/*id\"",
+                "path=\"/usuarios/?id\""
+              ],
+              "answerIndex": 0,
+              "explanation": "No React Router, dois-pontos antes do nome definem o segmento como um parâmetro dinâmico capturável pelo hook useParem."
+            },
+            {
+              "id": "react-router-3",
+              "question": "Qual hook do React Router deve ser utilizado dentro de um componente para extrair o valor de um parâmetro de rota dinâmico?",
+              "options": [
+                "useRouteParam",
+                "useRouterQuery",
+                "useNavigateParams",
+                "useParams"
+              ],
+              "answerIndex": 3,
+              "explanation": "O hook useParams retorna um objeto com os pares chave/valor dos parâmetros dinâmicos definidos no path da rota atual."
+            },
+            {
+              "id": "react-router-4",
+              "question": "Para realizar uma navegação programática em resposta a um evento de clique, qual hook você deve utilizar?",
+              "options": [
+                "useRedirect",
+                "useNavigate",
+                "useHistory",
+                "useNavigation"
+              ],
+              "answerIndex": 1,
+              "explanation": "O useNavigate retorna uma função que permite navegar programaticamente para frente, para trás ou para caminhos específicos na aplicação."
             }
           ]
         }
@@ -1002,6 +3052,56 @@
               "title": "Navegação e o Link Component",
               "url": "https://nextjs.org/docs/app/getting-started/linking-and-navigating"
             }
+          ],
+          "quiz": [
+            {
+              "id": "nextjs-app-router-rotas-1",
+              "question": "No App Router do Next.js, como se define uma rota pública de perfil acessada via `/perfil`?",
+              "options": [
+                "Criando um arquivo chamado `perfil.js` diretamente na raiz do projeto.",
+                "Criando uma pasta chamada `perfil` contendo um arquivo `page.js`.",
+                "Adicionando a rota manualmente no arquivo de configuração global.",
+                "Criando uma pasta `perfil` com um arquivo `route.js` dentro dela."
+              ],
+              "answerIndex": 1,
+              "explanation": "No App Router, o mapeamento de rotas é baseado em pastas. Qualquer pasta dentro de `app` que contenha um arquivo `page.js` torna-se uma rota pública acessível no navegador."
+            },
+            {
+              "id": "nextjs-app-router-rotas-2",
+              "question": "Qual é a principal função do componente `Link` do Next.js em comparação com a tag `<a>` HTML tradicional?",
+              "options": [
+                "Realizar navegação no lado do cliente com pré-carregamento automático.",
+                "Forçar o recarregamento completo da página para garantir dados atualizados.",
+                "Permitir apenas links externos para sites fora da aplicação Next.js.",
+                "Transformar rotas dinâmicas em rotas estáticas automaticamente no build."
+              ],
+              "answerIndex": 0,
+              "explanation": "O componente `Link` faz a navegação no lado do cliente (Client-Side Navigation) e pré-carrega (prefetch) a página na viewport, evitando o recarregamento total da página."
+            },
+            {
+              "id": "nextjs-app-router-rotas-3",
+              "question": "Para que serve um arquivo `layout.js` compartilhado dentro de uma pasta de rota no App Router?",
+              "options": [
+                "Substituir o arquivo `page.js` principal quando a rota é acessada pela primeira vez.",
+                "Definir regras de redirecionamento de segurança antes de carregar o componente.",
+                "Envolver as páginas filhas mantendo o estado e o layout persistentes durante a navegação.",
+                "Renderizar exclusivamente o cabeçalho e o rodapé na primeira requisição do servidor."
+              ],
+              "answerIndex": 2,
+              "explanation": "O layout preserva seu estado e não é remontado quando o usuário navega entre páginas filhas adjacentes, sendo ideal para estruturas persistentes como menus laterais."
+            },
+            {
+              "id": "nextjs-app-router-rotas-4",
+              "question": "O que acontece se você colocar um arquivo `template.js` em vez de um `layout.js` em uma pasta de rota?",
+              "options": [
+                "A rota passa a ser renderizada estaticamente em tempo de compilação.",
+                "O Next.js impede a compilação por falta do arquivo de layout padrão.",
+                "O carregamento da página passa a ocorrer exclusivamente no lado do cliente.",
+                "Um novo componente é instanciado e o estado é reiniciado a cada navegação."
+              ],
+              "answerIndex": 3,
+              "explanation": "Templates são parecidos com layouts, mas recriam uma nova instância e reiniciam estados a cada navegação do usuário, enquanto layouts preservam o estado."
+            }
           ]
         },
         {
@@ -1017,6 +3117,56 @@
             {
               "title": "Server Components no Next.js",
               "url": "https://nextjs.org/docs/app/getting-started/server-and-client-components"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "nextjs-server-client-components-1",
+              "question": "Como o Next.js lida por padrão com os componentes criados no diretório app?",
+              "options": [
+                "Eles exigem a diretiva 'use server' no topo do arquivo.",
+                "Eles são hidratados obrigatoriamente no navegador do cliente.",
+                "Eles são tratados como Server Components automaticamente.",
+                "Eles funcionam apenas como Client Components na versão atual."
+              ],
+              "answerIndex": 2,
+              "explanation": "No App Router do Next.js, todos os componentes são Server Components por padrão para otimizar o desempenho, a menos que a diretiva 'use client' seja declarada."
+            },
+            {
+              "id": "nextjs-server-client-components-2",
+              "question": "Qual é a principal restrição ao importar um Server Component dentro de um Client Component?",
+              "options": [
+                "Ocorre um erro de compilação imediato no terminal do servidor.",
+                "O código do Server Component pode vazar para o bundle do cliente.",
+                "O Server Component perde o acesso a variáveis de ambiente sensíveis.",
+                "Os dados buscados no servidor passam a ser cacheados no navegador."
+              ],
+              "answerIndex": 1,
+              "explanation": "Misturar componentes exige cuidado para que o código do servidor não seja incluído no pacote enviado ao navegador, sendo recomendado passá-los via children."
+            },
+            {
+              "id": "nextjs-server-client-components-3",
+              "question": "O que acontece quando você utiliza hooks como `useState` em um Server Component?",
+              "options": [
+                "O Next.js gera um erro de compilação impedindo a execução.",
+                "O estado funciona apenas durante a renderização inicial no servidor.",
+                "O hook é convertido automaticamente para uma variável global.",
+                "O componente é transformado em Client Component em tempo de execução."
+              ],
+              "answerIndex": 0,
+              "explanation": "Hooks de estado e efeito dependem de APIs do navegador e do ciclo de vida do cliente, sendo proibidos em Server Components."
+            },
+            {
+              "id": "nextjs-server-client-components-4",
+              "question": "Qual é a melhor estratégia para passar dados de um Server Component para um Client Component filho?",
+              "options": [
+                "Fazer uma nova requisição fetch diretamente dentro do Client Component.",
+                "Utilizar o Context API obrigatoriamente na raiz da aplicação.",
+                "Armazenar os dados no localStorage para leitura posterior.",
+                "Enviar via props comuns, desde que os dados sejam serializáveis."
+              ],
+              "answerIndex": 3,
+              "explanation": "Server Components podem buscar dados e passá-los diretamente como props para Client Components, contanto que possam ser serializados em JSON."
             }
           ]
         },
@@ -1042,6 +3192,56 @@
               "title": "Tratamento de erros no Next.js",
               "url": "https://nextjs.org/docs/app/getting-started/error-handling"
             }
+          ],
+          "quiz": [
+            {
+              "id": "nextjs-busca-dados-cache-1",
+              "question": "Como o Next.js lida por padrão com a busca de dados usando `fetch` dentro de Server Components?",
+              "options": [
+                "Sempre desativa o cache para garantir dados em tempo real.",
+                "Executa as requisições exclusivamente no navegador do cliente.",
+                "Faz cache agressivo das requisições de forma estática.",
+                "Usa revalidação baseada em tempo por padrão a cada acesso."
+              ],
+              "answerIndex": 2,
+              "explanation": "No App Router do Next.js, as requisições `fetch` em Server Components são cacheadas por padrão. Para mudar isso, é necessário configurar opções de revalidação ou cache explícitas."
+            },
+            {
+              "id": "nextjs-busca-dados-cache-2",
+              "question": "Qual é o principal propósito de criar um arquivo `loading.tsx` em um diretório do App Router?",
+              "options": [
+                "Envolver automaticamente o conteúdo em um componente `Suspense`.",
+                "Forçar a página a ser renderizada inteiramente no cliente.",
+                "Substituir o layout principal durante a navegação entre rotas.",
+                "Definir o tempo limite de espera para requisições de API."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Next.js converte o arquivo `loading.tsx` em um limite de `Suspense` que envolve o arquivo `page.tsx` correspondente e seus subcomponentes irmãos de forma automática."
+            },
+            {
+              "id": "nextjs-busca-dados-cache-3",
+              "question": "O que acontece se uma requisição `fetch` usar `{ next: { revalidate: 60 } }`?",
+              "options": [
+                "A página inteira será convertida em um componente executado no cliente após 60 segundos.",
+                "O cache será atualizado em segundo plano após uma nova requisição após 60 segundos.",
+                "O servidor forçará um erro automático caso os dados demorem mais de 60 segundos.",
+                "A requisição será rejeitada se novos dados não chegarem exatamente em 60 segundos."
+              ],
+              "answerIndex": 1,
+              "explanation": "A revalidação incremental estática (ISR) usa o tempo informado para expirar o cache, gerando uma nova versão da página em segundo plano na próxima requisição."
+            },
+            {
+              "id": "nextjs-busca-dados-cache-4",
+              "question": "Qual é a diferença funcional entre usar `{ cache: 'no-store' }` e `{ next: { revalidate: 0 } }` no `fetch`?",
+              "options": [
+                "`no-store` gera erro de compilação, enquanto `revalidate: 0` funciona.",
+                "`revalidate: 0` mantém o cache em memória por um minuto.",
+                "`no-store` funciona apenas em rotas dinâmicas do Pages Router.",
+                "Ambas evitam o cache, garantindo dados dinâmicos a cada requisição."
+              ],
+              "answerIndex": 3,
+              "explanation": "Ambas as abordagens instruem o Next.js a buscar os dados frescos do servidor a cada requisição, desativando completamente o cache para aquela chamada."
+            }
           ]
         },
         {
@@ -1057,6 +3257,56 @@
             {
               "title": "Server Actions e Mutações no Next.js",
               "url": "https://nextjs.org/docs/app/getting-started/mutating-data"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "nextjs-server-actions-formularios-1",
+              "question": "Como você pode atualizar a interface do usuário imediatamente ao enviar um formulário com Server Actions, antes mesmo da resposta do servidor?",
+              "options": [
+                "Adicionando o modificador 'async' diretamente na tag do formulário HTML.",
+                "Utilizando o hook `useTransition` para cancelar renderizações parciais do DOM.",
+                "Modificando diretamente o DOM com seletores nativos dentro da Server Action.",
+                "Utilizando o hook `useOptimistic` para refletir o estado esperado de forma otimista."
+              ],
+              "answerIndex": 3,
+              "explanation": "O hook `useOptimistic` permite atualizar o estado da UI instantaneamente enquanto a Server Action processa a mutação em background, melhorando a percepção de velocidade."
+            },
+            {
+              "id": "nextjs-server-actions-formularios-2",
+              "question": "Como o hook `useFormStatus` obtém o estado de carregamento do formulário pai onde está inserido?",
+              "options": [
+                "Ele faz uma busca no DOM usando seletores globais para encontrar o elemento form.",
+                "Ele lê o contexto React fornecido pelo componente pai que renderizou o elemento `<form>`.",
+                "Ele exige que você passe o objeto de estado manualmente como argumento a cada renderização.",
+                "Ele monitora todas as requisições de rede ativas feitas pelo navegador no momento."
+              ],
+              "answerIndex": 1,
+              "explanation": "`useFormStatus` depende de um contexto fornecido pelo componente `<form>` nativo do Next.js, por isso precisa ser chamado em um componente filho separado do formulário principal."
+            },
+            {
+              "id": "nextjs-server-actions-formularios-3",
+              "question": "Por que o redirecionamento usando `redirect()` dentro de uma Server Action deve ser chamado fora de blocos try/catch?",
+              "options": [
+                "Porque blocos try/catch bloqueiam a execução assíncrona de qualquer função no servidor.",
+                "Porque o redirecionamento precisa acontecer obrigatoriamente no lado do cliente.",
+                "Porque o `redirect` funciona lançando um erro especial que é interceptado pelo Next.js.",
+                "Porque a função redirect altera o código de status HTTP diretamente para 200 OK."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Next.js implementa a função `redirect` lançando um erro interno de controle de fluxo. Se ela estiver dentro de um bloco `catch (error)`, esse erro pode ser capturado indevidamente."
+            },
+            {
+              "id": "nextjs-server-actions-formularios-4",
+              "question": "Qual é a melhor abordagem para validar dados enviados por um formulário em uma Server Action antes de persistir no banco?",
+              "options": [
+                "Validar os dados com bibliotecas como Zod no servidor e retornar um objeto com os erros caso falhe.",
+                "Confiar apenas na validação HTML5 do navegador, pois as Server Actions bloqueiam requisições adulteradas.",
+                "Executar a validação exclusivamente no cliente para poupar recursos computacionais do servidor.",
+                "Lançar uma exceção genérica no servidor que recarrega a página exibindo um alerta nativo."
+              ],
+              "answerIndex": 0,
+              "explanation": "Nunca se deve confiar apenas no cliente. A validação robusta deve ocorrer na Server Action (ex: com Zod), retornando erros estruturados para que a UI os exiba adequadamente."
             }
           ]
         },
@@ -1077,6 +3327,56 @@
             {
               "title": "Otimização de Metadados no Next.js",
               "url": "https://nextjs.org/docs/app/getting-started/metadata-and-og-images"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "performance-web-vitals-seo-1",
+              "question": "Qual é o principal benefício técnico de utilizar o componente `Image` do Next.js em vez da tag `<img>` tradicional para imagens estáticas locais?",
+              "options": [
+                "Realiza o upload automático da imagem para uma CDN global gerenciada pela Vercel.",
+                "Gera automaticamente variantes em múltiplos tamanhos e formatos modernos como WebP.",
+                "Aplica estilos de centralização automática baseados no CSS Grid do navegador.",
+                "Converte a imagem estática em um vetor SVG escalável para evitar perda de qualidade."
+              ],
+              "answerIndex": 1,
+              "explanation": "O componente otimiza imagens gerando formatos modernos e redimensionamentos sob demanda. O upload para CDN depende da hospedagem e o formato vetorial não é gerado a partir de rasters."
+            },
+            {
+              "id": "performance-web-vitals-seo-2",
+              "question": "Ao configurar metadados estáticos em uma página do App Router no Next.js usando o objeto `metadata`, qual é o comportamento esperado se a página for renderizada no servidor (SSR)?",
+              "options": [
+                "Os metadados são injetados via JavaScript após a hidratação completa da árvore DOM.",
+                "Os metadados são salvos em cache no localStorage para leitura posterior pelo navegador.",
+                "Os metadados precisam ser retornados obrigatoriamente dentro de uma tag `<Head>` customizada.",
+                "Os metadados são injetados diretamente na tag `<head>` do HTML inicial enviado ao cliente."
+              ],
+              "answerIndex": 3,
+              "explanation": "O Next.js processa objetos estáticos de metadados no servidor e os inclui no HTML inicial, garantindo que crawlers de SEO leiam o conteúdo sem executar JS."
+            },
+            {
+              "id": "performance-web-vitals-seo-3",
+              "question": "Para evitar o deslocamento cumulativo de layout (CLS) causado por imagens responsivas que carregam tardiamente, qual propriedade do componente `Image` deve ser usada quando as dimensões exatas são desconhecidas?",
+              "options": [
+                "A propriedade `fluid` para ajustar a largura proporcionalmente à tela do dispositivo.",
+                "A propriedade `autoSize` para detectar a resolução nativa da imagem via JavaScript.",
+                "A propriedade `fill` combinada com um elemento pai posicionado e com tamanho definido.",
+                "A propriedade `responsive` para injetar regras de mídia CSS automaticamente no head."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Next.js usa `fill` para fazer a imagem preencher o elemento pai, exigindo que o container reserve o espaço necessário e evite o CLS."
+            },
+            {
+              "id": "performance-web-vitals-seo-4",
+              "question": "Qual é a abordagem correta para gerar metadados dinâmicos baseados em parâmetros de rota, como o ID de um produto (`/produtos/[id]`), no App Router?",
+              "options": [
+                "Exportar uma função assíncrona chamada `generateMetadata` que recebe os parâmetros da rota.",
+                "Criar um useEffect que atualiza o `document.title` assim que o componente é montado no cliente.",
+                "Utilizar o hook `useRouter` para extrair os parâmetros e passá-los para o componente `Head`.",
+                "Declarar uma string de template com interpolação diretamente na constante `metadata`."
+              ],
+              "answerIndex": 0,
+              "explanation": "A função `generateMetadata` roda no servidor antes da renderização da página, permitindo buscar dados dinâmicos e injetar tags corretas para SEO."
             }
           ]
         },
@@ -1101,6 +3401,56 @@
             {
               "title": "Variáveis de ambiente na Vercel",
               "url": "https://vercel.com/docs/environment-variables"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "deploy-vercel-variaveis-ambiente-1",
+              "question": "Como o Next.js diferencia variáveis de ambiente acessíveis no navegador daquelas restritas ao servidor?",
+              "options": [
+                "Usando a tag public no arquivo next.config.js.",
+                "Colocando as variáveis privadas dentro da pasta src.",
+                "Através do sufixo _client para variáveis do navegador.",
+                "Através do prefixo NEXT_PUBLIC_ para variáveis públicas."
+              ],
+              "answerIndex": 3,
+              "explanation": "Variáveis com o prefixo NEXT_PUBLIC_ são embutidas no código JavaScript enviado ao cliente durante o build. As demais ficam seguras apenas no servidor."
+            },
+            {
+              "id": "deploy-vercel-variaveis-ambiente-2",
+              "question": "Qual arquivo você deve usar para definir variáveis de ambiente que serão usadas apenas em ambiente de desenvolvimento local?",
+              "options": [
+                ".env.development",
+                ".env.production",
+                ".env.local",
+                ".env.local.json"
+              ],
+              "answerIndex": 2,
+              "explanation": "O arquivo .env.local é ignorado pelo controle de versão e serve justamente para sobrescrever configurações apenas na máquina do desenvolvedor."
+            },
+            {
+              "id": "deploy-vercel-variaveis-ambiente-3",
+              "question": "Ao configurar uma variável de ambiente na Vercel, quais ambientes de destino você pode selecionar?",
+              "options": [
+                "Production, Preview e Development.",
+                "Apenas Production e Staging.",
+                "Somente Global para todos os ambientes.",
+                "Local, Server e Client."
+              ],
+              "answerIndex": 0,
+              "explanation": "A Vercel permite segmentar variáveis para branches de produção, ambientes de preview (pull requests) e desenvolvimento local via CLI."
+            },
+            {
+              "id": "deploy-vercel-variaveis-ambiente-4",
+              "question": "Por que uma variável sem o prefixo NEXT_PUBLIC_ retorna undefined quando acessada em um componente client-side?",
+              "options": [
+                "Porque o arquivo .env não foi importado no componente.",
+                "Para proteger dados sensíveis e credenciais de banco de dados.",
+                "Porque variáveis de ambiente só funcionam em Server Actions.",
+                "Porque o Next.js exige que todas as variáveis usem letras minúsculas."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Next.js oculta propositalmente variáveis sem o prefixo público do lado cliente para evitar que chaves de API secretas fiquem expostas no navegador."
             }
           ]
         }
@@ -1134,6 +3484,56 @@
               "title": "API de Testes do Vitest",
               "url": "https://vitest.dev/api/test"
             }
+          ],
+          "quiz": [
+            {
+              "id": "testes-unitarios-vitest-1",
+              "question": "Como você agrupa múltiplos testes relacionados em um bloco lógico usando o Vitest?",
+              "options": [
+                "Utilizando a função `group`.",
+                "Utilizando a função `suite`.",
+                "Utilizando a função `bundle`.",
+                "Utilizando a função `describe`."
+              ],
+              "answerIndex": 3,
+              "explanation": "O Vitest usa a API compatível com Jest, onde `describe` é a função padrão para agrupar blocos de testes."
+            },
+            {
+              "id": "testes-unitarios-vitest-2",
+              "question": "Qual é a principal vantagem de usar o Vitest em comparação ao Jest em projetos modernos baseados em Vite?",
+              "options": [
+                "Ele compartilha a mesma configuração e transformações do Vite.",
+                "Ele executa testes diretamente no navegador sem Node.js.",
+                "Ele elimina completamente a necessidade de mocks em componentes.",
+                "Ele possui suporte nativo exclusivo para testes de UI visuais."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Vitest aproveita o pipeline de desenvolvimento do Vite, garantindo alta velocidade e compartilhamento de configurações."
+            },
+            {
+              "id": "testes-unitarios-vitest-3",
+              "question": "Como criar um mock de uma função inteira usando os recursos do Vitest?",
+              "options": [
+                "Utilizando `vi.mockFunction()`.",
+                "Utilizando `vi.createMock()`.",
+                "Utilizando `vi.fn()`.",
+                "Utilizando `vi.spy()`."
+              ],
+              "answerIndex": 2,
+              "explanation": "`vi.fn()` cria uma função espiã simulada (mock) que pode registrar chamadas e retornar valores customizados."
+            },
+            {
+              "id": "testes-unitarios-vitest-4",
+              "question": "Qual matcher do Vitest você usaria para garantir que um array contém um item específico?",
+              "options": [
+                "O matcher `toHaveItem`.",
+                "O matcher `toContain`.",
+                "O matcher `includes`.",
+                "O matcher `hasElement`."
+              ],
+              "answerIndex": 1,
+              "explanation": "O matcher `toContain` verifica se um valor específico está presente em um array ou iterável."
+            }
           ]
         },
         {
@@ -1154,6 +3554,56 @@
               "title": "Exemplo de uso no React",
               "url": "https://testing-library.com/docs/react-testing-library/example-intro/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "testes-componentes-testing-library-1",
+              "question": "Qual método de consulta você deve priorizar ao buscar um botão por seu texto visível?",
+              "options": [
+                "getByTestId",
+                "getByLabelText",
+                "getByRole",
+                "getByClass"
+              ],
+              "answerIndex": 2,
+              "explanation": "O getByRole é a forma recomendada pois reflete como usuários de tecnologias assistivas e visuais encontram elementos na página."
+            },
+            {
+              "id": "testes-componentes-testing-library-2",
+              "question": "Ao testar uma mudança de estado assíncrona após um clique, qual função deve ser usada para aguardar o elemento aparecer?",
+              "options": [
+                "findBy",
+                "waitForElement",
+                "queryBy",
+                "getBy"
+              ],
+              "answerIndex": 0,
+              "explanation": "As funções findBy retornam uma Promise e são usadas para elementos assíncronos que aparecem após um tempo."
+            },
+            {
+              "id": "testes-componentes-testing-library-3",
+              "question": "Qual é o comportamento da função queryBy quando o elemento buscado não é encontrado no DOM?",
+              "options": [
+                "Lança um erro imediato fazendo o teste falhar.",
+                "Retorna null, permitindo verificar a ausência do elemento.",
+                "Retorna uma Promise pendente até o elemento aparecer.",
+                "Cria o elemento automaticamente no DOM."
+              ],
+              "answerIndex": 1,
+              "explanation": "Diferente do getBy, o queryBy não lança erro se o elemento não existir, sendo ideal para asserções de não existência."
+            },
+            {
+              "id": "testes-componentes-testing-library-4",
+              "question": "Como simular corretamente o clique do usuário em um botão dentro de um teste?",
+              "options": [
+                "Chamando diretamente a função de callback no prop onClick.",
+                "Alterando a propriedade checked do elemento para true.",
+                "Disparando um evento nativo de teclado com dispatchEvent.",
+                "Usando a função click do objeto fireEvent ou userEvent."
+              ],
+              "answerIndex": 3,
+              "explanation": "Simular interações reais através de fireEvent ou userEvent garante que todos os manipuladores de eventos vinculados sejam disparados."
+            }
           ]
         },
         {
@@ -1169,6 +3619,56 @@
             {
               "title": "Visão geral do TanStack Query",
               "url": "https://tanstack.com/query/latest/docs/framework/react/overview"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "tanstack-query-zustand-1",
+              "question": "Qual é o principal benefício de usar Zustand em vez da Context API para estado global em aplicações complexas?",
+              "options": [
+                "Evita renderizações desnecessárias de componentes que não usam a propriedade alterada do estado.",
+                "Permite persistir dados automaticamente no banco de dados local do navegador sem plugins.",
+                "Elimina a necessidade de escrever testes unitários para a camada de lógica de negócios.",
+                "Garante que o estado seja sincronizado diretamente com o servidor sem requisições HTTP."
+              ],
+              "answerIndex": 0,
+              "explanation": "Zustand usa seletores granulares para disparar re-renderizações apenas onde necessário. A Context API re-renderiza toda a árvore consumidora ao mudar o valor."
+            },
+            {
+              "id": "tanstack-query-zustand-2",
+              "question": "Como o TanStack Query lida com o re-fetching de dados quando o usuário retorna à aba do navegador?",
+              "options": [
+                "Ele restaura os dados instantaneamente a partir do cache persistido em disco.",
+                "Ele dispara uma nova busca automaticamente se os dados estiverem obsoletos.",
+                "Ele aguarda um comando manual do usuário para atualizar a interface.",
+                "Ele fecha a conexão ativa com o servidor para economizar banda."
+              ],
+              "answerIndex": 1,
+              "explanation": "O `refetchOnWindowFocus` é ativado por padrão para garantir dados atualizados, mas só busca se o `staleTime` já tiver expirado."
+            },
+            {
+              "id": "tanstack-query-zustand-3",
+              "question": "Qual é a abordagem recomendada ao decidir entre Zustand e TanStack Query?",
+              "options": [
+                "Substituir totalmente o TanStack Query pelo Zustand para centralizar toda a lógica em um único lugar.",
+                "Utilizar o TanStack Query apenas para gerenciar temas de interface e dados de formulários locais.",
+                "Implementar Zustand para requisições de API e TanStack Query para gerenciar modais abertos.",
+                "Usar TanStack Query para dados assíncronos remotos e Zustand para o estado síncrono da UI."
+              ],
+              "answerIndex": 3,
+              "explanation": "Cada ferramenta tem um domínio ideal: estado de servidor vs. estado cliente. Misturá-las invertendo os papéis gera código redundante e complexo."
+            },
+            {
+              "id": "tanstack-query-zustand-4",
+              "question": "Como podemos acessar o estado global criado com Zustand fora de componentes React?",
+              "options": [
+                "Importando o hook `useStore` e chamando-o dentro de funções utilitárias comuns.",
+                "Utilizando o contexto global injetado automaticamente na raiz da aplicação.",
+                "Utilizando o método `getState()` diretamente na instância da store criada.",
+                "Atrevendo-se a usar o objeto `window` para recuperar o estado serializado."
+              ],
+              "answerIndex": 2,
+              "explanation": "Hooks como o criado pelo Zustand só rodam dentro de componentes React, mas o objeto store possui métodos como `getState` para uso externo."
             }
           ]
         },
@@ -1194,6 +3694,56 @@
               "title": "Configuração de ambiente e execução de testes",
               "url": "https://playwright.dev/docs/test-configuration"
             }
+          ],
+          "quiz": [
+            {
+              "id": "testes-e2e-playwright-1",
+              "question": "Como o Playwright lida nativamente com elementos assíncronos durante uma ação como `click()`?",
+              "options": [
+                "Ele falha imediatamente caso o elemento não esteja renderizado no exato milissegundo da chamada.",
+                "Ele exige que o desenvolvedor insira pausas manuais com `setTimeout` antes de cada interação.",
+                "Ele aguarda automaticamente que o elemento esteja visível, estável e acionável antes de interagir.",
+                "Ele desativa todas as animações CSS da página para acelerar a localização dos seletores."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Playwright possui esperas automáticas (auto-waiting) integradas, eliminando a necessidade de sleeps manuais ou tratamento explícito de race conditions comuns em testes E2E."
+            },
+            {
+              "id": "testes-e2e-playwright-2",
+              "question": "Qual é a principal vantagem de usar contextos de navegador (`browserContext`) separados em testes paralelos?",
+              "options": [
+                "Eles reduzem o consumo de memória RAM do sistema operacional ao compartilhar o mesmo processo de rede.",
+                "Eles fornecem isolamento completo de estado, cookies e sessão entre os testes executados.",
+                "Eles permitem executar múltiplos navegadores de marcas diferentes na mesma aba simultaneamente.",
+                "Eles garantem que o cache do disco rígido seja persistido entre diferentes arquivos de teste."
+              ],
+              "answerIndex": 1,
+              "explanation": "Contextos de navegador funcionam como instâncias anônimas independentes, permitindo rodar testes em paralelo sem vazamento de dados de sessão."
+            },
+            {
+              "id": "testes-e2e-playwright-3",
+              "question": "Em um cenário onde uma API externa responde com dados instáveis, qual abordagem é recomendada no Playwright?",
+              "options": [
+                "Utilizar `page.route()` para interceptar e mockar as requisições de rede com dados previsíveis.",
+                "Aumentar o tempo limite global (`timeout`) da suíte de testes para tolerar a lentidão da API.",
+                "Executar os testes em modo headed para forçar o navegador a recarregar a página automaticamente.",
+                "Desativar a camada de rede do navegador utilizando a flag de inicialização offline."
+              ],
+              "answerIndex": 0,
+              "explanation": "O recurso `page.route` permite interceptar requisições HTTP, ideal para simular respostas de APIs e isolar o teste E2E de instabilidades externas."
+            },
+            {
+              "id": "testes-e2e-playwright-4",
+              "question": "Qual é a utilidade do comando `npx playwright codegen` no fluxo de desenvolvimento avançado?",
+              "options": [
+                "Criar automaticamente mocks de todas as rotas de API consumidas pela aplicação.",
+                "Traduzir testes escritos em Cypress ou Selenium para a sintaxe nativa do Playwright.",
+                "Otimizar o tamanho dos seletores CSS gerando identificadores únicos baseados em inteligência artificial.",
+                "Gerar rascunhos de código de teste gravando as interações do usuário diretamente no navegador."
+              ],
+              "answerIndex": 3,
+              "explanation": "O codegen abre um navegador que grava suas ações e gera o código correspondente do teste, servindo como ponto de partida rápido para novos cenários."
+            }
           ]
         },
         {
@@ -1213,6 +3763,56 @@
             {
               "title": "Início rápido para o GitHub Actions",
               "url": "https://docs.github.com/pt/actions/get-started/quickstart"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "github-actions-ci-1",
+              "question": "Onde devem ficar armazenados os arquivos de configuração dos workflows do GitHub Actions no repositório?",
+              "options": [
+                "Na pasta raiz do projeto com a extensão .github.",
+                "Dentro de um diretório chamado .actions na raiz.",
+                "Na pasta .github/workflows na raiz do projeto.",
+                "Na pasta node_modules do projeto principal."
+              ],
+              "answerIndex": 2,
+              "explanation": "O GitHub Actions exige que os arquivos YAML fiquem exatamente no diretório .github/workflows para serem reconhecidos."
+            },
+            {
+              "id": "github-actions-ci-2",
+              "question": "Qual é a principal função de um arquivo de workflow em formato YAML no GitHub Actions?",
+              "options": [
+                "Controlar as permissões de acesso dos colaboradores.",
+                "Armazenar tokens secretos de acesso com segurança.",
+                "Configurar o gerenciador de pacotes do projeto.",
+                "Definir os gatilhos, passos e comandos para a automação."
+              ],
+              "answerIndex": 3,
+              "explanation": "O workflow descreve quando e como o processo de automação deve ser executado através de jobs e steps."
+            },
+            {
+              "id": "github-actions-ci-3",
+              "question": "O que define a propriedade 'on' dentro de um arquivo de configuração de workflow?",
+              "options": [
+                "O status atual se o workflow está ativo ou pausado.",
+                "Os eventos do repositório que disparam a execução.",
+                "O ambiente de sistema operacional que será usado.",
+                "O servidor externo onde o código será publicado."
+              ],
+              "answerIndex": 1,
+              "explanation": "A chave 'on' especifica quais eventos do GitHub, como push ou pull_request, acionam o workflow."
+            },
+            {
+              "id": "github-actions-ci-4",
+              "question": "Como o comando 'actions/checkout@v4' é geralmente utilizado nos passos de um job?",
+              "options": [
+                "Para baixar o código do repositório na máquina virtual.",
+                "Para enviar o build final para um servidor de produção.",
+                "Para verificar se há erros de sintaxe no código fonte.",
+                "Para instalar as dependências listadas no package.json."
+              ],
+              "answerIndex": 0,
+              "explanation": "A action de checkout copia o código do seu repositório para o executor para que os passos seguintes possam usá-lo."
             }
           ]
         }

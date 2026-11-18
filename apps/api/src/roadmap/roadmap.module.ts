@@ -16,6 +16,9 @@ import { Roadmap } from './entities/roadmap.entity';
 import { Module as ModuleEntity } from './entities/module.entity';
 import { Resource } from './entities/resource.entity';
 import { Topic } from './entities/topic.entity';
+import { QuizAttempt } from './entities/quiz-attempt.entity';
+import { TrackQuizQuestion } from '../tracks/entities/track-quiz-question.entity';
+import { QuizService } from './quiz.service';
 
 @Module({
   imports: [
@@ -25,6 +28,9 @@ import { Topic } from './entities/topic.entity';
       ModuleEntity,
       Topic,
       Resource,
+      QuizAttempt,
+      // Só leitura: as perguntas são gravadas pelo sync das trilhas.
+      TrackQuizQuestion,
       // Só leitura: quem escreve nas trilhas é o TracksModule (que depende
       // deste, e por isso a geração lê o catálogo direto pelo repositório).
       Track,
@@ -42,6 +48,7 @@ import { Topic } from './entities/topic.entity';
     RoadmapCacheService,
     ResourceDiscoveryService,
     UserRoadmapService,
+    QuizService,
   ],
   // O catálogo de trilhas reusa a descoberta de recursos (TracksModule).
   exports: [ResourceDiscoveryService],

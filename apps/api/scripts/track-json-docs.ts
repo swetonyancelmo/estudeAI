@@ -1,65 +1,110 @@
 import { isDeepStrictEqual } from 'node:util';
-import type { TrackDocContent } from '../src/tracks/track-content';
+import type {
+  TrackDocContent,
+  TrackQuizQuestionContent,
+} from '../src/tracks/track-content';
 
 /**
- * Grava o campo `docs` de UM tópico direto no texto do JSON da trilha, sem
- * reformatar o resto do arquivo: o diff mostra só as docs, e é ele que a
+ * Grava UM campo de UM tópico direto no texto do JSON da trilha, sem
+ * reformatar o resto do arquivo: o diff mostra só aquele campo, e é ele que a
  * pessoa revisa antes do commit.
  *
- * O tópico é achado pelo `"slug"` (único na trilha). Se já tem `"docs"`, o
- * bloco é substituído; senão, é acrescentado depois do `"searchQuery"`, que é
- * o último campo do tópico nos arquivos versionados.
+ * O tópico é achado pelo `"slug"` (único na trilha). Se o campo já existe, o
+ * valor é substituído; senão, o campo entra como último do tópico. O valor é
+ * escrito como `JSON.stringify(valor, null, 2)` na indentação do tópico.
  */
-export function setTopicDocs(
+export function setTopicField(
   text: string,
   slug: string,
-  docs: TrackDocContent[],
+  field: string,
+  value: unknown,
 ): string {
   const slugMatch = new RegExp(
     `\\n([ \\t]+)"slug": ${escapeRegExp(JSON.stringify(slug))},\\n`,
   ).exec(text);
   if (!slugMatch) throw new Error(`tópico "${slug}" não encontrado no texto`);
   const indent = slugMatch[1];
+  const bodyStart = slugMatch.index + 1;
+  const close = closingBrace(text, bodyStart);
+  const rendered = renderValue(value, indent);
 
-  const queryLine = new RegExp(
-    `\\n${indent}"searchQuery": "(?:[^"\\\\]|\\\\.)*"`,
+  const key = new RegExp(
+    `\\n${indent}${escapeRegExp(JSON.stringify(field))}: `,
     'g',
   );
-  queryLine.lastIndex = slugMatch.index + slugMatch[0].length;
-  const query = queryLine.exec(text);
-  if (!query) throw new Error(`tópico "${slug}" sem searchQuery`);
-  const afterQuery = query.index + query[0].length;
-
-  const block = renderDocs(docs, indent);
-  const existing = new RegExp(`^,\\n${indent}"docs": \\[`).exec(
-    text.slice(afterQuery),
-  );
-  if (!existing) {
-    return `${text.slice(0, afterQuery)},\n${indent}${block}${text.slice(afterQuery)}`;
+  key.lastIndex = bodyStart;
+  const existing = key.exec(text);
+  if (existing && existing.index < close) {
+    const valueStart = existing.index + existing[0].length;
+    const valueEnd = endOfValue(text, valueStart);
+    return `${text.slice(0, valueStart)}${rendered}${text.slice(valueEnd)}`;
   }
 
-  // Fim do bloco atual: o `]` que fecha `"docs"` na mesma indentação, ou o
-  // `[]` vazio na própria linha.
-  const start = afterQuery + 2 + indent.length;
-  const rest = text.slice(start);
-  const emptyEnd = /^"docs": \[\]/.exec(rest);
-  const end = emptyEnd
-    ? start + emptyEnd[0].length
-    : start + rest.indexOf(`\n${indent}]`) + 1 + indent.length + 1;
-  return `${text.slice(0, start)}${block}${text.slice(end)}`;
+  // Campo novo: depois do último valor do tópico, antes do `}` que o fecha.
+  let last = close - 1;
+  while (/\s/.test(text[last])) last--;
+  return (
+    `${text.slice(0, last + 1)},\n${indent}${JSON.stringify(field)}: ` +
+    `${rendered}${text.slice(last + 1)}`
+  );
 }
 
-function renderDocs(docs: TrackDocContent[], indent: string): string {
-  if (docs.length === 0) return '"docs": []';
-  const pad = (extra: number) => indent + ' '.repeat(extra);
-  const items = docs
-    .map(
-      (doc) =>
-        `${pad(2)}{\n${pad(4)}"title": ${JSON.stringify(doc.title)},\n` +
-        `${pad(4)}"url": ${JSON.stringify(doc.url)}\n${pad(2)}}`,
-    )
-    .join(',\n');
-  return `"docs": [\n${items}\n${indent}]`;
+export function setTopicDocs(
+  text: string,
+  slug: string,
+  docs: TrackDocContent[],
+): string {
+  return setTopicField(text, slug, 'docs', docs);
+}
+
+export function setTopicQuiz(
+  text: string,
+  slug: string,
+  quiz: TrackQuizQuestionContent[],
+): string {
+  return setTopicField(text, slug, 'quiz', quiz);
+}
+
+function renderValue(value: unknown, indent: string): string {
+  return JSON.stringify(value, null, 2)
+    .split('\n')
+    .map((line, index) => (index === 0 ? line : `${indent}${line}`))
+    .join('\n');
+}
+
+/** Índice do `}` que fecha o objeto aberto antes de `from` (ciente de strings). */
+function closingBrace(text: string, from: number): number {
+  let depth = 1;
+  for (let i = from; i < text.length; i++) {
+    const char = text[i];
+    if (char === '"') {
+      i = endOfString(text, i) - 1;
+    } else if (char === '{' || char === '[') {
+      depth++;
+    } else if (char === '}' || char === ']') {
+      depth--;
+      if (depth === 0) return i;
+    }
+  }
+  throw new Error('JSON desbalanceado');
+}
+
+/** Índice logo depois do valor JSON que começa em `start`. */
+function endOfValue(text: string, start: number): number {
+  const char = text[start];
+  if (char === '"') return endOfString(text, start);
+  if (char === '{' || char === '[') return closingBrace(text, start + 1) + 1;
+  const match = /^[^,\n}\]]+/.exec(text.slice(start));
+  return start + (match ? match[0].trimEnd().length : 0);
+}
+
+/** Índice logo depois da string JSON que abre em `start`. */
+function endOfString(text: string, start: number): number {
+  for (let i = start + 1; i < text.length; i++) {
+    if (text[i] === '\\') i++;
+    else if (text[i] === '"') return i + 1;
+  }
+  throw new Error('string JSON sem fim');
 }
 
 function escapeRegExp(value: string): string {

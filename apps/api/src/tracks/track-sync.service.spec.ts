@@ -3,6 +3,7 @@ import { Track } from './entities/track.entity';
 import { TrackModule } from './entities/track-module.entity';
 import { TrackTopic } from './entities/track-topic.entity';
 import { TrackTopicResource } from './entities/track-topic-resource.entity';
+import { TrackQuizQuestion } from './entities/track-quiz-question.entity';
 import type { LoadedTrack, TrackContent } from './track-content';
 import { TrackSyncService } from './track-sync.service';
 
@@ -18,6 +19,7 @@ function fakeDatabase() {
     [Track, []],
     [TrackModule, []],
     [TrackTopic, []],
+    [TrackQuizQuestion, []],
   ]);
   const deletedResourcesOf: string[] = [];
   let nextId = 1;
@@ -43,7 +45,9 @@ function fakeDatabase() {
             ? Track
             : 'projectTitle' in row
               ? TrackModule
-              : TrackTopic;
+              : 'answerIndex' in row
+                ? TrackQuizQuestion
+                : TrackTopic;
         rows(table).push(row);
       }
       return Promise.resolve(row);
@@ -246,6 +250,68 @@ describe('TrackSyncService', () => {
         expect.stringContaining('jsonb_array_elements'),
         expect.anything(),
       );
+    });
+  });
+
+  describe('quiz (Fase 3)', () => {
+    const question = (id: string, text = `Pergunta ${id}?`) => ({
+      id,
+      question: text,
+      options: ['A', 'B', 'C', 'D'],
+      answerIndex: 2,
+      explanation: 'Porque C.',
+    });
+    const withQuiz = (hash: string, quiz: ReturnType<typeof question>[]) =>
+      loaded(hash, [
+        {
+          ...moduleOf('base', [{ slug: 'html' }]),
+          topics: [{ ...moduleOf('base', [{ slug: 'html' }]).topics[0], quiz }],
+        },
+      ]);
+
+    it('grava as perguntas do tópico na ordem do JSON', async () => {
+      const db = fakeDatabase();
+      const service = new TrackSyncService(db.dataSource);
+
+      await service.syncTrack(
+        'frontend',
+        withQuiz('q1', [question('html-1'), question('html-2')]),
+      );
+
+      const topicId = db.rows(TrackTopic)[0].id;
+      expect(
+        db
+          .rows(TrackQuizQuestion)
+          .map((q) => [q.slug, q.order, q.trackTopicId]),
+      ).toEqual([
+        ['html-1', 0, topicId],
+        ['html-2', 1, topicId],
+      ]);
+    });
+
+    it('editar o texto mantém o uuid; pergunta tirada do JSON é apagada', async () => {
+      const db = fakeDatabase();
+      const service = new TrackSyncService(db.dataSource);
+      await service.syncTrack(
+        'frontend',
+        withQuiz('q1', [question('html-1'), question('html-2')]),
+      );
+      const before = new Map(
+        db.rows(TrackQuizQuestion).map((q) => [q.slug, q.id]),
+      );
+
+      await service.syncTrack(
+        'frontend',
+        withQuiz('q2', [
+          question('html-1', 'Texto corrigido?'),
+          question('html-3'),
+        ]),
+      );
+
+      const after = db.rows(TrackQuizQuestion);
+      expect(after.map((q) => q.slug)).toEqual(['html-1', 'html-3']);
+      expect(after[0].id).toBe(before.get('html-1'));
+      expect(after[0].question).toBe('Texto corrigido?');
     });
   });
 });

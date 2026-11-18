@@ -1,5 +1,6 @@
 import {
   InvalidTrackContentError,
+  MAX_QUIZ_QUESTIONS,
   MAX_TOPIC_DOCS,
   TRACK_SLUGS,
   isOfficialDocUrl,
@@ -217,5 +218,67 @@ describe('docs — documentação oficial por tópico (Fase 2)', () => {
     ['javascript:alert(1)', false],
   ])('isOfficialDocUrl(%s) = %s', (url, expected) => {
     expect(isOfficialDocUrl(url)).toBe(expected);
+  });
+});
+
+describe('quiz — perguntas por tópico (Fase 3)', () => {
+  const question = (id: string, overrides: Record<string, unknown> = {}) => ({
+    id,
+    question: `Pergunta ${id}?`,
+    options: ['A', 'B', 'C', 'D'],
+    answerIndex: 1,
+    explanation: 'Porque B.',
+    ...overrides,
+  });
+  const quizOf = (prefix: string, count = 4) =>
+    Array.from({ length: count }, (_, index) =>
+      question(`${prefix}-${index + 1}`),
+    );
+
+  it('aceita quiz válido e tópico sem quiz', () => {
+    expect(
+      problemsOf(track([topic('a', { quiz: quizOf('a') }), topic('b')])),
+    ).toEqual([]);
+  });
+
+  it('recusa quiz curto ou longo demais', () => {
+    const problems = problemsOf(
+      track([
+        topic('a', { quiz: quizOf('a', 2) }),
+        topic('b', { quiz: quizOf('b', MAX_QUIZ_QUESTIONS + 1) }),
+      ]),
+    );
+    expect(problems).toHaveLength(2);
+  });
+
+  it('recusa alternativas repetidas, em número errado ou resposta fora da faixa', () => {
+    const problems = problemsOf(
+      track([
+        topic('a', {
+          quiz: [
+            question('a-1', { options: ['A', 'a ', 'C', 'D'] }),
+            question('a-2', { options: ['A', 'B', 'C'] }),
+            question('a-3', { answerIndex: 4 }),
+            question('a-4', { explanation: '' }),
+          ],
+        }),
+      ]),
+    );
+    expect(problems).toEqual([
+      expect.stringContaining('"a-1": precisa de 4 alternativas'),
+      expect.stringContaining('"a-2": precisa de 4 alternativas'),
+      expect.stringContaining('"a-3": answerIndex deve ser de 0 a 3'),
+      expect.stringContaining('"a-4": explanation vazia'),
+    ]);
+  });
+
+  it('id de pergunta é único na trilha inteira', () => {
+    const problems = problemsOf(
+      track([
+        topic('a', { quiz: quizOf('x') }),
+        topic('b', { quiz: quizOf('x') }),
+      ]),
+    );
+    expect(problems.filter((p) => p.includes('id repetido'))).toHaveLength(4);
   });
 });

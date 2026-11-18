@@ -1,0 +1,4 @@
+# Conteúdo das trilhas: a formatação é a do arquivo versionado, e só os
+# scripts de curadoria (scripts/) mexem nele, bloco a bloco. Reformatar
+# aqui deixa o diff de revisão ilegível.
+src/tracks/content/*.json

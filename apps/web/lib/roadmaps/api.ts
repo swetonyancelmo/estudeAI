@@ -5,11 +5,14 @@ import {
 } from "@tanstack/react-query";
 import type {
   AdjustRoadmapResponseDto,
+  QuizAnswerResultDto,
+  QuizDto,
   ResourceProgressDto,
   RoadmapDetailDto,
   RoadmapListItemDto,
   ToggleTopicResponseDto,
   TopicNoteDto,
+  SubmitQuizAnswerRequestDto,
   UpdateResourceProgressRequestDto,
 } from "@estudeai/shared-types";
 import { api } from "@/lib/api/client";
@@ -26,6 +29,8 @@ export const roadmapKeys = {
   detail: (id: string) => ["roadmaps", "detail", id] as const,
   note: (roadmapId: string, topicId: string) =>
     ["roadmaps", "note", roadmapId, topicId] as const,
+  quiz: (roadmapId: string, topicId: string) =>
+    ["roadmaps", "quiz", roadmapId, topicId] as const,
 };
 
 /** GET /roadmap — "Meus Roadmaps" (FR-03.2). */
@@ -279,6 +284,59 @@ export function useSaveTopicNote(roadmapId: string, topicId: string) {
     mutationFn: (content: string) => saveTopicNote(roadmapId, topicId, content),
     onSuccess: (note) => {
       queryClient.setQueryData(roadmapKeys.note(roadmapId, topicId), note);
+    },
+  });
+}
+
+/** GET .../topics/:topicId/quiz — perguntas do quiz, sem o gabarito (Fase 3). */
+export async function getTopicQuiz(
+  roadmapId: string,
+  topicId: string,
+): Promise<QuizDto> {
+  const { data } = await api.get<QuizDto>(
+    `/roadmap/${roadmapId}/topics/${topicId}/quiz`,
+  );
+  return data;
+}
+
+/** POST .../topics/:topicId/quiz/answers — corrige uma resposta. */
+export async function answerTopicQuiz(
+  roadmapId: string,
+  topicId: string,
+  body: SubmitQuizAnswerRequestDto,
+): Promise<QuizAnswerResultDto> {
+  const { data } = await api.post<QuizAnswerResultDto>(
+    `/roadmap/${roadmapId}/topics/${topicId}/quiz/answers`,
+    body,
+  );
+  return data;
+}
+
+export function useTopicQuiz(roadmapId: string, topicId: string) {
+  return useQuery({
+    queryKey: roadmapKeys.quiz(roadmapId, topicId),
+    queryFn: () => getTopicQuiz(roadmapId, topicId),
+    // As perguntas só mudam com deploy; o resumo é atualizado pela mutation.
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+/**
+ * Responde uma pergunta. Sem palpite otimista: o cliente não conhece o
+ * gabarito, então só a resposta do servidor diz se acertou. O resumo
+ * atualizado vai direto para o cache do quiz.
+ */
+export function useAnswerTopicQuiz(roadmapId: string, topicId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (body: SubmitQuizAnswerRequestDto) =>
+      answerTopicQuiz(roadmapId, topicId, body),
+    onSuccess: (result) => {
+      queryClient.setQueryData<QuizDto>(
+        roadmapKeys.quiz(roadmapId, topicId),
+        (previous) => previous && { ...previous, summary: result.summary },
+      );
     },
   });
 }
