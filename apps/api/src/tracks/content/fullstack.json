@@ -16,7 +16,21 @@
           "estimatedHours": 3,
           "knownSkill": "http-apis",
           "prerequisites": [],
-          "searchQuery": "como a internet funciona cliente servidor http"
+          "searchQuery": "como a internet funciona cliente servidor http",
+          "docs": [
+            {
+              "title": "Uma visão geral do HTTP",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Overview"
+            },
+            {
+              "title": "Como a Web funciona",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works"
+            },
+            {
+              "title": "Mensagens HTTP",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Messages"
+            }
+          ]
         },
         {
           "slug": "ambiente-de-desenvolvimento",
@@ -26,7 +40,17 @@
           "estimatedHours": 2,
           "knownSkill": null,
           "prerequisites": [],
-          "searchQuery": "configurar vs code e instalar node.js para iniciantes"
+          "searchQuery": "configurar vs code e instalar node.js para iniciantes",
+          "docs": [
+            {
+              "title": "Documentação Oficial do VS Code",
+              "url": "https://code.visualstudio.com/docs"
+            },
+            {
+              "title": "Visão geral do Chrome DevTools",
+              "url": "https://developer.chrome.com/docs/devtools"
+            }
+          ]
         },
         {
           "slug": "terminal-basico",
@@ -36,7 +60,13 @@
           "estimatedHours": 3,
           "knownSkill": "terminal-linux",
           "prerequisites": [],
-          "searchQuery": "terminal linha de comando para iniciantes comandos básicos"
+          "searchQuery": "terminal linha de comando para iniciantes comandos básicos",
+          "docs": [
+            {
+              "title": "Manual do interpretador de comandos bash",
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html"
+            }
+          ]
         },
         {
           "slug": "git-fundamentos",
@@ -46,7 +76,21 @@
           "estimatedHours": 5,
           "knownSkill": "git",
           "prerequisites": ["terminal-basico"],
-          "searchQuery": "git para iniciantes commit branch merge tutorial"
+          "searchQuery": "git para iniciantes commit branch merge tutorial",
+          "docs": [
+            {
+              "title": "Fundamentos do Git: gravando alterações no repositório",
+              "url": "https://git-scm.com/book/pt-br/v2/Fundamentos-do-Git-Gravando-Altera%C3%A7%C3%B5es-no-Reposit%C3%B3rio"
+            },
+            {
+              "title": "Fundamentos do Git: visualizando o histórico de commits",
+              "url": "https://git-scm.com/book/pt-br/v2/Fundamentos-do-Git-Visualizando-o-Hist%C3%B3rico-de-Commits"
+            },
+            {
+              "title": "Branches no Git em poucas palavras",
+              "url": "https://git-scm.com/book/pt-br/v2/Ramifica%C3%A7%C3%A3o-Branching-no-Git-Branches-em-Poucas-Palavras"
+            }
+          ]
         },
         {
           "slug": "github-repositorios-remotos",
@@ -56,7 +100,13 @@
           "estimatedHours": 4,
           "knownSkill": "git",
           "prerequisites": ["git-fundamentos"],
-          "searchQuery": "github push pull request tutorial iniciante"
+          "searchQuery": "github push pull request tutorial iniciante",
+          "docs": [
+            {
+              "title": "Como criar e gerenciar pull requests no GitHub",
+              "url": "https://docs.github.com/pt/pull-requests/how-tos/create-pull-requests/creating-a-pull-request"
+            }
+          ]
         },
         {
           "slug": "dns-dominios-hospedagem",
@@ -66,7 +116,17 @@
           "estimatedHours": 3,
           "knownSkill": "http-apis",
           "prerequisites": ["como-a-web-funciona"],
-          "searchQuery": "o que é dns dominio e hospedagem explicado"
+          "searchQuery": "o que é dns dominio e hospedagem explicado",
+          "docs": [
+            {
+              "title": "Como a Web funciona",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works"
+            },
+            {
+              "title": "O que é um nome de domínio?",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Howto/Web_mechanics/What_is_a_domain_name"
+            }
+          ]
         }
       ],
       "project": {
@@ -88,7 +148,17 @@
           "estimatedHours": 5,
           "knownSkill": "html-css",
           "prerequisites": ["ambiente-de-desenvolvimento"],
-          "searchQuery": "html semântico tutorial completo para iniciantes"
+          "searchQuery": "html semântico tutorial completo para iniciantes",
+          "docs": [
+            {
+              "title": "HTML básico",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Getting_started/Your_first_website/Creating_the_content"
+            },
+            {
+              "title": "Elementos HTML",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTML/Reference/Elements"
+            }
+          ]
         },
         {
           "slug": "html-formularios-acessibilidade",
@@ -98,7 +168,17 @@
           "estimatedHours": 5,
           "knownSkill": "html-css",
           "prerequisites": ["html-estrutura-semantica"],
-          "searchQuery": "formulários html acessibilidade label alt aria"
+          "searchQuery": "formulários html acessibilidade label alt aria",
+          "docs": [
+            {
+              "title": "Formulários da Web - Trabalhando com dados do usuário",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Extensions/Forms"
+            },
+            {
+              "title": "How to structure a web form",
+              "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/How_to_structure_a_web_form"
+            }
+          ]
         },
         {
           "slug": "css-seletores-box-model",
@@ -108,7 +188,21 @@
           "estimatedHours": 6,
           "knownSkill": "html-css",
           "prerequisites": ["html-estrutura-semantica"],
-          "searchQuery": "css para iniciantes seletores box model unidades"
+          "searchQuery": "css para iniciantes seletores box model unidades",
+          "docs": [
+            {
+              "title": "Seletores CSS",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Selectors"
+            },
+            {
+              "title": "Introduction to the CSS cascade",
+              "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascade/Introduction"
+            },
+            {
+              "title": "Box model",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Box_model/Introduction"
+            }
+          ]
         },
         {
           "slug": "flexbox-alinhamento",
@@ -118,7 +212,17 @@
           "estimatedHours": 6,
           "knownSkill": "html-css",
           "prerequisites": ["css-seletores-box-model"],
-          "searchQuery": "flexbox css tutorial completo"
+          "searchQuery": "flexbox css tutorial completo",
+          "docs": [
+            {
+              "title": "Conceitos básicos de flexbox",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts"
+            },
+            {
+              "title": "Aligning Items in a Flex Container",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Flexible_box_layout/Aligning_items"
+            }
+          ]
         },
         {
           "slug": "css-grid-responsividade",
@@ -128,7 +232,17 @@
           "estimatedHours": 7,
           "knownSkill": "html-css",
           "prerequisites": ["flexbox-alinhamento"],
-          "searchQuery": "css grid e site responsivo media queries tutorial"
+          "searchQuery": "css grid e site responsivo media queries tutorial",
+          "docs": [
+            {
+              "title": "CSS Grid Layout",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Grid_layout"
+            },
+            {
+              "title": "Usando Media Queries",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Media_queries/Using"
+            }
+          ]
         },
         {
           "slug": "css-variaveis-animacoes",
@@ -138,7 +252,21 @@
           "estimatedHours": 4,
           "knownSkill": "html-css",
           "prerequisites": ["css-seletores-box-model"],
-          "searchQuery": "css variáveis transition animation keyframes tutorial"
+          "searchQuery": "css variáveis transition animation keyframes tutorial",
+          "docs": [
+            {
+              "title": "Utilizando propriedades CSS personalizadas (variáveis)",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Cascading_variables/Using_custom_properties"
+            },
+            {
+              "title": "Using CSS transitions",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Transitions/Using"
+            },
+            {
+              "title": "Usando animações CSS",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Guides/Animations/Using"
+            }
+          ]
         }
       ],
       "project": {
@@ -160,7 +288,21 @@
           "estimatedHours": 6,
           "knownSkill": "logica-programacao",
           "prerequisites": ["ambiente-de-desenvolvimento"],
-          "searchQuery": "javascript para iniciantes variáveis tipos operadores"
+          "searchQuery": "javascript para iniciantes variáveis tipos operadores",
+          "docs": [
+            {
+              "title": "Armazenando as informações que você precisa — Variáveis",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Core/Scripting/Variables"
+            },
+            {
+              "title": "Estrutura de dados do Javascript",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Data_structures"
+            },
+            {
+              "title": "Expressões e operadores",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators"
+            }
+          ]
         },
         {
           "slug": "js-condicionais-lacos",
@@ -170,7 +312,21 @@
           "estimatedHours": 6,
           "knownSkill": "logica-programacao",
           "prerequisites": ["js-variaveis-tipos-operadores"],
-          "searchQuery": "javascript if else for while exercícios lógica"
+          "searchQuery": "javascript if else for while exercícios lógica",
+          "docs": [
+            {
+              "title": "if...else",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/if...else"
+            },
+            {
+              "title": "for",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/for"
+            },
+            {
+              "title": "while",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/while"
+            }
+          ]
         },
         {
           "slug": "js-funcoes-escopo",
@@ -180,7 +336,21 @@
           "estimatedHours": 6,
           "knownSkill": "javascript",
           "prerequisites": ["js-condicionais-lacos"],
-          "searchQuery": "javascript funções arrow function escopo closure"
+          "searchQuery": "javascript funções arrow function escopo closure",
+          "docs": [
+            {
+              "title": "Funções",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Functions"
+            },
+            {
+              "title": "Arrow functions",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Functions/Arrow_functions"
+            },
+            {
+              "title": "Closures",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures"
+            }
+          ]
         },
         {
           "slug": "js-arrays-objetos-metodos",
@@ -190,7 +360,21 @@
           "estimatedHours": 8,
           "knownSkill": "javascript",
           "prerequisites": ["js-funcoes-escopo"],
-          "searchQuery": "javascript arrays objetos map filter reduce"
+          "searchQuery": "javascript arrays objetos map filter reduce",
+          "docs": [
+            {
+              "title": "Array.prototype.map()",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/map"
+            },
+            {
+              "title": "Array.prototype.filter()",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"
+            },
+            {
+              "title": "Array.prototype.reduce()",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"
+            }
+          ]
         },
         {
           "slug": "js-moderno-modulos",
@@ -200,7 +384,21 @@
           "estimatedHours": 5,
           "knownSkill": "javascript",
           "prerequisites": ["js-arrays-objetos-metodos"],
-          "searchQuery": "javascript es6 desestruturação spread classes import export"
+          "searchQuery": "javascript es6 desestruturação spread classes import export",
+          "docs": [
+            {
+              "title": "Atribuição via desestruturação (destructuring assignment)",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/Destructuring"
+            },
+            {
+              "title": "Sintaxe de Espalhamento",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Operators/Spread_syntax"
+            },
+            {
+              "title": "Módulos JavaScript",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Modules"
+            }
+          ]
         },
         {
           "slug": "js-assincrono-promises",
@@ -210,7 +408,17 @@
           "estimatedHours": 6,
           "knownSkill": "javascript",
           "prerequisites": ["js-funcoes-escopo"],
-          "searchQuery": "javascript promises async await explicado"
+          "searchQuery": "javascript promises async await explicado",
+          "docs": [
+            {
+              "title": "Usando promises",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Using_promises"
+            },
+            {
+              "title": "Promise",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+            }
+          ]
         }
       ],
       "project": {
@@ -232,7 +440,13 @@
           "estimatedHours": 8,
           "knownSkill": "javascript",
           "prerequisites": ["js-arrays-objetos-metodos", "css-grid-responsividade"],
-          "searchQuery": "javascript dom eventos addEventListener tutorial"
+          "searchQuery": "javascript dom eventos addEventListener tutorial",
+          "docs": [
+            {
+              "title": "Element.addEventListener()",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/EventTarget/addEventListener"
+            }
+          ]
         },
         {
           "slug": "fetch-apis-json",
@@ -242,7 +456,17 @@
           "estimatedHours": 5,
           "knownSkill": "http-apis",
           "prerequisites": ["js-assincrono-promises", "dom-eventos"],
-          "searchQuery": "javascript fetch api consumir api rest json"
+          "searchQuery": "javascript fetch api consumir api rest json",
+          "docs": [
+            {
+              "title": "Usando Fetch",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API/Using_Fetch"
+            },
+            {
+              "title": "fetch()",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Window/fetch"
+            }
+          ]
         },
         {
           "slug": "erros-debug-devtools",
@@ -252,7 +476,13 @@
           "estimatedHours": 3,
           "knownSkill": "javascript",
           "prerequisites": ["fetch-apis-json"],
-          "searchQuery": "debug javascript chrome devtools try catch"
+          "searchQuery": "debug javascript chrome devtools try catch",
+          "docs": [
+            {
+              "title": "Controle de Fluxo e Manipulação de Erro",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Control_flow_and_error_handling"
+            }
+          ]
         },
         {
           "slug": "npm-pacotes-vite",
@@ -262,7 +492,17 @@
           "estimatedHours": 3,
           "knownSkill": "nodejs",
           "prerequisites": ["js-moderno-modulos", "terminal-basico"],
-          "searchQuery": "npm package.json scripts vite criar projeto"
+          "searchQuery": "npm package.json scripts vite criar projeto",
+          "docs": [
+            {
+              "title": "Guia do package.json",
+              "url": "https://docs.npmjs.com/cli/v10/configuring-npm/package-json/"
+            },
+            {
+              "title": "Guia de Primeiros Passos do Vite",
+              "url": "https://vite.dev/guide/"
+            }
+          ]
         },
         {
           "slug": "typescript-fundamentos",
@@ -272,7 +512,21 @@
           "estimatedHours": 8,
           "knownSkill": "typescript",
           "prerequisites": ["npm-pacotes-vite"],
-          "searchQuery": "typescript para iniciantes tipos interfaces"
+          "searchQuery": "typescript para iniciantes tipos interfaces",
+          "docs": [
+            {
+              "title": "Tipos Básicos no TypeScript",
+              "url": "https://www.typescriptlang.org/docs/handbook/basic-types.html"
+            },
+            {
+              "title": "Documentação sobre Funções no TypeScript",
+              "url": "https://www.typescriptlang.org/docs/handbook/2/functions.html"
+            },
+            {
+              "title": "Everyday Types no TypeScript",
+              "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html"
+            }
+          ]
         },
         {
           "slug": "typescript-generics-utility-types",
@@ -282,7 +536,21 @@
           "estimatedHours": 5,
           "knownSkill": "typescript",
           "prerequisites": ["typescript-fundamentos"],
-          "searchQuery": "typescript generics utility types decorators"
+          "searchQuery": "typescript generics utility types decorators",
+          "docs": [
+            {
+              "title": "Tipos Genéricos no TypeScript",
+              "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html"
+            },
+            {
+              "title": "Utility Types no TypeScript",
+              "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html"
+            },
+            {
+              "title": "Decorators no TypeScript",
+              "url": "https://www.typescriptlang.org/docs/handbook/decorators.html"
+            }
+          ]
         }
       ],
       "project": {
@@ -304,7 +572,21 @@
           "estimatedHours": 6,
           "knownSkill": "react",
           "prerequisites": ["typescript-fundamentos", "dom-eventos"],
-          "searchQuery": "react com typescript componentes props do zero"
+          "searchQuery": "react com typescript componentes props do zero",
+          "docs": [
+            {
+              "title": "Descrevendo a sua UI",
+              "url": "https://react.dev/learn/describing-the-ui"
+            },
+            {
+              "title": "Passando props para um componente",
+              "url": "https://react.dev/learn/passing-props-to-a-component"
+            },
+            {
+              "title": "Usando TypeScript com React",
+              "url": "https://react.dev/learn/typescript"
+            }
+          ]
         },
         {
           "slug": "react-estado-eventos-listas",
@@ -314,7 +596,21 @@
           "estimatedHours": 7,
           "knownSkill": "react",
           "prerequisites": ["react-componentes-props"],
-          "searchQuery": "react useState eventos listas key tutorial"
+          "searchQuery": "react useState eventos listas key tutorial",
+          "docs": [
+            {
+              "title": "Gerenciamento de Estado no React",
+              "url": "https://react.dev/learn/state-a-components-memory"
+            },
+            {
+              "title": "Renderizacao de Listas",
+              "url": "https://react.dev/learn/rendering-lists"
+            },
+            {
+              "title": "Manipulacao de Eventos",
+              "url": "https://react.dev/learn/responding-to-events"
+            }
+          ]
         },
         {
           "slug": "react-formularios-controlados",
@@ -324,7 +620,17 @@
           "estimatedHours": 5,
           "knownSkill": "react",
           "prerequisites": ["react-estado-eventos-listas"],
-          "searchQuery": "react formulários controlados validação react hook form"
+          "searchQuery": "react formulários controlados validação react hook form",
+          "docs": [
+            {
+              "title": "Gerenciamento de Estado no React",
+              "url": "https://react.dev/learn/managing-state"
+            },
+            {
+              "title": "Usando o React com TypeScript",
+              "url": "https://react.dev/learn/typescript"
+            }
+          ]
         },
         {
           "slug": "react-useeffect-dados",
@@ -334,7 +640,21 @@
           "estimatedHours": 6,
           "knownSkill": "react",
           "prerequisites": ["react-estado-eventos-listas", "fetch-apis-json"],
-          "searchQuery": "react useEffect fetch api tutorial"
+          "searchQuery": "react useEffect fetch api tutorial",
+          "docs": [
+            {
+              "title": "Usando o Hook de Efeito",
+              "url": "https://react.dev/reference/react/useEffect"
+            },
+            {
+              "title": "Sincronizando com Efeitos",
+              "url": "https://react.dev/learn/synchronizing-with-effects"
+            },
+            {
+              "title": "Removendo Dependências de Efeito",
+              "url": "https://react.dev/learn/removing-effect-dependencies"
+            }
+          ]
         },
         {
           "slug": "react-context-hooks-customizados",
@@ -344,7 +664,17 @@
           "estimatedHours": 5,
           "knownSkill": "react",
           "prerequisites": ["react-useeffect-dados"],
-          "searchQuery": "react context api hooks customizados"
+          "searchQuery": "react context api hooks customizados",
+          "docs": [
+            {
+              "title": "Usando Contexto com TypeScript no React",
+              "url": "https://react.dev/reference/react/useContext"
+            },
+            {
+              "title": "Criando Hooks Customizados no React",
+              "url": "https://react.dev/learn/reusing-logic-with-custom-hooks"
+            }
+          ]
         },
         {
           "slug": "tailwind-css",
@@ -354,7 +684,17 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["react-componentes-props"],
-          "searchQuery": "tailwind css react tutorial completo"
+          "searchQuery": "tailwind css react tutorial completo",
+          "docs": [
+            {
+              "title": "Instalação do Tailwind CSS com Vite",
+              "url": "https://tailwindcss.com/docs/installation/using-vite"
+            },
+            {
+              "title": "Conceitos Fundamentais do Tailwind CSS",
+              "url": "https://tailwindcss.com/docs/styling-with-utility-classes"
+            }
+          ]
         }
       ],
       "project": {
@@ -376,7 +716,17 @@
           "estimatedHours": 4,
           "knownSkill": "nodejs",
           "prerequisites": ["js-assincrono-promises", "npm-pacotes-vite"],
-          "searchQuery": "node.js event loop módulos nativos explicado"
+          "searchQuery": "node.js event loop módulos nativos explicado",
+          "docs": [
+            {
+              "title": "Documentação da API de Módulos Node.js",
+              "url": "https://nodejs.org/api/module.html"
+            },
+            {
+              "title": "Documentação da API de Process do Node.js",
+              "url": "https://nodejs.org/api/process.html"
+            }
+          ]
         },
         {
           "slug": "http-rest-boas-praticas",
@@ -386,7 +736,17 @@
           "estimatedHours": 5,
           "knownSkill": "http-apis",
           "prerequisites": ["como-a-web-funciona"],
-          "searchQuery": "api rest métodos http status code boas práticas"
+          "searchQuery": "api rest métodos http status code boas práticas",
+          "docs": [
+            {
+              "title": "Métodos de requisição HTTP",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Methods"
+            },
+            {
+              "title": "Códigos de status de respostas HTTP",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status"
+            }
+          ]
         },
         {
           "slug": "modelagem-relacional",
@@ -396,7 +756,17 @@
           "estimatedHours": 5,
           "knownSkill": "sql",
           "prerequisites": [],
-          "searchQuery": "modelagem de banco de dados relacional chave primária estrangeira"
+          "searchQuery": "modelagem de banco de dados relacional chave primária estrangeira",
+          "docs": [
+            {
+              "title": "Documentação do PostgreSQL sobre definições de tabelas",
+              "url": "https://www.postgresql.org/docs/current/ddl.html"
+            },
+            {
+              "title": "Documentação do PostgreSQL sobre restrições e chaves",
+              "url": "https://www.postgresql.org/docs/current/ddl-constraints.html"
+            }
+          ]
         },
         {
           "slug": "docker-postgres-local",
@@ -406,7 +776,21 @@
           "estimatedHours": 4,
           "knownSkill": "docker",
           "prerequisites": ["terminal-basico"],
-          "searchQuery": "docker para iniciantes postgres container"
+          "searchQuery": "docker para iniciantes postgres container",
+          "docs": [
+            {
+              "title": "Documentação oficial do PostgreSQL no Docker Hub",
+              "url": "https://hub.docker.com/_/postgres"
+            },
+            {
+              "title": "Guia de introdução ao Docker",
+              "url": "https://docs.docker.com/get-started/"
+            },
+            {
+              "title": "Referência do arquivo Compose",
+              "url": "https://docs.docker.com/reference/compose-file/"
+            }
+          ]
         },
         {
           "slug": "sql-consultas-joins",
@@ -416,7 +800,21 @@
           "estimatedHours": 8,
           "knownSkill": "sql",
           "prerequisites": ["modelagem-relacional", "docker-postgres-local"],
-          "searchQuery": "sql postgresql select insert joins group by"
+          "searchQuery": "sql postgresql select insert joins group by",
+          "docs": [
+            {
+              "title": "Documentação do PostgreSQL sobre SELECT",
+              "url": "https://www.postgresql.org/docs/current/sql-select.html"
+            },
+            {
+              "title": "Documentação do PostgreSQL sobre INSERT",
+              "url": "https://www.postgresql.org/docs/current/sql-insert.html"
+            },
+            {
+              "title": "Documentação do PostgreSQL sobre Funções de Agregação",
+              "url": "https://www.postgresql.org/docs/current/tutorial-agg.html"
+            }
+          ]
         },
         {
           "slug": "postgres-indices-transacoes",
@@ -426,7 +824,21 @@
           "estimatedHours": 5,
           "knownSkill": "sql",
           "prerequisites": ["sql-consultas-joins"],
-          "searchQuery": "postgresql índices transações constraints"
+          "searchQuery": "postgresql índices transações constraints",
+          "docs": [
+            {
+              "title": "PostgreSQL Índices",
+              "url": "https://www.postgresql.org/docs/current/indexes.html"
+            },
+            {
+              "title": "PostgreSQL Restrições (Constraints)",
+              "url": "https://www.postgresql.org/docs/current/ddl-constraints.html"
+            },
+            {
+              "title": "PostgreSQL Controle de Transações",
+              "url": "https://www.postgresql.org/docs/current/tutorial-transactions.html"
+            }
+          ]
         }
       ],
       "project": {
@@ -448,7 +860,21 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["node-runtime-event-loop", "http-rest-boas-praticas", "typescript-fundamentos"],
-          "searchQuery": "nestjs do zero módulos controllers providers"
+          "searchQuery": "nestjs do zero módulos controllers providers",
+          "docs": [
+            {
+              "title": "Módulos no NestJS",
+              "url": "https://docs.nestjs.com/modules"
+            },
+            {
+              "title": "Controladores no NestJS",
+              "url": "https://docs.nestjs.com/controllers"
+            },
+            {
+              "title": "Provedores e Injeção de Dependência no NestJS",
+              "url": "https://docs.nestjs.com/providers"
+            }
+          ]
         },
         {
           "slug": "prisma-schema-migrations",
@@ -458,7 +884,21 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["sql-consultas-joins", "nestjs-modulos-controllers-providers"],
-          "searchQuery": "prisma orm postgresql migrations relacionamentos"
+          "searchQuery": "prisma orm postgresql migrations relacionamentos",
+          "docs": [
+            {
+              "title": "Modelagem de Banco de Dados com Prisma Schema",
+              "url": "https://www.prisma.io/docs/orm/v6/prisma-schema/data-model/relations/referential-actions/special-rules-for-referential-actions"
+            },
+            {
+              "title": "Migrações com Prisma Migrate",
+              "url": "https://www.prisma.io/docs/orm/migrations/how-migrations-work"
+            },
+            {
+              "title": "Relacionamentos no Prisma ORM",
+              "url": "https://www.prisma.io/docs/orm/data-modeling/relational-databases"
+            }
+          ]
         },
         {
           "slug": "nestjs-crud-dtos-validacao",
@@ -468,7 +908,21 @@
           "estimatedHours": 7,
           "knownSkill": null,
           "prerequisites": ["prisma-schema-migrations"],
-          "searchQuery": "nestjs prisma crud dto class-validator"
+          "searchQuery": "nestjs prisma crud dto class-validator",
+          "docs": [
+            {
+              "title": "NestJS - Validação de Dados",
+              "url": "https://docs.nestjs.com/techniques/validation"
+            },
+            {
+              "title": "NestJS - Trabalhando com Variáveis de Ambiente",
+              "url": "https://docs.nestjs.com/techniques/configuration"
+            },
+            {
+              "title": "Prisma - CRUD Operations",
+              "url": "https://www.prisma.io/docs/orm/fundamentals/reading-data"
+            }
+          ]
         },
         {
           "slug": "autenticacao-jwt-bcrypt",
@@ -478,7 +932,21 @@
           "estimatedHours": 8,
           "knownSkill": null,
           "prerequisites": ["nestjs-crud-dtos-validacao"],
-          "searchQuery": "nestjs autenticação jwt bcrypt login tutorial"
+          "searchQuery": "nestjs autenticação jwt bcrypt login tutorial",
+          "docs": [
+            {
+              "title": "Autenticação no NestJS",
+              "url": "https://docs.nestjs.com/security/authentication"
+            },
+            {
+              "title": "Documentação do Prisma ORM",
+              "url": "https://www.prisma.io/docs"
+            },
+            {
+              "title": "Introdução ao JSON Web Tokens",
+              "url": "https://www.jwt.io/introduction"
+            }
+          ]
         },
         {
           "slug": "guards-autorizacao-roles",
@@ -488,7 +956,17 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["autenticacao-jwt-bcrypt"],
-          "searchQuery": "nestjs guards roles autorização"
+          "searchQuery": "nestjs guards roles autorização",
+          "docs": [
+            {
+              "title": "Guards no NestJS",
+              "url": "https://docs.nestjs.com/guards"
+            },
+            {
+              "title": "Decorators personalizados no NestJS",
+              "url": "https://docs.nestjs.com/custom-decorators"
+            }
+          ]
         },
         {
           "slug": "documentacao-swagger-nestjs",
@@ -498,7 +976,17 @@
           "estimatedHours": 3,
           "knownSkill": null,
           "prerequisites": ["nestjs-crud-dtos-validacao"],
-          "searchQuery": "nestjs swagger documentação api"
+          "searchQuery": "nestjs swagger documentação api",
+          "docs": [
+            {
+              "title": "NestJS OpenAPI (Swagger) Integration",
+              "url": "https://docs.nestjs.com/openapi/introduction"
+            },
+            {
+              "title": "NestJS OpenAPI - Types and Parameters",
+              "url": "https://docs.nestjs.com/openapi/types-and-parameters"
+            }
+          ]
         }
       ],
       "project": {
@@ -520,7 +1008,17 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["react-useeffect-dados", "react-formularios-controlados"],
-          "searchQuery": "next.js app router tutorial completo"
+          "searchQuery": "next.js app router tutorial completo",
+          "docs": [
+            {
+              "title": "App Router no Next.js",
+              "url": "https://nextjs.org/docs/app"
+            },
+            {
+              "title": "Definindo Rotas no Next.js",
+              "url": "https://nextjs.org/docs/app/getting-started/layouts-and-pages"
+            }
+          ]
         },
         {
           "slug": "nextjs-server-client-components",
@@ -530,7 +1028,17 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["nextjs-app-router-rotas"],
-          "searchQuery": "next.js server components client components fetch dados"
+          "searchQuery": "next.js server components client components fetch dados",
+          "docs": [
+            {
+              "title": "Server Components no Next.js",
+              "url": "https://nextjs.org/docs/app/getting-started/server-and-client-components"
+            },
+            {
+              "title": "Busca de Dados e Caching no Next.js",
+              "url": "https://nextjs.org/docs/app/getting-started/fetching-data"
+            }
+          ]
         },
         {
           "slug": "integracao-front-api-autenticacao",
@@ -540,7 +1048,17 @@
           "estimatedHours": 8,
           "knownSkill": null,
           "prerequisites": ["nextjs-server-client-components", "autenticacao-jwt-bcrypt"],
-          "searchQuery": "next.js autenticação jwt api nestjs cookies"
+          "searchQuery": "next.js autenticação jwt api nestjs cookies",
+          "docs": [
+            {
+              "title": "Rotas de API no Next.js",
+              "url": "https://nextjs.org/docs/app/api-reference/file-conventions/route"
+            },
+            {
+              "title": "Midleware e Autenticação no Next.js",
+              "url": "https://nextjs.org/docs/app/api-reference/file-conventions/proxy"
+            }
+          ]
         },
         {
           "slug": "nextjs-server-actions-formularios",
@@ -550,7 +1068,13 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["nextjs-server-client-components"],
-          "searchQuery": "next.js server actions formulário tutorial"
+          "searchQuery": "next.js server actions formulário tutorial",
+          "docs": [
+            {
+              "title": "Server Actions e Mutação de Dados no Next.js",
+              "url": "https://nextjs.org/docs/app/getting-started/mutating-data"
+            }
+          ]
         },
         {
           "slug": "tanstack-query",
@@ -560,7 +1084,21 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["integracao-front-api-autenticacao"],
-          "searchQuery": "tanstack query react query tutorial next.js"
+          "searchQuery": "tanstack query react query tutorial next.js",
+          "docs": [
+            {
+              "title": "TanStack Query Installation",
+              "url": "https://tanstack.com/query/latest/docs/framework/react/installation"
+            },
+            {
+              "title": "TanStack Query Quick Start",
+              "url": "https://tanstack.com/query/latest/docs/framework/react/quick-start"
+            },
+            {
+              "title": "TanStack Query Overview",
+              "url": "https://tanstack.com/query/latest/docs/framework/react/overview"
+            }
+          ]
         }
       ],
       "project": {
@@ -582,7 +1120,17 @@
           "estimatedHours": 7,
           "knownSkill": null,
           "prerequisites": ["autenticacao-jwt-bcrypt"],
-          "searchQuery": "nestjs testes unitários e2e jest supertest"
+          "searchQuery": "nestjs testes unitários e2e jest supertest",
+          "docs": [
+            {
+              "title": "Documentação Oficial do Jest",
+              "url": "https://jestjs.io/docs/getting-started"
+            },
+            {
+              "title": "Guia de Testes no NestJS",
+              "url": "https://nestjs.com/docs/fundamentals/testing"
+            }
+          ]
         },
         {
           "slug": "testes-componentes-react",
@@ -592,7 +1140,17 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["react-formularios-controlados", "npm-pacotes-vite"],
-          "searchQuery": "react testing library vitest testar componentes"
+          "searchQuery": "react testing library vitest testar componentes",
+          "docs": [
+            {
+              "title": "Vitest Guia",
+              "url": "https://vitest.dev/guide/"
+            },
+            {
+              "title": "React Testing Library Guia",
+              "url": "https://testing-library.com/docs/react-testing-library/intro/"
+            }
+          ]
         },
         {
           "slug": "dockerfile-docker-compose",
@@ -602,7 +1160,21 @@
           "estimatedHours": 5,
           "knownSkill": "docker",
           "prerequisites": ["docker-postgres-local", "nestjs-crud-dtos-validacao"],
-          "searchQuery": "dockerfile docker compose nestjs postgres"
+          "searchQuery": "dockerfile docker compose nestjs postgres",
+          "docs": [
+            {
+              "title": "Referência do Dockerfile",
+              "url": "https://docs.docker.com/reference/dockerfile/"
+            },
+            {
+              "title": "Visão geral do Docker Compose",
+              "url": "https://docs.docker.com/compose/"
+            },
+            {
+              "title": "Referência do arquivo Compose",
+              "url": "https://docs.docker.com/reference/compose-file/"
+            }
+          ]
         },
         {
           "slug": "deploy-frontend-backend",
@@ -612,7 +1184,13 @@
           "estimatedHours": 5,
           "knownSkill": "cloud",
           "prerequisites": ["dockerfile-docker-compose", "nextjs-app-router-rotas", "github-repositorios-remotos"],
-          "searchQuery": "deploy next.js vercel e api nestjs postgres nuvem"
+          "searchQuery": "deploy next.js vercel e api nestjs postgres nuvem",
+          "docs": [
+            {
+              "title": "Documentação da Vercel",
+              "url": "https://vercel.com/docs"
+            }
+          ]
         },
         {
           "slug": "github-actions-ci",
@@ -622,7 +1200,13 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["testes-api-jest", "github-repositorios-remotos"],
-          "searchQuery": "github actions ci rodar testes node"
+          "searchQuery": "github actions ci rodar testes node",
+          "docs": [
+            {
+              "title": "Entendendo o GitHub Actions",
+              "url": "https://docs.github.com/pt/actions/get-started/understand-github-actions"
+            }
+          ]
         },
         {
           "slug": "logs-monitoramento",
@@ -632,7 +1216,21 @@
           "estimatedHours": 3,
           "knownSkill": null,
           "prerequisites": ["deploy-frontend-backend"],
-          "searchQuery": "logs estruturados health check monitoramento node"
+          "searchQuery": "logs estruturados health check monitoramento node",
+          "docs": [
+            {
+              "title": "Mapeando e Gerenciando Health Checks no Kubernetes",
+              "url": "https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/"
+            },
+            {
+              "title": "Visão geral de Observabilidade e Métricas no Prometheus",
+              "url": "https://prometheus.io/docs/introduction/overview/"
+            },
+            {
+              "title": "Configuração de Logs e Monitoramento no Docker",
+              "url": "https://docs.docker.com/engine/logging/"
+            }
+          ]
         }
       ],
       "project": {

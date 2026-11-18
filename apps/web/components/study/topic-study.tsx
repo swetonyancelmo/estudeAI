@@ -6,6 +6,7 @@ import {
   AlertCircle,
   ArrowLeft,
   ArrowRight,
+  BookOpen,
   Check,
   CircleDashed,
   ExternalLink,
@@ -25,7 +26,8 @@ import {
   useToggleTopic,
   useUpdateResourceProgress,
 } from "@/lib/roadmaps/api";
-import { locateTopic, studyHref } from "@/lib/roadmaps/study";
+import { docSiteName, isMdnDocUrl } from "@/lib/docs/sites";
+import { locateTopic, readerHref, studyHref } from "@/lib/roadmaps/study";
 import { TRACK_CLASS } from "@/lib/roadmaps/track";
 import {
   VIDEO_COMPLETION_RATIO,
@@ -75,7 +77,10 @@ function StudyRoom({
     (resource) =>
       resource.source === "youtube" && parseYoutubeUrl(resource.url) !== null,
   );
-  const readings = resources.filter((resource) => !playable.includes(resource));
+  const docs = resources.filter((resource) => resource.source === "docs");
+  const readings = resources.filter(
+    (resource) => !playable.includes(resource) && resource.source !== "docs",
+  );
 
   const [selectedId, setSelectedId] = useState<string | null>(
     () =>
@@ -264,39 +269,35 @@ function StudyRoom({
             </ResourceGroup>
           )}
 
+          {docs.length > 0 && (
+            <ResourceGroup title="Documentação oficial">
+              {docs.map((resource) => (
+                <ReadingItem
+                  key={resource.id}
+                  resource={resource}
+                  caption={docSiteName(resource.url)}
+                  // MDN abre no leitor do estudeAI; o resto, no site oficial.
+                  readerHref={
+                    isMdnDocUrl(resource.url)
+                      ? readerHref(roadmap.id, topic.id, resource.id)
+                      : undefined
+                  }
+                  onOpen={() => openReading(resource)}
+                  onMarkRead={() => markCompleted(resource)}
+                />
+              ))}
+            </ResourceGroup>
+          )}
+
           {readings.length > 0 && (
             <ResourceGroup title="Leituras">
               {readings.map((resource) => (
-                <li key={resource.id} className="flex items-center gap-1">
-                  <a
-                    href={resource.url}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    onClick={() => openReading(resource)}
-                    className="hover:bg-muted flex min-h-11 min-w-0 flex-1 items-center gap-3 rounded-md px-2 py-1.5 transition-colors"
-                  >
-                    <ResourceIcon resource={resource} />
-                    <span className="min-w-0 flex-1 truncate text-sm">
-                      {resource.title}
-                    </span>
-                    <ExternalLink className="text-ink-faint size-3.5 shrink-0" />
-                  </a>
-                  {resource.status === "completed" ? (
-                    <span className="flex size-9 items-center justify-center">
-                      <StatusMark status="completed" />
-                    </span>
-                  ) : (
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      aria-label={`Marcar "${resource.title}" como lido`}
-                      title="Marcar como lido"
-                      onClick={() => markCompleted(resource)}
-                    >
-                      <Check className="size-4" />
-                    </Button>
-                  )}
-                </li>
+                <ReadingItem
+                  key={resource.id}
+                  resource={resource}
+                  onOpen={() => openReading(resource)}
+                  onMarkRead={() => markCompleted(resource)}
+                />
               ))}
             </ResourceGroup>
           )}
@@ -359,13 +360,90 @@ function ResourceGroup({
   );
 }
 
+/**
+ * Linha de leitura: abre no leitor interno (`readerHref`) ou numa nova aba, e
+ * tem o botão de "marcar como lido" ao lado — fora do link, para o clique no
+ * botão não abrir a página.
+ */
+function ReadingItem({
+  resource,
+  caption,
+  readerHref: internalHref,
+  onOpen,
+  onMarkRead,
+}: {
+  resource: ResourceDto;
+  caption?: string;
+  readerHref?: string;
+  onOpen: () => void;
+  onMarkRead: () => void;
+}) {
+  const content = (
+    <>
+      <ResourceIcon resource={resource} />
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-sm">{resource.title}</span>
+        {caption && (
+          <span className="text-ink-faint block truncate font-mono text-xs">
+            {caption}
+          </span>
+        )}
+      </span>
+      {internalHref ? (
+        <ArrowRight className="text-ink-faint size-3.5 shrink-0" />
+      ) : (
+        <ExternalLink className="text-ink-faint size-3.5 shrink-0" />
+      )}
+    </>
+  );
+  const rowClass =
+    "hover:bg-muted flex min-h-11 min-w-0 flex-1 items-center gap-3 rounded-md px-2 py-1.5 transition-colors";
+
+  return (
+    <li className="flex items-center gap-1">
+      {internalHref ? (
+        <Link href={internalHref} className={rowClass}>
+          {content}
+        </Link>
+      ) : (
+        <a
+          href={resource.url}
+          target="_blank"
+          rel="noreferrer noopener"
+          onClick={onOpen}
+          className={rowClass}
+        >
+          {content}
+        </a>
+      )}
+      {resource.status === "completed" ? (
+        <span className="flex size-9 shrink-0 items-center justify-center">
+          <StatusMark status="completed" />
+        </span>
+      ) : (
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          aria-label={`Marcar "${resource.title}" como lido`}
+          title="Marcar como lido"
+          onClick={onMarkRead}
+        >
+          <Check className="size-4" />
+        </Button>
+      )}
+    </li>
+  );
+}
+
 function ResourceIcon({ resource }: { resource: ResourceDto }) {
   const Icon =
-    resource.type === "playlist"
-      ? ListVideo
-      : resource.type === "video"
-        ? Play
-        : FileText;
+    resource.source === "docs"
+      ? BookOpen
+      : resource.type === "playlist"
+        ? ListVideo
+        : resource.type === "video"
+          ? Play
+          : FileText;
   return (
     <span className="bg-muted text-muted-foreground flex size-8 shrink-0 items-center justify-center rounded-sm">
       <Icon className="size-4" />

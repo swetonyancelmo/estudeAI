@@ -43,3 +43,12 @@ export function locateTopic(
 export function studyHref(roadmapId: string, topicId: string): string {
   return `/roadmaps/${roadmapId}/topics/${topicId}`;
 }
+
+/** Rota do leitor de documentação de um recurso do tópico. */
+export function readerHref(
+  roadmapId: string,
+  topicId: string,
+  resourceId: string,
+): string {
+  return `${studyHref(roadmapId, topicId)}/docs/${resourceId}`;
+}

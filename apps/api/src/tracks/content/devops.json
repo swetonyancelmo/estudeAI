@@ -16,7 +16,17 @@
           "estimatedHours": 3,
           "knownSkill": "terminal-linux",
           "prerequisites": [],
-          "searchQuery": "linux para iniciantes instalar ubuntu wsl máquina virtual"
+          "searchQuery": "linux para iniciantes instalar ubuntu wsl máquina virtual",
+          "docs": [
+            {
+              "title": "Instalar o WSL",
+              "url": "https://learn.microsoft.com/pt-br/windows/wsl/install"
+            },
+            {
+              "title": "Manual de introdução ao Linux",
+              "url": "https://www.kernel.org/doc/html/latest/process/adding-syscalls.html"
+            }
+          ]
         },
         {
           "slug": "terminal-navegacao-arquivos",
@@ -26,7 +36,17 @@
           "estimatedHours": 6,
           "knownSkill": "terminal-linux",
           "prerequisites": ["linux-introducao-ambiente"],
-          "searchQuery": "comandos linux terminal arquivos pipes grep tutorial"
+          "searchQuery": "comandos linux terminal arquivos pipes grep tutorial",
+          "docs": [
+            {
+              "title": "Manual do usuário do Linux sobre comandos básicos e navegação",
+              "url": "https://www.man7.org/linux/man-pages/man1/bash.1.html"
+            },
+            {
+              "title": "Guia do Ubuntu para a linha de comando",
+              "url": "https://ubuntu.com/tutorials/command-line-for-beginners"
+            }
+          ]
         },
         {
           "slug": "permissoes-usuarios-grupos",
@@ -36,7 +56,21 @@
           "estimatedHours": 4,
           "knownSkill": "terminal-linux",
           "prerequisites": ["terminal-navegacao-arquivos"],
-          "searchQuery": "linux permissões chmod chown usuários grupos sudo"
+          "searchQuery": "linux permissões chmod chown usuários grupos sudo",
+          "docs": [
+            {
+              "title": "Gerenciamento de Usuários e Grupos no Ubuntu",
+              "url": "https://ubuntu.com/server/docs/security-users/"
+            },
+            {
+              "title": "Manual do chmod",
+              "url": "https://man7.org/linux/man-pages/man1/chmod.1.html"
+            },
+            {
+              "title": "Manual do chown",
+              "url": "https://man7.org/linux/man-pages/man1/chown.1.html"
+            }
+          ]
         },
         {
           "slug": "processos-servicos-systemd",
@@ -46,7 +80,13 @@
           "estimatedHours": 5,
           "knownSkill": "terminal-linux",
           "prerequisites": ["permissoes-usuarios-grupos"],
-          "searchQuery": "linux processos systemctl systemd serviços tutorial"
+          "searchQuery": "linux processos systemctl systemd serviços tutorial",
+          "docs": [
+            {
+              "title": "Gerenciando o systemd e Serviços no Debian",
+              "url": "https://www.debian.org/doc/manuals/debian-reference/ch03.pt.html"
+            }
+          ]
         },
         {
           "slug": "pacotes-logs-linux",
@@ -56,7 +96,17 @@
           "estimatedHours": 4,
           "knownSkill": "terminal-linux",
           "prerequisites": ["processos-servicos-systemd"],
-          "searchQuery": "linux apt instalar pacotes journalctl logs"
+          "searchQuery": "linux apt instalar pacotes journalctl logs",
+          "docs": [
+            {
+              "title": "Gerenciamento de pacotes Debian",
+              "url": "https://www.debian.org/doc/manuals/debian-reference/ch02.pt.html"
+            },
+            {
+              "title": "Página de manual do systemd journalctl",
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html"
+            }
+          ]
         },
         {
           "slug": "editores-vim-nano",
@@ -66,7 +116,13 @@
           "estimatedHours": 2,
           "knownSkill": "terminal-linux",
           "prerequisites": ["terminal-navegacao-arquivos"],
-          "searchQuery": "vim para iniciantes comandos básicos"
+          "searchQuery": "vim para iniciantes comandos básicos",
+          "docs": [
+            {
+              "title": "Documenta1 aficiac do Vim",
+              "url": "https://www.vim.org/docs.php"
+            }
+          ]
         }
       ],
       "project": {
@@ -88,7 +144,13 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": [],
-          "searchQuery": "modelo osi tcp ip explicado para iniciantes"
+          "searchQuery": "modelo osi tcp ip explicado para iniciantes",
+          "docs": [
+            {
+              "title": "Como a Web funciona",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works"
+            }
+          ]
         },
         {
           "slug": "enderecamento-ip-sub-redes",
@@ -98,7 +160,13 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["modelo-osi-tcp-ip"],
-          "searchQuery": "endereço ip máscara cidr sub-rede explicado"
+          "searchQuery": "endereço ip máscara cidr sub-rede explicado",
+          "docs": [
+            {
+              "title": "Documentação do Linux sobre endereçamento IP e netlink",
+              "url": "https://man7.org/linux/man-pages/man7/ip.7.html"
+            }
+          ]
         },
         {
           "slug": "dns-http-https",
@@ -108,7 +176,21 @@
           "estimatedHours": 5,
           "knownSkill": "http-apis",
           "prerequisites": ["modelo-osi-tcp-ip"],
-          "searchQuery": "como funciona dns http https certificado tls"
+          "searchQuery": "como funciona dns http https certificado tls",
+          "docs": [
+            {
+              "title": "Uma visão geral do HTTP",
+              "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Overview"
+            },
+            {
+              "title": "Certificados TLS/SSL",
+              "url": "https://letsencrypt.org/pt-br/docs/"
+            },
+            {
+              "title": "Introdução ao Cloudflare DNS",
+              "url": "https://developers.google.com/speed/public-dns"
+            }
+          ]
         },
         {
           "slug": "ssh-acesso-remoto",
@@ -118,7 +200,21 @@
           "estimatedHours": 3,
           "knownSkill": "terminal-linux",
           "prerequisites": ["terminal-navegacao-arquivos"],
-          "searchQuery": "ssh chave pública privada acesso remoto linux"
+          "searchQuery": "ssh chave pública privada acesso remoto linux",
+          "docs": [
+            {
+              "title": "Manuais do Linux: ssh",
+              "url": "https://man7.org/linux/man-pages/man1/ssh.1.html"
+            },
+            {
+              "title": "Manuais do Linux: ssh-keygen",
+              "url": "https://man7.org/linux/man-pages/man1/ssh-keygen.1.html"
+            },
+            {
+              "title": "Documentação do GitHub sobre conexão SSH",
+              "url": "https://docs.github.com/en/authentication/connecting-to-github-with-ssh"
+            }
+          ]
         },
         {
           "slug": "firewall-portas",
@@ -128,7 +224,17 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["enderecamento-ip-sub-redes", "processos-servicos-systemd"],
-          "searchQuery": "firewall linux ufw iptables portas tutorial"
+          "searchQuery": "firewall linux ufw iptables portas tutorial",
+          "docs": [
+            {
+              "title": "Gerenciamento do UFW no Ubuntu",
+              "url": "https://ubuntu.com/server/docs/security-firewall/"
+            },
+            {
+              "title": "Documentação do iptables no manual do Linux",
+              "url": "https://man7.org/linux/man-pages/man8/iptables.8.html"
+            }
+          ]
         },
         {
           "slug": "diagnostico-rede",
@@ -138,7 +244,21 @@
           "estimatedHours": 3,
           "knownSkill": null,
           "prerequisites": ["dns-http-https"],
-          "searchQuery": "comandos de rede linux ping curl dig traceroute"
+          "searchQuery": "comandos de rede linux ping curl dig traceroute",
+          "docs": [
+            {
+              "title": "Manual do curl",
+              "url": "https://man7.org/linux/man-pages/man1/curl.1.html"
+            },
+            {
+              "title": "Manual do ip",
+              "url": "https://man7.org/linux/man-pages/man8/ip.8.html"
+            },
+            {
+              "title": "Manual do ss",
+              "url": "https://man7.org/linux/man-pages/man8/ss.8.html"
+            }
+          ]
         }
       ],
       "project": {
@@ -160,7 +280,21 @@
           "estimatedHours": 5,
           "knownSkill": "git",
           "prerequisites": ["terminal-navegacao-arquivos"],
-          "searchQuery": "git para iniciantes commit branch merge tutorial"
+          "searchQuery": "git para iniciantes commit branch merge tutorial",
+          "docs": [
+            {
+              "title": "Fundamentos do Git: gravando alterações no repositório",
+              "url": "https://git-scm.com/book/pt-br/v2/Fundamentos-do-Git-Gravando-Altera%C3%A7%C3%B5es-no-Reposit%C3%B3rio"
+            },
+            {
+              "title": "Fundamentos do Git: visualizando o histórico de commits",
+              "url": "https://git-scm.com/book/pt-br/v2/Fundamentos-do-Git-Visualizando-o-Hist%C3%B3rico-de-Commits"
+            },
+            {
+              "title": "Branches no Git em poucas palavras",
+              "url": "https://git-scm.com/book/pt-br/v2/Ramifica%C3%A7%C3%A3o-Branching-no-Git-Branches-em-Poucas-Palavras"
+            }
+          ]
         },
         {
           "slug": "github-fluxo-pull-requests",
@@ -170,7 +304,17 @@
           "estimatedHours": 4,
           "knownSkill": "git",
           "prerequisites": ["git-fundamentos"],
-          "searchQuery": "github pull request fluxo de trabalho git flow"
+          "searchQuery": "github pull request fluxo de trabalho git flow",
+          "docs": [
+            {
+              "title": "Gerenciando arquivos em um repositório",
+              "url": "https://docs.github.com/pt/repositories/working-with-files"
+            },
+            {
+              "title": "Colaborando com pull requests",
+              "url": "https://docs.github.com/pt/pull-requests"
+            }
+          ]
         },
         {
           "slug": "bash-scripting",
@@ -180,7 +324,13 @@
           "estimatedHours": 8,
           "knownSkill": null,
           "prerequisites": ["permissoes-usuarios-grupos"],
-          "searchQuery": "shell script bash tutorial completo"
+          "searchQuery": "shell script bash tutorial completo",
+          "docs": [
+            {
+              "title": "Manual do Bash no Linux",
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html"
+            }
+          ]
         },
         {
           "slug": "yaml-json",
@@ -190,7 +340,17 @@
           "estimatedHours": 2,
           "knownSkill": null,
           "prerequisites": [],
-          "searchQuery": "yaml para iniciantes sintaxe explicada"
+          "searchQuery": "yaml para iniciantes sintaxe explicada",
+          "docs": [
+            {
+              "title": "Introducing JSON",
+              "url": "https://www.json.org/json-en.html"
+            },
+            {
+              "title": "YAML Specification",
+              "url": "https://yaml.org/spec/"
+            }
+          ]
         },
         {
           "slug": "python-automacao",
@@ -200,7 +360,17 @@
           "estimatedHours": 10,
           "knownSkill": null,
           "prerequisites": ["bash-scripting"],
-          "searchQuery": "python para devops automação scripts"
+          "searchQuery": "python para devops automação scripts",
+          "docs": [
+            {
+              "title": "Documentação Oficial do Python",
+              "url": "https://www.python.org/doc/"
+            },
+            {
+              "title": "Biblioteca Padrão do Python",
+              "url": "https://docs.python.org/3/library/index.html"
+            }
+          ]
         }
       ],
       "project": {
@@ -222,7 +392,13 @@
           "estimatedHours": 5,
           "knownSkill": "docker",
           "prerequisites": ["processos-servicos-systemd"],
-          "searchQuery": "docker para iniciantes containers imagens comandos"
+          "searchQuery": "docker para iniciantes containers imagens comandos",
+          "docs": [
+            {
+              "title": "Visão geral do Docker",
+              "url": "https://docs.docker.com/get-started/docker-overview/"
+            }
+          ]
         },
         {
           "slug": "dockerfile-imagens",
@@ -232,7 +408,17 @@
           "estimatedHours": 6,
           "knownSkill": "docker",
           "prerequisites": ["containers-docker-cli"],
-          "searchQuery": "dockerfile criar imagem docker hub push tutorial"
+          "searchQuery": "dockerfile criar imagem docker hub push tutorial",
+          "docs": [
+            {
+              "title": "Referencia do Dockerfile",
+              "url": "https://docs.docker.com/reference/dockerfile/"
+            },
+            {
+              "title": "Gerenciando credenciais e publicando imagens",
+              "url": "https://docs.docker.com/security/access-tokens/personal-access-tokens/"
+            }
+          ]
         },
         {
           "slug": "volumes-redes-docker",
@@ -242,7 +428,17 @@
           "estimatedHours": 4,
           "knownSkill": "docker",
           "prerequisites": ["dockerfile-imagens", "enderecamento-ip-sub-redes"],
-          "searchQuery": "docker volumes e redes networks tutorial"
+          "searchQuery": "docker volumes e redes networks tutorial",
+          "docs": [
+            {
+              "title": "Uso de volumes no Docker",
+              "url": "https://docs.docker.com/engine/storage/volumes/"
+            },
+            {
+              "title": "Visão geral das redes do Docker",
+              "url": "https://docs.docker.com/engine/network/"
+            }
+          ]
         },
         {
           "slug": "docker-compose",
@@ -252,7 +448,21 @@
           "estimatedHours": 5,
           "knownSkill": "docker",
           "prerequisites": ["volumes-redes-docker", "yaml-json"],
-          "searchQuery": "docker compose tutorial completo aplicação e banco"
+          "searchQuery": "docker compose tutorial completo aplicação e banco",
+          "docs": [
+            {
+              "title": "Visão geral do Compose",
+              "url": "https://docs.docker.com/compose/"
+            },
+            {
+              "title": "Guia de introdução ao Docker Compose",
+              "url": "https://docs.docker.com/compose/gettingstarted/"
+            },
+            {
+              "title": "Referência do arquivo Compose",
+              "url": "https://docs.docker.com/reference/compose-file/"
+            }
+          ]
         },
         {
           "slug": "docker-multistage-seguranca",
@@ -262,7 +472,13 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["dockerfile-imagens"],
-          "searchQuery": "docker multi stage build imagem menor segurança"
+          "searchQuery": "docker multi stage build imagem menor segurança",
+          "docs": [
+            {
+              "title": "Usar builds multi-stage",
+              "url": "https://docs.docker.com/build/building/multi-stage/"
+            }
+          ]
         },
         {
           "slug": "nginx-proxy-reverso",
@@ -272,7 +488,13 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["docker-compose", "dns-http-https"],
-          "searchQuery": "nginx proxy reverso docker tutorial"
+          "searchQuery": "nginx proxy reverso docker tutorial",
+          "docs": [
+            {
+              "title": "Documentação Oficial do Nginx",
+              "url": "https://nginx.org/en/docs/"
+            }
+          ]
         }
       ],
       "project": {
@@ -294,7 +516,17 @@
           "estimatedHours": 3,
           "knownSkill": null,
           "prerequisites": ["github-fluxo-pull-requests"],
-          "searchQuery": "o que é ci cd integração contínua explicado"
+          "searchQuery": "o que é ci cd integração contínua explicado",
+          "docs": [
+            {
+              "title": "Documentação de Ciclos de Vida e Introdução ao CI/CD no GitLab",
+              "url": "https://docs.gitlab.com/ci/"
+            },
+            {
+              "title": "Noções básicas de Integração Contínua com GitHub Actions",
+              "url": "https://docs.github.com/en/actions/get-started/understand-github-actions"
+            }
+          ]
         },
         {
           "slug": "github-actions-workflows",
@@ -304,7 +536,21 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["conceitos-ci-cd", "yaml-json"],
-          "searchQuery": "github actions tutorial completo workflow"
+          "searchQuery": "github actions tutorial completo workflow",
+          "docs": [
+            {
+              "title": "Entendendo o GitHub Actions",
+              "url": "https://docs.github.com/pt/actions/get-started/understand-github-actions"
+            },
+            {
+              "title": "Sintaxe de fluxo de trabalho para o GitHub Actions",
+              "url": "https://docs.github.com/pt/actions/reference/workflows-and-actions/workflow-syntax"
+            },
+            {
+              "title": "Eventos que acionam os fluxos de trabalho",
+              "url": "https://docs.github.com/pt/actions/reference/workflows-and-actions/events-that-trigger-workflows"
+            }
+          ]
         },
         {
           "slug": "pipeline-build-push-imagem",
@@ -314,7 +560,17 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["github-actions-workflows", "dockerfile-imagens"],
-          "searchQuery": "github actions build push imagem docker"
+          "searchQuery": "github actions build push imagem docker",
+          "docs": [
+            {
+              "title": "Guia de CI/CD do GitLab",
+              "url": "https://docs.gitlab.com/ci/"
+            },
+            {
+              "title": "Criando e publicando imagens Docker no GitHub Actions",
+              "url": "https://docs.github.com/pt/actions/tutorials/publish-packages/publish-docker-images"
+            }
+          ]
         },
         {
           "slug": "segredos-variaveis-pipeline",
@@ -324,7 +580,17 @@
           "estimatedHours": 3,
           "knownSkill": null,
           "prerequisites": ["github-actions-workflows"],
-          "searchQuery": "github actions secrets variáveis de ambiente environments"
+          "searchQuery": "github actions secrets variáveis de ambiente environments",
+          "docs": [
+            {
+              "title": "Variáveis e Segredos no GitLab CI/CD",
+              "url": "https://docs.gitlab.com/ci/variables/"
+            },
+            {
+              "title": "Uso de Segredos e Variáveis no GitHub Actions",
+              "url": "https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets"
+            }
+          ]
         },
         {
           "slug": "estrategias-deploy",
@@ -334,7 +600,17 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["pipeline-build-push-imagem"],
-          "searchQuery": "estratégias de deploy blue green canary rolling"
+          "searchQuery": "estratégias de deploy blue green canary rolling",
+          "docs": [
+            {
+              "title": "Kubernetes Deployment Strategies",
+              "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+            },
+            {
+              "title": "Amazon ECS Deployment Types",
+              "url": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/"
+            }
+          ]
         },
         {
           "slug": "gitlab-ci",
@@ -344,7 +620,17 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["github-actions-workflows"],
-          "searchQuery": "gitlab ci pipeline tutorial gitlab-ci.yml"
+          "searchQuery": "gitlab ci pipeline tutorial gitlab-ci.yml",
+          "docs": [
+            {
+              "title": "Introdução ao GitLab CI/CD",
+              "url": "https://docs.gitlab.com/ci/"
+            },
+            {
+              "title": "Estrutura do arquivo .gitlab-ci.yml",
+              "url": "https://docs.gitlab.com/ci/yaml/"
+            }
+          ]
         }
       ],
       "project": {
@@ -366,7 +652,17 @@
           "estimatedHours": 5,
           "knownSkill": "cloud",
           "prerequisites": [],
-          "searchQuery": "aws para iniciantes iam usuários políticas billing"
+          "searchQuery": "aws para iniciantes iam usuários políticas billing",
+          "docs": [
+            {
+              "title": "Gerenciamento de Custos e Faturamento da AWS",
+              "url": "https://aws.amazon.com/pt/aws-cost-management/"
+            },
+            {
+              "title": "O que é o IAM?",
+              "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html"
+            }
+          ]
         },
         {
           "slug": "aws-ec2-instancias",
@@ -376,7 +672,21 @@
           "estimatedHours": 6,
           "knownSkill": "cloud",
           "prerequisites": ["aws-conta-iam-custos", "ssh-acesso-remoto"],
-          "searchQuery": "aws ec2 criar instância acessar ssh tutorial"
+          "searchQuery": "aws ec2 criar instância acessar ssh tutorial",
+          "docs": [
+            {
+              "title": "O que é o Amazon EC2?",
+              "url": "https://docs.aws.amazon.com/es_es/AWSEC2/latest/UserGuide/concepts.html"
+            },
+            {
+              "title": "Tutorial: Como começar a usar instâncias do Amazon EC2 Linux",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html"
+            },
+            {
+              "title": "Conectar-se à sua instância Linux usando SSH",
+              "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-ssh.html"
+            }
+          ]
         },
         {
           "slug": "aws-vpc-security-groups",
@@ -386,7 +696,21 @@
           "estimatedHours": 6,
           "knownSkill": "cloud",
           "prerequisites": ["aws-ec2-instancias", "enderecamento-ip-sub-redes"],
-          "searchQuery": "aws vpc subnet security group explicado"
+          "searchQuery": "aws vpc subnet security group explicado",
+          "docs": [
+            {
+              "title": "O que é a Amazon VPC?",
+              "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html"
+            },
+            {
+              "title": "Tabelas de rotas para a sua VPC",
+              "url": "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html"
+            },
+            {
+              "title": "Security groups para a sua VPC",
+              "url": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html"
+            }
+          ]
         },
         {
           "slug": "aws-s3-armazenamento",
@@ -396,7 +720,21 @@
           "estimatedHours": 4,
           "knownSkill": "cloud",
           "prerequisites": ["aws-conta-iam-custos"],
-          "searchQuery": "aws s3 bucket tutorial site estático"
+          "searchQuery": "aws s3 bucket tutorial site estático",
+          "docs": [
+            {
+              "title": "O que é o Amazon S3",
+              "url": "https://aws.amazon.com/pt/s3/"
+            },
+            {
+              "title": "Hospedagem de site estático no Amazon S3",
+              "url": "https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/WebsiteHosting.html"
+            },
+            {
+              "title": "Uso de políticas baseadas em bucket para o Amazon S3",
+              "url": "https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/example-bucket-policies.html"
+            }
+          ]
         },
         {
           "slug": "aws-rds-banco-gerenciado",
@@ -406,7 +744,17 @@
           "estimatedHours": 4,
           "knownSkill": "cloud",
           "prerequisites": ["aws-vpc-security-groups"],
-          "searchQuery": "aws rds postgres tutorial"
+          "searchQuery": "aws rds postgres tutorial",
+          "docs": [
+            {
+              "title": "Amazon RDS",
+              "url": "https://aws.amazon.com/pt/rds/"
+            },
+            {
+              "title": "O que é o Amazon RDS?",
+              "url": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html"
+            }
+          ]
         },
         {
           "slug": "aws-ecs-fargate",
@@ -416,7 +764,17 @@
           "estimatedHours": 6,
           "knownSkill": "cloud",
           "prerequisites": ["aws-vpc-security-groups", "docker-compose"],
-          "searchQuery": "aws ecs fargate deploy container tutorial"
+          "searchQuery": "aws ecs fargate deploy container tutorial",
+          "docs": [
+            {
+              "title": "O que é o AWS Fargate",
+              "url": "https://aws.amazon.com/pt/fargate/"
+            },
+            {
+              "title": "Guia do usuário do Amazon ECS com AWS Fargate",
+              "url": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html"
+            }
+          ]
         }
       ],
       "project": {
@@ -438,7 +796,21 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["aws-conta-iam-custos", "git-fundamentos"],
-          "searchQuery": "terraform para iniciantes aws tutorial"
+          "searchQuery": "terraform para iniciantes aws tutorial",
+          "docs": [
+            {
+              "title": "Introdução ao Terraform",
+              "url": "https://developer.hashicorp.com/terraform/intro"
+            },
+            {
+              "title": "Provedores do Terraform",
+              "url": "https://developer.hashicorp.com/terraform/language/providers"
+            },
+            {
+              "title": "O Ciclo de Vida do Terraform",
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/plan"
+            }
+          ]
         },
         {
           "slug": "terraform-variaveis-modulos-state",
@@ -448,7 +820,21 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["iac-terraform-fundamentos"],
-          "searchQuery": "terraform variáveis módulos state remoto s3"
+          "searchQuery": "terraform variáveis módulos state remoto s3",
+          "docs": [
+            {
+              "title": "Variáveis de Entrada no Terraform",
+              "url": "https://developer.hashicorp.com/terraform/language/values/variables"
+            },
+            {
+              "title": "Outputs no Terraform",
+              "url": "https://developer.hashicorp.com/terraform/language/values/outputs"
+            },
+            {
+              "title": "Módulos no Terraform",
+              "url": "https://developer.hashicorp.com/terraform/language/block/module"
+            }
+          ]
         },
         {
           "slug": "terraform-aws-rede-servidores",
@@ -458,7 +844,21 @@
           "estimatedHours": 8,
           "knownSkill": null,
           "prerequisites": ["terraform-variaveis-modulos-state", "aws-vpc-security-groups"],
-          "searchQuery": "terraform aws vpc ec2 security group projeto"
+          "searchQuery": "terraform aws vpc ec2 security group projeto",
+          "docs": [
+            {
+              "title": "AWS Provider Documentation",
+              "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs"
+            },
+            {
+              "title": "AWS VPC Resource",
+              "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc"
+            },
+            {
+              "title": "AWS Instance Resource",
+              "url": "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance"
+            }
+          ]
         },
         {
           "slug": "terraform-no-pipeline",
@@ -468,7 +868,13 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["terraform-variaveis-modulos-state", "segredos-variaveis-pipeline"],
-          "searchQuery": "terraform github actions pipeline plan apply"
+          "searchQuery": "terraform github actions pipeline plan apply",
+          "docs": [
+            {
+              "title": "Usando o Terraform no CI/CD",
+              "url": "https://developer.hashicorp.com/terraform/tutorials/automation/automate-terraform"
+            }
+          ]
         },
         {
           "slug": "ansible-gerenciamento-configuracao",
@@ -478,7 +884,17 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["ssh-acesso-remoto", "yaml-json"],
-          "searchQuery": "ansible para iniciantes playbook tutorial"
+          "searchQuery": "ansible para iniciantes playbook tutorial",
+          "docs": [
+            {
+              "title": "Documentação Oficial do Ansible",
+              "url": "https://docs.ansible.com/projects/ansible/latest/index.html"
+            },
+            {
+              "title": "Introdução ao Ansible",
+              "url": "https://docs.ansible.com/projects/ansible/latest/getting_started/index.html"
+            }
+          ]
         }
       ],
       "project": {
@@ -500,7 +916,21 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["docker-compose"],
-          "searchQuery": "kubernetes para iniciantes arquitetura kubectl minikube kind"
+          "searchQuery": "kubernetes para iniciantes arquitetura kubectl minikube kind",
+          "docs": [
+            {
+              "title": "Conceitos básicos do Kubernetes",
+              "url": "https://kubernetes.io/pt-br/docs/tutorials/kubernetes-basics/"
+            },
+            {
+              "title": "Visão geral da arquitetura do Kubernetes",
+              "url": "https://kubernetes.io/pt-br/docs/concepts/architecture/"
+            },
+            {
+              "title": "Visão geral do kubectl",
+              "url": "https://kubernetes.io/pt-br/docs/reference/kubectl/"
+            }
+          ]
         },
         {
           "slug": "kubernetes-pods-deployments-services",
@@ -510,7 +940,21 @@
           "estimatedHours": 8,
           "knownSkill": null,
           "prerequisites": ["kubernetes-arquitetura"],
-          "searchQuery": "kubernetes pod deployment service tutorial"
+          "searchQuery": "kubernetes pod deployment service tutorial",
+          "docs": [
+            {
+              "title": "Conceitos Básicos de Pods",
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/"
+            },
+            {
+              "title": "Conceitos Básicos de Deployments",
+              "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+            },
+            {
+              "title": "Conceitos Básicos de Services",
+              "url": "https://kubernetes.io/docs/concepts/services-networking/service/"
+            }
+          ]
         },
         {
           "slug": "kubernetes-configmaps-secrets",
@@ -520,7 +964,21 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["kubernetes-pods-deployments-services"],
-          "searchQuery": "kubernetes configmap secret persistent volume"
+          "searchQuery": "kubernetes configmap secret persistent volume",
+          "docs": [
+            {
+              "title": "ConfigMaps no Kubernetes",
+              "url": "https://kubernetes.io/docs/concepts/configuration/configmap/"
+            },
+            {
+              "title": "Secrets no Kubernetes",
+              "url": "https://kubernetes.io/docs/concepts/configuration/secret/"
+            },
+            {
+              "title": "Persistent Volumes no Kubernetes",
+              "url": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/"
+            }
+          ]
         },
         {
           "slug": "kubernetes-ingress",
@@ -530,7 +988,17 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["kubernetes-pods-deployments-services", "dns-http-https"],
-          "searchQuery": "kubernetes ingress nginx tutorial"
+          "searchQuery": "kubernetes ingress nginx tutorial",
+          "docs": [
+            {
+              "title": "Conceitos de Ingress no Kubernetes",
+              "url": "https://kubernetes.io/docs/concepts/services-networking/ingress/"
+            },
+            {
+              "title": "Controladores Ingress",
+              "url": "https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/"
+            }
+          ]
         },
         {
           "slug": "helm-charts",
@@ -540,7 +1008,17 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["kubernetes-configmaps-secrets"],
-          "searchQuery": "helm charts kubernetes tutorial"
+          "searchQuery": "helm charts kubernetes tutorial",
+          "docs": [
+            {
+              "title": "Introdução ao Helm",
+              "url": "https://helm.sh/docs/intro/"
+            },
+            {
+              "title": "Guia de Desenvolvimento de Charts no Helm",
+              "url": "https://helm.sh/docs/topics/charts/"
+            }
+          ]
         },
         {
           "slug": "aws-eks",
@@ -550,7 +1028,17 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["kubernetes-ingress", "aws-vpc-security-groups"],
-          "searchQuery": "aws eks criar cluster kubernetes tutorial"
+          "searchQuery": "aws eks criar cluster kubernetes tutorial",
+          "docs": [
+            {
+              "title": "O que é o Amazon EKS",
+              "url": "https://aws.amazon.com/es/eks/"
+            },
+            {
+              "title": "Guia do usuário do Amazon EKS",
+              "url": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html"
+            }
+          ]
         }
       ],
       "project": {
@@ -572,7 +1060,17 @@
           "estimatedHours": 3,
           "knownSkill": null,
           "prerequisites": ["pacotes-logs-linux"],
-          "searchQuery": "o que é observabilidade métricas logs traces"
+          "searchQuery": "o que é observabilidade métricas logs traces",
+          "docs": [
+            {
+              "title": "Conceitos de OpenTelemetry",
+              "url": "https://opentelemetry.io/docs/concepts/"
+            },
+            {
+              "title": "Introdução ao Grafana",
+              "url": "https://grafana.com/docs/grafana/latest/introduction/"
+            }
+          ]
         },
         {
           "slug": "prometheus-metricas",
@@ -582,7 +1080,17 @@
           "estimatedHours": 6,
           "knownSkill": null,
           "prerequisites": ["observabilidade-conceitos", "docker-compose"],
-          "searchQuery": "prometheus tutorial métricas node exporter"
+          "searchQuery": "prometheus tutorial métricas node exporter",
+          "docs": [
+            {
+              "title": "Visao geral do Prometheus",
+              "url": "https://prometheus.io/docs/introduction/overview/"
+            },
+            {
+              "title": "Conceitos de metricas do Prometheus",
+              "url": "https://prometheus.io/docs/concepts/metric_types/"
+            }
+          ]
         },
         {
           "slug": "grafana-dashboards-alertas",
@@ -592,7 +1100,21 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["prometheus-metricas"],
-          "searchQuery": "grafana dashboard prometheus alertas tutorial"
+          "searchQuery": "grafana dashboard prometheus alertas tutorial",
+          "docs": [
+            {
+              "title": "Documentação do Grafana",
+              "url": "https://grafana.com/docs/"
+            },
+            {
+              "title": "Criar alertas no Grafana",
+              "url": "https://grafana.com/docs/grafana/latest/alerting/"
+            },
+            {
+              "title": "Criar e gerenciar dashboards",
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/"
+            }
+          ]
         },
         {
           "slug": "logs-centralizados-loki",
@@ -602,7 +1124,17 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["grafana-dashboards-alertas"],
-          "searchQuery": "grafana loki logs centralizados tutorial"
+          "searchQuery": "grafana loki logs centralizados tutorial",
+          "docs": [
+            {
+              "title": "Grafana Loki Documentation",
+              "url": "https://grafana.com/docs/loki/latest/"
+            },
+            {
+              "title": "Grafana Loki Promtail",
+              "url": "https://grafana.com/docs/loki/latest/send-data/promtail/"
+            }
+          ]
         },
         {
           "slug": "tracing-opentelemetry",
@@ -612,7 +1144,17 @@
           "estimatedHours": 5,
           "knownSkill": null,
           "prerequisites": ["observabilidade-conceitos"],
-          "searchQuery": "opentelemetry tracing distribuído tutorial"
+          "searchQuery": "opentelemetry tracing distribuído tutorial",
+          "docs": [
+            {
+              "title": "Conceitos de Rastreamento no OpenTelemetry",
+              "url": "https://opentelemetry.io/docs/concepts/signals/traces/"
+            },
+            {
+              "title": "Primeiros Passos com OpenTelemetry em Aplicações",
+              "url": "https://opentelemetry.io/docs/languages/js/getting-started/"
+            }
+          ]
         },
         {
           "slug": "sre-slo-incidentes",
@@ -622,7 +1164,17 @@
           "estimatedHours": 4,
           "knownSkill": null,
           "prerequisites": ["grafana-dashboards-alertas"],
-          "searchQuery": "sre sli slo sla gestão de incidentes"
+          "searchQuery": "sre sli slo sla gestão de incidentes",
+          "docs": [
+            {
+              "title": "Práticas de Engenharia de Confiabilidade do Google",
+              "url": "https://sre.google/sre-book/table-of-contents/"
+            },
+            {
+              "title": "Indicadores de Nível de Serviço na SRE",
+              "url": "https://sre.google/sre-book/service-level-objectives/"
+            }
+          ]
         }
       ],
       "project": {

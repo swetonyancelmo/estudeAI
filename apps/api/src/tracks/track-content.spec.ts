@@ -1,6 +1,8 @@
 import {
   InvalidTrackContentError,
+  MAX_TOPIC_DOCS,
   TRACK_SLUGS,
+  isOfficialDocUrl,
   loadTrack,
   validateTrackContent,
   type TrackContent,
@@ -154,5 +156,66 @@ describe('validateTrackContent', () => {
     );
 
     expect(problems).toHaveLength(3);
+  });
+});
+
+describe('docs — documentação oficial por tópico (Fase 2)', () => {
+  const mdn = {
+    title: 'Visão geral do HTTP',
+    url: 'https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Overview',
+  };
+
+  it('aceita links oficiais e tópico sem docs', () => {
+    expect(
+      problemsOf(
+        track([
+          topic('a', {
+            docs: [mdn, { title: 'React', url: 'https://react.dev/learn' }],
+          }),
+          topic('b'),
+        ]),
+      ),
+    ).toEqual([]);
+  });
+
+  it('recusa domínio que não é oficial, http e lista grande demais', () => {
+    const many = Array.from({ length: MAX_TOPIC_DOCS + 1 }, (_, index) => ({
+      title: `Doc ${index}`,
+      url: `https://developer.mozilla.org/en-US/docs/Web/${index}`,
+    }));
+    const problems = problemsOf(
+      track([
+        topic('a', {
+          docs: [
+            { title: 'Blog', url: 'https://medium.com/algum-post' },
+            { title: 'Sem TLS', url: 'http://react.dev/learn' },
+          ],
+        }),
+        topic('b', { docs: many }),
+        topic('c', { docs: [mdn, mdn] }),
+        topic('d', { docs: 'https://react.dev' }),
+      ]),
+    );
+
+    expect(problems).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('"https://medium.com/algum-post" não é https'),
+        expect.stringContaining('"http://react.dev/learn" não é https'),
+        expect.stringContaining(`no máximo ${MAX_TOPIC_DOCS} links`),
+        expect.stringContaining('doc repetido'),
+        expect.stringContaining('docs deve ser uma lista'),
+      ]),
+    );
+  });
+
+  it.each([
+    ['https://docs.aws.amazon.com/ec2/', true],
+    ['https://www.postgresql.org/docs/current/', true],
+    ['https://developer.mozilla.org.evil.com/x', false],
+    ['https://evilreact.dev/learn', false],
+    ['https://user:pw@react.dev/learn', false],
+    ['javascript:alert(1)', false],
+  ])('isOfficialDocUrl(%s) = %s', (url, expected) => {
+    expect(isOfficialDocUrl(url)).toBe(expected);
   });
 });

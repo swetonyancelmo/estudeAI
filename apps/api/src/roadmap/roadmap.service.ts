@@ -100,17 +100,33 @@ export class RoadmapService {
             estimatedHours: topic.estimatedHours,
             isCompleted: alreadyKnown,
             trackTopicId: topic.id,
-            resources: [...topic.resources]
-              .sort((a, b) => a.order - b.order)
-              .map((resource) => ({
-                title: resource.title,
-                url: resource.url,
-                type: resource.type,
-                source: resource.source,
-                ...(resource.thumbnailUrl
-                  ? { thumbnailUrl: resource.thumbnailUrl }
-                  : {}),
+            resources: [
+              // Documentação oficial curada (Fase 2): vem do JSON, então já
+              // existe mesmo enquanto a fila do YouTube não chegou no tópico.
+              ...(topic.docs ?? []).map((doc) => ({
+                title: doc.title,
+                url: doc.url,
+                type: 'article' as const,
+                source: 'docs' as const,
               })),
+              ...[...topic.resources]
+                .sort((a, b) => a.order - b.order)
+                // A mesma URL achada pela fila e curada no JSON vira uma linha
+                // só (há UNIQUE por tópico + URL em topic_resources).
+                .filter(
+                  (resource) =>
+                    !(topic.docs ?? []).some((doc) => doc.url === resource.url),
+                )
+                .map((resource) => ({
+                  title: resource.title,
+                  url: resource.url,
+                  type: resource.type,
+                  source: resource.source,
+                  ...(resource.thumbnailUrl
+                    ? { thumbnailUrl: resource.thumbnailUrl }
+                    : {}),
+                })),
+            ],
           })),
           // O projeto fecha o módulo, em todos os ritmos. Nunca nasce
           // concluído: saber a teoria não é ter construído.

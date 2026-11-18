@@ -196,6 +196,44 @@ describe('RoadmapService (geração por trilha curada)', () => {
     ]);
   });
 
+  it('documentação oficial do JSON entra antes dos links da fila, sem repetir URL', async () => {
+    const track = makeTrack();
+    const css = track.modules[1].topics[0];
+    css.docs = [
+      {
+        title: 'CSS na MDN',
+        url: 'https://developer.mozilla.org/pt-BR/docs/Web/CSS',
+      },
+      // Mesma URL que a fila já achou: deve virar uma linha só.
+      { title: 'Artigo curado', url: 'https://mdn.dev/css' },
+    ];
+    tracks.findOne.mockResolvedValue(track);
+
+    await service.generate(userId, answers);
+
+    expect(draft().modules[0].topics[1].resources).toEqual([
+      {
+        title: 'CSS na MDN',
+        url: 'https://developer.mozilla.org/pt-BR/docs/Web/CSS',
+        type: 'article',
+        source: 'docs',
+      },
+      {
+        title: 'Artigo curado',
+        url: 'https://mdn.dev/css',
+        type: 'article',
+        source: 'docs',
+      },
+      {
+        title: 'Aula',
+        url: 'https://youtu.be/css',
+        type: 'video',
+        source: 'youtube',
+        thumbnailUrl: 'https://i.ytimg.com/css.jpg',
+      },
+    ]);
+  });
+
   it('entrega à justificativa os números do recorte, não os da trilha inteira', async () => {
     await service.generate(userId, answers);
 

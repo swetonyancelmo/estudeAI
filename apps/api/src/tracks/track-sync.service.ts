@@ -11,6 +11,25 @@ import {
   type TrackSlug,
 } from './track-content';
 
+/**
+ * Leva a documentação oficial da trilha para os roadmaps que já existem
+ * (Fase 2): cada tópico de usuário nascido de um tópico da trilha ganha os
+ * links que ainda não tem, e as que já tem seguem a ordem de leitura do JSON.
+ * Nunca apaga — doc tirada do JSON continua no roadmap de quem já tinha, junto
+ * com o "lido" que a pessoa marcou nela.
+ */
+const COPY_DOCS_TO_USER_TOPICS_SQL = `
+  INSERT INTO "topic_resources" ("topic_id", "title", "url", "type", "source", "order_index")
+  SELECT t."id", d.doc->>'title', d.doc->>'url', 'article', 'docs', d.position - 1
+  FROM "roadmap_topics" t
+  JOIN "track_topics" tt ON tt."id" = t."track_topic_id"
+  CROSS JOIN LATERAL jsonb_array_elements(tt."docs") WITH ORDINALITY AS d(doc, position)
+  WHERE tt."track_id" = $1
+  ON CONFLICT ("topic_id", "url") DO UPDATE
+    SET "order_index" = EXCLUDED."order_index"
+    WHERE "topic_resources"."source" = 'docs'
+`;
+
 /** Chave do advisory lock: duas instâncias subindo juntas não sincronizam em paralelo. */
 const SYNC_LOCK_KEY = 'estudeai:track-sync';
 
@@ -142,6 +161,7 @@ export class TrackSyncService implements OnApplicationBootstrap {
             knownSkill: topicContent.knownSkill,
             prerequisites: topicContent.prerequisites,
             searchQuery: topicContent.searchQuery,
+            docs: topicContent.docs ?? [],
             order: topicIndex,
             resourcesFetchedAt:
               oldTopic && !requeue ? oldTopic.resourcesFetchedAt : null,
@@ -175,6 +195,8 @@ export class TrackSyncService implements OnApplicationBootstrap {
     if (removedModuleIds.length > 0) {
       await manager.delete(TrackModule, { id: In(removedModuleIds) });
     }
+
+    await manager.query(COPY_DOCS_TO_USER_TOPICS_SQL, [track.id]);
 
     return existing ? 'updated' : 'created';
   }

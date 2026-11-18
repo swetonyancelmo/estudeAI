@@ -296,6 +296,80 @@
   }
 }
 
+/* Texto da documentação no leitor (Fase 2). O HTML vem da MDN, já
+   sanitizado na API; aqui só a tipografia, com os tokens do produto. */
+@layer components {
+  .doc-prose {
+    @apply flex flex-col gap-8 text-base;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+  .doc-prose section {
+    @apply flex flex-col gap-3;
+  }
+  .doc-prose h2 {
+    @apply text-2xl;
+    scroll-margin-top: 5rem;
+  }
+  .doc-prose h3,
+  .doc-prose h4 {
+    @apply text-xl;
+    scroll-margin-top: 5rem;
+  }
+  .doc-prose :where(div > *) + :where(*) {
+    margin-top: 0.75rem;
+  }
+  .doc-prose a {
+    @apply text-brand-ink underline underline-offset-4;
+  }
+  .doc-prose a:hover {
+    @apply decoration-2;
+  }
+  .doc-prose :not(pre) > code {
+    @apply bg-muted rounded-sm px-1 py-0.5 font-mono text-sm;
+  }
+  .doc-prose pre {
+    @apply bg-muted border-border overflow-x-auto rounded-lg border p-4 font-mono text-sm;
+    line-height: 1.6;
+    overflow-wrap: normal;
+  }
+  .doc-prose ul {
+    @apply list-disc pl-6;
+  }
+  .doc-prose ol {
+    @apply list-decimal pl-6;
+  }
+  .doc-prose li + li {
+    margin-top: 0.25rem;
+  }
+  .doc-prose dt {
+    @apply font-semibold;
+  }
+  .doc-prose dd {
+    @apply text-muted-foreground pl-5;
+  }
+  .doc-prose blockquote {
+    @apply border-line text-muted-foreground border-l-[3px] pl-4;
+  }
+  .doc-prose .notecard {
+    @apply bg-muted border-line rounded-md border-l-[3px] px-4 py-3 text-sm;
+  }
+  .doc-prose table {
+    @apply block w-full overflow-x-auto text-sm;
+    border-collapse: collapse;
+  }
+  .doc-prose th,
+  .doc-prose td {
+    @apply border-border border px-3 py-2 text-left align-top;
+  }
+  .doc-prose th {
+    @apply bg-muted font-semibold;
+  }
+  .doc-prose img {
+    @apply h-auto max-w-full rounded-md;
+  }
+}
+
 @keyframes route-draw {
   to {
     stroke-dashoffset: 0;

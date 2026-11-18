@@ -194,4 +194,58 @@ describe('TrackSyncService', () => {
     ).toEqual(['css', 'variaveis']);
     expect(db.rows(TrackModule).map((m) => m.slug)).toEqual(['js']);
   });
+
+  describe('documentação oficial (Fase 2)', () => {
+    const docs = [
+      {
+        title: 'Visão geral do HTTP',
+        url: 'https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Overview',
+      },
+    ];
+    const withDocs = loaded('hash-docs', [
+      {
+        ...moduleOf('base', [{ slug: 'html' }]),
+        topics: [{ ...moduleOf('base', [{ slug: 'html' }]).topics[0], docs }],
+      },
+    ]);
+
+    it('grava as docs no tópico e as leva aos roadmaps existentes', async () => {
+      const db = fakeDatabase();
+      const service = new TrackSyncService(db.dataSource);
+
+      await service.syncTrack('frontend', withDocs);
+
+      expect(db.rows(TrackTopic)[0].docs).toEqual(docs);
+      const track = db.rows(Track)[0];
+      expect(db.manager.query).toHaveBeenCalledWith(
+        expect.stringContaining('jsonb_array_elements'),
+        [track.id],
+      );
+    });
+
+    it('tópico sem docs no JSON fica com lista vazia', async () => {
+      const db = fakeDatabase();
+      const service = new TrackSyncService(db.dataSource);
+
+      await service.syncTrack('frontend', v1);
+
+      expect(db.rows(TrackTopic).every((t) => Array.isArray(t.docs))).toBe(
+        true,
+      );
+      expect(db.rows(TrackTopic)[0].docs).toEqual([]);
+    });
+
+    it('hash igual não copia nada de novo', async () => {
+      const db = fakeDatabase();
+      const service = new TrackSyncService(db.dataSource);
+      await service.syncTrack('frontend', withDocs);
+      db.manager.query.mockClear();
+
+      expect(await service.syncTrack('frontend', withDocs)).toBe('unchanged');
+      expect(db.manager.query).not.toHaveBeenCalledWith(
+        expect.stringContaining('jsonb_array_elements'),
+        expect.anything(),
+      );
+    });
+  });
 });

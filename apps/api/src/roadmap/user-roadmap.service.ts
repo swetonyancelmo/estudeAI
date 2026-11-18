@@ -483,7 +483,7 @@ export class UserRoadmapService {
     }
 
     const seen = new Set<string>();
-    return resources.flatMap((resource) => {
+    return resources.flatMap((resource, order) => {
       if (seen.has(resource.url)) {
         return [];
       }
@@ -495,6 +495,7 @@ export class UserRoadmapService {
           type: resource.type,
           thumbnailUrl: resource.thumbnailUrl ?? null,
           source: resource.source,
+          order,
         },
       ];
     });
@@ -614,6 +615,7 @@ export class UserRoadmapService {
       .sort(
         (a, b) =>
           Number(a.source === last) - Number(b.source === last) ||
+          (a.order ?? 0) - (b.order ?? 0) ||
           a.title.localeCompare(b.title),
       )
       .map((resource) => ({
