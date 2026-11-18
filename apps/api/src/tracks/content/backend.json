@@ -30,6 +30,56 @@
               "title": "Métodos de requisição HTTP",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Methods"
             }
+          ],
+          "quiz": [
+            {
+              "id": "como-a-web-funciona-1",
+              "question": "Qual é o principal papel do navegador (cliente) em uma requisição web?",
+              "options": [
+                "Processar os dados e salvar o banco de dados.",
+                "Enviar a requisição e exibir a resposta recebida.",
+                "Executar toda a lógica de segurança do servidor.",
+                "Armazenar permanentemente os arquivos do site."
+              ],
+              "answerIndex": 1,
+              "explanation": "O cliente inicia o processo pedindo o recurso e renderiza o que o servidor devolve. O processamento pesado e o banco de dados ficam no servidor."
+            },
+            {
+              "id": "como-a-web-funciona-2",
+              "question": "O que caracteriza principalmente o protocolo HTTP na comunicação web?",
+              "options": [
+                "Ele funciona no modelo de requisição e resposta.",
+                "Ele mantém uma conexão contínua aberta o tempo todo.",
+                "Ele criptografa obrigatoriamente todos os dados enviados.",
+                "Ele exige que o cliente envie dados antes de pedir páginas."
+              ],
+              "answerIndex": 0,
+              "explanation": "O HTTP é baseado no ciclo onde o cliente envia uma requisição e o servidor devolve uma resposta. A criptografia é papel do HTTPS."
+            },
+            {
+              "id": "como-a-web-funciona-3",
+              "question": "Qual método HTTP deve ser usado preferencialmente para enviar dados novos, como o cadastro de um usuário?",
+              "options": [
+                "GET",
+                "FETCH",
+                "SEND",
+                "POST"
+              ],
+              "answerIndex": 3,
+              "explanation": "O método POST é projetado semanticamente para enviar novos dados ao servidor para processamento. O GET é usado apenas para buscar recursos."
+            },
+            {
+              "id": "como-a-web-funciona-4",
+              "question": "Qual método HTTP é o mais adequado para buscar dados de uma API sem alterar nenhum registro?",
+              "options": [
+                "POST",
+                "PUT",
+                "GET",
+                "PUSH"
+              ],
+              "answerIndex": 2,
+              "explanation": "O método GET é seguro e idempotente, ideal para solicitar a visualização de recursos. Ele não deve modificar o estado no servidor."
+            }
           ]
         },
         {
@@ -50,6 +100,56 @@
               "title": "Documentação Oficial do Node.js",
               "url": "https://nodejs.org/docs/latest/api/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "ambiente-de-desenvolvimento-1",
+              "question": "Qual é a principal função do Node.js em um ambiente de desenvolvimento backend?",
+              "options": [
+                "Executar código JavaScript fora do navegador.",
+                "Criar interfaces visuais e estilizar páginas web.",
+                "Gerenciar o banco de dados relacional do servidor.",
+                "Compilar código HTML para otimizar o carregamento."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Node.js é um ambiente de execução que permite rodar código JavaScript no lado do servidor, longe do navegador."
+            },
+            {
+              "id": "ambiente-de-desenvolvimento-2",
+              "question": "Para que serve o arquivo package.json em um projeto Node.js?",
+              "options": [
+                "Para armazenar senhas e chaves de API secretas.",
+                "Para conter o código principal executado pelo servidor.",
+                "Para registrar metadados do projeto e dependências.",
+                "Para definir as regras visuais de estilização do projeto."
+              ],
+              "answerIndex": 2,
+              "explanation": "O package.json armazena informações vitais do projeto, incluindo os pacotes instalados e scripts de execução."
+            },
+            {
+              "id": "ambiente-de-desenvolvimento-3",
+              "question": "Por que instalamos extensões de formatadores de código, como o Prettier, no VS Code?",
+              "options": [
+                "Para encontrar e corrigir automaticamente erros lógicos de negócio.",
+                "Para traduzir o código JavaScript para outras linguagens.",
+                "Para acelerar a velocidade de processamento do servidor Node.js.",
+                "Para padronizar a indentação e o estilo do código automaticamente."
+              ],
+              "answerIndex": 3,
+              "explanation": "Formatadores ajudam a manter um padrão visual consistente no código, mas não alteram a lógica nem corrigem bugs complexos."
+            },
+            {
+              "id": "ambiente-de-desenvolvimento-4",
+              "question": "O que acontece ao executar o comando `node app.js` no terminal integrado do VS Code?",
+              "options": [
+                "O arquivo é compilado em um programa executável nativo.",
+                "O arquivo app.js é interpretado e executado pelo Node.js.",
+                "O navegador abre automaticamente exibindo a página app.js.",
+                "O código é enviado para um servidor remoto na nuvem."
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando aciona o interpretador do Node.js para rodar o script especificado diretamente no ambiente local."
+            }
           ]
         },
         {
@@ -69,6 +169,56 @@
             {
               "title": "Comandos básicos do Ubuntu",
               "url": "https://ubuntu.com/tutorials/command-line-for-beginners"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "terminal-basico-1",
+              "question": "Qual comando no terminal é utilizado para listar todos os arquivos e pastas do diretório atual, incluindo ocultos?",
+              "options": [
+                "ls -l",
+                "dir -h",
+                "ls -a",
+                "show all"
+              ],
+              "answerIndex": 2,
+              "explanation": "A flag -a mostra os arquivos ocultos, que começam com ponto. O erro comum é usar -l, que exibe os detalhes mas oculta esses arquivos."
+            },
+            {
+              "id": "terminal-basico-2",
+              "question": "Ao digitar um comando no terminal, como você faz para navegar rapidamente pelos comandos digitados anteriormente?",
+              "options": [
+                "Digitar a palavra history e apertar enter",
+                "Pressionar as setas para cima e para baixo",
+                "Usar as teclas de seta para a esquerda e direita",
+                "Pressionar a tecla Tab repetidamente"
+              ],
+              "answerIndex": 1,
+              "explanation": "As setas verticais percorrem o histórico de comandos. O comando history lista tudo, mas as setas são o atalho rápido."
+            },
+            {
+              "id": "terminal-basico-3",
+              "question": "Você está na pasta '/home/usuario/projetos' e quer ir diretamente para '/home/usuario'. Qual comando usar?",
+              "options": [
+                "cd ..",
+                "cd /home",
+                "cd root",
+                "cd back"
+              ],
+              "answerIndex": 0,
+              "explanation": "O atalho '..' representa o diretório pai (acima na hierarquia). 'cd /home' levaria para outra pasta e 'cd back' não é um comando padrão."
+            },
+            {
+              "id": "terminal-basico-4",
+              "question": "Qual comando você deve digitar para criar um novo diretório vazio chamado 'testes' na pasta atual?",
+              "options": [
+                "touch testes",
+                "newdir testes",
+                "create testes",
+                "mkdir testes"
+              ],
+              "answerIndex": 3,
+              "explanation": "O comando mkdir (make directory) cria pastas. O comando touch é usado tipicamente para criar arquivos vazios."
             }
           ]
         },
@@ -94,6 +244,56 @@
               "title": "Branches no Git em poucas palavras",
               "url": "https://git-scm.com/book/pt-br/v2/Ramifica%C3%A7%C3%A3o-Branching-no-Git-Branches-em-Poucas-Palavras"
             }
+          ],
+          "quiz": [
+            {
+              "id": "git-fundamentos-1",
+              "question": "Qual é a principal função do comando `git add` no fluxo básico de trabalho?",
+              "options": [
+                "Salvar permanentemente as alterações no histórico do repositório.",
+                "Enviar as modificações locais para o servidor remoto na nuvem.",
+                "Preparar os arquivos modificados para entrarem no próximo commit.",
+                "Criar um novo arquivo de texto pronto para receber código."
+              ],
+              "answerIndex": 2,
+              "explanation": "O git add move as alterações da área de trabalho para a área de preparação (staging area). O comando que salva de fato no histórico é o commit."
+            },
+            {
+              "id": "git-fundamentos-2",
+              "question": "Para que serve o comando `git log` na rotina de desenvolvimento?",
+              "options": [
+                "Para listar todos os arquivos modificados que ainda não foram salvos.",
+                "Para visualizar o histórico cronológico dos commits já realizados.",
+                "Para verificar quais branches existem no repositório atual.",
+                "Para monitorar erros de compilação em tempo real no código."
+              ],
+              "answerIndex": 1,
+              "explanation": "O git log exibe a lista de commits feitos no projeto, mostrando o autor, a data e a mensagem de cada alteração registrada."
+            },
+            {
+              "id": "git-fundamentos-3",
+              "question": "O que representa uma branch (ramificação) no Git?",
+              "options": [
+                "Uma cópia física duplicada de toda a pasta do projeto no computador.",
+                "Um arquivo de configuração que armazena senhas de acesso remoto.",
+                "Uma pasta separada gerada automaticamente ao salvar um arquivo.",
+                "Um ponteiro leve e móvel para um commit específico do projeto."
+              ],
+              "answerIndex": 3,
+              "explanation": "No Git, branches não são cópias de pastas, mas sim referências leves para uma linha específica de desenvolvimento baseada em commits."
+            },
+            {
+              "id": "git-fundamentos-4",
+              "question": "Qual é o efeito do comando `git checkout -b nova-branch`?",
+              "options": [
+                "Cria uma nova branch e muda para ela imediatamente.",
+                "Apaga a branch atual e cria uma nova com o mesmo nome.",
+                "Envia a branch atual para o repositório remoto na nuvem.",
+                "Salva o trabalho atual e remove o histórico da branch."
+              ],
+              "answerIndex": 0,
+              "explanation": "A flag -b combinada com o checkout cria a ramificação informada e já faz a troca (switch) para ela em um único comando."
+            }
           ]
         },
         {
@@ -114,6 +314,56 @@
               "title": "Trabalhando com Git e GitHub",
               "url": "https://docs.github.com/pt/get-started/using-git/about-git"
             }
+          ],
+          "quiz": [
+            {
+              "id": "github-repositorios-remotos-1",
+              "question": "Qual é a principal função do comando `git push`?",
+              "options": [
+                "Baixar alterações do repositório remoto para a máquina.",
+                "Enviar commits locais para o repositório remoto.",
+                "Criar um novo repositório no GitHub.",
+                "Apagar branches obsoletas do servidor."
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando push empurra o seu histórico de commits locais para que fiquem salvos e sincronizados no servidor remoto."
+            },
+            {
+              "id": "github-repositorios-remotos-2",
+              "question": "O que representa uma Pull Request (PR) no fluxo do GitHub?",
+              "options": [
+                "Uma proposta para integrar alterações em um branch.",
+                "Um comando direto para apagar um branch remoto.",
+                "Um erro de sincronização entre dois repositórios.",
+                "Uma solicitação automática para baixar código."
+              ],
+              "answerIndex": 0,
+              "explanation": "A Pull Request avisa a equipe que você tem código pronto para ser revisado e possivelmente integrado ao projeto principal."
+            },
+            {
+              "id": "github-repositorios-remotos-3",
+              "question": "Antes de enviar seu código com `git push`, qual é a boa prática recomendada?",
+              "options": [
+                "Reiniciar o editor de código e o terminal.",
+                "Deletar o histórico local de commits.",
+                "Executar `git pull` para evitar conflitos.",
+                "Criar um novo repositório do zero."
+              ],
+              "answerIndex": 2,
+              "explanation": "Puxar as atualizações recentes garante que sua versão local está atualizada com o que outros desenvolvedores enviaram."
+            },
+            {
+              "id": "github-repositorios-remotos-4",
+              "question": "Onde o código-fonte principal geralmente fica armazenado para toda a equipe?",
+              "options": [
+                "Exclusivamente no disco rígido do desenvolvedor sênior.",
+                "Em um arquivo compactado enviado por email.",
+                "Na memória cache do navegador web.",
+                "No repositório remoto hospedado no GitHub."
+              ],
+              "answerIndex": 3,
+              "explanation": "O repositório remoto centraliza o trabalho de todos, permitindo que a equipe colabore de forma organizada."
+            }
           ]
         },
         {
@@ -129,6 +379,56 @@
             {
               "title": "Manuais do Kernel Linux para Processos e Permissões",
               "url": "https://www.kernel.org/doc/man-pages/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "linux-permissoes-processos-1",
+              "question": "Um processo em execução consome muita CPU e precisa ser encerrado imediatamente. Qual comando envia o sinal mais seguro para que ele termine suas tarefas e feche?",
+              "options": [
+                "kill -9 PID",
+                "stop PID",
+                "kill -15 PID",
+                "halt PID"
+              ],
+              "answerIndex": 2,
+              "explanation": "O sinal 15 (SIGTERM) pede o encerramento gracioso, permitindo salvar dados. O sinal 9 força a parada imediata sem limpeza."
+            },
+            {
+              "id": "linux-permissoes-processos-2",
+              "question": "Um script Node.js precisa ler uma porta configurada no sistema. Qual a melhor forma de disponibilizar essa configuração para a aplicação via terminal?",
+              "options": [
+                "Modificar o arquivo de configuração global do sistema operacional.",
+                "Definir a variável de ambiente antes de rodar o comando.",
+                "Salvar o valor na pasta raiz do usuário logado.",
+                "Passar o dado diretamente pelo arquivo de log do processo."
+              ],
+              "answerIndex": 1,
+              "explanation": "Variáveis de ambiente isolam configurações por execução. Modificar arquivos globais afeta todo o sistema desnecessariamente."
+            },
+            {
+              "id": "linux-permissoes-processos-3",
+              "question": "Qual comando altera as permissões de um arquivo para que apenas o dono possa ler, gravar e executar, removendo qualquer acesso para grupo e outros?",
+              "options": [
+                "chmod 700 arquivo.sh",
+                "chmod 007 arquivo.sh",
+                "chmod 777 arquivo.sh",
+                "chmod 100 arquivo.sh"
+              ],
+              "answerIndex": 0,
+              "explanation": "O dígito 7 representa leitura (4), escrita (2) e execução (1) somados para o dono. Os zeros seguintes zeram o acesso de grupo e outros."
+            },
+            {
+              "id": "linux-permissoes-processos-4",
+              "question": "Um desenvolvedor precisa verificar quais processos estão consumindo mais memória RAM no momento. Qual comando exibe essa lista de forma dinâmica?",
+              "options": [
+                "cat /proc/meminfo",
+                "ps -ef",
+                "free -h",
+                "top"
+              ],
+              "answerIndex": 3,
+              "explanation": "O comando top atualiza a lista de processos em tempo real. O ps -ef mostra uma foto estática e o free resume o total."
             }
           ]
         }
@@ -162,6 +462,56 @@
               "title": "Expressões e operadores",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_operators"
             }
+          ],
+          "quiz": [
+            {
+              "id": "js-variaveis-tipos-operadores-1",
+              "question": "O que o operador de igualdade estrita (`===`) avalia ao comparar dois valores?",
+              "options": [
+                "Ele verifica se o valor e o tipo de dado de ambos os operandos são idênticos.",
+                "Ele converte ambos os operandos para número antes de comparar os valores.",
+                "Ele verifica apenas se os valores são equivalentes, ignorando os tipos.",
+                "Ele aloca os dois valores na memória para comparar seus endereços."
+              ],
+              "answerIndex": 0,
+              "explanation": "O operador `===` exige que tanto o valor quanto o tipo sejam iguais, evitando conversões implícitas indesejadas que ocorrem no `==`."
+            },
+            {
+              "id": "js-variaveis-tipos-operadores-2",
+              "question": "Qual o resultado impresso no console pela operação `console.log(typeof null)` em JavaScript?",
+              "options": [
+                "\"null\"",
+                "\"undefined\"",
+                "\"boolean\"",
+                "\"object\""
+              ],
+              "answerIndex": 3,
+              "explanation": "Devido a um bug histórico na primeira implementação do JavaScript que nunca foi corrigido para evitar quebra de código, `typeof null` retorna \"object\"."
+            },
+            {
+              "id": "js-variaveis-tipos-operadores-3",
+              "question": "Qual é o valor booleano associado a uma string não vazia quando avaliada em um contexto condicional?",
+              "options": [
+                "false",
+                "undefined",
+                "true",
+                "null"
+              ],
+              "answerIndex": 2,
+              "explanation": "Em JavaScript, strings não vazias são consideradas valores truthy, logo avaliam para true em estruturas condicionais."
+            },
+            {
+              "id": "js-variaveis-tipos-operadores-4",
+              "question": "Como declarar corretamente uma variável cujo valor será alterado ao longo da execução da função?",
+              "options": [
+                "Usando a palavra-chave `constant` antes do nome da variável.",
+                "Usando a palavra-chave `let` seguida pelo nome da variável.",
+                "Atribuindo o valor diretamente sem usar nenhuma palavra-chave.",
+                "Usando a palavra-chave `static` para fixar o tipo de dado."
+              ],
+              "answerIndex": 1,
+              "explanation": "A palavra-chave `let` é a forma moderna recomendada para declarar variáveis cujos valores podem mudar. A ausência de palavra-chave pode gerar variáveis globais acidentais."
+            }
           ]
         },
         {
@@ -185,6 +535,56 @@
             {
               "title": "Laços e iterações",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Loops_and_iteration"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "js-condicionais-lacos-1",
+              "question": "Ao usar o comando `switch`, o que acontece se você esquecer de colocar `break` ao final de um caso?",
+              "options": [
+                "O JavaScript gerará um erro de sintaxe imediato.",
+                "O programa será encerrado automaticamente pelo interpretador.",
+                "Apenas o primeiro comando do caso seguinte será ignorado.",
+                "O código continuará executando os próximos casos sequencialmente."
+              ],
+              "answerIndex": 3,
+              "explanation": "Sem o `break`, ocorre o comportamento de 'fall-through', onde a execução flui para os blocos seguintes independentemente dos valores."
+            },
+            {
+              "id": "js-condicionais-lacos-2",
+              "question": "Qual laço de repetição é mais adequado quando sabemos exatamente quantas vezes o bloco deve ser executado?",
+              "options": [
+                "O laço `for`.",
+                "O laço `while`.",
+                "A estrutura `switch`.",
+                "A condicional `if...else`."
+              ],
+              "answerIndex": 0,
+              "explanation": "O `for` agrupa inicialização, condição e incremento em uma única linha, sendo ideal para contagens definidas."
+            },
+            {
+              "id": "js-condicionais-lacos-3",
+              "question": "Dada a condição `if (x == '5')` onde `x` armazena o número 5, qual será o resultado?",
+              "options": [
+                "Será avaliada como falsa pois os tipos de dados são diferentes.",
+                "Será avaliada como verdadeira devido à coerção de tipo.",
+                "Gerará um erro de incompatibilidade de tipos no console.",
+                "Fará a conversão automática da variável `x` para string."
+              ],
+              "answerIndex": 1,
+              "explanation": "O operador `==` realiza conversão implícita de tipos, fazendo com que a string '5' e o número 5 sejam considerados iguais."
+            },
+            {
+              "id": "js-condicionais-lacos-4",
+              "question": "Como podemos interromper prematuramente a execução de um laço `for` antes que sua condição termine?",
+              "options": [
+                "Utilizando a instrução `return` fora de funções.",
+                "Atribuindo o valor zero à variável de controle.",
+                "Utilizando a instrução `break` dentro do bloco.",
+                "Utilizando o comando `stop` no escopo global."
+              ],
+              "answerIndex": 2,
+              "explanation": "A instrução `break` força a saída imediata do loop atual, encerrando as iterações restantes."
             }
           ]
         },
@@ -210,6 +610,56 @@
               "title": "Closures",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures"
             }
+          ],
+          "quiz": [
+            {
+              "id": "js-funcoes-escopo-1",
+              "question": "Qual é a principal diferença no comportamento da palavra-chave `this` em uma arrow function em comparação com uma função tradicional?",
+              "options": [
+                "A arrow function cria seu próprio `this` dinamicamente ao ser chamada.",
+                "A arrow function herda o `this` do contexto léxico onde foi criada.",
+                "O `this` na arrow function aponta sempre para o objeto global.",
+                "A arrow function impede o uso da palavra-chave `this` em seu corpo."
+              ],
+              "answerIndex": 1,
+              "explanation": "Arrow functions não possuem seu próprio `this`; elas capturam o valor do `this` do escopo envolvente (léxico). O erro comum é achar que o `this` funciona igual ao de funções comuns."
+            },
+            {
+              "id": "js-funcoes-escopo-2",
+              "question": "O que acontece quando tentamos acessar uma variável declarada com `let` dentro de uma função antes da linha de sua declaração?",
+              "options": [
+                "A variável retorna o valor `undefined` silenciosamente.",
+                "O JavaScript eleva a variável e assume o valor booleano falso.",
+                "A função é executada normalmente ignorando a linha da variável.",
+                "Ocorre um erro de referência devido à zona morta temporal."
+              ],
+              "answerIndex": 3,
+              "explanation": "Variáveis `let` sofrem hoisting mas não são inicializadas, ficando na Zona Morta Temporal até a linha de declaração. O erro comum é confundi-las com o comportamento de `var`."
+            },
+            {
+              "id": "js-funcoes-escopo-3",
+              "question": "Como podemos definir um valor padrão para um parâmetro em uma função em JavaScript moderno?",
+              "options": [
+                "Verificando se o argumento é nulo usando `typeof` no corpo.",
+                "Utilizando o objeto arguments dentro da função para checar o tamanho.",
+                "Atribuindo o valor diretamente na assinatura, como `function(x = 10) {}`.",
+                "Declarando o valor padrão com a palavra-chave `default` antes do nome."
+              ],
+              "answerIndex": 2,
+              "explanation": "Parâmetros padrão permitem inicializar parâmetros com valores caso nenhum argumento seja passado ou se o valor for `undefined`. O erro comum é usar verificações manuais antigas."
+            },
+            {
+              "id": "js-funcoes-escopo-4",
+              "question": "O que define o escopo de uma variável declarada com a palavra-chave `let` dentro de um bloco `if`?",
+              "options": [
+                "Ela fica restrita apenas ao bloco onde foi declarada.",
+                "Ela fica visível em toda a função que contém o bloco `if`.",
+                "Ela se torna automaticamente uma variável global acessível no arquivo.",
+                "Ela é válida apenas na linha imediatamente seguinte à declaração."
+              ],
+              "answerIndex": 0,
+              "explanation": "Variáveis criadas com `let` possuem escopo de bloco (`block scope`), existindo apenas dentro das chaves onde foram definidas. O erro comum é achar que o escopo é sempre a função inteira."
+            }
           ]
         },
         {
@@ -233,6 +683,56 @@
             {
               "title": "Array",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "js-arrays-objetos-1",
+              "question": "Qual é a forma correta de acessar a propriedade 'nome' de um objeto chamado 'usuario'?",
+              "options": [
+                "usuario[nome]",
+                "usuario->nome",
+                "usuario.nome",
+                "usuario.get('nome')"
+              ],
+              "answerIndex": 2,
+              "explanation": "Acessar propriedades pode ser feito usando a notação de ponto (usuario.nome) ou colchetes com string. Usar usuario[nome] sem aspas tentará buscar uma variável chamada nome."
+            },
+            {
+              "id": "js-arrays-objetos-2",
+              "question": "Como adicionar um novo elemento ao final de um array chamado 'tarefas'?",
+              "options": [
+                "tarefas.push(item)",
+                "tarefas.add(item)",
+                "tarefas.append(item)",
+                "tarefas.insert(item)"
+              ],
+              "answerIndex": 0,
+              "explanation": "O método push() adiciona elementos ao final do array em JavaScript. Os outros métodos listados são comuns em outras linguagens, mas não existem nativamente em arrays do JS."
+            },
+            {
+              "id": "js-arrays-objetos-3",
+              "question": "Qual o índice do primeiro elemento de um array em JavaScript?",
+              "options": [
+                "1",
+                "-1",
+                "primeiro",
+                "0"
+              ],
+              "answerIndex": 3,
+              "explanation": "Arrays em JavaScript são indexados a partir de zero, o que significa que o primeiro item fica na posição 0."
+            },
+            {
+              "id": "js-arrays-objetos-4",
+              "question": "Como verificar se uma propriedade 'idade' existe dentro de um objeto 'pessoa'?",
+              "options": [
+                "pessoa.has('idade')",
+                "'idade' in pessoa",
+                "pessoa.contem('idade')",
+                "'idade' em pessoa"
+              ],
+              "answerIndex": 1,
+              "explanation": "O operador 'in' verifica se uma chave específica existe em um objeto. Os outros métodos são inválidos para objetos literais simples."
             }
           ]
         },
@@ -258,6 +758,56 @@
               "title": "Array.prototype.reduce()",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"
             }
+          ],
+          "quiz": [
+            {
+              "id": "js-metodos-de-array-1",
+              "question": "O que acontece se a função callback passada para o filter retornar um valor falsy para todos os elementos?",
+              "options": [
+                "O filter retornará um array vazio.",
+                "O filter lançará um erro de execução.",
+                "O filter retornará o array original intacto.",
+                "O filter retornará undefined."
+              ],
+              "answerIndex": 0,
+              "explanation": "Se nenhum elemento satisfizer a condição do filtro, o resultado será um array sem nenhum item."
+            },
+            {
+              "id": "js-metodos-de-array-2",
+              "question": "Ao utilizar o método reduce para somar os valores de um array numérico, qual é o papel do segundo argumento passado para a função reduce?",
+              "options": [
+                "Determinar o índice do primeiro elemento a ser somado.",
+                "Definir o número máximo de iterações permitidas.",
+                "Definir o valor inicial do acumulador.",
+                "Indicar se a soma deve começar do fim para o início."
+              ],
+              "answerIndex": 2,
+              "explanation": "O segundo argumento do reduce define o valor inicial do acumulador. Sem ele, o primeiro elemento do array é usado como base."
+            },
+            {
+              "id": "js-metodos-de-array-3",
+              "question": "Como o método map deve ser utilizado para extrair apenas a propriedade 'nome' de um array de objetos?",
+              "options": [
+                "Usando `arr.map(obj => { return if(obj.nome) })`",
+                "Usando `arr.map(obj => obj.nome)`",
+                "Usando `arr.map(obj.nome)`",
+                "Usando `arr.map(obj => delete obj.idade)`"
+              ],
+              "answerIndex": 1,
+              "explanation": "O map espera uma função que retorne o valor transformado para cada item, neste caso, a propriedade desejada."
+            },
+            {
+              "id": "js-metodos-de-array-4",
+              "question": "O que ocorre se você esquecer de incluir a instrução de retorno (return) dentro do callback de um método map?",
+              "options": [
+                "O método map será interrompido imediatamente.",
+                "O array original perderá todos os seus elementos.",
+                "O JavaScript lançará um erro de sintaxe na execução.",
+                "O novo array gerado conterá apenas valores undefined."
+              ],
+              "answerIndex": 3,
+              "explanation": "Sem o return explícito, a função retorna undefined para cada iteração, preenchendo o novo array com esses valores."
+            }
           ]
         },
         {
@@ -281,6 +831,56 @@
             {
               "title": "Módulos JavaScript",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Modules"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "js-moderno-modulos-1",
+              "question": "Como renomear a propriedade `idade` para `anos` ao usar desestruturação de objetos em JavaScript?",
+              "options": [
+                "const { anos: idade } = usuario;",
+                "const { idade, anos } = usuario;",
+                "const { idade: anos } = usuario;",
+                "const [ idade: anos ] = usuario;"
+              ],
+              "answerIndex": 2,
+              "explanation": "A sintaxe correta para renomear propriedades na desestruturação usa a propriedade original seguida de dois-pontos e o novo nome. O erro comum é inverter a ordem ou usar colchetes."
+            },
+            {
+              "id": "js-moderno-modulos-2",
+              "question": "Qual o resultado de aplicar o operador spread em um array dentro de outro array, como `[...a, ...b]`?",
+              "options": [
+                "Cria um novo array unindo os elementos de a e b.",
+                "Cria uma matriz contendo os arrays a e b aninhados.",
+                "Modifica o array original a adicionando os elementos de b.",
+                "Retorna apenas os elementos duplicados entre a e b."
+              ],
+              "answerIndex": 0,
+              "explanation": "O operador spread extrai os elementos individuais, resultando em uma nova lista combinada. Ele não cria arrays aninhados nem altera os originais."
+            },
+            {
+              "id": "js-moderno-modulos-3",
+              "question": "Qual a principal diferença entre exportações do tipo `export default` e `export` nomeadas em módulos ES?",
+              "options": [
+                "A default permite apenas exportar funções, enquanto as nomeadas aceitam variáveis.",
+                "A default pode ser importada com qualquer nome, enquanto as nomeadas exigem chaves.",
+                "As nomeadas são carregadas de forma síncrona, e a default de forma assíncrona.",
+                "A default cria variáveis globais, enquanto as nomeadas ficam escopadas ao arquivo."
+              ],
+              "answerIndex": 1,
+              "explanation": "O export default permite importar sem chaves e usar qualquer nome local. As exportações nomeadas exigem o uso exato do nome entre chaves."
+            },
+            {
+              "id": "js-moderno-modulos-4",
+              "question": "Como extrair o primeiro item de um array e guardar o restante em outra variável usando desestruturação?",
+              "options": [
+                "const [primeiro, ...itens] = resto;",
+                "const [primeiro, resto...] = itens;",
+                "const {primeiro, ...resto} = itens;",
+                "const [primeiro, ...resto] = itens;"
+              ],
+              "answerIndex": 3,
+              "explanation": "O operador rest (`...`) no final da desestruturação agrupa todos os elementos restantes em um novo array. O erro comum é tentar usar a sintaxe em formato de objeto."
             }
           ]
         }
@@ -314,6 +914,56 @@
               "title": "Funções assíncronas",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/async_function"
             }
+          ],
+          "quiz": [
+            {
+              "id": "js-assincrono-promises-1",
+              "question": "O que retorna a execução de uma função marcada com a palavra-chave `async`?",
+              "options": [
+                "O valor final retornado pelo return após a resolução.",
+                "Um objeto de callback aguardando a execução do bloco.",
+                "Uma Promise que resolve para o valor retornado.",
+                "Um valor booleano indicando o sucesso da operação."
+              ],
+              "answerIndex": 2,
+              "explanation": "Funções async sempre retornam uma Promise implicitamente. Se você retornar um valor direto, ele é envolvido em uma Promise resolvida."
+            },
+            {
+              "id": "js-assincrono-promises-2",
+              "question": "Qual é a principal vantagem de usar `async/await` em vez de encadear chamadas com `.then()`?",
+              "options": [
+                "Permite escrever código assíncrono com fluxo linear parecido com o síncrono.",
+                "Transforma operações assíncronas em processos executados em múltiplas threads.",
+                "Elimina completamente a necessidade de tratamento de exceções com blocos try/catch.",
+                "Acelera a velocidade de execução das requisições de rede comparado às promises."
+              ],
+              "answerIndex": 0,
+              "explanation": "O async/await melhora a legibilidade ao evitar o aninhamento excessivo e o encadeamento de métodos .then(), parecendo código síncrono."
+            },
+            {
+              "id": "js-assincrono-promises-3",
+              "question": "Como o bloco `try/catch` deve ser usado ao lidar com funções `async` e a palavra-chave `await`?",
+              "options": [
+                "Apenas ao redor da declaração da função async para capturar erros de sintaxe.",
+                "Dentro da promise gerada para evitar que o código pare na execução.",
+                "Somente em callbacks passados como argumentos para funções assíncronas.",
+                "Envolvendo a chamada com `await` para capturar rejeições de promises."
+              ],
+              "answerIndex": 3,
+              "explanation": "O operador await converte uma Promise rejeitada em um erro lançado, que pode ser capturado normalmente por um bloco try/catch."
+            },
+            {
+              "id": "js-assincrono-promises-4",
+              "question": "O que acontece se você esquecer de colocar a palavra-chave `await` antes de chamar uma função assíncrona?",
+              "options": [
+                "O interpretador do Node.js interrompe a execução com um erro de sintaxe.",
+                "A execução continua imediatamente e a variável recebe uma Promise pendente.",
+                "A função é executada de forma síncrona bloqueando a thread principal.",
+                "O programa aguarda automaticamente a conclusão da tarefa em segundo plano."
+              ],
+              "answerIndex": 1,
+              "explanation": "Sem o await, a expressão avalia diretamente para a Promise retornada pela função, e não para o seu valor resolvido."
+            }
           ]
         },
         {
@@ -333,6 +983,56 @@
             {
               "title": "Documentação do Módulo de Processos do Node.js",
               "url": "https://nodejs.org/api/process.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "node-runtime-event-loop-1",
+              "question": "Qual a principal diferença entre usar `fs.readFile` e `fs.readFileSync` em uma aplicação Node.js?",
+              "options": [
+                "O método síncrono executa a leitura diretamente na GPU para evitar travamentos.",
+                "O método assíncrono consome mais memória RAM por usar streams paralelas.",
+                "O método síncrono é recomendado para servidores de alta concorrência.",
+                "O método assíncrono libera a thread principal para outras tarefas enquanto lê o disco."
+              ],
+              "answerIndex": 3,
+              "explanation": "Operações síncronas bloqueiam o event loop, impedindo que o servidor atenda a outras requisições enquanto o arquivo é lido."
+            },
+            {
+              "id": "node-runtime-event-loop-2",
+              "question": "Por que o uso excessivo de operações síncronas do módulo `fs` prejudica o desempenho de uma API Node.js?",
+              "options": [
+                "Porque o Node.js possui uma única thread principal que gerencia o event loop.",
+                "Porque o Garbage Collector precisa limpar os arquivos temporários manualmente.",
+                "Porque o sistema operacional encerra processos que bloqueiam o disco por muito tempo.",
+                "Porque o TypeScript converte código síncrono em callbacks lentos."
+              ],
+              "answerIndex": 0,
+              "explanation": "Como o Node.js roda em single-thread, qualquer bloqueio síncrono paralisa a execução de todo o código no event loop."
+            },
+            {
+              "id": "node-runtime-event-loop-3",
+              "question": "O que acontece se uma exceção for lançada dentro de um callback de `fs.readFile` sem um bloco try/catch adequado?",
+              "options": [
+                "O erro é automaticamente capturado pelo TypeScript no momento da compilação.",
+                "O erro causa uma exceção não tratada no event loop, podendo derrubar o processo.",
+                "O Node.js ignora o erro para manter o servidor funcionando ininterruptamente.",
+                "O callback é executado novamente após dois segundos para tentar corrigir a falha."
+              ],
+              "answerIndex": 1,
+              "explanation": "Erros em callbacks assíncronos não sobem para a função chamadora original e precisam ser tratados dentro do próprio callback."
+            },
+            {
+              "id": "node-runtime-event-loop-4",
+              "question": "Qual é a vantagem de utilizar `fs.promises` em vez de callbacks tradicionais no Node.js?",
+              "options": [
+                "Torna a leitura do disco até dez vezes mais rápida por otimização do V8.",
+                "Garante que o arquivo seja lido diretamente da memória cache do processador.",
+                "Permite o uso de async/await para um código mais limpo e legível.",
+                "Elimina a necessidade de usar o módulo fs para leitura de arquivos."
+              ],
+              "answerIndex": 2,
+              "explanation": "A API baseada em promises facilita o tratamento de fluxo assíncrono usando estruturas modernas do JavaScript como async/await."
             }
           ]
         },
@@ -358,6 +1058,56 @@
               "title": "Executando scripts com npm run",
               "url": "https://docs.npmjs.com/cli/v10/commands/npm-run-script/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "npm-pacotes-scripts-1",
+              "question": "Qual é a principal função do arquivo package.json em um projeto Node.js?",
+              "options": [
+                "Guardar o código compilado da aplicação para produção.",
+                "Executar diretamente o código TypeScript sem transpilação.",
+                "Armazenar credenciais de acesso ao banco de dados.",
+                "Descrever metadados do projeto e listar suas dependências."
+              ],
+              "answerIndex": 3,
+              "explanation": "O package.json funciona como o documento de identidade do projeto, registrando informações essenciais e bibliotecas necessárias para seu funcionamento."
+            },
+            {
+              "id": "npm-pacotes-scripts-2",
+              "question": "Qual comando você deve usar para instalar uma dependência e salvá-la automaticamente no package.json?",
+              "options": [
+                "npm install <pacote>",
+                "npm save <pacote>",
+                "npm add-dep <pacote>",
+                "npm local <pacote>"
+              ],
+              "answerIndex": 0,
+              "explanation": "Nas versões recentes do npm, o salvamento no package.json é o comportamento padrão ao instalar um pacote, sem precisar de flags extras."
+            },
+            {
+              "id": "npm-pacotes-scripts-3",
+              "question": "O que acontece se você apagar a pasta node_modules de um projeto que possui o package.json e o package-lock.json intactos?",
+              "options": [
+                "O projeto deixará de funcionar permanentemente e o código será perdido.",
+                "Basta executar npm install para recriar a pasta com as versões corretas.",
+                "Você precisará baixar cada biblioteca manualmente pelo navegador.",
+                "O npm vai gerar novos códigos para substituir as bibliotecas apagadas."
+              ],
+              "answerIndex": 1,
+              "explanation": "A pasta node_modules pode ser regenerada a qualquer momento a partir das definições salvas no package.json e package-lock.json usando o comando npm install."
+            },
+            {
+              "id": "npm-pacotes-scripts-4",
+              "question": "Como você executa um script personalizado chamado \"start\" definido no package.json?",
+              "options": [
+                "node run start",
+                "npm start-script",
+                "npm run start",
+                "exec start"
+              ],
+              "answerIndex": 2,
+              "explanation": "O comando correto para rodar scripts customizados é 'npm run nome-do-script', embora para o script 'start' exista o atalho 'npm start'."
+            }
           ]
         },
         {
@@ -381,6 +1131,56 @@
             {
               "title": "Tipos de Objetos no TypeScript",
               "url": "https://www.typescriptlang.org/docs/handbook/2/objects.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "typescript-tipos-basicos-1",
+              "question": "Como você declara um array que aceita apenas números no TypeScript?",
+              "options": [
+                "number[]",
+                "Array<any>",
+                "list<number>",
+                "number.array"
+              ],
+              "answerIndex": 0,
+              "explanation": "A sintaxe padrão e mais concisa para arrays tipados é colocar colchetes após o tipo, como `number[]`."
+            },
+            {
+              "id": "typescript-tipos-basicos-2",
+              "question": "O que acontece ao tentar atribuir uma string a uma variável declarada como `number` em TypeScript?",
+              "options": [
+                "A variável converte o tipo automaticamente em tempo de execução.",
+                "O TypeScript emite apenas um aviso no console e roda normalmente.",
+                "A string é ignorada e o valor da variável continua sendo zero.",
+                "Erro de compilação bloqueia a geração do arquivo JavaScript."
+              ],
+              "answerIndex": 3,
+              "explanation": "O TypeScript faz a checagem estática antes de gerar o código final, impedindo a compilação se houver incompatibilidade de tipos."
+            },
+            {
+              "id": "typescript-tipos-basicos-3",
+              "question": "Como definir uma propriedade opcional em uma interface de objeto?",
+              "options": [
+                "Colocando um ponto de exclamação antes dos dois-pontos.",
+                "Atribuindo o valor nulo como padrão na tipagem.",
+                "Usando um ponto de interrogação após o nome da propriedade.",
+                "Envolvendo o tipo entre colchetes."
+              ],
+              "answerIndex": 2,
+              "explanation": "O sinal de interrogação (`?`) indica ao TypeScript que a propriedade pode estar ausente no objeto."
+            },
+            {
+              "id": "typescript-tipos-basicos-4",
+              "question": "Como tipar o retorno de uma função que não retorna nenhum valor?",
+              "options": [
+                "null",
+                "void",
+                "undefined",
+                "empty"
+              ],
+              "answerIndex": 1,
+              "explanation": "O tipo `void` é utilizado especificamente para indicar a ausência de valor de retorno em funções."
             }
           ]
         },
@@ -406,6 +1206,56 @@
               "title": "Generics no TypeScript",
               "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "typescript-interfaces-generics-1",
+              "question": "Como garantir que uma classe implemente um contrato específico em TypeScript?",
+              "options": [
+                "Herdando a interface diretamente com a palavra-chave `extends` na definição da classe.",
+                "Declarando as propriedades com o modificador `readonly` dentro do construtor da classe.",
+                "Utilizando o operador `typeof` para copiar a estrutura da interface para a classe.",
+                "Utilizando a palavra-chave `implements` seguida da interface correspondente."
+              ],
+              "answerIndex": 3,
+              "explanation": "A palavra-chave `implements` verifica se a classe atende aos requisitos definidos pela interface. O erro comum é confundir com `extends`, que é usado para herança entre classes."
+            },
+            {
+              "id": "typescript-interfaces-generics-2",
+              "question": "Qual é a principal vantagem de utilizar Generics em funções TypeScript?",
+              "options": [
+                "Desativar a checagem estática de tipos para aceitar qualquer valor enviado.",
+                "Permitir que a função trabalhe com vários tipos mantendo a segurança de tipagem.",
+                "Converter automaticamente qualquer tipo de dado primitivo para string em tempo de execução.",
+                "Acelerar a execução do código compilado em JavaScript no ambiente Node.js."
+              ],
+              "answerIndex": 1,
+              "explanation": "Generics permitem criar componentes reutilizáveis que funcionam com diversos tipos sem perder a informação de qual tipo foi passado. Eles não desativam a tipagem."
+            },
+            {
+              "id": "typescript-interfaces-generics-3",
+              "question": "Qual é o comportamento padrão dos valores em um Enum numérico no TypeScript?",
+              "options": [
+                "Eles recebem valores incrementais a partir de zero automaticamente.",
+                "Eles são inicializados obrigatoriamente com strings vazias em ordem sequencial.",
+                "Eles geram um erro de compilação se nenhum valor inicial for atribuído.",
+                "Eles armazenam apenas funções de callback para validação de dados."
+              ],
+              "answerIndex": 0,
+              "explanation": "Por padrão, o primeiro elemento de um enum numérico recebe o valor 0, e os seguintes incrementam 1. O erro comum é achar que precisam de valores explícitos."
+            },
+            {
+              "id": "typescript-interfaces-generics-4",
+              "question": "Como restringir um tipo genérico `T` para que aceite apenas objetos que possuem uma propriedade `id`?",
+              "options": [
+                "Adicionando o modificador `implements { id: number }` diretamente no parâmetro genérico.",
+                "Declarando o tipo genérico obrigatoriamente como um array de objetos usando `T[]`.",
+                "Utilizando uma restrição (constraint) com a cláusula `extends { id: any }`.",
+                "Substituindo o parâmetro genérico por uma asserção de tipo usando a palavra `as`."
+              ],
+              "answerIndex": 2,
+              "explanation": "A cláusula `extends` em generics limita quais tipos podem ser passados, garantindo que tenham a estrutura mínima necessária. A palavra `implements` não é usada em parâmetros genéricos."
+            }
           ]
         },
         {
@@ -429,6 +1279,56 @@
             {
               "title": "Decorators no TypeScript",
               "url": "https://www.typescriptlang.org/docs/handbook/decorators.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "typescript-utility-types-decorators-1",
+              "question": "Qual utility type extrai apenas os tipos que retornam uma função?",
+              "options": [
+                "ReturnType",
+                "Extract",
+                "Parameters",
+                "Omit"
+              ],
+              "answerIndex": 1,
+              "explanation": "O ReturnType captura o tipo de retorno de uma função, enquanto Extract filtra tipos específicos de um union."
+            },
+            {
+              "id": "typescript-utility-types-decorators-2",
+              "question": "Como o TypeScript realiza narrowing quando usamos 'in' com um objeto?",
+              "options": [
+                "Checando se o valor da propriedade é diferente de null",
+                "Comparando o protótipo do objeto com uma classe base",
+                "Verificando a existência da propriedade no objeto",
+                "Validando o tipo primitivo retornado por typeof"
+              ],
+              "answerIndex": 2,
+              "explanation": "O operador 'in' verifica se uma chave específica existe no objeto, permitindo que o TypeScript refine o tipo para a interface correspondente."
+            },
+            {
+              "id": "typescript-utility-types-decorators-3",
+              "question": "Qual é a ordem de execução de múltiplos method decorators aplicados a um mesmo método?",
+              "options": [
+                "De baixo para cima (de dentro para fora)",
+                "De cima para baixo (de fora para dentro)",
+                "Em ordem alfabética do nome da função do decorator",
+                "Sempre na ordem da esquerda para a direita"
+              ],
+              "answerIndex": 0,
+              "explanation": "Method decorators são avaliados de cima para baixo mas executados de baixo para cima, como funções aninhadas."
+            },
+            {
+              "id": "typescript-utility-types-decorators-4",
+              "question": "Para que serve o utility type `Omit<T, K>`?",
+              "options": [
+                "Para tornar todas as propriedades de T opcionais",
+                "Para extrair apenas as propriedades obrigatórias de T",
+                "Para congelar o objeto impedindo alterações em tempo de execução",
+                "Para criar um novo tipo removendo propriedades específicas de T"
+              ],
+              "answerIndex": 3,
+              "explanation": "O Omit constrói um tipo pegando todas as propriedades de T e removendo a união de chaves K especificada."
             }
           ]
         }
@@ -466,6 +1366,56 @@
               "title": "Cabeçalhos HTTP",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Headers"
             }
+          ],
+          "quiz": [
+            {
+              "id": "http-metodos-status-headers-1",
+              "question": "Qual método HTTP deve ser utilizado preferencialmente para enviar novos dados que serão processados e salvos no servidor?",
+              "options": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+              ],
+              "answerIndex": 1,
+              "explanation": "O método POST é o indicado para criar novos recursos no servidor. O GET apenas busca dados, o PUT substitui e o DELETE remove."
+            },
+            {
+              "id": "http-metodos-status-headers-2",
+              "question": "Se um cliente faz uma requisição para uma rota que não existe no servidor, qual código de status HTTP deve ser retornado?",
+              "options": [
+                "404 Not Found",
+                "200 OK",
+                "500 Internal Server Error",
+                "400 Bad Request"
+              ],
+              "answerIndex": 0,
+              "explanation": "O status 404 indica que o recurso solicitado não foi encontrado no servidor. O erro 500 indica falha interna no servidor."
+            },
+            {
+              "id": "http-metodos-status-headers-3",
+              "question": "Qual cabeçalho HTTP é usado para indicar ao servidor que o corpo da requisição ou resposta está formatado em JSON?",
+              "options": [
+                "Accept-Encoding",
+                "Authorization",
+                "Content-Type",
+                "User-Agent"
+              ],
+              "answerIndex": 2,
+              "explanation": "O Content-Type informa o formato dos dados enviados, como application/json. O Accept serve para negociar o formato que o cliente deseja receber."
+            },
+            {
+              "id": "http-metodos-status-headers-4",
+              "question": "O que caracteriza uma API RESTful ao utilizar o método GET para buscar uma lista de usuários?",
+              "options": [
+                "Ela deve aceitar dados confidenciais diretamente no corpo da URL.",
+                "O servidor deve retornar um código 201 Created após o sucesso.",
+                "O cliente precisa enviar obrigatoriamente um cabeçalho de autenticação.",
+                "A operação deve ser segura e idempotente, sem alterar o estado do servidor."
+              ],
+              "answerIndex": 3,
+              "explanation": "O método GET é seguro e idempotente, servindo apenas para leitura. O código 201 é para criação via POST."
+            }
           ]
         },
         {
@@ -490,6 +1440,56 @@
               "title": "Códigos de status de respostas HTTP",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status"
             }
+          ],
+          "quiz": [
+            {
+              "id": "rest-boas-praticas-1",
+              "question": "Qual das opções a seguir representa a melhor prática para nomear um recurso em uma rota de API REST?",
+              "options": [
+                "`/usuarios`",
+                "`/getUsuarios`",
+                "`/cadastrar_usuario`",
+                "`/deletarUsuario`"
+              ],
+              "answerIndex": 0,
+              "explanation": "Rotas REST devem utilizar substantivos no plural para identificar recursos, deixando que os métodos HTTP (GET, POST, DELETE) definam a ação a ser executada."
+            },
+            {
+              "id": "rest-boas-praticas-2",
+              "question": "Ao criar um novo recurso com sucesso através de uma requisição POST, qual código de status HTTP deve ser retornado?",
+              "options": [
+                "`200 OK`",
+                "`201 Created`",
+                "`204 No Content`",
+                "`202 Accepted`"
+              ],
+              "answerIndex": 1,
+              "explanation": "O código 201 indica explicitamente que a requisição foi bem-sucedida e resultou na criação de um novo recurso no servidor."
+            },
+            {
+              "id": "rest-boas-praticas-3",
+              "question": "Como uma API REST deve modelar a relação entre um usuário e seus endereços?",
+              "options": [
+                "`/usuarios?id=5&endereco=true`",
+                "`/enderecosDoUsuario?id=5`",
+                "`/usuarios/5/getEnderecos`",
+                "`/usuarios/5/enderecos`"
+              ],
+              "answerIndex": 3,
+              "explanation": "Sub-recursos aninhados refletem hierarquia de forma clara na URL, usando o ID do recurso pai seguido pelo nome do recurso filho."
+            },
+            {
+              "id": "rest-boas-praticas-4",
+              "question": "Qual método HTTP deve ser utilizado para atualizar parcialmente os dados de um recurso existente?",
+              "options": [
+                "`PUT`",
+                "`POST`",
+                "`PATCH`",
+                "`UPDATE`"
+              ],
+              "answerIndex": 2,
+              "explanation": "O método PATCH é indicado para modificações parciais, enquanto o PUT costuma substituir o recurso inteiro."
+            }
           ]
         },
         {
@@ -505,6 +1505,56 @@
             {
               "title": "Guia de Roteamento do Express",
               "url": "https://expressjs.com/pt-br/guide/routing/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "express-rotas-crud-1",
+              "question": "Como tipar corretamente os parâmetros de rota `req.params` em uma função de rota no Express usando TypeScript?",
+              "options": [
+                "Passando a interface diretamente no objeto response",
+                "Fazendo cast direto do req com o operador as any",
+                "Declarando o tipo na assinatura do método app.get",
+                "Utilizando um tipo genérico em Request<{ id: string }>"
+              ],
+              "answerIndex": 3,
+              "explanation": "O Express permite passar interfaces genéricas para o objeto Request para tipar params, query e body com segurança."
+            },
+            {
+              "id": "express-rotas-crud-2",
+              "question": "Ao criar uma rota POST para inserção de dados em uma API REST com Express, qual método do objeto response deve ser retornado por padrão após o sucesso?",
+              "options": [
+                "res.status(200).send(novoItem)",
+                "res.status(201).json(novoItem)",
+                "res.status(204).json(novoItem)",
+                "res.status(301).redirect(novoItem)"
+              ],
+              "answerIndex": 1,
+              "explanation": "O código HTTP 201 Created é o padrão RESTful para indicar que um recurso foi criado com sucesso no servidor."
+            },
+            {
+              "id": "express-rotas-crud-3",
+              "question": "Em uma rota de remoção DELETE que não possui conteúdo para retornar após a exclusão, qual resposta HTTP é mais adequada?",
+              "options": [
+                "res.status(204).send()",
+                "res.status(200).json(null)",
+                "res.status(201).send()",
+                "res.status(404).json()"
+              ],
+              "answerIndex": 0,
+              "explanation": "O status 204 No Content indica que a requisição foi bem-sucedida mas não há corpo de resposta para retornar."
+            },
+            {
+              "id": "express-rotas-crud-4",
+              "question": "Como lidar com a ausência de um registro ao buscar por ID numa rota GET em uma API Express?",
+              "options": [
+                "Lançar um erro não tratado para cair no crash da aplicação",
+                "Retornar um array vazio com status 200 OK",
+                "Retornar status 404 com uma mensagem informativa",
+                "Redirecionar automaticamente para a rota raiz"
+              ],
+              "answerIndex": 2,
+              "explanation": "Quando um recurso específico não é encontrado pelo identificador, o padrão HTTP adequado é o 404 Not Found."
             }
           ]
         },
@@ -530,6 +1580,56 @@
               "title": "Tratamento de erros no Express",
               "url": "https://expressjs.com/pt-br/guide/error-handling/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "express-middlewares-erros-1",
+              "question": "Qual é a principal função do parâmetro `next` em um middleware do Express?",
+              "options": [
+                "Passar o controle para a próxima função de middleware da pilha.",
+                "Finalizar imediatamente a resposta HTTP enviada ao cliente.",
+                "Encerrar o ciclo de vida da requisição em caso de sucesso.",
+                "Atualizar o cabeçalho da resposta com o status code correto."
+              ],
+              "answerIndex": 0,
+              "explanation": "O parâmetro `next` é uma função que, quando chamada, instrui o Express a executar o próximo middleware registrado na aplicação."
+            },
+            {
+              "id": "express-middlewares-erros-2",
+              "question": "Como o Express identifica que uma função é um middleware de tratamento de erros?",
+              "options": [
+                "Pelo uso do método `app.error()` na declaração da rota.",
+                "Por estar posicionada obrigatoriamente no topo do arquivo principal.",
+                "Pela tipagem do parâmetro `err` como uma instância da classe Error.",
+                "Pela presença exata de quatro parâmetros: `(err, req, res, next)`."
+              ],
+              "answerIndex": 3,
+              "explanation": "O Express diferencia middlewares comuns daqueles de erro verificando a assinatura da função, especificamente a quantidade de quatro argumentos."
+            },
+            {
+              "id": "express-middlewares-erros-3",
+              "question": "Em qual momento da aplicação os middlewares globais devem ser registrados?",
+              "options": [
+                "No final do arquivo, logo após a escuta do servidor na porta.",
+                "Antes das rotas que eles devem interceptar ou modificar.",
+                "Em qualquer ordem, desde que estejam dentro de um bloco try/catch.",
+                "Apenas dentro do arquivo de configuração das rotas da API."
+              ],
+              "answerIndex": 1,
+              "explanation": "O fluxo do Express é sequencial. Se um middleware for registrado após uma rota, ele nunca será executado para aquela rota."
+            },
+            {
+              "id": "express-middlewares-erros-4",
+              "question": "Qual é a forma correta de repassar um erro capturado em um middleware síncrono para o sistema de tratamento de erros?",
+              "options": [
+                "Lançar o erro usando a palavra-chave `throw err` diretamente no escopo.",
+                "Retornar a função `res.status(500).send(err)` para encerrar a requisição.",
+                "Passar o erro como argumento para a função `next`, como em `next(err)`.",
+                "Atribuir o erro ao objeto global `res.locals.error` e retornar."
+              ],
+              "answerIndex": 2,
+              "explanation": "Em blocos síncronos, o Express captura exceções apenas se repassadas explicitamente via `next(err)` ou lançadas em rotas sem async."
+            }
           ]
         },
         {
@@ -554,6 +1654,56 @@
               "title": "Zod: personalizando mensagens de erro",
               "url": "https://zod.dev/error-customization"
             }
+          ],
+          "quiz": [
+            {
+              "id": "validacao-dados-zod-1",
+              "question": "Como você define um schema no Zod para garantir que uma variável seja uma string obrigatória?",
+              "options": [
+                "z.type('string')",
+                "z.string()",
+                "z.validate.string()",
+                "new ZodString()"
+              ],
+              "answerIndex": 1,
+              "explanation": "O método correto para iniciar um schema de texto é `z.string()`, que já assume obrigatoriedade por padrão."
+            },
+            {
+              "id": "validacao-dados-zod-2",
+              "question": "O que acontece ao chamar o método `.parse()` em um dado inválido?",
+              "options": [
+                "O Zod lança um erro do tipo ZodError.",
+                "O Zod retorna um objeto booleano false.",
+                "O Zod retorna undefined.",
+                "O Zod tenta converter o tipo automaticamente."
+              ],
+              "answerIndex": 0,
+              "explanation": "O `.parse()` interrompe a execução lançando uma exceção caso a validação falhe. Para evitar exceções, usa-se o `.safeParse()`."
+            },
+            {
+              "id": "validacao-dados-zod-3",
+              "question": "Como tornar um campo numérico opcional em um schema do Zod?",
+              "options": [
+                "z.optional(number)",
+                "z.number({ nullable: true })",
+                "z.number().optional()",
+                "z.number().nullable()"
+              ],
+              "answerIndex": 2,
+              "explanation": "O modificador `.optional()` permite que o campo receba `undefined`. O `.nullable()` aceitaria apenas `null`."
+            },
+            {
+              "id": "validacao-dados-zod-4",
+              "question": "Qual é a forma correta de personalizar a mensagem de erro quando um campo de email é inválido?",
+              "options": [
+                "z.string({ error: 'E-mail inválido' }).email()",
+                "z.string().email('E-mail inválido')",
+                "z.email('E-mail inválido')",
+                "z.string().email({ message: 'E-mail inválido' })"
+              ],
+              "answerIndex": 3,
+              "explanation": "Validadores específicos do Zod como `.email()` aceitam um objeto de configuração contendo a propriedade `message`."
+            }
           ]
         },
         {
@@ -573,6 +1723,56 @@
             {
               "title": "Swagger Editor e Ferramentas",
               "url": "https://swagger.io/open-source/swagger-editor/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "documentacao-openapi-swagger-1",
+              "question": "Ao utilizar o Swagger Editor para criar uma documentação em YAML, o que acontece se houver um erro de indentação?",
+              "options": [
+                "A interface exibe um erro de sintaxe em tempo real no painel lateral.",
+                "O arquivo é corrigido automaticamente pelo editor sem aviso prévio.",
+                "A API entra em modo de falha e derruba o servidor vinculado.",
+                "O Swagger Editor ignora o erro e gera a documentação padrão."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Swagger Editor valida a sintaxe YAML/JSON instantaneamente, apontando falhas estruturais na tela de edição."
+            },
+            {
+              "id": "documentacao-openapi-swagger-2",
+              "question": "Em um arquivo OpenAPI, qual seção raiz agrupa os caminhos e as operações suportadas pela API?",
+              "options": [
+                "endpoints",
+                "routes",
+                "paths",
+                "methods"
+              ],
+              "answerIndex": 2,
+              "explanation": "A chave 'paths' na especificação OpenAPI define os endpoints disponíveis e os métodos HTTP suportados por cada um."
+            },
+            {
+              "id": "documentacao-openapi-swagger-3",
+              "question": "Como a especificação OpenAPI lida com a reutilização de esquemas de dados em diferentes endpoints?",
+              "options": [
+                "Criando variáveis globais na seção de headers.",
+                "Através da seção components/schemas, referenciada por $ref.",
+                "Repetindo a estrutura do objeto em cada rota obrigatoriamente.",
+                "Importando arquivos externos via comandos do sistema operacional."
+              ],
+              "answerIndex": 1,
+              "explanation": "O OpenAPI utiliza a chave components e a diretiva $ref para manter o princípio DRY, evitando duplicação de código na documentação."
+            },
+            {
+              "id": "documentacao-openapi-swagger-4",
+              "question": "Ao documentar parâmetros de rota obrigatórios no OpenAPI, qual propriedade deve ser definida na especificação?",
+              "options": [
+                "mandatory: yes",
+                "validate: always",
+                "optional: false",
+                "required: true"
+              ],
+              "answerIndex": 3,
+              "explanation": "A propriedade booleana 'required' é utilizada para indicar se um parâmetro de rota, query ou header é obrigatório."
             }
           ]
         }
@@ -606,6 +1806,56 @@
               "title": "Restrições de Chaves Primárias e Estrangeiras",
               "url": "https://www.postgresql.org/docs/current/ddl-constraints.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "modelagem-relacional-1",
+              "question": "Como é estabelecida a relação entre duas tabelas utilizando uma chave estrangeira (FOREIGN KEY)?",
+              "options": [
+                "A tabela pai precisa conter uma cópia exata de todos os dados da tabela filha.",
+                "Ambas as tabelas compartilham a mesma chave primária composta.",
+                "A tabela filha cria uma nova chave primária baseada na tabela pai.",
+                "A coluna da tabela filha referencia a chave primária da tabela pai."
+              ],
+              "answerIndex": 3,
+              "explanation": "A chave estrangeira aponta para a chave primária de outra tabela, garantindo a integridade referencial entre os dados relacionados."
+            },
+            {
+              "id": "modelagem-relacional-2",
+              "question": "O que acontece ao tentar inserir um registro na tabela filha com um valor que não existe na tabela pai, considerando uma FOREIGN KEY?",
+              "options": [
+                "O banco de dados cria automaticamente um novo registro na tabela pai.",
+                "O banco de dados rejeita a inserção e retorna um erro de integridade.",
+                "O valor é inserido como nulo para evitar falhas na aplicação.",
+                "A inserção ocorre normalmente, mas gera um aviso no log."
+              ],
+              "answerIndex": 1,
+              "explanation": "A restrição de chave estrangeira impede registros órfãos, bloqueando inserções cujos valores referenciados não existam na tabela de origem."
+            },
+            {
+              "id": "modelagem-relacional-3",
+              "question": "Para que serve a restrição UNIQUE em uma coluna que não é chave primária?",
+              "options": [
+                "Para definir essa coluna como o identificador principal da tabela.",
+                "Para permitir que a coluna aceite apenas números inteiros.",
+                "Para impedir a inserção de valores duplicados nessa coluna.",
+                "Para tornar a coluna obrigatória em todas as inserções."
+              ],
+              "answerIndex": 2,
+              "explanation": "A restrição UNIQUE garante que não haja repetição de valores na coluna, diferentemente da PRIMARY KEY que também exige que não sejam nulos."
+            },
+            {
+              "id": "modelagem-relacional-4",
+              "question": "Em um relacionamento de um para muitos (1:N), onde a chave estrangeira deve ser posicionalmente criada?",
+              "options": [
+                "Na tabela que representa o lado 'muitos' do relacionamento.",
+                "Na tabela que representa o lado 'um' do relacionamento.",
+                "Em uma terceira tabela criada exclusivamente para guardar os ponteiros.",
+                "Em qualquer uma das tabelas, pois o PostgreSQL ajusta isso sozinho."
+              ],
+              "answerIndex": 0,
+              "explanation": "No modelo relacional, o lado 'muitos' armazena a chave estrangeira apontando para o registro único do lado 'um'."
+            }
           ]
         },
         {
@@ -621,6 +1871,56 @@
             {
               "title": "Imagens Docker oficiais para PostgreSQL",
               "url": "https://hub.docker.com/_/postgres"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "docker-postgres-local-1",
+              "question": "Qual comando executa um container PostgreSQL em segundo plano (modo detached), nomeando-o de 'meu-postgres'?",
+              "options": [
+                "docker start -d --name meu-postgres postgres",
+                "docker container run -it --name meu-postgres postgres",
+                "docker up -d --name meu-postgres postgres",
+                "docker run -d --name meu-postgres postgres"
+              ],
+              "answerIndex": 3,
+              "explanation": "Usamos 'docker run' para criar e iniciar um container a partir de uma imagem. A flag '-d' roda em background e '--name' define o nome."
+            },
+            {
+              "id": "docker-postgres-local-2",
+              "question": "Ao subir um container PostgreSQL, por que a variável de ambiente POSTGRES_PASSWORD é obrigatória?",
+              "options": [
+                "Para criptografar os dados salvos no disco rígido automaticamente",
+                "Para criar o primeiro banco de dados da aplicação na inicialização",
+                "Para definir a senha do superusuário postgres e permitir conexões",
+                "Para liberar a porta 5432 para acesso externo de qualquer IP"
+              ],
+              "answerIndex": 2,
+              "explanation": "A imagem oficial do PostgreSQL exige que uma senha seja fornecida via POSTGRES_PASSWORD para inicializar o banco de dados com segurança."
+            },
+            {
+              "id": "docker-postgres-local-3",
+              "question": "Como você mapeia a porta 5432 do container para a mesma porta na sua máquina host?",
+              "options": [
+                "-p 5432:5432",
+                "-port 5432/5432",
+                "--expose 5432:5432",
+                "-v 5432:5432"
+              ],
+              "answerIndex": 0,
+              "explanation": "A flag '-p' faz o redirecionamento de portas no formato porta_host:porta_container, permitindo acessar o banco pela máquina local."
+            },
+            {
+              "id": "docker-postgres-local-4",
+              "question": "Se você remover um container PostgreSQL sem usar volumes, o que acontece com os dados salvos nele?",
+              "options": [
+                "Eles continuam salvos na imagem base do Docker",
+                "Os dados são apagados permanentemente junto com o container",
+                "Eles são movidos automaticamente para a lixeira do sistema",
+                "Eles ficam salvos na pasta temporária do host"
+              ],
+              "answerIndex": 1,
+              "explanation": "Containers Docker são efêmeros. O armazenamento interno é perdido ao remover o container, a menos que um volume seja usado."
             }
           ]
         },
@@ -646,6 +1946,56 @@
               "title": "Instruções UPDATE e DELETE no PostgreSQL",
               "url": "https://www.postgresql.org/docs/current/sql-update.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "sql-crud-consultas-1",
+              "question": "Qual comando SQL é utilizado para adicionar novos registros a uma tabela existente no PostgreSQL?",
+              "options": [
+                "ADD RECORD",
+                "CREATE INTO",
+                "UPDATE TABLE",
+                "INSERT INTO"
+              ],
+              "answerIndex": 3,
+              "explanation": "O comando INSERT INTO é o padrão para inserir linhas em uma tabela. CREATE é usado para criar estruturas, não dados."
+            },
+            {
+              "id": "sql-crud-consultas-2",
+              "question": "Ao consultar dados de uma tabela chamada 'usuarios', qual cláusula filtra linhas com base em uma condição?",
+              "options": [
+                "FILTER BY",
+                "WHERE",
+                "HAVING",
+                "CONDITION"
+              ],
+              "answerIndex": 1,
+              "explanation": "A cláusula WHERE filtra as linhas retornadas por um SELECT. O HAVING é usado após o GROUP BY para filtrar grupos."
+            },
+            {
+              "id": "sql-crud-consultas-3",
+              "question": "O que acontece ao executar um comando DELETE em uma tabela sem especificar a cláusula WHERE?",
+              "options": [
+                "Apenas a estrutura da tabela é removida.",
+                "O banco de dados gera um erro de sintaxe.",
+                "Todos os registros da tabela são apagados.",
+                "Apenas o primeiro registro é deletado."
+              ],
+              "answerIndex": 2,
+              "explanation": "Sem o WHERE, o DELETE afeta todas as linhas da tabela. Para apagar a estrutura, usa-se DROP TABLE."
+            },
+            {
+              "id": "sql-crud-consultas-4",
+              "question": "Como selecionar apenas colunas específicas chamada 'nome' e 'email' de uma tabela?",
+              "options": [
+                "SELECT nome, email FROM usuarios;",
+                "SELECT * FROM usuarios WHERE nome, email;",
+                "EXTRACT nome, email FROM usuarios;",
+                "SHOW nome, email IN usuarios;"
+              ],
+              "answerIndex": 0,
+              "explanation": "Listamos os nomes das colunas separados por vírgula após o SELECT. O asterisco (*) traz todas as colunas."
+            }
           ]
         },
         {
@@ -669,6 +2019,56 @@
             {
               "title": "Cláusula GROUP BY no PostgreSQL",
               "url": "https://www.postgresql.org/docs/current/queries-table-expressions.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "sql-joins-agregacoes-1",
+              "question": "Ao utilizar a cláusula GROUP BY em uma consulta SQL, qual regra deve ser seguida obrigatoriamente?",
+              "options": [
+                "Todas as colunas da tabela devem ser agrupadas para evitar erros de sintaxe.",
+                "Colunas selecionadas devem estar no GROUP BY ou em funções de agregação.",
+                "A cláusula GROUP BY deve vir sempre antes da cláusula WHERE na consulta.",
+                "Funções de agregação não podem ser usadas na mesma consulta com o GROUP BY."
+              ],
+              "answerIndex": 1,
+              "explanation": "O PostgreSQL exige que qualquer coluna no SELECT que não seja agregada apareça na cláusula GROUP BY para definir o escopo do agrupamento."
+            },
+            {
+              "id": "sql-joins-agregacoes-2",
+              "question": "Qual é o comportamento da função COUNT(*) em comparação com COUNT(coluna) quando há valores NULL?",
+              "options": [
+                "COUNT(*) retorna apenas linhas distintas e COUNT(coluna) retorna todas.",
+                "Ambas contam exatamente a mesma quantidade de registros independentemente de nulos.",
+                "COUNT(coluna) inclui os valores nulos como zero na contagem final.",
+                "COUNT(*) conta todas as linhas, enquanto COUNT(coluna) ignora os valores nulos."
+              ],
+              "answerIndex": 3,
+              "explanation": "COUNT(*) contabiliza todas as linhas do conjunto resultante, ao passo que COUNT(coluna específica) desconsidera linhas onde o valor daquela coluna é NULL."
+            },
+            {
+              "id": "sql-joins-agregacoes-3",
+              "question": "Como você deve filtrar o resultado de uma agregação, como o resultado de um SUM() ou COUNT()?",
+              "options": [
+                "Utilizando a cláusula WHERE antes do GROUP BY.",
+                "Utilizando a cláusula FILTER diretamente no SELECT.",
+                "Utilizando a cláusula HAVING após o GROUP BY.",
+                "Colocando a condição dentro de parênteses na tabela principal."
+              ],
+              "answerIndex": 2,
+              "explanation": "A cláusula WHERE filtra os dados antes do agrupamento, enquanto o HAVING é usado especificamente para filtrar o resultado já agregado."
+            },
+            {
+              "id": "sql-joins-agregacoes-4",
+              "question": "Qual é o papel da função de agregação AVG() ao ser executada em uma coluna numérica?",
+              "options": [
+                "Ela calcula a média aritmética ignorando os valores nulos da coluna.",
+                "Ela soma todos os valores e divide o total pelo número total de linhas incluindo nulos.",
+                "Ela retorna o valor que aparece com mais frequência na coluna numérica.",
+                "Ela calcula a mediana exata organizando os valores em ordem crescente."
+              ],
+              "answerIndex": 0,
+              "explanation": "A função AVG() soma os valores válidos e divide pela quantidade de linhas não nulas. Valores NULL são ignorados no cálculo."
             }
           ]
         },
@@ -694,6 +2094,56 @@
               "title": "Controle de Concorrência e Transações",
               "url": "https://www.postgresql.org/docs/current/tutorial-transactions.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "postgres-indices-transacoes-1",
+              "question": "Por que criar um índice do tipo B-tree em uma coluna frequentemente usada na cláusula WHERE?",
+              "options": [
+                "Para evitar varreduras sequenciais completas na tabela.",
+                "Para garantir que os dados fiquem ordenados fisicamente no disco.",
+                "Para impedir que valores duplicados sejam inseridos na coluna.",
+                "Para acelerar operações de escrita e atualização de registros."
+              ],
+              "answerIndex": 0,
+              "explanation": "O índice B-tree cria uma estrutura de árvore que permite ao PostgreSQL localizar os registros rapidamente sem precisar ler cada linha da tabela. Ele não altera a ordenação física dos dados na tabela."
+            },
+            {
+              "id": "postgres-indices-transacoes-2",
+              "question": "Qual é a principal diferença prática entre as constraints UNIQUE e PRIMARY KEY?",
+              "options": [
+                "PRIMARY KEY cria um índice automático, enquanto UNIQUE não cria.",
+                "UNIQUE pode ser aplicada em várias colunas, mas PRIMARY KEY apenas em uma.",
+                "UNIQUE permite valores nulos, enquanto PRIMARY KEY não permite.",
+                "PRIMARY KEY aceita valores duplicados se forem nulos."
+              ],
+              "answerIndex": 2,
+              "explanation": "Ambas garantem unicidade, mas a PRIMARY KEY impõe obrigatoriamente que a coluna não seja nula (NOT NULL), ao passo que UNIQUE permite múltiplos valores nulos no PostgreSQL."
+            },
+            {
+              "id": "postgres-indices-transacoes-3",
+              "question": "O que acontece quando executamos ROLLBACK dentro de uma transação ativa no PostgreSQL?",
+              "options": [
+                "Apenas a última instrução SQL executada é desfeita.",
+                "Todas as alterações feitas após o BEGIN são descartadas.",
+                "O PostgreSQL desfaz o banco de dados inteiro ao estado do último backup.",
+                "As alterações são salvas permanentemente e a conexão é encerrada."
+              ],
+              "answerIndex": 1,
+              "explanation": "O comando ROLLBACK cancela todas as operações realizadas desde o início da transação atual, garantindo a atomicidade. O comando COMMIT é que efetiva as mudanças."
+            },
+            {
+              "id": "postgres-indices-transacoes-4",
+              "question": "O que ocorre se tentarmos inserir um registro que viola uma restrição FOREIGN KEY?",
+              "options": [
+                "O registro é inserido com valor nulo na coluna da chave estrangeira.",
+                "Uma nova linha é criada automaticamente na tabela referenciada.",
+                "O banco de dados cria um aviso mas conclui a operação.",
+                "A inserção é rejeitada e um erro é retornado."
+              ],
+              "answerIndex": 3,
+              "explanation": "Foreign keys garantem integridade referencial. Se o valor informado não existir na tabela de origem, a operação viola a regra e o PostgreSQL impede a gravação."
+            }
           ]
         },
         {
@@ -713,6 +2163,56 @@
             {
               "title": "Funções de Janela (Window Functions)",
               "url": "https://www.postgresql.org/docs/current/tutorial-window.html"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "sql-views-funcoes-janela-1",
+              "question": "Qual é a principal vantagem de usar uma view materializada em vez de uma view comum no PostgreSQL?",
+              "options": [
+                "Armazena os dados fisicamente para consultas mais rápidas.",
+                "Atualiza os dados automaticamente a cada transação.",
+                "Permite operações de escrita diretamente na tabela base.",
+                "Garante que os dados consultados estejam sempre em tempo real."
+              ],
+              "answerIndex": 0,
+              "explanation": "Views materializadas persistem o resultado do SELECT em disco, melhorando a performance em leituras pesadas, mas exigem atualização manual."
+            },
+            {
+              "id": "sql-views-funcoes-janela-2",
+              "question": "Qual é o comportamento da cláusula `WITH CHECK OPTION` ao criar uma view atualizável?",
+              "options": [
+                "Garante que a view seja recriada automaticamente se a tabela base mudar.",
+                "Impede inserções ou atualizações que violem o filtro da própria view.",
+                "Bloqueia qualquer operação de escrita na tabela subjacente.",
+                "Verifica se a estrutura da view possui tipos de dados compatíveis."
+              ],
+              "answerIndex": 1,
+              "explanation": "O WITH CHECK OPTION assegura que as linhas modificadas ou inseridas através da view continuem visíveis através dos critérios do WHERE daquela view."
+            },
+            {
+              "id": "sql-views-funcoes-janela-3",
+              "question": "Qual a diferença prática entre `RANK()` e `DENSE_RANK()` em funções de janela?",
+              "options": [
+                "RANK funciona apenas com colunas numéricas e DENSE_RANK com textos.",
+                "DENSE_RANK reinicia a contagem a cada linha, enquanto RANK acumula.",
+                "RANK ordena os dados de forma ascendente e DENSE_RANK de forma descendente.",
+                "DENSE_RANK não deixa lacunas na numeração quando há empates."
+              ],
+              "answerIndex": 3,
+              "explanation": "Se houver empate na posição 2, o RANK pula para 4 na próxima linha, enquanto o DENSE_RANK segue para a posição 3."
+            },
+            {
+              "id": "sql-views-funcoes-janela-4",
+              "question": "Por que usar uma subconsulta correlacionada em vez de uma subconsulta comum (independente)?",
+              "options": [
+                "Porque ela executa apenas uma vez antes da query principal iniciar.",
+                "Porque ela consome menos memória RAM ao carregar índices em cache.",
+                "Porque a consulta interna depende de valores da linha atual da externa.",
+                "Porque ela substitui obrigatoriamente o uso de qualquer JOIN."
+              ],
+              "answerIndex": 2,
+              "explanation": "Na subconsulta correlacionada, a query interna faz referência a colunas da tabela externa, sendo avaliada repetidamente para cada linha processada."
             }
           ]
         }
@@ -750,6 +2250,56 @@
               "title": "Providers e Injeção de Dependência no NestJS",
               "url": "https://docs.nestjs.com/providers"
             }
+          ],
+          "quiz": [
+            {
+              "id": "nestjs-modulos-controllers-providers-1",
+              "question": "O que acontece ao declarar um Provider na seção 'providers' de um módulo?",
+              "options": [
+                "Ele é exportado automaticamente para toda a aplicação globalmente.",
+                "Ele fica disponível apenas para injeção dentro daquele mesmo módulo.",
+                "Ele se torna imediatamente acessível via requisições HTTP externas.",
+                "Ele substitui a necessidade de criar um arquivo de Controller."
+              ],
+              "answerIndex": 1,
+              "explanation": "Por padrão, o escopo do provider é encapsulado no módulo onde foi declarado. Para usá-lo em outro módulo, é preciso exportá-lo e importar o módulo de origem."
+            },
+            {
+              "id": "nestjs-modulos-controllers-providers-2",
+              "question": "Como o NestJS descobre quais dependências injetar em uma classe?",
+              "options": [
+                "Através dos tipos especificados nos parâmetros do construtor.",
+                "Lendo o arquivo de configuração principal do Prisma.",
+                "Analisando as rotas definidas nos decorators dos controllers.",
+                "Procurando por variáveis globais exportadas no main.ts."
+              ],
+              "answerIndex": 0,
+              "explanation": "O NestJS usa o sistema de reflexão do TypeScript para inspecionar os tipos dos parâmetros do construtor e resolver as dependências automaticamente."
+            },
+            {
+              "id": "nestjs-modulos-controllers-providers-3",
+              "question": "Para que serve a propriedade 'imports' no decorator @Module()?",
+              "options": [
+                "Para importar bibliotecas externas diretamente do npm para a aplicação.",
+                "Para carregar arquivos de rotas estáticas na raiz do projeto.",
+                "Para definir quais arquivos de teste unitário serão executados.",
+                "Para importar outros módulos cujos providers queremos reutilizar."
+              ],
+              "answerIndex": 3,
+              "explanation": "A propriedade imports serve para trazer módulos que exportam providers necessários para o funcionamento do módulo atual."
+            },
+            {
+              "id": "nestjs-modulos-controllers-providers-4",
+              "question": "Como tornar um Provider de um módulo acessível em outro módulo diferente?",
+              "options": [
+                "Declarando o provider novamente no array 'providers' do segundo módulo.",
+                "Transformando o provider em uma rota HTTP usando o decorator @Get().",
+                "Exportando-o no array 'exports' do módulo de origem e importando-o.",
+                "Adicionando o provider diretamente no arquivo 'main.ts' da aplicação."
+              ],
+              "answerIndex": 2,
+              "explanation": "Para compartilhar providers, o módulo original deve incluí-los no array 'exports' e o módulo consumidor deve importar o módulo de origem."
+            }
           ]
         },
         {
@@ -769,6 +2319,56 @@
             {
               "title": "Pipes no NestJS",
               "url": "https://docs.nestjs.com/pipes"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "nestjs-dtos-validacao-1",
+              "question": "Qual é a principal responsabilidade de um ValidationPipe global no NestJS?",
+              "options": [
+                "Conectar o Prisma ORM diretamente ao banco de dados relacional.",
+                "Interceptar requisições e validar os dados com base nos decoradores do DTO.",
+                "Transformar rotas HTTP em eventos assíncronos dentro dos controladores.",
+                "Criptografar senhas de usuários antes de salvar no banco de dados."
+              ],
+              "answerIndex": 1,
+              "explanation": "O ValidationPipe valida e transforma os payloads de entrada automaticamente usando as regras definidas nos DTOs com class-validator."
+            },
+            {
+              "id": "nestjs-dtos-validacao-2",
+              "question": "Ao criar um DTO para uma rota de atualização parcial (PATCH), como geralmente tratamos as propriedades?",
+              "options": [
+                "Repetindo todas as validações originais e adicionando o decorador @Required novamente.",
+                "Removendo todos os decoradores de validação, pois dados parciais não precisam de regras.",
+                "Convertendo todas as propriedades manualmente em tipos primitivos do tipo string.",
+                "Aplicando o PartialType do @nestjs/mapped-types para torná-las opcionais."
+              ],
+              "answerIndex": 3,
+              "explanation": "O PartialType herda todas as propriedades do DTO original e aplica a regra de serem opcionais, evitando duplicação de código."
+            },
+            {
+              "id": "nestjs-dtos-validacao-3",
+              "question": "Por que precisamos instalar o class-transformer junto com o class-validator no NestJS?",
+              "options": [
+                "Para transformar objetos JSON em entidades válidas do banco de dados relacional.",
+                "Para converter códigos TypeScript em JavaScript executável no navegador.",
+                "Para converter o payload bruto da requisição em uma instância da classe DTO.",
+                "Para serializar as respostas HTTP enviadas pelo servidor de volta ao cliente."
+              ],
+              "answerIndex": 2,
+              "explanation": "O ValidationPipe precisa que o class-transformer converta o objeto JSON simples em uma instância da classe para que os decoradores funcionem."
+            },
+            {
+              "id": "nestjs-dtos-validacao-4",
+              "question": "O que acontece se um cliente enviar propriedades extras não declaradas no DTO quando usamos o ValidationPipe com { whitelist: true }?",
+              "options": [
+                "As propriedades extras são removidas automaticamente do objeto validado.",
+                "A requisição é rejeitada imediatamente com um erro HTTP 400 Bad Request.",
+                "As propriedades extras são salvas no banco de dados junto com os dados válidos.",
+                "O NestJS gera um erro interno no servidor informando propriedades desconhecidas."
+              ],
+              "answerIndex": 0,
+              "explanation": "A opção whitelist descarta qualquer propriedade que não possua decoradores de validação no DTO, aumentando a segurança."
             }
           ]
         },
@@ -794,6 +2394,56 @@
               "title": "Relacionamentos no Prisma",
               "url": "https://www.prisma.io/docs/orm/data-modeling/relational-databases"
             }
+          ],
+          "quiz": [
+            {
+              "id": "prisma-schema-migrations-1",
+              "question": "O que define primariamente a estrutura das tabelas do banco de dados relacional ao usar o Prisma?",
+              "options": [
+                "As rotas criadas na aplicação NestJS.",
+                "O arquivo schema.prisma através de seus models.",
+                "Os arquivos de migração gerados automaticamente.",
+                "As classes de entidade definidas no código TypeScript."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Prisma utiliza o arquivo schema.prisma como a fonte única da verdade para definir os models e a estrutura do banco de dados."
+            },
+            {
+              "id": "prisma-schema-migrations-2",
+              "question": "Qual comando do Prisma CLI deve ser executado para aplicar alterações do schema em um banco de dados de desenvolvimento gerando uma migration?",
+              "options": [
+                "prisma db push",
+                "prisma generate",
+                "prisma migrate dev",
+                "prisma migrate deploy"
+              ],
+              "answerIndex": 2,
+              "explanation": "O comando `prisma migrate dev` cria e aplica novas migrações em ambientes de desenvolvimento. O 'db push' não cria arquivos de histórico de migração."
+            },
+            {
+              "id": "prisma-schema-migrations-3",
+              "question": "Em um relacionamento 1 para N entre User e Post, onde fica fisicamente a chave estrangeira (foreign key) no banco de dados gerenciado pelo Prisma?",
+              "options": [
+                "Na tabela do modelo User.",
+                "Em uma tabela intermediária automática.",
+                "No arquivo de configuração do Prisma.",
+                "Na tabela do modelo Post."
+              ],
+              "answerIndex": 3,
+              "explanation": "Em relações de um para muitos, a chave estrangeira é sempre adicionada na tabela do lado 'muitos' (Post), que referencia o ID do lado 'um' (User)."
+            },
+            {
+              "id": "prisma-schema-migrations-4",
+              "question": "Como o Prisma lida com relacionamentos muitos para muitos (N:M) de forma simplificada no schema?",
+              "options": [
+                "Através de campos de array em ambos os modelos sem tabela explícita.",
+                "Exigindo a criação manual de uma classe intermediária em TypeScript.",
+                "Adicionando uma chave estrangeira simples na tabela principal.",
+                "Utilizando herança de classes entre os models envolvidos."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Prisma permite definir relações N:M usando listas nos dois lados, gerenciando a tabela de junção oculta nos bastidores de forma automática."
+            }
           ]
         },
         {
@@ -814,6 +2464,56 @@
               "title": "NestJS - Técnicas com Prisma e Banco de Dados",
               "url": "https://docs.nestjs.com/recipes/prisma"
             }
+          ],
+          "quiz": [
+            {
+              "id": "nestjs-prisma-crud-1",
+              "question": "Como você aplicaria paginação em uma consulta usando o Prisma Client no NestJS?",
+              "options": [
+                "Usando os métodos nativos `offset` e `limit` diretamente no modelo do Prisma.",
+                "Utilizando os parâmetros `skip` para deslocamento e `take` para o limite de registros.",
+                "Aplicando `page` e `pageSize` como propriedades obrigatórias no objeto de busca.",
+                "Configurando o método `paginate()` importado do pacote principal do Prisma."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Prisma utiliza os argumentos `skip` e `take` para controlar a paginação de forma equivalente a OFFSET e LIMIT no SQL."
+            },
+            {
+              "id": "nestjs-prisma-crud-2",
+              "question": "Qual é a melhor forma de aplicar um filtro de busca parcial (case-insensitive) em um campo de texto usando o Prisma?",
+              "options": [
+                "Utilizando a função LOWER() do SQL diretamente na propriedade do objeto where.",
+                "Convertendo o valor recebido para caixa baixa no DTO antes de enviar ao Prisma.",
+                "Aplicando a opção `caseSensitive: false` na configuração global do Prisma Client.",
+                "Usando a opção `mode: 'insensitive'` dentro do operador de busca do Prisma."
+              ],
+              "answerIndex": 3,
+              "explanation": "O Prisma oferece a propriedade `mode: 'insensitive'` nos filtros de string para lidar com buscas sem distinção entre maiúsculas e minúsculas."
+            },
+            {
+              "id": "nestjs-prisma-crud-3",
+              "question": "Como ordenar os resultados de uma consulta no Prisma por uma propriedade em ordem decrescente?",
+              "options": [
+                "Passando um objeto `orderBy` com o campo desejado e o valor `desc`.",
+                "Utilizando a função `sort()` encadeada após o método de busca do Prisma.",
+                "Adicionando o modificador `DESC` como string no final do nome da propriedade.",
+                "Configurando a ordenação padrão diretamente no arquivo schema.prisma."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Prisma utiliza a cláusula `orderBy` onde você define o campo e a direção como `asc` ou `desc`."
+            },
+            {
+              "id": "nestjs-prisma-crud-4",
+              "question": "Como retornar tanto os dados paginados quanto o total de registros da tabela para o cliente?",
+              "options": [
+                "Utilizando o método especial `findAndCount()` disponível em todos os modelos do Prisma.",
+                "Configurando o interceptor de paginação global do NestJS para injetar o total.",
+                "Executando uma transação com `prisma.$transaction` contendo `findMany` e `count`.",
+                "Lendo a propriedade `totalCount` retornada automaticamente por padrão no `findMany`."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Prisma não possui um `findAndCount` nativo, logo a prática recomendada é usar `prisma.$transaction` combinando `findMany` e `count`."
+            }
           ]
         },
         {
@@ -829,6 +2529,56 @@
             {
               "title": "Configuração no NestJS",
               "url": "https://docs.nestjs.com/techniques/configuration"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "nestjs-configuracao-ambiente-1",
+              "question": "Como o NestJS gerencia nativamente a carga de arquivos de configuração no ecossistema padrão?",
+              "options": [
+                "Através do módulo `@nestjs/config`, que usa internamente a biblioteca dotenv.",
+                "Lendo diretamente o arquivo .env de forma síncrona no arquivo main.ts.",
+                "Por meio do módulo `@nestjs/dotenv`, instalado obrigatoriamente em todo projeto.",
+                "Através do Prisma ORM, que injeta as variáveis no escopo global da aplicação."
+              ],
+              "answerIndex": 0,
+              "explanation": "O NestJS fornece o `@nestjs/config` como solução padrão e recomendada. Ele encapsula o dotenv para carregar as variáveis de ambiente com segurança."
+            },
+            {
+              "id": "nestjs-configuracao-ambiente-2",
+              "question": "Ao registrar o ConfigModule globalmente em sua aplicação, qual propriedade deve ser definida no método forRoot?",
+              "options": [
+                "global: true",
+                "loadGlobal: true",
+                "envGlobal: true",
+                "isGlobal: true"
+              ],
+              "answerIndex": 3,
+              "explanation": "A propriedade correta para disponibilizar o ConfigService em toda a aplicação sem precisar reimportar o módulo é `isGlobal: true`."
+            },
+            {
+              "id": "nestjs-configuracao-ambiente-3",
+              "question": "Qual é a forma correta de injetar e utilizar o serviço de configuração em um serviço customizado?",
+              "options": [
+                "Importar a função process.env.PORT diretamente sem usar classes do NestJS.",
+                "Utilizar o decorador @InjectConfig() diretamente nas propriedades da classe.",
+                "Injetar o ConfigService no construtor e chamar configService.get('PORT')",
+                "Chamar ConfigModule.get('PORT') de forma estática dentro dos métodos."
+              ],
+              "answerIndex": 2,
+              "explanation": "O `ConfigService` deve ser injetado via dependência no construtor para acessar variáveis com segurança usando o método `get`."
+            },
+            {
+              "id": "nestjs-configuracao-ambiente-4",
+              "question": "Qual é o comportamento padrão do ConfigModule se nenhum caminho personalizado for informado?",
+              "options": [
+                "Ele lê automaticamente todas as variáveis do arquivo package.json.",
+                "Ele busca por um arquivo chamado .env na raiz do projeto.",
+                "Ele exige que o caminho completo seja especificado obrigatoriamente.",
+                "Ele carrega um arquivo config.json localizado na pasta src."
+              ],
+              "answerIndex": 1,
+              "explanation": "Por padrão, se nenhuma configuração de caminho for passada, o módulo procura por um arquivo `.env` na raiz do diretório de trabalho do projeto."
             }
           ]
         },
@@ -853,6 +2603,56 @@
             {
               "title": "Documentação com OpenAPI (Swagger) no NestJS",
               "url": "https://docs.nestjs.com/openapi/introduction"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "nestjs-filtros-interceptors-1",
+              "question": "Como você deve registrar um Exception Filter globalmente em toda a aplicação NestJS para tratar erros de infraestrutura?",
+              "options": [
+                "Utilizando o método `app.useGlobalFilters()` no arquivo main.ts.",
+                "Adicionando o decorador `@Global()` na classe do filtro.",
+                "Injetando o filtro diretamente no módulo principal sem providers.",
+                "Configurando o filtro no arquivo package.json na chave filters."
+              ],
+              "answerIndex": 0,
+              "explanation": "Filtros globais que precisam de injeção de dependência costumam ser registrados via `app.useGlobalFilters()` no main.ts, pois o `@Global()` aplica-se apenas a módulos."
+            },
+            {
+              "id": "nestjs-filtros-interceptors-2",
+              "question": "Ao utilizar a integração do Swagger com o NestJS, como você documenta um DTO que possui um campo opcional?",
+              "options": [
+                "Usando `@ApiProperty({ required: false })` obrigatoriamente sem outra alternativa.",
+                "Utilizando a função `@ApiPropertyOptional()` na propriedade do DTO.",
+                "Adicionando o sufixo ? no tipo TypeScript e gerando automaticamente.",
+                "Definindo a propriedade como nullable dentro do decorador padrão `@ApiProperty()`."
+              ],
+              "answerIndex": 1,
+              "explanation": "O NestJS fornece o decorador específico `@ApiPropertyOptional()` para indicar clareza na documentação OpenAPI que o campo não é obrigatório."
+            },
+            {
+              "id": "nestjs-filtros-interceptors-3",
+              "question": "O que acontece se você declarar um Exception Filter customizado em nível de método usando `@UseFilters()` e lançar uma exceção não tratada nele?",
+              "options": [
+                "O servidor falha ao iniciar devido a um erro de compilação de rotas.",
+                "A requisição fica travada em loop infinito aguardando uma resposta.",
+                "A exceção cai para o filtro global de exceções padrão do NestJS.",
+                "O NestJS converte automaticamente o erro em um status 500 interno."
+              ],
+              "answerIndex": 2,
+              "explanation": "Se um filtro customizado não trata um tipo específico de exceção, a propagação sobe até atingir o filtro de exceções global padrão da aplicação."
+            },
+            {
+              "id": "nestjs-filtros-interceptors-4",
+              "question": "Como um Interceptor pode ser utilizado para implementar um cache simples de respostas em endpoints específicos?",
+              "options": [
+                "Sobrescrevendo o método intercept para salvar dados no disco local.",
+                "Utilizando o método `response.cache()` disponibilizado pelo Express.",
+                "Alterando a propriedade headers da requisição antes do handler.",
+                "Retornando um Observable cacheado sem chamar o método `next.handle()`."
+              ],
+              "answerIndex": 3,
+              "explanation": "Se `next.handle()` não for chamado, o fluxo do NestJS para na interceptação e o Observable retornado (com dados em cache) é enviado diretamente ao cliente."
             }
           ]
         }
@@ -886,6 +2686,56 @@
               "title": "Documentação do Node.js sobre o Módulo Crypto",
               "url": "https://nodejs.org/docs/latest/api/crypto.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "hash-senhas-bcrypt-1",
+              "question": "Por que o algoritmo bcrypt é recomendado para o armazenamento de senhas em vez de MD5 ou SHA-256?",
+              "options": [
+                "Porque ele criptografa a senha de forma reversível caso o usuário precise recuperá-la.",
+                "Porque ele gera hashes menores que ocupam menos espaço no banco de dados relacional.",
+                "Porque ele garante que a mesma senha sempre gere exatamente o mesmo hash final.",
+                "Porque ele possui um fator de custo ajustável para retardar ataques de força bruta."
+              ],
+              "answerIndex": 3,
+              "explanation": "O bcrypt foi desenhado para ser lento propositalmente, usando um custo computacional configurável que dificulta tentativas massivas de força bruta. Funções como MD5 são rápidas demais e inseguras para senhas."
+            },
+            {
+              "id": "hash-senhas-bcrypt-2",
+              "question": "Onde o salt gerado pelo bcrypt fica armazenado após o processo de hash?",
+              "options": [
+                "Em uma coluna separada na tabela de usuários chamada `user_salt`.",
+                "Em uma variável de ambiente global segura no servidor de aplicação.",
+                "Embutido na própria string do hash resultante gerada pela biblioteca.",
+                "Criptografado dentro do payload do token JWT enviado ao cliente."
+              ],
+              "answerIndex": 2,
+              "explanation": "O bcrypt armazena o salt e o custo de processamento diretamente nos primeiros caracteres da string do hash final, simplificando a persistência no banco de dados."
+            },
+            {
+              "id": "hash-senhas-bcrypt-3",
+              "question": "O que acontece se você aumentar o fator de custo (rounds) do bcrypt em sua aplicação?",
+              "options": [
+                "O tamanho do hash gerado no banco de dados aumentará proporcionalmente.",
+                "O tempo de processamento para criar e verificar senhas vai dobrar a cada incremento.",
+                "A segurança contra ataques de força bruta diminuirá devido à sobrecarga de memória.",
+                "As senhas antigas deixarão de funcionar e precisarão ser recriadas obrigatoriamente."
+              ],
+              "answerIndex": 1,
+              "explanation": "O fator de custo controla o número de iterações de forma exponencial. Aumentar os rounds torna o ataque mais difícil, mas também exige mais CPU do seu servidor."
+            },
+            {
+              "id": "hash-senhas-bcrypt-4",
+              "question": "Qual é a principal limitação do bcrypt em relação ao tamanho da senha de entrada?",
+              "options": [
+                "Ele trunca senhas que possuem mais de 72 bytes de comprimento.",
+                "Ele não aceita caracteres especiais ou acentuados na string da senha.",
+                "Ele exige que a senha tenha no mínimo 12 caracteres para funcionar.",
+                "Ele rejeita senhas curtas com menos de 8 caracteres por segurança."
+              ],
+              "answerIndex": 0,
+              "explanation": "O algoritmo bcrypt possui um limite rígido de 72 bytes devido ao seu design interno. Senhas maiores que isso são truncadas, o que pode ser contornado aplicando um pré-hash (como SHA-256) se necessário."
+            }
           ]
         },
         {
@@ -901,6 +2751,56 @@
             {
               "title": "NestJS Authentication",
               "url": "https://docs.nestjs.com/security/authentication"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "jwt-autenticacao-nestjs-1",
+              "question": "O que o decorador `@UseGuards(AuthGuard('jwt'))` faz essencialmente em uma rota do NestJS?",
+              "options": [
+                "Intercepta a requisição para validar o token JWT antes de executar a rota.",
+                "Cria um novo token JWT e o envia de volta ao cliente na resposta.",
+                "Verifica se o usuário possui permissão de administrador no banco de dados.",
+                "Armazena as credenciais do usuário na sessão ativa do servidor."
+              ],
+              "answerIndex": 0,
+              "explanation": "O AuthGuard aciona a estratégia Passport JWT para verificar a assinatura e a validade do token enviado no cabeçalho. Ele roda antes do método do controlador."
+            },
+            {
+              "id": "jwt-autenticacao-nestjs-2",
+              "question": "Onde o payload decodificado do JWT costuma ser injetado pelo Passport para uso nos controllers?",
+              "options": [
+                "No objeto de configuração global do NestJS.",
+                "Diretamente no corpo (body) da resposta HTTP.",
+                "No objeto `request.user` da requisição HTTP.",
+                "Na propriedade `headers` do próximo middleware."
+              ],
+              "answerIndex": 2,
+              "explanation": "A estratégia Passport anexa o resultado da validação do payload na propriedade user do objeto request, facilitando o acesso aos dados do usuário."
+            },
+            {
+              "id": "jwt-autenticacao-nestjs-3",
+              "question": "Qual é a principal responsabilidade do módulo `JwtModule` ao ser importado no NestJS?",
+              "options": [
+                "Validar senhas usando algoritmos de hash como bcrypt.",
+                "Gerenciar conexões persistentes com o banco de dados.",
+                "Criar rotas automáticas de login e logout.",
+                "Fornecer serviços para assinar e verificar tokens JWT."
+              ],
+              "answerIndex": 3,
+              "explanation": "O JwtModule encapsula a biblioteca subjacente para gerar e checar tokens, disponibilizando o JwtService para injeção de dependência."
+            },
+            {
+              "id": "jwt-autenticacao-nestjs-4",
+              "question": "Ao implementar a rota de login, qual é a prática recomendada para o payload gerado no token?",
+              "options": [
+                "Incluir a senha criptografada para checagem rápida em cada requisição.",
+                "Incluir apenas dados essenciais e não sensíveis, como o ID e o e-mail.",
+                "Salvar todo o objeto do usuário recuperado do banco de dados.",
+                "Guardar tokens de acesso de APIs externas consumidas pelo usuário."
+              ],
+              "answerIndex": 1,
+              "explanation": "Como o payload do JWT é apenas assinado e não cifrado (qualquer um pode ler), nunca devemos incluir dados sensíveis como senhas."
             }
           ]
         },
@@ -921,6 +2821,56 @@
             {
               "title": "Autorização baseada em papéis (Roles) no NestJS",
               "url": "https://docs.nestjs.com/security/authorization"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "guards-autorizacao-roles-1",
+              "question": "Como o NestJS recomenda disponibilizar metadados de papéis (roles) para um Guard de autorização?",
+              "options": [
+                "Utilizando o decorador @SetMetadata ou um decorador personalizado combinando Reflector.",
+                "Lendo diretamente as propriedades estáticas definidas na classe do controlador em tempo de execução.",
+                "Injetando o serviço de rotas no construtor do Guard para inspecionar as rotas mapeadas.",
+                "Armazenando os papéis em uma variável global acessível por qualquer middleware da aplicação."
+              ],
+              "answerIndex": 0,
+              "explanation": "O NestJS fornece o utilitário Reflector para ler metadados anexados a rotas usando @SetMetadata ou decoradores customizados como @Roles."
+            },
+            {
+              "id": "guards-autorizacao-roles-2",
+              "question": "Ao criar um decorador customizado @Roles('@Roles(\"admin\")'), como o Reflector deve ser injetado no Guard?",
+              "options": [
+                "Importando o Reflector estaticamente como uma função global de escopo.",
+                "Chamando Reflector.current() dentro do método canActivate.",
+                "Via injeção de dependência padrão no construtor do Guard.",
+                "Instanciando o Reflector com a palavra-chave new dentro do Guard."
+              ],
+              "answerIndex": 2,
+              "explanation": "Como o Guard é uma classe gerenciada pelo container de Injeção de Dependência do NestJS, o Reflector é injetado normalmente no construtor."
+            },
+            {
+              "id": "guards-autorizacao-roles-3",
+              "question": "O que acontece se um Guard retornar false durante a execução de uma rota protegida?",
+              "options": [
+                "A requisição continua para o próximo interceptor na cadeia de execução.",
+                "O NestJS interrompe o fluxo e lança uma exceção do tipo ForbiddenException por padrão.",
+                "O controlador executa a função normalmente, mas com um objeto de resposta vazio.",
+                "Um evento de erro é disparado, permitindo que o middleware tente novamente."
+              ],
+              "answerIndex": 1,
+              "explanation": "Quando um Guard retorna false, o framework bloqueia o acesso e dispara uma exceção HTTP padrão de acesso negado."
+            },
+            {
+              "id": "guards-autorizacao-roles-4",
+              "question": "Qual a ordem correta de execução entre Guards, Pipes e Interceptors em uma rota do NestJS?",
+              "options": [
+                "Pipes são executados primeiro para validar os dados, depois os Guards e por fim os Interceptors.",
+                "Interceptors executam antes de tudo, seguidos por Guards e Pipes de forma síncrona.",
+                "Não há ordem fixa, pois o NestJS resolve todas essas dependências em paralelo.",
+                "Guards são executados primeiro, seguidos por Interceptors (antes da rota), e depois Pipes."
+              ],
+              "answerIndex": 3,
+              "explanation": "O ciclo de vida do NestJS garante que a autenticação e autorização (Guards) ocorram antes da validação de payloads (Pipes)."
             }
           ]
         },
@@ -946,6 +2896,56 @@
               "title": "OAuth 2.0 Token Revocation",
               "url": "https://oauth.net/2/token-revocation/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "refresh-token-sessoes-1",
+              "question": "Qual é a principal vantagem de usar um refresh token opaco em vez de um JWT para a mesma finalidade?",
+              "options": [
+                "Elimina a necessidade de criptografia no transporte de dados sensíveis.",
+                "Permite revogação imediata no lado do servidor consultando o banco ou cache.",
+                "Reduz a carga do banco de dados ao evitar validações em cada requisição.",
+                "Garante que o token expire automaticamente após o primeiro uso na API."
+              ],
+              "answerIndex": 1,
+              "explanation": "Como tokens opacos são apenas ponteiros para dados no servidor, revogá-los exige apenas apagar o registro correspondente, ao contrário de JWTs que precisam de listas de negação."
+            },
+            {
+              "id": "refresh-token-sessoes-2",
+              "question": "Como mitigar o risco de roubo de refresh tokens armazenados no LocalStorage do navegador?",
+              "options": [
+                "Criptografando o valor do token com uma chave privada antes de salvá-lo.",
+                "Definindo o tempo de expiração do refresh token para menos de quinze minutos.",
+                "Limpando o LocalStorage automaticamente a cada evento de fechamento de aba.",
+                "Armazenando-os em cookies HttpOnly e Secure com política SameSite estrita."
+              ],
+              "answerIndex": 3,
+              "explanation": "Cookies HttpOnly impedem o acesso via JavaScript (XSS), protegendo o token contra roubo por scripts maliciosos injetados na página."
+            },
+            {
+              "id": "refresh-token-sessoes-3",
+              "question": "O que deve acontecer na API ao detectar o reuso de um refresh token já invalidado (token reuse detection)?",
+              "options": [
+                "Emitir um novo access token e ignorar o alerta para não prejudicar a UX.",
+                "Renovar apenas o tempo de expiração do refresh token que foi reutilizado.",
+                "Revogar toda a cadeia de tokens associada àquela sessão e alertar o usuário.",
+                "Converter o refresh token em um token de acesso de escopo limitado temporariamente."
+              ],
+              "answerIndex": 2,
+              "explanation": "O reuso de um token revogado indica que ele foi comprometido. Revogar toda a cadeia impede que o atacante continue se passando pelo usuário legítimo."
+            },
+            {
+              "id": "refresh-token-sessoes-4",
+              "question": "Qual é o principal objetivo da Rotação de Refresh Tokens (Refresh Token Rotation)?",
+              "options": [
+                "Gerar um novo refresh token a cada uso, invalidando o anterior automaticamente.",
+                "Aumentar o tempo de vida útil do token principal de acesso indefinidamente.",
+                "Reduzir o tráfego de rede exigindo autenticação apenas a cada troca de IP.",
+                "Permitir múltiplos logins simultâneos do mesmo usuário em diferentes dispositivos."
+              ],
+              "answerIndex": 0,
+              "explanation": "Na rotação, cada troca gera um par novo. Se um token antigo for reutilizado, o sistema percebe a fraude e bloqueia o acesso imediatamente."
+            }
           ]
         },
         {
@@ -965,6 +2965,56 @@
             {
               "title": "Cross-Origin Resource Sharing (CORS)",
               "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/CORS"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "seguranca-owasp-api-1",
+              "question": "Por que o rate limiting é essencial em uma API RESTful?",
+              "options": [
+                "Criptografa o tráfego sensível em trânsito.",
+                "Garante que apenas requisições autenticadas passem.",
+                "Remove cabeçalhos HTTP vulneráveis a injeção.",
+                "Evita ataques de força bruta e sobrecarga do servidor."
+              ],
+              "answerIndex": 3,
+              "explanation": "O rate limiting limita a quantidade de requisições por IP ou usuário em um intervalo de tempo, mitigando negação de serviço e força bruta."
+            },
+            {
+              "id": "seguranca-owasp-api-2",
+              "question": "Qual é a principal função do middleware Helmet em aplicações Node.js?",
+              "options": [
+                "Limitar o número de requisições por minuto.",
+                "Gerenciar o CORS e conexões de origens cruzadas.",
+                "Definir cabeçalhos HTTP de segurança adequados.",
+                "Criptografar dados sensíveis antes de salvar no banco."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Helmet ajuda a proteger a aplicação configurando diversos cabeçalhos HTTP, reduzindo vulnerabilidades comuns como XSS."
+            },
+            {
+              "id": "seguranca-owasp-api-3",
+              "question": "Qual é um risco comum abordado no OWASP API Security Top 10?",
+              "options": [
+                "Uso excessivo de comentários no código fonte.",
+                "Falha na autorização em nível de objeto (BOLA).",
+                "Falta de minificação nos arquivos JavaScript.",
+                "Ausência de testes unitários nas rotas públicas."
+              ],
+              "answerIndex": 1,
+              "explanation": "BOLA ocorre quando a API não valida adequadamente se o usuário logado tem permissão para acessar o objeto solicitado."
+            },
+            {
+              "id": "seguranca-owasp-api-4",
+              "question": "Ao configurar o CORS permitindo qualquer origem ('*'), o que acontece com credenciais (cookies)?",
+              "options": [
+                "Elas não podem ser enviadas junto com a requisição.",
+                "Elas são criptografadas automaticamente pelo navegador.",
+                "Elas passam a ser aceitas de forma irrestrita.",
+                "O servidor rejeita qualquer acesso via HTTPS."
+              ],
+              "answerIndex": 0,
+              "explanation": "Por segurança, requisições CORS com credenciais exigem uma origem específica explícita, não sendo compatíveis com o caractere curinga."
             }
           ]
         },
@@ -989,6 +3039,56 @@
             {
               "title": "Visão Geral do OAuth 2.0",
               "url": "https://oauth.net/2/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "oauth-login-social-1",
+              "question": "Por que o parametro state e obrigatorio em fluxos seguros de OAuth 2.0?",
+              "options": [
+                "Ele protege a aplicacao contra ataques de falsificacao de requisicao entre sites (CSRF).",
+                "Ele criptografa o token de acesso gerado durante a autenticação com o provedor.",
+                "Ele garante que o usuario so faca login se estiver usando HTTPS na aplicacao cliente.",
+                "Ele armazena o escopo das permissoes solicitadas ao Google ou GitHub de forma segura."
+              ],
+              "answerIndex": 0,
+              "explanation": "O parametro state e um token opaco unico enviado na requisicao e validado no retorno, garantindo que a resposta pertença a sessao que iniciou o fluxo."
+            },
+            {
+              "id": "oauth-login-social-2",
+              "question": "Ao integrar o login com o GitHub, por que precisamos fazer uma segunda requisicao HTTP apos receber o codigo?",
+              "options": [
+                "Para buscar os dados publicos do perfil do usuario usando o client_secret.",
+                "Para revogar imediatamente o codigo de autorizacao anterior e evitar reuso.",
+                "Para trocar o codigo temporario por um access_token definitivo.",
+                "Para validar se o email do usuario foi confirmado diretamente com o GitHub."
+              ],
+              "answerIndex": 2,
+              "explanation": "O codigo recebido na callback e apenas um atalho de uso unico; a aplicacao deve fazer um POST para obter o token de acesso."
+            },
+            {
+              "id": "oauth-login-social-3",
+              "question": "Como o Google e o GitHub garantem que o cliente e quem diz ser ao trocar o codigo?",
+              "options": [
+                "Validando a assinatura digital do certificado SSL da aplicacao cliente.",
+                "Exigindo o envio do client_secret cadastrado previamente no provedor.",
+                "Conferindo se o endereco IP da requisicao bate com o dominio registrado.",
+                "Verificando se o token JWT possui a chave privada da aplicacao cliente."
+              ],
+              "answerIndex": 1,
+              "explanation": "O client_secret e a credencial secreta compartilhada apenas entre o seu servidor e o provedor OAuth, provando a identidade."
+            },
+            {
+              "id": "oauth-login-social-4",
+              "question": "O que sao 'scopes' (escopos) configurados em uma requisicao de login social?",
+              "options": [
+                "Definem quais endereços de IP tem permissao para chamar a API do provedor.",
+                "Determinam o tempo de expiracao do token de acesso emitido pelo servidor.",
+                "Especificam quais frameworks o backend esta utilizando para processar o login.",
+                "Delimitam quais dados e permissoes a aplicacao esta solicitando ao usuario."
+              ],
+              "answerIndex": 3,
+              "explanation": "Os escopos informam claramente ao usuario o que a aplicacao podera acessar, como ler o email ou repositorios."
             }
           ]
         }
@@ -1026,6 +3126,56 @@
               "title": "Documentação de Mocks no Jest",
               "url": "https://jestjs.io/docs/mock-functions"
             }
+          ],
+          "quiz": [
+            {
+              "id": "testes-unitarios-jest-1",
+              "question": "Como injetar uma dependência mockada em um serviço do NestJS durante um teste unitário?",
+              "options": [
+                "Passando a instância mockada diretamente no construtor do serviço no arquivo de teste.",
+                "Utilizando o decorador @InjectMock antes de declarar a classe do serviço testado.",
+                "Utilizando o Test.createTestingModule e sobrescrevendo o provedor com useValue.",
+                "Configurando o arquivo jest.config.js para substituir automaticamente as dependências."
+              ],
+              "answerIndex": 2,
+              "explanation": "O módulo de teste do NestJS permite substituir dependências reais por mocks usando o método useValue na definição do provedor."
+            },
+            {
+              "id": "testes-unitarios-jest-2",
+              "question": "Qual é a principal utilidade da função jest.mock() ao testar componentes no NestJS?",
+              "options": [
+                "Criar um comportamento simulado automático para um módulo ou dependência externa.",
+                "Garantir que o banco de dados real seja chamado apenas para leitura durante os testes.",
+                "Limpar o cache de execução do Jest após cada teste individual ser finalizado.",
+                "Substituir o compilador TypeScript por uma versão mais rápida focada em testes."
+              ],
+              "answerIndex": 0,
+              "explanation": "O jest.mock() substitui a implementação original de módulos externos por versões simuladas, isolando o código testado."
+            },
+            {
+              "id": "testes-unitarios-jest-3",
+              "question": "Ao utilizar jest.fn().mockReturnValue('valor'), o que acontece quando a função mockada é chamada?",
+              "options": [
+                "Ela executa o código original e concatena o resultado com a string 'valor'.",
+                "Ela aguarda uma Promise ser resolvida para só entao entregar a string 'valor'.",
+                "Ela gera um erro de execução informando que a função nao possui corpo válido.",
+                "Ela retorna imediatamente a string 'valor' sem executar nenhum código interno."
+              ],
+              "answerIndex": 3,
+              "explanation": "mockReturnValue define um valor estático fixo de retorno para a função mockada, ignorando qualquer lógica prévia."
+            },
+            {
+              "id": "testes-unitarios-jest-4",
+              "question": "Como verificar se um método mockado chamado `salvar` foi executado exatamente uma vez em um teste Jest?",
+              "options": [
+                "Usando expect(service.salvar).toBeCalledWithExactCount(1).",
+                "Usando expect(service.salvar).toHaveBeenCalledTimes(1).",
+                "Usando expect(service.salvar.calls.length).toBe(1).",
+                "Usando expect(service.salvar).toHaveBeenCalledOnce()."
+              ],
+              "answerIndex": 1,
+              "explanation": "O matcher toHaveBeenCalledTimes é o padrão do Jest para validar a quantidade exata de chamadas de um mock."
+            }
           ]
         },
         {
@@ -1041,6 +3191,56 @@
             {
               "title": "Supertest no NestJS",
               "url": "https://docs.nestjs.com/fundamentals/testing"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "testes-e2e-supertest-1",
+              "question": "Como o Supertest é tipicamente inicializado antes de iniciar os testes E2E no NestJS?",
+              "options": [
+                "Criando uma nova instância da classe `HttpServer` manualmente.",
+                "Chamando a função `app.listen(3000)` diretamente no arquivo de configuração.",
+                "Importando o arquivo `main.ts` e executando o método bootstrap.",
+                "Utilizando `request(app.getHttpServer())` após compilar o módulo de testes."
+              ],
+              "answerIndex": 3,
+              "explanation": "Usamos `request(app.getHttpServer())` para obter a referência do servidor HTTP que o Supertest vai usar para disparar as rotas."
+            },
+            {
+              "id": "testes-e2e-supertest-2",
+              "question": "Como testar o envio de um corpo JSON usando Supertest em uma rota POST?",
+              "options": [
+                "Chamando `.send({ chave: 'valor' })` antes do método `.expect()`.",
+                "Passando o objeto diretamente dentro dos parênteses da função `request()`.",
+                "Utilizando o método `.body({ chave: 'valor' })` na cadeia de chamadas.",
+                "Adicionando o JSON como argumento da função `.expect(201, { chave: 'valor' })`."
+              ],
+              "answerIndex": 0,
+              "explanation": "O método `.send()` serializa o objeto JavaScript para JSON e define o header Content-Type automaticamente."
+            },
+            {
+              "id": "testes-e2e-supertest-3",
+              "question": "Qual é a forma correta de validar o código de status HTTP esperado usando Supertest?",
+              "options": [
+                "Verificando a resposta com uma asserção do Jest como `expect(res.status).toBe(201)` apenas.",
+                "Utilizando `.expect(201)` na cadeia de métodos.",
+                "Passando o status como segundo argumento da função `request(app).post('/url', 201)`.",
+                "Atribuindo o resultado a uma variável e chamando `.statusCode(201)`."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Supertest possui o método `.expect(status)` nativo para validar códigos de resposta de forma concisa e fluida."
+            },
+            {
+              "id": "testes-e2e-supertest-4",
+              "question": "O que acontece se você chamar `app.close()` no ganho `afterAll` dos testes E2E?",
+              "options": [
+                "Deleta todos os arquivos de log gerados durante a execução dos testes.",
+                "Apaga permanentemente os dados inseridos nas tabelas do banco.",
+                "Fecha conexões abertas e encerra o ciclo de vida da aplicação graciosamente.",
+                "Reinicia o servidor para a próxima bateria de testes de integração."
+              ],
+              "answerIndex": 2,
+              "explanation": "O `app.close()` é essencial para liberar portas, fechar conexões com banco de dados e evitar vazamentos de recursos entre os testes."
             }
           ]
         },
@@ -1066,6 +3266,56 @@
               "title": "Documentação do NestJS sobre Testes",
               "url": "https://docs.nestjs.com/fundamentals/testing"
             }
+          ],
+          "quiz": [
+            {
+              "id": "testes-integracao-banco-1",
+              "question": "Como isolar o estado do banco de dados entre os testes de integração usando Prisma para evitar falhas por dados residuais?",
+              "options": [
+                "Executar cada teste dentro de uma transação que é revertida ao final.",
+                "Apagar e recriar o arquivo do banco SQLite antes de cada suíte de testes.",
+                "Reiniciar o processo do servidor Node.js após cada arquivo de teste.",
+                "Chamar o comando de migrate reset no ganho afterEach de cada teste."
+              ],
+              "answerIndex": 0,
+              "explanation": "Rollbacks em transações evitam I/O pesado de recriação de schema e garantem isolamento perfeito entre testes concorrentes ou sequenciais."
+            },
+            {
+              "id": "testes-integracao-banco-2",
+              "question": "Em um projeto NestJS configurado com Jest, qual a melhor forma de substituir um repositório real por um dublê em testes de integração?",
+              "options": [
+                "Fazer um mock manual do módulo inteiro usando jest.mock no topo do arquivo.",
+                "Alterar diretamente a propriedade injetada dentro da instância do controller.",
+                "Substituir a string de conexão no arquivo .env antes de iniciar o teste.",
+                "Utilizar o método overrideProvider do TestingModule do NestJS."
+              ],
+              "answerIndex": 3,
+              "explanation": "O overrideProvider do NestJS permite reconfigurar o container de injeção de dependência de forma limpa e específica para os testes."
+            },
+            {
+              "id": "testes-integracao-banco-3",
+              "question": "Por que o uso de testes de integração paralelos pode causar falhas intermitentes em bancos relacionais com Prisma?",
+              "options": [
+                "Incompatibilidade entre as versões do driver nativo do Prisma e o Jest.",
+                "Conflitos de chave primária e concorrência em tabelas globais compartilhadas.",
+                "O motor do Node.js interrompe a execução de queries pesadas em paralelo.",
+                "O Jest bloqueia as conexões TCP abertas pelo pool do banco de dados."
+              ],
+              "answerIndex": 1,
+              "explanation": "Testes paralelos rodando na mesma instância de banco competem pelos mesmos registros, gerando race conditions se não houver isolamento por schema ou transação."
+            },
+            {
+              "id": "testes-integracao-banco-4",
+              "question": "Como o Jest lida com a inicialização assíncrona do PrismaClient antes de executar o primeiro teste de integração?",
+              "options": [
+                "Conectando automaticamente na primeira importação do arquivo de testes.",
+                "Exigindo que o cliente Prisma seja instanciado estaticamente de forma síncrona.",
+                "Utilizando ganchos como beforeAll para aguardar a conexão com o banco.",
+                "Executando a conexão dentro de cada describe block sem suporte a async."
+              ],
+              "answerIndex": 2,
+              "explanation": "O método $connect() do Prisma é assíncrono e deve ser aguardado no beforeAll para evitar erros de banco fechado."
+            }
           ]
         },
         {
@@ -1086,6 +3336,56 @@
               "title": "Opções de Configuração do Prettier",
               "url": "https://prettier.io/docs/options.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "eslint-prettier-1",
+              "question": "Por que muitas vezes usamos o pacote `eslint-config-prettier` em conjunto com o ESLint?",
+              "options": [
+                "Para acelerar a execução do Prettier durante os testes unitários do projeto.",
+                "Para desativar regras de estilo do ESLint que entram em conflito com o Prettier.",
+                "Para permitir que o ESLint execute o código JavaScript diretamente no navegador.",
+                "Para substituir completamente o arquivo de configuração principal do Prettier."
+              ],
+              "answerIndex": 1,
+              "explanation": "Algumas regras do ESLint verificam espaçamentos e ponto e vírgula, gerando conflito com o Prettier. Esse pacote desliga essas regras do ESLint."
+            },
+            {
+              "id": "eslint-prettier-2",
+              "question": "Onde o Prettier costuma buscar suas opções de configuração personalizadas em um projeto?",
+              "options": [
+                "Apenas nas variáveis de ambiente do sistema operacional.",
+                "Diretamente na pasta `node_modules` do projeto.",
+                "Em arquivos como `.prettierrc` na raiz do projeto.",
+                "No arquivo principal do banco de dados relacional."
+              ],
+              "answerIndex": 2,
+              "explanation": "O Prettier lê arquivos de configuração específicos na raiz do projeto, como `.prettierrc` ou `prettier.config.js`, para aplicar as regras definidas."
+            },
+            {
+              "id": "eslint-prettier-3",
+              "question": "Qual comando você deve executar no terminal para verificar erros de linting em todos os arquivos usando o ESLint?",
+              "options": [
+                "npx eslint .",
+                "npm prettier check",
+                "node lint-run",
+                "eslint format"
+              ],
+              "answerIndex": 0,
+              "explanation": "O comando `npx eslint .` instrui o ESLint a analisar recursivamente todos os arquivos a partir do diretório atual."
+            },
+            {
+              "id": "eslint-prettier-4",
+              "question": "O que acontece quando você executa o comando `npx prettier --write .` no seu projeto?",
+              "options": [
+                "Apenas os testes unitários serão executados para verificar bugs.",
+                "O Prettier irá apagar todos os arquivos temporários criados pelo ESLint.",
+                "Um servidor web local será iniciado na porta 3000.",
+                "Todos os arquivos suportados na pasta atual serão formatados automaticamente."
+              ],
+              "answerIndex": 3,
+              "explanation": "A flag `--write` instrui o Prettier a sobrescrever os arquivos com a formatação correta aplicada."
+            }
           ]
         },
         {
@@ -1105,6 +3405,56 @@
             {
               "title": "Sintaxe do fluxo de trabalho para o GitHub Actions",
               "url": "https://docs.github.com/pt/actions/reference/workflows-and-actions/workflow-syntax"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "github-actions-ci-1",
+              "question": "Onde devem ser armazenados os arquivos de configuração de fluxo de trabalho do GitHub Actions em um repositório?",
+              "options": [
+                "Na raiz do projeto em um arquivo chamado pipeline.json.",
+                "Dentro da pasta src junto com o código-fonte da aplicação.",
+                "No diretório .github/workflows na raiz do projeto.",
+                "No diretório .github/actions/workflows do projeto."
+              ],
+              "answerIndex": 2,
+              "explanation": "O GitHub exige que os arquivos YAML de fluxo de trabalho fiquem estritamente no diretório .github/workflows para serem detectados automaticamente."
+            },
+            {
+              "id": "github-actions-ci-2",
+              "question": "Para que serve a etapa padrão 'actions/checkout@v4' logo no início de um job de CI?",
+              "options": [
+                "Para realizar o commit automático das alterações geradas pelos testes.",
+                "Para validar a sintaxe do arquivo YAML do fluxo de trabalho.",
+                "Para atualizar as dependências do Node.js ou Python no servidor.",
+                "Para baixar o código do repositório para o ambiente virtual de execução."
+              ],
+              "answerIndex": 3,
+              "explanation": "Por padrão, o runner inicia com um diretório vazio. O checkout é necessário para clonar o repositório atual para dentro do ambiente de execução do job."
+            },
+            {
+              "id": "github-actions-ci-3",
+              "question": "Como você define variáveis de ambiente que devem estar disponíveis para todos os jobs de um mesmo arquivo de fluxo?",
+              "options": [
+                "Definindo uma variável com a palavra-chave global_var em cada step.",
+                "Declarando a chave 'env' no nível raiz do arquivo YAML do fluxo.",
+                "Colocando as variáveis dentro da chave 'runs-on' do primeiro job.",
+                "Criando um arquivo .env na raiz que é lido automaticamente."
+              ],
+              "answerIndex": 1,
+              "explanation": "Variáveis de ambiente declaradas na raiz do YAML ficam acessíveis a todos os jobs e steps. Também é possível escopoá-las por job ou step."
+            },
+            {
+              "id": "github-actions-ci-4",
+              "question": "Qual é o comportamento padrão de execução quando um arquivo possui múltiplos jobs sem a chave 'needs' definida?",
+              "options": [
+                "Todos os jobs serão executados em paralelo de forma independente.",
+                "O GitHub Actions exibirá um erro de sintaxe por falta de dependência.",
+                "Os jobs rodarão em sequência exata baseada na ordem de escrita.",
+                "Apenas o primeiro job será executado e os outros serão ignorados."
+              ],
+              "answerIndex": 0,
+              "explanation": "Por padrão, múltiplos jobs rodam em paralelo. A chave 'needs' é que deve ser usada explicitamente quando você deseja criar uma ordem sequencial de execução."
             }
           ]
         }
@@ -1134,6 +3484,56 @@
               "title": "Docker Compose Overview",
               "url": "https://docs.docker.com/compose/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "dockerfile-docker-compose-1",
+              "question": "Qual é a principal função do arquivo docker-compose.yml em uma aplicação Node.js?",
+              "options": [
+                "Definir e executar aplicativos Docker multi-container com um único comando.",
+                "Compilar o código fonte do Node.js antes de gerar a imagem final.",
+                "Substituir o gerenciador de pacotes npm na instalação de dependências.",
+                "Gerenciar o banco de dados de produção diretamente na nuvem da AWS."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Docker Compose serve para orquestrar múltiplos containers. O erro comum é achar que ele substitui o Dockerfile ou ferramentas de build."
+            },
+            {
+              "id": "dockerfile-docker-compose-2",
+              "question": "Ao usar o Docker Compose, como os containers da API Node.js e do PostgreSQL conseguem se comunicar na mesma rede?",
+              "options": [
+                "Usando obrigatoriamente o endereço IP público da máquina host.",
+                "Através do nome do serviço definido no compose, usado como hostname.",
+                "Através do redirecionamento manual de portas no arquivo de configuração do sistema.",
+                "Por meio de um túnel SSH configurado automaticamente pelo daemon do Docker."
+              ],
+              "answerIndex": 1,
+              "explanation": "O Compose cria uma rede padrão onde cada container pode ser alcançado pelo nome do seu serviço. O erro comum é tentar usar localhost para acessar outro container."
+            },
+            {
+              "id": "dockerfile-docker-compose-3",
+              "question": "Qual diretiva no docker-compose.yml é usada para refletir alterações de código locais no container em tempo de execução?",
+              "options": [
+                "Environment, ativando a flag de hot-reload do sistema operacional.",
+                "Build, recompilando a imagem automaticamente a cada salvamento.",
+                "Volumes, mapeando o diretório local para dentro do container.",
+                "Ports, expondo a porta de depuração do Node.js para o host."
+              ],
+              "answerIndex": 2,
+              "explanation": "Mapear volumes permite que o código mude no host e reflita no container sem precisar rebuildar a imagem. O erro comum é achar que o build faz isso sozinho."
+            },
+            {
+              "id": "dockerfile-docker-compose-4",
+              "question": "O que acontece quando executamos o comando `docker compose up --build`?",
+              "options": [
+                "Apaga permanentemente todos os volumes de dados persistentes criados.",
+                "Atualiza a versão do Docker Engine instalada na máquina host.",
+                "Envia a imagem gerada diretamente para um registro público no Docker Hub.",
+                "Reconstrói as imagens antes de iniciar os containers com as alterações."
+              ],
+              "answerIndex": 3,
+              "explanation": "A flag --build força o Docker Compose a reconstruir as imagens caso tenha havido mudanças no Dockerfile ou contexto, antes de subir os serviços."
+            }
           ]
         },
         {
@@ -1158,6 +3558,56 @@
               "title": "Deploying Node.js with PostgreSQL on Render or similar cloud platforms",
               "url": "https://www.postgresql.org/docs/current/tutorial-start.html"
             }
+          ],
+          "quiz": [
+            {
+              "id": "deploy-api-nuvem-1",
+              "question": "Por que é recomendado usar variáveis de ambiente no deploy de uma API em nuvem?",
+              "options": [
+                "Para acelerar a execução do código eliminando a necessidade de leitura em disco.",
+                "Para manter dados sensíveis, como a senha do banco, fora do código-fonte versionado.",
+                "Para garantir que a aplicação rode apenas em servidores com sistema operacional Linux.",
+                "Para aumentar automaticamente a quantidade de memória RAM disponível na nuvem."
+              ],
+              "answerIndex": 1,
+              "explanation": "Variáveis de ambiente isolam credenciais e configurações específicas do ambiente de produção, evitando exposição no repositório de código."
+            },
+            {
+              "id": "deploy-api-nuvem-2",
+              "question": "Qual é a principal vantagem de usar um banco gerenciado como o RDS em vez de rodar o Postgres no mesmo servidor da API?",
+              "options": [
+                "A conexão via rede local elimina totalmente a latência em qualquer situação.",
+                "O banco gerenciado possui custo zero para qualquer volume de dados armazenados.",
+                "As consultas SQL são executadas duas vezes mais rápido de forma automática.",
+                "O provedor gerencia backups automáticos, escalabilidade e patches de segurança."
+              ],
+              "answerIndex": 3,
+              "explanation": "Bancos gerenciados liberam o desenvolvedor de tarefas operacionais complexas como manutenções, failover e rotinas de backup."
+            },
+            {
+              "id": "deploy-api-nuvem-3",
+              "question": "O que costuma acontecer se você tentar rodar `npm start` em um servidor cloud sem configurar a porta HTTP correta da plataforma?",
+              "options": [
+                "A aplicação pode falhar no health check e o deploy será recusado pela plataforma.",
+                "O banco de dados PostgreSQL será apagado por falta de permissão na porta padrão.",
+                "A API funcionará normalmente, mas apenas requisições via protocolo FTP serão aceitas.",
+                "O sistema operacional mudará automaticamente a porta para a 80 de forma segura."
+              ],
+              "answerIndex": 0,
+              "explanation": "Plataformas de nuvem exigem que a aplicação escute a porta fornecida pela variável de ambiente PORT, sob pena de falhar na inicialização."
+            },
+            {
+              "id": "deploy-api-nuvem-4",
+              "question": "Ao configurar a conexão entre a API e o PostgreSQL na nuvem, o que a string de conexão geralmente precisa incluir?",
+              "options": [
+                "O caminho absoluto da pasta raiz do projeto Node.js no servidor de deploy.",
+                "A chave privada SSH usada para acessar o painel de controle da nuvem.",
+                "O host, porta, nome do banco, usuário e senha fornecidos pelo provedor.",
+                "O endereço MAC da máquina virtual onde o banco de dados foi inicializado."
+              ],
+              "answerIndex": 2,
+              "explanation": "A string de conexão precisa conter as credenciais de rede e autenticação corretas para que o driver da aplicação localize e acesse o banco remoto."
+            }
           ]
         },
         {
@@ -1178,6 +3628,56 @@
               "title": "Observabilidade e OpenTelemetry",
               "url": "https://opentelemetry.io/docs/"
             }
+          ],
+          "quiz": [
+            {
+              "id": "logs-observabilidade-1",
+              "question": "Qual é a principal vantagem de usar logs estruturados em formato JSON em um microsserviço?",
+              "options": [
+                "Ocupar menos espaço de armazenamento em disco do que o texto plano.",
+                "Garantir que a aplicação execute com maior desempenho e menor uso de CPU.",
+                "Facilitar a indexação, busca e filtragem em ferramentas de agregação.",
+                "Impedir automaticamente que dados sensíveis sejam gravados no log."
+              ],
+              "answerIndex": 2,
+              "explanation": "Logs estruturados em JSON permitem que sistemas como Elasticsearch leiam campos específicos diretamente, agilizando consultas sem depender de regex complexas."
+            },
+            {
+              "id": "logs-observabilidade-2",
+              "question": "Como o modelo de métricas baseadas em Pull do Prometheus coleta dados das aplicações?",
+              "options": [
+                "A aplicação envia ativamente pacotes UDP para o servidor Prometheus a cada segundo.",
+                "O Prometheus injeta código no processo da aplicação para extrair variáveis em tempo real.",
+                "A aplicação grava métricas em arquivos locais que o Prometheus lê via SSH.",
+                "O servidor Prometheus faz requisições periódicas a um endpoint HTTP exposto pela aplicação."
+              ],
+              "answerIndex": 3,
+              "explanation": "No modelo pull, o alvo expõe um endpoint (usualmente `/metrics`) e o coletor busca as informações periodicamente."
+            },
+            {
+              "id": "logs-observabilidade-3",
+              "question": "O que são Traces no contexto do OpenTelemetry e observabilidade?",
+              "options": [
+                "Uma lista contínua de erros e exceções não tratadas capturadas em produção.",
+                "O registro do caminho completo de uma requisição distribuída por vários serviços.",
+                "A medição exata do consumo de memória de uma função específica ao longo do tempo.",
+                "O histórico de versões do código implantadas em cada ambiente de homologação."
+              ],
+              "answerIndex": 1,
+              "explanation": "Traces mostram a jornada de uma transação através de múltiplos serviços, mapeando spans e tempos de resposta."
+            },
+            {
+              "id": "logs-observabilidade-4",
+              "question": "Qual é o papel do OpenTelemetry na arquitetura de monitoramento de um sistema moderno?",
+              "options": [
+                "Fornecer uma API e SDK padronizados para gerar e exportar métricas, logs e traces.",
+                "Armazenar e indexar todos os dados coletados em um banco de dados relacional otimizado.",
+                "Substituir completamente ferramentas de logging nativas da linguagem de programação.",
+                "Gerenciar automaticamente o escalonamento horizontal de pods baseando-se em alertas."
+              ],
+              "answerIndex": 0,
+              "explanation": "O OpenTelemetry padroniza a coleta de telemetria, evitando que a aplicação fique presa a um único fornecedor de monitoramento."
+            }
           ]
         },
         {
@@ -1197,6 +3697,56 @@
             {
               "title": "Comandos do Redis",
               "url": "https://redis.io/docs/latest/commands/"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "cache-redis-1",
+              "question": "Em uma arquitetura distribuída com Redis Cluster, o que acontece se tentarmos executar uma transação multi-chave (`MULTI`/`EXEC`) cujas chaves caem em hash slots diferentes?",
+              "options": [
+                "O Redis retorna um erro informando que as chaves estão em hash slots diferentes.",
+                "A transação é executada normalmente, pois o Redis redistribui os slots em background.",
+                "O Redis bloqueia o cluster inteiro até que todas as chaves sejam migradas para o mesmo nó.",
+                "Apenas a primeira chave da transação é processada e as demais são ignoradas."
+              ],
+              "answerIndex": 0,
+              "explanation": "O Redis Cluster exige que todas as chaves de uma transação estejam no mesmo hash slot para garantir atomicidade sem perda de performance distribuída."
+            },
+            {
+              "id": "cache-redis-2",
+              "question": "Qual é o principal problema evitado ao configurar uma política de eviction do tipo `volatile-lru` em vez de `allkeys-lru`?",
+              "options": [
+                "O consumo de CPU para calcular o algoritmo LRU é completamente eliminado.",
+                "Chaves persistentes sem TTL não são removidas acidentalmente da memória.",
+                "Garante-se que as chaves mais acessadas recentemente nunca expirem.",
+                "As chaves são apagadas do disco rígido de forma síncrona para liberar RAM."
+              ],
+              "answerIndex": 1,
+              "explanation": "A política `volatile-lru` restringe a remoção baseada em LRU apenas às chaves que possuem um tempo de vida (TTL) definido, preservando dados permanentes."
+            },
+            {
+              "id": "cache-redis-3",
+              "question": "Por que o comando `KEYS *` deve ser evitado em ambientes de produção com milhões de chaves no Redis?",
+              "options": [
+                "Ele consome toda a memória RAM disponível ao duplicar os dados no buffer de saída.",
+                "Ele corrompes os arquivos de persistência RDB ativos em segundo plano.",
+                "Ele apaga permanentemente o banco de dados se houver conflito de concorrência.",
+                "Ele bloqueia a única thread de execução do Redis, travando novas requisições."
+              ],
+              "answerIndex": 3,
+              "explanation": "O Redis é single-threaded para comandos. `KEYS *` faz uma busca linear (O(N)) em todo o keyspace, bloqueando o servidor para qualquer outra operação."
+            },
+            {
+              "id": "cache-redis-4",
+              "question": "Qual é a principal vantagem de utilizar pipelines (`redis-py` ou equivalentes) ao realizar centenas de gravações sequenciais?",
+              "options": [
+                "Torna o bloco inteiro de comandos estritamente atômico, funcionando como um `MULTI`.",
+                "Força a gravação síncrona no disco antes de retornar a resposta ao cliente.",
+                "Reduz a sobrecarga de rede ao agrupar múltiplos comandos em um único envio TCP.",
+                "Evita que o Redis utilize memória RAM para armazenar temporariamente as requisições."
+              ],
+              "answerIndex": 2,
+              "explanation": "Pipelines reduzem o tempo de ida e volta (RTT) da rede enviando vários comandos em lote e lendo as respostas juntas, embora não garantam atomicidade."
             }
           ]
         },
@@ -1222,6 +3772,56 @@
               "title": "BullMQ: jobs",
               "url": "https://docs.bullmq.io/guide/jobs"
             }
+          ],
+          "quiz": [
+            {
+              "id": "filas-processamento-bullmq-1",
+              "question": "Como o BullMQ garante que múltiplos workers não processem o mesmo job concorrentemente?",
+              "options": [
+                "Através de comandos atômicos do Redis usando Lua scripts.",
+                "Por locks baseados no sistema de arquivos do servidor Node.js.",
+                "Mediante uma checagem periódica de threads ativas no processo.",
+                "Utilizando transações SQL tradicionais gerenciadas pelo Redis."
+              ],
+              "answerIndex": 0,
+              "explanation": "O BullMQ usa scripts Lua no Redis para garantir atomicidade nas operações de fila, evitando que dois workers peguem o mesmo job simultaneamente."
+            },
+            {
+              "id": "filas-processamento-bullmq-2",
+              "question": "O que acontece quando um job atinge o limite máximo de tentativas (attempts) definido no BullMQ?",
+              "options": [
+                "Ele é removido imediatamente do Redis sem deixar rastros.",
+                "Ele é movido para o estado de falha permanente (failed).",
+                "Ele é colocado no estado de espera (waiting) com prioridade máxima.",
+                "Ele é pausado indefinidamente até intervenção manual."
+              ],
+              "answerIndex": 1,
+              "explanation": "Após esgotar as tentativas configuradas, o BullMQ marca o job como falhado, permitindo inspeção posterior ou movimentação para uma DLQ."
+            },
+            {
+              "id": "filas-processamento-bullmq-3",
+              "question": "Para que serve a funcionalidade de 'Parent-Child Jobs' (Fluxos) no BullMQ?",
+              "options": [
+                "Para organizar os workers em uma hierarquia de classes orientada a objetos.",
+                "Para herdar automaticamente variáveis de ambiente entre servidores.",
+                "Para clonar um job bem-sucedido e reprocessá-lo em paralelo.",
+                "Para criar dependências onde jobs filhos só rodam após os pais terminarem."
+              ],
+              "answerIndex": 3,
+              "explanation": "Fluxos permitem encadear dependências complexas de execução, garantindo que etapas subsequentes só iniciem quando as prévias forem concluídas."
+            },
+            {
+              "id": "filas-processamento-bullmq-4",
+              "question": "Qual é o comportamento esperado ao utilizar a opção 'removeOnComplete: true' em um job?",
+              "options": [
+                "O worker é encerrado automaticamente após terminar a tarefa.",
+                "O Redis limpa todos os dados da fila quando ela fica vazia.",
+                "O job é deletado do Redis assim que é finalizado com sucesso.",
+                "O payload do job é compactado para economizar memória RAM."
+              ],
+              "answerIndex": 2,
+              "explanation": "Essa opção evita o acúmulo excessivo de dados na memória do Redis, removendo o registro do job logo após a conclusão."
+            }
           ]
         },
         {
@@ -1241,6 +3841,56 @@
             {
               "title": "Princípios SOLID na Documentação da Microsoft",
               "url": "https://learn.microsoft.com/pt-br/dotnet/architecture/modern-web-apps-azure/architectural-principles"
+            }
+          ],
+          "quiz": [
+            {
+              "id": "solid-arquitetura-camadas-1",
+              "question": "Como o princípio da Inversão de Dependência (DIP) do SOLID se manifesta em uma arquitetura em camadas?",
+              "options": [
+                "A camada de apresentação importa diretamente os detalhes do banco de dados.",
+                "As regras de negócio herdam métodos concretos da camada de infraestrutura.",
+                "O framework controla o fluxo de execução sem uso de abstrações.",
+                "Camadas internas definem interfaces que as camadas externas implementam."
+              ],
+              "answerIndex": 3,
+              "explanation": "Pelo DIP, módulos de alto nível não devem depender de módulos de baixo nível; ambos devem depender de abstrações, geralmente definidas no núcleo da aplicação."
+            },
+            {
+              "id": "solid-arquitetura-camadas-2",
+              "question": "Qual é a principal violação do Princípio da Responsabilidade Única (SRP) em uma aplicação backend?",
+              "options": [
+                "Uma aplicação possui mais de dez camadas arquiteturais distintas.",
+                "Um método utilitário recebe múltiplos parâmetros de tipos primitivos.",
+                "Uma classe de serviço processa regras de negócio e executa queries SQL.",
+                "Uma interface define contratos assíncronos para diferentes repositórios."
+              ],
+              "answerIndex": 2,
+              "explanation": "O SRP dita que uma classe deve ter apenas um motivo para mudar. Misturar lógica de domínio com persistência direta viola essa premissa."
+            },
+            {
+              "id": "solid-arquitetura-camadas-3",
+              "question": "Em uma arquitetura em camadas estrita, como a camada de Serviço deve interagir com a camada de Persistência?",
+              "options": [
+                "Instanciando diretamente o driver de conexão SQL dentro de cada método.",
+                "Através de interfaces de repositório injetadas, ocultando detalhes do banco.",
+                "Executando comandos ORM sem qualquer abstração intermediária.",
+                "Acessando tabelas relacionais por meio de variáveis globais estáticas."
+              ],
+              "answerIndex": 1,
+              "explanation": "O acoplamento deve ser evitado usando inversão de controle para que a camada de domínio ignore se o banco é relacional ou NoSQL."
+            },
+            {
+              "id": "solid-arquitetura-camadas-4",
+              "question": "Por que a separação entre Modelos de Domínio e Modelos de Banco (DTOs/Entities) é recomendada?",
+              "options": [
+                "Para isolar regras de negócio de mudanças estruturais na persistência.",
+                "Para acelerar a execução das rotinas de compilação do TypeScript.",
+                "Para eliminar a necessidade de testes unitários nas camadas de rota.",
+                "Para garantir que o banco de dados conheça todas as regras de validação."
+              ],
+              "answerIndex": 0,
+              "explanation": "Isso evita que alterações no esquema do banco de dados quebrem a lógica de negócio pura, garantindo flexibilidade e manutenibilidade."
             }
           ]
         }
