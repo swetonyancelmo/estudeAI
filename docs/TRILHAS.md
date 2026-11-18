@@ -117,6 +117,14 @@ Por isso a busca sai do momento da geração e vira uma tarefa em segundo plano:
 - Ao preencher um tópico da trilha, copia os links também para os tópicos de usuários que nasceram dele e ainda estão sem recursos (é para isso que serve `track_topic_id`).
 - Enquanto um tópico não tem links, ele aparece sem a seção de recursos, como já acontece hoje quando a busca falha.
 
+### 8.1 Documentação oficial (plataforma de estudos, Fase 2)
+
+Além dos links buscados pela fila, cada tópico pode ter até 4 links de **documentação oficial** no campo `docs` do JSON (`{ "title", "url" }`). A URL precisa ser `https` num domínio de `OFFICIAL_DOC_HOSTS` (`track-content.ts`); blog, curso e tutorial de terceiros ficam de fora.
+
+- **Curadoria:** `pnpm --filter api docs:curate <trilha>` pede sugestões ao Gemini e só grava links que respondem de verdade (MDN pela versão JSON da página, com a URL canônica e o título real; outros sites com GET, status 200 e destino final ainda oficial). O script altera só o bloco `docs` de cada tópico no texto do arquivo, então o diff mostra apenas as docs. **Revise o diff antes de commitar.** `--force` refaz tópicos que já têm docs; `--limit N` processa só N.
+- **Banco:** `track_topics.docs` (jsonb), regravado a cada sync. No roadmap do usuário, cada doc vira uma linha de `topic_resources` com `source = 'docs'`: entra na geração e, para roadmaps já existentes, é copiada no sync (só acrescenta; doc tirada do JSON continua com quem já tinha). A fila do YouTube ignora essas linhas ao decidir se um tópico "já tem recursos".
+- **Leitor:** páginas da MDN abrem no leitor do estudeAI (`GET /docs/mdn?url=...`). A API busca a versão JSON da página (pt-BR, senão en-US), sanitiza o HTML por lista de permissões e guarda em `mdn_articles` por 7 dias. Mudou o sanitizador? Suba `MDN_ARTICLE_FORMAT` para invalidar o cache. O conteúdo é CC-BY-SA 2.5 e o leitor sempre mostra a atribuição a "Mozilla Contributors" e o link para a página original. As demais docs abrem no site oficial.
+
 ## 9. Contrato (shared-types)
 
 - `WizardAnswers`: ganha `area` e `knownSkills`; `affinity` vira opcional (obrigatória quando `area` = "ainda não sei", validado na API).

@@ -64,6 +64,14 @@ export class Resource {
   @Column({ type: 'varchar', default: 'not_started' })
   status: ResourceStatus;
 
+  /**
+   * Posição do recurso entre os da mesma fonte, na ordem em que chegou: a
+   * documentação curada vem do JSON em ordem de leitura (o básico primeiro).
+   * Os demais nascem com 0 e caem no desempate por título.
+   */
+  @Column({ type: 'int', name: 'order_index', default: 0 })
+  order: number;
+
   /** Maior ponto já assistido do vídeo, em segundos. */
   @Column({ type: 'int', name: 'watched_seconds', default: 0 })
   watchedSeconds: number;

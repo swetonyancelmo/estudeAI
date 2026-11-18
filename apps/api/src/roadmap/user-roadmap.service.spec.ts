@@ -555,6 +555,86 @@ describe('UserRoadmapService (FR-03.2 / FR-03.3 — Etapa 6)', () => {
     });
   });
 
+  describe('documentação oficial na ordem de leitura (Fase 2)', () => {
+    it('o detalhe respeita a ordem curada, não a alfabética', async () => {
+      const roadmap = makePersistedRoadmap();
+      const doc = (title: string, order: number) =>
+        ({
+          id: `doc-${order}`,
+          topicId: 'topic-2',
+          title,
+          url: `https://zod.dev/${order}`,
+          type: 'article',
+          source: 'docs',
+          thumbnailUrl: null,
+          status: 'not_started',
+          watchedSeconds: 0,
+          order,
+        }) as Resource;
+      roadmap.modules[0].topics[1].resources = [
+        doc('Zod: personalizando mensagens de erro', 2),
+        doc('Zod: uso básico', 0),
+        doc('Zod: referência dos schemas', 1),
+      ];
+      roadmaps.findOne.mockResolvedValue(roadmap);
+
+      const detail = await service.findDetail(OWNER, 'roadmap-1');
+
+      expect(
+        detail.modules[0].topics[1].resources.map((item) => item.title),
+      ).toEqual([
+        'Zod: uso básico',
+        'Zod: referência dos schemas',
+        'Zod: personalizando mensagens de erro',
+      ]);
+    });
+
+    it('createFrom grava a posição de cada recurso', async () => {
+      roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());
+      await service.createFrom(OWNER, {
+        targetArea: 'backend',
+        justification: 'x',
+        modules: [
+          {
+            title: 'M',
+            description: 'd',
+            order: 0,
+            topics: [
+              {
+                title: 'Zod',
+                order: 0,
+                resources: [
+                  {
+                    title: 'B',
+                    url: 'https://zod.dev/b',
+                    type: 'article',
+                    source: 'docs',
+                  },
+                  {
+                    title: 'A',
+                    url: 'https://zod.dev/a',
+                    type: 'article',
+                    source: 'docs',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+
+      const created = roadmaps.create.mock.calls[0][0] as {
+        modules: {
+          topics: { resources: { title: string; order: number }[] }[];
+        }[];
+      };
+      expect(created.modules[0].topics[0].resources).toEqual([
+        expect.objectContaining({ title: 'B', order: 0 }),
+        expect.objectContaining({ title: 'A', order: 1 }),
+      ]);
+    });
+  });
+
   describe('sala de estudo — anotação do tópico', () => {
     it('tópico sem anotação devolve texto vazio e updatedAt nulo', async () => {
       roadmaps.findOne.mockResolvedValue(makePersistedRoadmap());

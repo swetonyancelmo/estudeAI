@@ -26,6 +26,13 @@ export const TRACK_SLUGS = [
 ] as const;
 export type TrackSlug = (typeof TRACK_SLUGS)[number];
 
+/** Link para a documentação oficial de um tópico (Fase 2). */
+export interface TrackDocContent {
+  title: string;
+  /** https, num domínio de `OFFICIAL_DOC_HOSTS`. */
+  url: string;
+}
+
 export interface TrackTopicContent {
   slug: string;
   title: string;
@@ -35,6 +42,8 @@ export interface TrackTopicContent {
   knownSkill: KnownSkill | null;
   prerequisites: string[];
   searchQuery: string;
+  /** Documentação oficial curada (0 a `MAX_TOPIC_DOCS` links). Opcional. */
+  docs?: TrackDocContent[];
 }
 
 export interface TrackProjectContent {
@@ -65,6 +74,101 @@ export interface LoadedTrack {
 }
 
 const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
+/** Teto de links de documentação por tópico: é leitura de apoio, não índice. */
+export const MAX_TOPIC_DOCS = 4;
+
+/**
+ * Domínios aceitos como documentação OFICIAL (o projeto ou o mantenedor da
+ * tecnologia). Subdomínios valem (`docs.aws.amazon.com` casa com
+ * `aws.amazon.com`). Blog, curso e tutorial de terceiros ficam de fora: para
+ * isso já existem os recursos buscados pela fila.
+ */
+export const OFFICIAL_DOC_HOSTS = [
+  'developer.mozilla.org',
+  'web.dev',
+  'w3.org',
+  'whatwg.org',
+  'code.visualstudio.com',
+  'developer.chrome.com',
+  'git-scm.com',
+  'docs.github.com',
+  'nodejs.org',
+  'docs.npmjs.com',
+  'typescriptlang.org',
+  'vite.dev',
+  'vitejs.dev',
+  'eslint.org',
+  'prettier.io',
+  'tailwindcss.com',
+  'react.dev',
+  'reactrouter.com',
+  'nextjs.org',
+  'vercel.com',
+  'tanstack.com',
+  'zustand.docs.pmnd.rs',
+  'vitest.dev',
+  'jestjs.io',
+  'testing-library.com',
+  'playwright.dev',
+  'expressjs.com',
+  'zod.dev',
+  'swagger.io',
+  'spec.openapis.org',
+  'postgresql.org',
+  'nestjs.com',
+  'prisma.io',
+  'typeorm.io',
+  'jwt.io',
+  'owasp.org',
+  'oauth.net',
+  'developers.google.com',
+  'redis.io',
+  'docs.bullmq.io',
+  'docker.com',
+  'nginx.org',
+  'man7.org',
+  'ubuntu.com',
+  'debian.org',
+  'kernel.org',
+  'learn.microsoft.com',
+  'gnu.org',
+  'vim.org',
+  'python.org',
+  'yaml.org',
+  'json.org',
+  'about.gitlab.com',
+  'docs.gitlab.com',
+  'aws.amazon.com',
+  'developer.hashicorp.com',
+  'terraform.io',
+  'docs.ansible.com',
+  'kubernetes.io',
+  'helm.sh',
+  'prometheus.io',
+  'grafana.com',
+  'opentelemetry.io',
+  'sre.google',
+  'letsencrypt.org',
+  'cloudflare.com',
+  'rfc-editor.org',
+  'ietf.org',
+] as const;
+
+/** true se a URL é https num domínio oficial (ou subdomínio dele). */
+export function isOfficialDocUrl(value: string): boolean {
+  let url: URL;
+  try {
+    url = new URL(value);
+  } catch {
+    return false;
+  }
+  if (url.protocol !== 'https:' || url.username || url.password) return false;
+  const host = url.hostname.toLowerCase();
+  return OFFICIAL_DOC_HOSTS.some(
+    (allowed) => host === allowed || host.endsWith(`.${allowed}`),
+  );
+}
 const MIN_TOPIC_HOURS = 1;
 const MAX_TOPIC_HOURS = 40;
 
@@ -172,6 +276,9 @@ export function validateTrackContent(
 
       if (!isText(topic.title)) problems.push(`${at}: sem title`);
       if (!isText(topic.searchQuery)) problems.push(`${at}: sem searchQuery`);
+      if (topic.docs !== undefined) {
+        problems.push(...validateDocs(topic.docs, at));
+      }
       if (!TRACK_TOPIC_LEVELS.includes(topic.level)) {
         problems.push(`${at}: level inválido "${String(topic.level)}"`);
       }
@@ -217,6 +324,29 @@ export function validateTrackContent(
     throw new InvalidTrackContentError(expectedSlug, problems);
   }
   return track as TrackContent;
+}
+
+/** Regras do campo `docs` de um tópico. Devolve os problemas encontrados. */
+function validateDocs(docs: unknown, at: string): string[] {
+  if (!Array.isArray(docs)) return [`${at}: docs deve ser uma lista`];
+
+  const problems: string[] = [];
+  if (docs.length > MAX_TOPIC_DOCS) {
+    problems.push(`${at}: no máximo ${MAX_TOPIC_DOCS} links em docs`);
+  }
+  const seen = new Set<string>();
+  for (const doc of docs as Partial<TrackDocContent>[]) {
+    if (!isText(doc?.title)) problems.push(`${at}: doc sem title`);
+    if (!isText(doc?.url) || !isOfficialDocUrl(doc.url)) {
+      problems.push(
+        `${at}: doc "${String(doc?.url)}" não é https num domínio oficial`,
+      );
+      continue;
+    }
+    if (seen.has(doc.url)) problems.push(`${at}: doc repetido "${doc.url}"`);
+    seen.add(doc.url);
+  }
+  return problems;
 }
 
 /** Lê, valida e calcula o hash de uma trilha. Lança se o conteúdo for inválido. */

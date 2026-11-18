@@ -32,7 +32,11 @@ const COPY_TO_USER_TOPICS_SQL = `
   JOIN "track_topic_resources" r ON r."track_topic_id" = t."track_topic_id"
   WHERE t."track_topic_id" = $1
     AND NOT EXISTS (
-      SELECT 1 FROM "topic_resources" existing WHERE existing."topic_id" = t."id"
+      SELECT 1 FROM "topic_resources" existing
+      WHERE existing."topic_id" = t."id"
+        -- Documentação oficial chega pelo JSON, não pela fila: não conta como
+        -- "já tem recursos", senão o tópico nunca receberia os vídeos.
+        AND existing."source" <> 'docs'
     )
 `;
 

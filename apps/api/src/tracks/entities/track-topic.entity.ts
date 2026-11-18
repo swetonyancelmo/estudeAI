@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import type { KnownSkill, TrackTopicLevel } from '@estudeai/shared-types';
+import type { TrackDocContent } from '../track-content';
 import { TrackModule } from './track-module.entity';
 import { TrackTopicResource } from './track-topic-resource.entity';
 
@@ -55,6 +56,14 @@ export class TrackTopic {
 
   @Column({ type: 'varchar', name: 'search_query' })
   searchQuery: string;
+
+  /**
+   * Documentação oficial curada no JSON (Fase 2). Vem do arquivo e é
+   * regravada a cada sync: não custa cota nem tem id próprio, então jsonb
+   * basta. Vira linhas `topic_resources` (source 'docs') no roadmap do usuário.
+   */
+  @Column({ type: 'jsonb', default: () => "'[]'" })
+  docs: TrackDocContent[];
 
   @Column({ type: 'int', name: 'order_index' })
   order: number;

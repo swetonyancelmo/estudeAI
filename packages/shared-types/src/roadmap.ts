@@ -93,8 +93,11 @@ export interface WizardAnswers {
 export const RESOURCE_TYPES = ["video", "playlist", "article"] as const;
 export type ResourceType = (typeof RESOURCE_TYPES)[number];
 
-/** De onde o link veio: YouTube Data API ou grounding do Google Search. */
-export const RESOURCE_SOURCES = ["youtube", "web"] as const;
+/**
+ * De onde o link veio: YouTube Data API, grounding do Google Search, ou
+ * documentação oficial curada no JSON da trilha (`docs`, Fase 2).
+ */
+export const RESOURCE_SOURCES = ["youtube", "web", "docs"] as const;
 export type ResourceSource = (typeof RESOURCE_SOURCES)[number];
 
 /**
@@ -398,3 +401,51 @@ export const TRACK_TOPIC_LEVELS = [
   "avancado",
 ] as const;
 export type TrackTopicLevel = (typeof TRACK_TOPIC_LEVELS)[number];
+
+// ---------------------------------------------------------------------------
+// Fase 2 — leitor de documentação da MDN dentro do estudeAI.
+//
+// O conteúdo da MDN é CC-BY-SA 2.5 (atribuição "Mozilla Contributors"). A API
+// busca a versão JSON da página, sanitiza o HTML e devolve as seções; o web só
+// renderiza. Nada aqui vem de texto livre de IA.
+// ---------------------------------------------------------------------------
+
+/** Idiomas que o leitor pede à MDN, em ordem de preferência. */
+export const MDN_LOCALES = ["pt-BR", "en-US"] as const;
+export type MdnLocale = (typeof MDN_LOCALES)[number];
+
+export interface MdnSectionDto {
+  /** Âncora da seção (nula na introdução). */
+  id: string | null;
+  /** Título em texto puro (nulo na introdução). */
+  title: string | null;
+  isH3: boolean;
+  /** HTML já sanitizado no servidor, com links absolutos. */
+  html: string;
+}
+
+export interface MdnLinkDto {
+  title: string;
+  url: string;
+}
+
+/** Resposta de GET /docs/mdn?path=... */
+export interface MdnArticleDto {
+  title: string;
+  locale: MdnLocale;
+  /** URL pública da página exibida, para o link "ver na MDN". */
+  url: string;
+  /** URL da versão em inglês, sempre a mais atualizada. */
+  englishUrl: string;
+  /** true quando é tradução (pode estar atrás do original em inglês). */
+  isTranslated: boolean;
+  /** ISO 8601 da última modificação da página na MDN. */
+  modified: string | null;
+  sections: MdnSectionDto[];
+  specifications: MdnLinkDto[];
+  /** A página tem tabela de compatibilidade (exibida só na MDN). */
+  hasBrowserCompat: boolean;
+}
+
+/** Endereço (host) da MDN, para reconhecer quais links abrem no leitor. */
+export const MDN_HOST = "developer.mozilla.org";

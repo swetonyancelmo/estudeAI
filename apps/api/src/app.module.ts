@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { RoadmapModule } from './roadmap/roadmap.module';
 import { TracksModule } from './tracks/tracks.module';
+import { DocsModule } from './docs/docs.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TracksModule } from './tracks/tracks.module';
     AuthModule,
     RoadmapModule,
     TracksModule,
+    DocsModule,
   ],
   providers: [
     {
