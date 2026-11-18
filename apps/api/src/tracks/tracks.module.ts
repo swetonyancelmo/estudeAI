@@ -6,6 +6,7 @@ import { TrackModule } from './entities/track-module.entity';
 import { TrackTopic } from './entities/track-topic.entity';
 import { TrackTopicResource } from './entities/track-topic-resource.entity';
 import { TrackQuizQuestion } from './entities/track-quiz-question.entity';
+import { TrackChallenge } from './entities/track-challenge.entity';
 import { TrackResourceSyncService } from './track-resource-sync.service';
 import { TrackSyncService } from './track-sync.service';
 
@@ -22,6 +23,7 @@ import { TrackSyncService } from './track-sync.service';
       TrackTopic,
       TrackTopicResource,
       TrackQuizQuestion,
+      TrackChallenge,
     ]),
     RoadmapModule,
   ],

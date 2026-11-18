@@ -4,6 +4,7 @@ import { TrackModule } from './entities/track-module.entity';
 import { TrackTopic } from './entities/track-topic.entity';
 import { TrackTopicResource } from './entities/track-topic-resource.entity';
 import { TrackQuizQuestion } from './entities/track-quiz-question.entity';
+import { TrackChallenge } from './entities/track-challenge.entity';
 import type { LoadedTrack, TrackContent } from './track-content';
 import { TrackSyncService } from './track-sync.service';
 
@@ -20,6 +21,7 @@ function fakeDatabase() {
     [TrackModule, []],
     [TrackTopic, []],
     [TrackQuizQuestion, []],
+    [TrackChallenge, []],
   ]);
   const deletedResourcesOf: string[] = [];
   let nextId = 1;
@@ -47,7 +49,9 @@ function fakeDatabase() {
               ? TrackModule
               : 'answerIndex' in row
                 ? TrackQuizQuestion
-                : TrackTopic;
+                : 'solution' in row
+                  ? TrackChallenge
+                  : TrackTopic;
         rows(table).push(row);
       }
       return Promise.resolve(row);
@@ -312,6 +316,51 @@ describe('TrackSyncService', () => {
       expect(after.map((q) => q.slug)).toEqual(['html-1', 'html-3']);
       expect(after[0].id).toBe(before.get('html-1'));
       expect(after[0].question).toBe('Texto corrigido?');
+    });
+  });
+
+  describe('desafios de código (Fase 4)', () => {
+    const challenge = (id: string, title = 'Somar pares') => ({
+      id,
+      title,
+      prompt: 'Implemente.',
+      template: 'vanilla' as const,
+      files: { '/exercicio.js': 'export function f() {}' },
+      tests: "test('x', () => {});",
+      solution: { '/exercicio.js': 'export function f() { return 1; }' },
+    });
+    const withChallenges = (
+      hash: string,
+      challenges: ReturnType<typeof challenge>[],
+    ) =>
+      loaded(hash, [
+        {
+          ...moduleOf('base', [{ slug: 'html' }]),
+          topics: [
+            { ...moduleOf('base', [{ slug: 'html' }]).topics[0], challenges },
+          ],
+        },
+      ]);
+
+    it('grava, mantém o uuid ao editar e apaga o que saiu do JSON', async () => {
+      const db = fakeDatabase();
+      const service = new TrackSyncService(db.dataSource);
+      await service.syncTrack(
+        'frontend',
+        withChallenges('c1', [challenge('html-d1'), challenge('html-d2')]),
+      );
+      const firstId = db.rows(TrackChallenge)[0].id;
+
+      await service.syncTrack(
+        'frontend',
+        withChallenges('c2', [challenge('html-d1', 'Título novo')]),
+      );
+
+      const rows = db.rows(TrackChallenge);
+      expect(rows.map((row) => [row.slug, row.title, row.order])).toEqual([
+        ['html-d1', 'Título novo', 0],
+      ]);
+      expect(rows[0].id).toBe(firstId);
     });
   });
 });

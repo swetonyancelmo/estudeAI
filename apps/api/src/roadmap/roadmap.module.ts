@@ -19,6 +19,9 @@ import { Topic } from './entities/topic.entity';
 import { QuizAttempt } from './entities/quiz-attempt.entity';
 import { TrackQuizQuestion } from '../tracks/entities/track-quiz-question.entity';
 import { QuizService } from './quiz.service';
+import { ChallengeService } from './challenge.service';
+import { ChallengeProgress } from './entities/challenge-progress.entity';
+import { TrackChallenge } from '../tracks/entities/track-challenge.entity';
 
 @Module({
   imports: [
@@ -31,6 +34,9 @@ import { QuizService } from './quiz.service';
       QuizAttempt,
       // Só leitura: as perguntas são gravadas pelo sync das trilhas.
       TrackQuizQuestion,
+      ChallengeProgress,
+      // Só leitura: os desafios são gravados pelo sync das trilhas.
+      TrackChallenge,
       // Só leitura: quem escreve nas trilhas é o TracksModule (que depende
       // deste, e por isso a geração lê o catálogo direto pelo repositório).
       Track,
@@ -49,6 +55,7 @@ import { QuizService } from './quiz.service';
     ResourceDiscoveryService,
     UserRoadmapService,
     QuizService,
+    ChallengeService,
   ],
   // O catálogo de trilhas reusa a descoberta de recursos (TracksModule).
   exports: [ResourceDiscoveryService],

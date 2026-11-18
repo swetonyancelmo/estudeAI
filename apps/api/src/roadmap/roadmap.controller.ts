@@ -15,6 +15,9 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import type {
   AdjustRoadmapResponseDto,
+  ChallengeProgressDto,
+  ChallengeSolutionDto,
+  TopicChallengesDto,
   QuizAnswerResultDto,
   QuizDto,
   ResourceProgressDto,
@@ -27,6 +30,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/strategies/jwt.strategy';
 import { AdjustRoadmapDto } from './dto/adjust-roadmap.dto';
+import { SaveChallengeDto } from './dto/save-challenge.dto';
 import { SubmitQuizAnswerDto } from './dto/submit-quiz-answer.dto';
 import { UpdateResourceProgressDto } from './dto/update-resource-progress.dto';
 import { UpdateTopicNoteDto } from './dto/update-topic-note.dto';
@@ -34,6 +38,7 @@ import { WizardAnswersDto } from './dto/wizard-answers.dto';
 import { RoadmapService } from './roadmap.service';
 import { RoadmapAdjustService } from './roadmap-adjust.service';
 import { QuizService } from './quiz.service';
+import { ChallengeService } from './challenge.service';
 import { UserRoadmapService } from './user-roadmap.service';
 
 /**
@@ -49,6 +54,7 @@ export class RoadmapController {
     private readonly userRoadmaps: UserRoadmapService,
     private readonly adjustService: RoadmapAdjustService,
     private readonly quizzes: QuizService,
+    private readonly challenges: ChallengeService,
   ) {}
 
   /**
@@ -143,6 +149,40 @@ export class RoadmapController {
     @Body() dto: SubmitQuizAnswerDto,
   ): Promise<QuizAnswerResultDto> {
     return this.quizzes.answer(user.id, id, topicId, dto);
+  }
+
+  /** Fase 4 — desafios de código do tópico, com o código salvo da pessoa. */
+  @Get(':id/topics/:topicId/challenges')
+  listChallenges(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('topicId', ParseUUIDPipe) topicId: string,
+  ): Promise<TopicChallengesDto> {
+    return this.challenges.list(user.id, id, topicId);
+  }
+
+  /** Fase 4 — salva o código (autosave) e, se vier, o resultado dos testes. */
+  @Put(':id/topics/:topicId/challenges/:challengeId')
+  @HttpCode(HttpStatus.OK)
+  saveChallenge(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('topicId', ParseUUIDPipe) topicId: string,
+    @Param('challengeId', ParseUUIDPipe) challengeId: string,
+    @Body() dto: SaveChallengeDto,
+  ): Promise<ChallengeProgressDto> {
+    return this.challenges.save(user.id, id, topicId, challengeId, dto);
+  }
+
+  /** Fase 4 — solução de referência do desafio. */
+  @Get(':id/topics/:topicId/challenges/:challengeId/solution')
+  challengeSolution(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('topicId', ParseUUIDPipe) topicId: string,
+    @Param('challengeId', ParseUUIDPipe) challengeId: string,
+  ): Promise<ChallengeSolutionDto> {
+    return this.challenges.solution(user.id, id, topicId, challengeId);
   }
 
   /** Sala de estudo — anotação do tópico. */

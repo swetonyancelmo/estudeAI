@@ -2,8 +2,12 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
+  CHALLENGE_FILE_MAX_LENGTH,
+  CHALLENGE_TEMPLATES,
+  CHALLENGE_TEST_FILE,
   KNOWN_SKILLS,
   QUIZ_OPTION_COUNT,
+  type ChallengeTemplate,
   TRACK_TOPIC_LEVELS,
   type KnownSkill,
   type TrackTopicLevel,
@@ -50,6 +54,22 @@ export interface TrackQuizQuestionContent {
   explanation: string;
 }
 
+/**
+ * Desafio de código de um tópico (Fase 4). Roda no Sandpack, no navegador da
+ * pessoa: `files` é o código inicial, `tests` vira o arquivo
+ * `CHALLENGE_TEST_FILE` (escondido no editor) e `solution` substitui `files`
+ * no "ver solução". O `id` é estável, como o das perguntas de quiz.
+ */
+export interface TrackChallengeContent {
+  id: string;
+  title: string;
+  prompt: string;
+  template: ChallengeTemplate;
+  files: Record<string, string>;
+  tests: string;
+  solution: Record<string, string>;
+}
+
 export interface TrackTopicContent {
   slug: string;
   title: string;
@@ -63,6 +83,8 @@ export interface TrackTopicContent {
   docs?: TrackDocContent[];
   /** Quiz do tópico (`MIN_QUIZ_QUESTIONS` a `MAX_QUIZ_QUESTIONS`). Opcional. */
   quiz?: TrackQuizQuestionContent[];
+  /** Desafios de código (até `MAX_TOPIC_CHALLENGES`). Opcional. */
+  challenges?: TrackChallengeContent[];
 }
 
 export interface TrackProjectContent {
@@ -98,6 +120,12 @@ const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 export const MIN_QUIZ_QUESTIONS = 3;
 export const MAX_QUIZ_QUESTIONS = 5;
 const MAX_QUIZ_TEXT = 400;
+
+/** Desafios por tópico: prática focada, não lista de exercícios. */
+export const MAX_TOPIC_CHALLENGES = 2;
+/** Arquivos que o desafio pode ter: o editor do Sandpack entende estes. */
+const CHALLENGE_PATH =
+  /^\/[a-zA-Z0-9_-]+(\/[a-zA-Z0-9_-]+)*\.(js|jsx|css|html)$/;
 
 /** Teto de links de documentação por tópico: é leitura de apoio, não índice. */
 export const MAX_TOPIC_DOCS = 4;
@@ -258,6 +286,8 @@ export function validateTrackContent(
   const moduleSlugs = new Set<string>();
   /** Ids de pergunta já vistos: únicos na trilha inteira. */
   const quizIds = new Set<string>();
+  /** Ids de desafio já vistos: únicos na trilha inteira. */
+  const challengeIds = new Set<string>();
   /** slug → required, só dos tópicos já percorridos (ou seja, anteriores). */
   const seenTopics = new Map<string, boolean>();
 
@@ -307,6 +337,11 @@ export function validateTrackContent(
       }
       if (topic.quiz !== undefined) {
         problems.push(...validateQuiz(topic.quiz, at, quizIds));
+      }
+      if (topic.challenges !== undefined) {
+        problems.push(
+          ...validateChallenges(topic.challenges, at, challengeIds),
+        );
       }
       if (!TRACK_TOPIC_LEVELS.includes(topic.level)) {
         problems.push(`${at}: level inválido "${String(topic.level)}"`);
@@ -433,6 +468,76 @@ function validateQuiz(
     ) {
       problems.push(
         `${where}: answerIndex deve ser de 0 a ${QUIZ_OPTION_COUNT - 1}`,
+      );
+    }
+  }
+  return problems;
+}
+
+function validFiles(files: unknown): files is Record<string, string> {
+  if (typeof files !== 'object' || files === null || Array.isArray(files)) {
+    return false;
+  }
+  const entries = Object.entries(files);
+  return (
+    entries.length > 0 &&
+    entries.every(
+      ([path, code]) =>
+        CHALLENGE_PATH.test(path) &&
+        path !== CHALLENGE_TEST_FILE &&
+        typeof code === 'string' &&
+        code.length <= CHALLENGE_FILE_MAX_LENGTH,
+    )
+  );
+}
+
+/** Regras do campo `challenges` de um tópico. Devolve os problemas encontrados. */
+function validateChallenges(
+  challenges: unknown,
+  at: string,
+  seenIds: Set<string>,
+): string[] {
+  if (!Array.isArray(challenges))
+    return [`${at}: challenges deve ser uma lista`];
+
+  const problems: string[] = [];
+  if (challenges.length > MAX_TOPIC_CHALLENGES) {
+    problems.push(`${at}: no máximo ${MAX_TOPIC_CHALLENGES} desafios`);
+  }
+  for (const item of challenges as Partial<TrackChallengeContent>[]) {
+    const where = `${at}, desafio "${String(item?.id)}"`;
+    if (!isText(item?.id) || !SLUG_PATTERN.test(item.id)) {
+      problems.push(`${where}: id ausente ou fora do kebab-case`);
+      continue;
+    }
+    if (seenIds.has(item.id)) problems.push(`${where}: id repetido na trilha`);
+    seenIds.add(item.id);
+
+    if (!isText(item.title)) problems.push(`${where}: sem title`);
+    if (!isText(item.prompt)) problems.push(`${where}: sem prompt`);
+    if (!CHALLENGE_TEMPLATES.includes(item.template as ChallengeTemplate)) {
+      problems.push(`${where}: template inválido "${String(item.template)}"`);
+    }
+    if (!validFiles(item.files)) {
+      problems.push(
+        `${where}: files precisa de arquivos .js/.jsx/.css/.html com caminho começando em /`,
+      );
+    }
+    if (
+      !isText(item.tests) ||
+      item.tests.length > CHALLENGE_FILE_MAX_LENGTH ||
+      !/\b(test|it)\s*\(/.test(item.tests)
+    ) {
+      problems.push(`${where}: tests precisa ter ao menos um test() ou it()`);
+    }
+    if (!validFiles(item.solution)) {
+      problems.push(`${where}: solution inválida`);
+    } else if (
+      validFiles(item.files) &&
+      !Object.keys(item.solution).every((path) => path in item.files!)
+    ) {
+      problems.push(
+        `${where}: solution só pode ter arquivos que existem em files`,
       );
     }
   }

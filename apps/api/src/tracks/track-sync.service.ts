@@ -5,10 +5,12 @@ import { TrackModule } from './entities/track-module.entity';
 import { TrackTopic } from './entities/track-topic.entity';
 import { TrackTopicResource } from './entities/track-topic-resource.entity';
 import { TrackQuizQuestion } from './entities/track-quiz-question.entity';
+import { TrackChallenge } from './entities/track-challenge.entity';
 import {
   TRACK_SLUGS,
   loadTrack,
   type LoadedTrack,
+  type TrackChallengeContent,
   type TrackQuizQuestionContent,
   type TrackSlug,
 } from './track-content';
@@ -171,6 +173,11 @@ export class TrackSyncService implements OnApplicationBootstrap {
         );
         keptTopicIds.add(topic.id);
         await this.syncQuiz(manager, topic.id, topicContent.quiz ?? []);
+        await this.syncChallenges(
+          manager,
+          topic.id,
+          topicContent.challenges ?? [],
+        );
         if (requeue) {
           requeuedTopicIds.push(topic.id);
         }
@@ -202,6 +209,51 @@ export class TrackSyncService implements OnApplicationBootstrap {
     await manager.query(COPY_DOCS_TO_USER_TOPICS_SQL, [track.id]);
 
     return existing ? 'updated' : 'created';
+  }
+
+  /**
+   * Desafios de código de um tópico (Fase 4), casados pelo `id` do JSON como
+   * as perguntas de quiz: o uuid fica estável e o progresso dos usuários
+   * continua preso a ele. Desafio tirado do JSON é apagado com o progresso.
+   */
+  private async syncChallenges(
+    manager: EntityManager,
+    trackTopicId: string,
+    challenges: TrackChallengeContent[],
+  ): Promise<void> {
+    const existing = await manager.find(TrackChallenge, {
+      where: { trackTopicId },
+    });
+    const bySlug = new Map(existing.map((row) => [row.slug, row]));
+    const kept = new Set<string>();
+
+    for (const [order, item] of challenges.entries()) {
+      const row = await manager.save(
+        manager.merge(
+          TrackChallenge,
+          bySlug.get(item.id) ?? manager.create(TrackChallenge),
+          {
+            trackTopicId,
+            slug: item.id,
+            title: item.title,
+            prompt: item.prompt,
+            template: item.template,
+            files: item.files,
+            tests: item.tests,
+            solution: item.solution,
+            order,
+          },
+        ),
+      );
+      kept.add(row.id);
+    }
+
+    const removed = existing
+      .filter((row) => !kept.has(row.id))
+      .map((row) => row.id);
+    if (removed.length > 0) {
+      await manager.delete(TrackChallenge, { id: In(removed) });
+    }
   }
 
   /**
