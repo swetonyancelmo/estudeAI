@@ -648,3 +648,49 @@ export interface RoadmapStatsDto {
   /** Semanas para terminar no ritmo real recente; nulo sem estudo recente. */
   weeksAtRecentPace: number | null;
 }
+
+// ---------------------------------------------------------------------------
+// Fase 6 — revisão espaçada das perguntas de quiz (FSRS).
+//
+// Cada resposta de quiz (no tópico ou na revisão) agenda a próxima revisão
+// daquela pergunta para a pessoa: acerto empurra para frente (3, 14, 57
+// dias...), erro traz de volta no dia seguinte. A fila do dia são os cartões
+// com revisão vencida. O gabarito só sai depois da resposta, como no quiz.
+// ---------------------------------------------------------------------------
+
+/** Perguntas por sessão de revisão. */
+export const REVIEW_SESSION_SIZE = 20;
+
+export interface ReviewItemDto {
+  cardId: string;
+  question: QuizQuestionDto;
+  topic: { id: string; title: string; roadmapId: string };
+}
+
+/** Resposta de GET /review/queue. */
+export interface ReviewQueueDto {
+  /** Cartões vencidos agora (pode ser maior que `items`). */
+  dueCount: number;
+  /** Até `REVIEW_SESSION_SIZE` cartões, dos mais atrasados primeiro. */
+  items: ReviewItemDto[];
+  /** Total de perguntas na revisão da pessoa. */
+  totalCards: number;
+  /** ISO 8601 da próxima revisão futura; nulo se não há. */
+  nextDueAt: string | null;
+}
+
+/** Payload de POST /review/:cardId/answer. */
+export interface SubmitReviewAnswerRequestDto {
+  chosenIndex: number;
+}
+
+/** Resposta do POST acima. */
+export interface ReviewAnswerResultDto {
+  cardId: string;
+  chosenIndex: number;
+  correct: boolean;
+  answerIndex: number;
+  explanation: string;
+  /** ISO 8601 de quando a pergunta volta. */
+  nextReviewAt: string;
+}

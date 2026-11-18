@@ -21,6 +21,9 @@ import { TrackQuizQuestion } from '../tracks/entities/track-quiz-question.entity
 import { QuizService } from './quiz.service';
 import { ChallengeService } from './challenge.service';
 import { StudyService } from './study.service';
+import { ReviewService } from './review.service';
+import { ReviewController } from './review.controller';
+import { ReviewCard } from './entities/review-card.entity';
 import { StudyDay } from './entities/study-day.entity';
 import { ChallengeProgress } from './entities/challenge-progress.entity';
 import { TrackChallenge } from '../tracks/entities/track-challenge.entity';
@@ -38,6 +41,7 @@ import { TrackChallenge } from '../tracks/entities/track-challenge.entity';
       TrackQuizQuestion,
       ChallengeProgress,
       StudyDay,
+      ReviewCard,
       // Só leitura: os desafios são gravados pelo sync das trilhas.
       TrackChallenge,
       // Só leitura: quem escreve nas trilhas é o TracksModule (que depende
@@ -45,7 +49,7 @@ import { TrackChallenge } from '../tracks/entities/track-challenge.entity';
       Track,
     ]),
   ],
-  controllers: [RoadmapController],
+  controllers: [RoadmapController, ReviewController],
   providers: [
     RoadmapService,
     RoadmapAdjustService,
@@ -60,6 +64,7 @@ import { TrackChallenge } from '../tracks/entities/track-challenge.entity';
     QuizService,
     ChallengeService,
     StudyService,
+    ReviewService,
   ],
   // O catálogo de trilhas reusa a descoberta de recursos (TracksModule).
   exports: [ResourceDiscoveryService],

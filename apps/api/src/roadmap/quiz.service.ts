@@ -14,6 +14,7 @@ import type {
 import { TrackQuizQuestion } from '../tracks/entities/track-quiz-question.entity';
 import { QuizAttempt } from './entities/quiz-attempt.entity';
 import type { Topic } from './entities/topic.entity';
+import { ReviewService } from './review.service';
 import { UserRoadmapService } from './user-roadmap.service';
 
 /** Linha da consulta da última resposta por pergunta (COUNT/ bool do pg). */
@@ -41,6 +42,7 @@ export class QuizService {
     private readonly questions: Repository<TrackQuizQuestion>,
     @InjectRepository(QuizAttempt)
     private readonly attempts: Repository<QuizAttempt>,
+    private readonly review: ReviewService,
   ) {}
 
   async getQuiz(
@@ -93,6 +95,8 @@ export class QuizService {
       chosenIndex,
       isCorrect: correct,
     });
+    // Fase 6: toda resposta de quiz agenda a revisão espaçada da pergunta.
+    await this.review.record(userId, topic.id, question.id, correct);
 
     const summary = await this.summaryOf(topic.id, questions);
     return {
