@@ -4,7 +4,15 @@ import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { AlertCircle, ArrowLeft } from "lucide-react";
 import type { RoadmapDetailDto, RoadmapStatsDto } from "@estudeai/shared-types";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { buttonVariants } from "@/components/ui/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useRoadmap, useRoadmapStats } from "@/lib/roadmaps/api";
 import { AREA_LABELS } from "@/lib/roadmaps/labels";
@@ -33,10 +41,10 @@ export function RoadmapProgress({ roadmapId }: { roadmapId: string }) {
     return (
       <div className="flex flex-col items-start gap-5">
         <h1 className="text-2xl">Evolução indisponível</h1>
-        <p className="text-muted-foreground flex items-center gap-2">
-          <AlertCircle className="size-4" />
-          Não foi possível carregar sua evolução agora.
-        </p>
+        <Alert variant="destructive" className="max-w-md">
+          <AlertCircle />
+          <AlertDescription>Não foi possível carregar sua evolução agora.</AlertDescription>
+        </Alert>
         <Link href={`/roadmaps/${roadmapId}`} className={buttonVariants({ variant: "outline" })}>
           <ArrowLeft className="size-4" />
           Voltar para a trilha
@@ -102,16 +110,11 @@ function ProgressView({
           }
         >
           {goalShare !== null && (
-            <div
-              className="bg-muted mt-2 h-1.5 w-full overflow-hidden rounded-full"
-              role="progressbar"
+            <Progress
+              className="mt-2"
+              value={Math.round(goalShare * 100)}
               aria-label="Meta da semana"
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={Math.round(goalShare * 100)}
-            >
-              <div className="bg-line h-full rounded-full" style={{ width: `${goalShare * 100}%` }} />
-            </div>
+            />
           )}
         </StatTile>
         <StatTile
@@ -149,11 +152,11 @@ function ProgressView({
         }
       >
         <WeeklyChart weeks={stats.weeks} goalMinutes={stats.weeklyGoalMinutes} />
-        <details className="text-sm">
-          <summary className="text-muted-foreground hover:text-foreground w-fit cursor-pointer">
+        <Collapsible className="text-sm">
+          <CollapsibleTrigger className="text-muted-foreground hover:text-foreground flex min-h-11 w-fit cursor-pointer items-center rounded-md">
             Ver como tabela
-          </summary>
-          <div className="mt-3 overflow-x-auto">
+          </CollapsibleTrigger>
+          <CollapsibleContent className="mt-1 overflow-x-auto">
             <table className="w-full text-left text-sm [font-variant-numeric:tabular-nums]">
               <thead className="text-ink-faint">
                 <tr>
@@ -172,8 +175,8 @@ function ProgressView({
                 ))}
               </tbody>
             </table>
-          </div>
-        </details>
+          </CollapsibleContent>
+        </Collapsible>
       </Panel>
 
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
@@ -194,9 +197,8 @@ function ProgressView({
                           : `${module.correct} de ${module.answered} certas · ${module.answered} de ${module.total} respondidas`}
                       </span>
                     </div>
-                    <div className="bg-muted h-1.5 w-full overflow-hidden rounded-full" aria-hidden="true">
-                      <div className="bg-line h-full rounded-full" style={{ width: `${share * 100}%` }} />
-                    </div>
+                    {/* O texto acima já diz os números; a barra é só a leitura rápida. */}
+                    <Progress value={Math.round(share * 100)} aria-hidden="true" />
                   </li>
                 );
               })}
@@ -263,14 +265,14 @@ function Panel({
 function ProgressSkeleton() {
   return (
     <div className="flex flex-col gap-6" aria-busy="true">
-      <div className="bg-muted h-5 w-32 animate-pulse rounded-md" />
-      <div className="bg-muted h-10 w-64 animate-pulse rounded-md" />
+      <Skeleton className="h-5 w-32" />
+      <Skeleton className="h-10 w-64" />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[0, 1, 2, 3].map((index) => (
-          <div key={index} className="bg-muted h-24 animate-pulse rounded-lg" />
+          <Skeleton key={index} className="h-24 rounded-lg" />
         ))}
       </div>
-      <div className="bg-muted h-48 animate-pulse rounded-lg" />
+      <Skeleton className="h-48 rounded-lg" />
     </div>
   );
 }

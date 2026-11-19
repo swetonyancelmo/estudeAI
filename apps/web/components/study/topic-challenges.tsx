@@ -4,7 +4,19 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import { AlertCircle, Check, Code2, Eye, RotateCcw } from "lucide-react";
 import type { ChallengeDto, ChallengeFiles } from "@estudeai/shared-types";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   getChallengeSolution,
   useSaveChallenge,
@@ -20,12 +32,7 @@ import { StudyText } from "./study-text";
  */
 const ChallengeEditor = dynamic(() => import("./challenge-editor"), {
   ssr: false,
-  loading: () => (
-    <div
-      className="bg-muted h-80 w-full animate-pulse rounded-lg"
-      aria-busy="true"
-    />
-  ),
+  loading: () => <Skeleton className="h-80 w-full rounded-lg" aria-busy="true" />,
 });
 
 /**
@@ -42,14 +49,16 @@ export function TopicChallenges({
   const query = useTopicChallenges(roadmapId, topicId);
 
   if (query.isPending) {
-    return <div className="bg-muted h-24 w-full animate-pulse rounded-lg" />;
+    return <Skeleton className="h-24 w-full rounded-lg" aria-busy="true" />;
   }
   if (query.isError) {
     return (
-      <p className="text-destructive flex items-center gap-2 text-sm" role="alert">
-        <AlertCircle className="size-4" />
-        Não foi possível carregar os desafios de código.
-      </p>
+      <Alert variant="destructive">
+        <AlertCircle />
+        <AlertDescription>
+          Não foi possível carregar os desafios de código.
+        </AlertDescription>
+      </Alert>
     );
   }
   if (query.data.challenges.length === 0) return null;
@@ -68,7 +77,21 @@ export function TopicChallenges({
   );
 }
 
-type Pending = "solution" | "restart" | null;
+type Pending = "solution" | "restart";
+
+/** Texto das confirmações: as duas apagam o código atual do editor. */
+const CONFIRM_COPY: Record<Pending, { title: string; description: string; action: string }> = {
+  solution: {
+    title: "Ver a solução?",
+    description: "A solução vai substituir o seu código. Continuar?",
+    action: "Ver solução",
+  },
+  restart: {
+    title: "Recomeçar o desafio?",
+    description: "O código vai voltar ao início, e o seu será apagado. Continuar?",
+    action: "Recomeçar",
+  },
+};
 
 function ChallengeCard({
   roadmapId,
@@ -84,7 +107,9 @@ function ChallengeCard({
   /** Código com que o editor (re)abre; trocar recria o editor. */
   const [files, setFiles] = useState<ChallengeFiles>(challenge.files);
   const [version, setVersion] = useState(0);
-  const [confirming, setConfirming] = useState<Pending>(null);
+  /** Ação em confirmação; fica guardada ao fechar para o texto não sumir na animação. */
+  const [confirming, setConfirming] = useState<Pending>("solution");
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [loadingSolution, setLoadingSolution] = useState(false);
   const [lastRun, setLastRun] = useState<ChallengeRunResult | null>(null);
   const [solutionError, setSolutionError] = useState(false);
@@ -96,8 +121,13 @@ function ChallengeCard({
     save.mutate({ challengeId: challenge.id, files: next });
   }
 
-  async function confirm(action: Exclude<Pending, null>) {
-    setConfirming(null);
+  function askConfirm(action: Pending) {
+    setConfirming(action);
+    setConfirmOpen(true);
+  }
+
+  async function confirm(action: Pending) {
+    setConfirmOpen(false);
     if (action === "restart") {
       replaceCode(challenge.starterFiles);
       return;
@@ -179,50 +209,50 @@ function ChallengeCard({
           )}
 
           {(save.isError || solutionError) && (
-            <p className="text-destructive flex items-center gap-2 text-sm" role="alert">
-              <AlertCircle className="size-4" />
-              {solutionError
-                ? "Não foi possível carregar a solução."
-                : "Não foi possível salvar seu código. Ele continua no editor."}
-            </p>
+            <Alert variant="destructive">
+              <AlertCircle />
+              <AlertDescription>
+                {solutionError
+                  ? "Não foi possível carregar a solução."
+                  : "Não foi possível salvar seu código. Ele continua no editor."}
+              </AlertDescription>
+            </Alert>
           )}
 
-          {confirming ? (
-            <div
-              className="border-border flex flex-col gap-3 rounded-md border p-3 sm:flex-row sm:items-center sm:justify-between"
-              role="alert"
+          <div className="flex flex-wrap gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              disabled={loadingSolution}
+              onClick={() => askConfirm("solution")}
             >
-              <p className="text-sm">
-                {confirming === "solution"
-                  ? "A solução vai substituir o seu código. Continuar?"
-                  : "O código vai voltar ao início, e o seu será apagado. Continuar?"}
-              </p>
-              <div className="flex gap-2">
-                <Button size="sm" onClick={() => void confirm(confirming)}>
-                  {confirming === "solution" ? "Ver solução" : "Recomeçar"}
-                </Button>
-                <Button size="sm" variant="ghost" onClick={() => setConfirming(null)}>
-                  Cancelar
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              <Button
-                size="sm"
-                variant="outline"
-                disabled={loadingSolution}
-                onClick={() => setConfirming("solution")}
-              >
-                <Eye className="size-4" />
-                Ver solução
-              </Button>
-              <Button size="sm" variant="ghost" onClick={() => setConfirming("restart")}>
-                <RotateCcw className="size-4" />
-                Recomeçar
-              </Button>
-            </div>
-          )}
+              <Eye className="size-4" />
+              Ver solução
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => askConfirm("restart")}>
+              <RotateCcw className="size-4" />
+              Recomeçar
+            </Button>
+          </div>
+
+          {/* Confirmação num diálogo (antes era um bloco inline). `confirming`
+              diz qual das duas ações está sendo confirmada. */}
+          <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>{CONFIRM_COPY[confirming].title}</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {CONFIRM_COPY[confirming].description}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={() => void confirm(confirming)}>
+                  {CONFIRM_COPY[confirming].action}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       )}
     </section>

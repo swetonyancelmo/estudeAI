@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { AlertCircle, Plus } from "lucide-react";
 import type { RoadmapListItemDto } from "@estudeai/shared-types";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { buttonVariants } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { RouteLine } from "@/components/brand/route-line";
 import { RoadmapCard } from "@/components/roadmap/roadmap-card";
 import { ReviewTodayCard } from "@/components/review/review-today-card";
@@ -22,9 +24,12 @@ export default function DashboardPage() {
       <div className="mx-auto w-full max-w-4xl">
         {isPending && <ListSkeleton />}
         {isError && (
-          <p className="text-muted-foreground" role="alert">
-            Não foi possível carregar seus roadmaps. Recarregue a página.
-          </p>
+          <Alert variant="destructive">
+            <AlertCircle />
+            <AlertDescription>
+              Não foi possível carregar seus roadmaps. Recarregue a página.
+            </AlertDescription>
+          </Alert>
         )}
         {roadmaps &&
           (roadmaps.length === 0 ? <EmptyState /> : <List roadmaps={roadmaps} />)}
@@ -104,10 +109,10 @@ function EmptyState() {
 function ListSkeleton() {
   return (
     <div className="flex flex-col gap-8" aria-busy="true">
-      <div className="bg-muted h-10 w-64 animate-pulse rounded-lg" />
+      <Skeleton className="h-10 w-64 rounded-lg" />
       <div className="grid gap-5 sm:grid-cols-2">
         {[0, 1].map((index) => (
-          <div key={index} className="bg-muted h-52 animate-pulse rounded-lg" />
+          <Skeleton key={index} className="h-52 rounded-lg" />
         ))}
       </div>
     </div>

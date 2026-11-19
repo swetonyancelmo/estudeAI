@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Checkbox } from "@base-ui/react/checkbox";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { PersistedTopicDto } from "@estudeai/shared-types";
 import { cn } from "@/lib/utils";
 import { TopicResources } from "./topic-resources";
@@ -62,20 +62,18 @@ export function TopicCheckbox({
     >
       <div className="flex items-center gap-2">
         <label className="group/topic flex min-h-11 flex-1 cursor-pointer items-center gap-3 py-2">
-          <Checkbox.Root
+          {/* Forma de parada (24px, redonda) sobre o Checkbox do shadcn. A
+              área de toque é a linha inteira (o <label>). */}
+          <Checkbox
             checked={topic.isCompleted}
             onCheckedChange={() => onToggle(topic.id)}
             className={cn(
-              "border-input bg-card flex size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+              "size-6 rounded-full after:hidden",
               "group-hover/topic:border-line",
-              "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
-              "data-[checked]:border-line data-[checked]:bg-line data-[checked]:animate-[station-pop_0.3s_ease-out]",
+              "focus-visible:ring-offset-2",
+              "data-checked:animate-[station-pop_0.3s_ease-out]",
             )}
-          >
-            <Checkbox.Indicator className="flex text-white">
-              <Check className="size-3.5" strokeWidth={3.5} />
-            </Checkbox.Indicator>
-          </Checkbox.Root>
+          />
 
           <span className="flex flex-1 flex-wrap items-center gap-x-2 gap-y-1">
             {isProject && (

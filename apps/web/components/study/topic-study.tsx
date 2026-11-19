@@ -19,7 +19,10 @@ import type {
   ResourceStatus,
   RoadmapDetailDto,
 } from "@estudeai/shared-types";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import {
   useRoadmap,
@@ -322,10 +325,12 @@ function StudyRoom({
       </div>
 
       {(toggle.isError || progress.isError) && (
-        <p className="text-destructive flex items-center gap-2 text-sm" role="alert">
-          <AlertCircle className="size-4" />
-          Não foi possível salvar seu progresso. Tente de novo.
-        </p>
+        <Alert variant="destructive">
+          <AlertCircle />
+          <AlertDescription>
+            Não foi possível salvar seu progresso. Tente de novo.
+          </AlertDescription>
+        </Alert>
       )}
 
       <footer className="border-border flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
@@ -438,15 +443,21 @@ function ReadingItem({
           <StatusMark status="completed" />
         </span>
       ) : (
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          aria-label={`Marcar "${resource.title}" como lido`}
-          title="Marcar como lido"
-          onClick={onMarkRead}
-        >
-          <Check className="size-4" />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label={`Marcar "${resource.title}" como lido`}
+                onClick={onMarkRead}
+              />
+            }
+          >
+            <Check className="size-4" />
+          </TooltipTrigger>
+          <TooltipContent>Marcar como lido</TooltipContent>
+        </Tooltip>
       )}
     </li>
   );
@@ -474,28 +485,36 @@ const STATUS_LABELS: Record<ResourceStatus, string> = {
   completed: "Concluído",
 };
 
+/**
+ * Estado do recurso. O `aria-label` é o que o leitor de tela anuncia; o
+ * `Tooltip` (antes um `title`) é a mesma informação para quem passa o mouse.
+ * O gatilho é um `<span>` porque o marcador fica dentro do link do recurso.
+ */
 function StatusMark({ status }: { status: ResourceStatus }) {
   if (status === "not_started") return null;
-  return status === "completed" ? (
-    <Check
-      className="text-line size-4 shrink-0"
-      strokeWidth={3}
-      aria-label={STATUS_LABELS.completed}
-    />
-  ) : (
-    <CircleDashed
-      className="text-ink-faint size-4 shrink-0"
-      aria-label={STATUS_LABELS.in_progress}
-    />
+  const label = STATUS_LABELS[status];
+  return (
+    <Tooltip>
+      <TooltipTrigger
+        render={<span className="flex shrink-0" role="img" aria-label={label} />}
+      >
+        {status === "completed" ? (
+          <Check className="text-line size-4" strokeWidth={3} aria-hidden="true" />
+        ) : (
+          <CircleDashed className="text-ink-faint size-4" aria-hidden="true" />
+        )}
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
   );
 }
 
 function StudySkeleton() {
   return (
     <div className="flex flex-col gap-8" aria-busy="true">
-      <div className="bg-muted h-5 w-32 animate-pulse rounded-md" />
-      <div className="bg-muted h-10 w-2/3 animate-pulse rounded-md" />
-      <div className="bg-muted aspect-video w-full animate-pulse rounded-lg lg:w-2/3" />
+      <Skeleton className="h-5 w-32 rounded-md" />
+      <Skeleton className="h-10 w-2/3 rounded-md" />
+      <Skeleton className="aspect-video w-full rounded-lg lg:w-2/3" />
     </div>
   );
 }

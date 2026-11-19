@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, type Resolver } from "react-hook-form";
-import { Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -100,9 +101,10 @@ export function AuthForm({
         </div>
 
         {formError && (
-          <p className="text-destructive text-sm" role="alert">
-            {formError}
-          </p>
+          <Alert variant="destructive">
+            <AlertCircle />
+            <AlertDescription>{formError}</AlertDescription>
+          </Alert>
         )}
 
         <Button type="submit" className="mt-1 w-full" disabled={isSubmitting}>

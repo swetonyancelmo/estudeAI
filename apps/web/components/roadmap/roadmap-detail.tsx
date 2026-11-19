@@ -14,7 +14,14 @@ import type {
   PersistedModuleDto,
   RoadmapDetailDto,
 } from "@estudeai/shared-types";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useRoadmap, useToggleTopic } from "@/lib/roadmaps/api";
 import { AREA_LABELS } from "@/lib/roadmaps/labels";
@@ -131,15 +138,17 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
             reached={doneModules}
           />
 
-          <details className="group/why border-border border-t pt-4">
-            <summary className="text-muted-foreground hover:text-foreground flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 rounded-md text-sm font-medium transition-colors [&::-webkit-details-marker]:hidden">
+          <Collapsible className="border-border border-t pt-4">
+            <CollapsibleTrigger className="group/why text-muted-foreground hover:text-foreground flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-md text-sm font-medium transition-colors">
               Por que essa trilha
-              <ChevronDown className="size-4 transition-transform group-open/why:rotate-180" />
-            </summary>
-            <blockquote className="border-line text-muted-foreground mt-1 max-w-2xl border-l-[3px] pl-4">
-              {roadmap.justification}
-            </blockquote>
-          </details>
+              <ChevronDown className="size-4 transition-transform group-data-[panel-open]/why:rotate-180" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <blockquote className="border-line text-muted-foreground mt-1 max-w-2xl border-l-[3px] pl-4">
+                {roadmap.justification}
+              </blockquote>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </header>
 
@@ -153,10 +162,12 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
       />
 
       {toggle.isError && (
-        <p className="text-destructive flex items-center gap-2 text-sm" role="alert">
-          <AlertCircle className="size-4 shrink-0" />
-          Não foi possível salvar essa alteração. Tente novamente.
-        </p>
+        <Alert variant="destructive">
+          <AlertCircle />
+          <AlertDescription>
+            Não foi possível salvar essa alteração. Tente novamente.
+          </AlertDescription>
+        </Alert>
       )}
 
       {/* A linha: um <ol> em que cada item desenha sua estação e o trecho até a próxima. */}
@@ -295,12 +306,12 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
 function DetailSkeleton() {
   return (
     <div className="flex flex-col gap-8" aria-busy="true">
-      <div className="bg-muted h-5 w-32 animate-pulse rounded-md" />
-      <div className="bg-muted h-56 w-full animate-pulse rounded-lg" />
+      <Skeleton className="h-5 w-32" />
+      <Skeleton className="h-56 w-full rounded-lg" />
       {[0, 1, 2].map((index) => (
         <div key={index} className="flex gap-4 sm:gap-6">
-          <div className="bg-muted size-8 shrink-0 animate-pulse rounded-full" />
-          <div className="bg-muted h-14 flex-1 animate-pulse rounded-lg" />
+          <Skeleton className="size-8 shrink-0 rounded-full" />
+          <Skeleton className="h-14 flex-1 rounded-lg" />
         </div>
       ))}
     </div>
