@@ -1,11 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { AlertTriangle, Loader2, ShieldCheck, X } from "lucide-react";
+import { AlertTriangle, Loader2 } from "lucide-react";
 import type { AdjustmentChangesDto } from "@estudeai/shared-types";
 import { RerouteIcon } from "@/components/brand/icons";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { extractApiError } from "@/lib/auth/actions";
 import { useAdjustRoadmap } from "@/lib/roadmaps/api";
@@ -20,10 +28,11 @@ const EXAMPLES = [
 
 interface RoadmapAdjustPanelProps {
   roadmapId: string;
-  /** Sobe o resultado para o detalhe destacar o que mudou. */
-  onAdjusted: (changes: AdjustmentChangesDto) => void;
-  /** Tópicos concluídos que passaram intactos pelo último reajuste. */
-  preservedCount: number;
+  /**
+   * Sobe o resultado para o detalhe destacar o que mudou e mostrar o resumo
+   * (um `Alert` no topo da linha).
+   */
+  onAdjusted: (changes: AdjustmentChangesDto, summary: string) => void;
 }
 
 /**
@@ -33,11 +42,14 @@ interface RoadmapAdjustPanelProps {
  * explícito (botão travado + aviso), e o erro é tratado como parte normal do
  * fluxo: quando o backend recusa a resposta da IA por integridade (422), a
  * mensagem já vem pronta do servidor sugerindo reformular o pedido.
+ *
+ * Redesign v2 (Fase 3): o formulário mora num `Sheet` aberto pelo botão
+ * "Reajustar rota", em vez de abrir no meio da página e empurrar a linha. O
+ * resumo do reajuste saiu daqui: o detalhe o mostra no topo da linha.
  */
 export function RoadmapAdjustPanel({
   roadmapId,
   onAdjusted,
-  preservedCount,
 }: RoadmapAdjustPanelProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [request, setRequest] = useState("");
@@ -50,139 +62,112 @@ export function RoadmapAdjustPanel({
 
     adjust.mutate(request.trim(), {
       onSuccess: (response) => {
-        onAdjusted(response.changes);
+        onAdjusted(response.changes, response.adjustmentSummary);
         setRequest("");
         setIsOpen(false);
       },
     });
   }
 
-  function handleClose() {
-    setIsOpen(false);
-    adjust.reset();
-  }
-
-  if (!isOpen) {
-    return (
-      <div className="flex flex-col gap-4">
-        {/* Resumo do último reajuste: aviso no topo da linha, com filete da marca. */}
-        {adjust.isSuccess && (
-          <div
-            className="border-brand bg-brand-soft flex flex-col gap-2 rounded-lg border-l-[3px] p-4"
-            role="status"
-          >
-            <p className="flex items-center gap-2 font-semibold">
-              <RerouteIcon className="text-brand-ink size-5" />
-              Rota reajustada
-            </p>
-            <p className="text-muted-foreground text-sm">
-              {adjust.data.adjustmentSummary}
-            </p>
-            {preservedCount > 0 && (
-              <p className="text-muted-foreground flex items-center gap-1.5 text-sm">
-                <ShieldCheck className="text-success-ink size-4 shrink-0" />
-                {preservedCount}{" "}
-                {preservedCount === 1
-                  ? "tópico concluído foi preservado."
-                  : "tópicos concluídos foram preservados."}
-              </p>
-            )}
-          </div>
-        )}
-
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <Button variant="outline" onClick={() => setIsOpen(true)}>
-            <RerouteIcon />
-            Reajustar rota
-          </Button>
-          <span className="text-ink-faint text-sm">
-            A rotina mudou? Recalcule o que falta.
-          </span>
-        </div>
-      </div>
-    );
+  function handleOpenChange(open: boolean) {
+    // Enquanto recalcula, o Sheet não fecha: o resultado chega nele.
+    if (!open && adjust.isPending) return;
+    setIsOpen(open);
+    if (!open) adjust.reset();
   }
 
   return (
-    <div className="border-border bg-card flex flex-col gap-4 rounded-lg border p-5 duration-200 animate-in fade-in-0 sm:p-6">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-col gap-1.5">
-          <h2 className="text-xl">Reajustar rota</h2>
-          <p className="text-muted-foreground text-sm">
-            Conte como sua rotina mudou. Só o que falta é reorganizado: os
-            tópicos que você já concluiu ficam como estão.
-          </p>
-        </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="-mt-2 -mr-2"
-          onClick={handleClose}
-          aria-label="Fechar"
-          disabled={adjust.isPending}
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <Sheet open={isOpen} onOpenChange={handleOpenChange}>
+        <SheetTrigger render={<Button variant="outline" />}>
+          <RerouteIcon />
+          Reajustar rota
+        </SheetTrigger>
+        <SheetContent
+          side="right"
+          className="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-md"
         >
-          <X className="size-4" />
-        </Button>
-      </div>
+          <SheetHeader>
+            <SheetTitle className="text-xl">Reajustar rota</SheetTitle>
+            <SheetDescription>
+              Conte como sua rotina mudou. Só o que falta é reorganizado: os
+              tópicos que você já concluiu ficam como estão.
+            </SheetDescription>
+          </SheetHeader>
 
-      <Textarea
-        value={request}
-        onChange={(event) => setRequest(event.target.value.slice(0, MAX_LENGTH))}
-        placeholder="Ex.: tenho menos tempo esta semana, só consigo estudar 3h"
-        disabled={adjust.isPending}
-        aria-label="Pedido de reajuste"
-      />
-
-      <div className="flex flex-wrap gap-2">
-        {EXAMPLES.map((example) => (
-          <Button
-            key={example}
-            variant="secondary"
-            size="sm"
-            disabled={adjust.isPending}
-            onClick={() => setRequest(example)}
+          <form
+            className="flex flex-1 flex-col gap-4 overflow-y-auto px-4 pb-4"
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleSubmit();
+            }}
           >
-            {example}
-          </Button>
-        ))}
-      </div>
+            <Textarea
+              value={request}
+              onChange={(event) => setRequest(event.target.value.slice(0, MAX_LENGTH))}
+              placeholder="Ex.: tenho menos tempo esta semana, só consigo estudar 3h"
+              disabled={adjust.isPending}
+              aria-label="Pedido de reajuste"
+              className="min-h-32"
+            />
 
-      {adjust.isError && (
-        <Alert variant="destructive">
-          <AlertTriangle />
-          <AlertDescription>
-            {extractApiError(
-              adjust.error,
-              "Não foi possível reajustar seu roadmap. Tente novamente.",
+            <div className="flex flex-wrap gap-2">
+              {EXAMPLES.map((example) => (
+                <Button
+                  key={example}
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  disabled={adjust.isPending}
+                  onClick={() => setRequest(example)}
+                >
+                  {example}
+                </Button>
+              ))}
+            </div>
+
+            {adjust.isError && (
+              <Alert variant="destructive">
+                <AlertTriangle />
+                <AlertDescription>
+                  {extractApiError(
+                    adjust.error,
+                    "Não foi possível reajustar seu roadmap. Tente novamente.",
+                  )}
+                </AlertDescription>
+              </Alert>
             )}
-          </AlertDescription>
-        </Alert>
-      )}
 
-      <div className="flex items-center justify-between gap-3">
-        <span className="data-label text-ink-faint">
-          {request.length}/{MAX_LENGTH}
-        </span>
-        <Button onClick={handleSubmit} disabled={!canSubmit}>
-          {adjust.isPending ? (
-            <>
-              <Loader2 className="size-4 animate-spin" />
-              Recalculando…
-            </>
-          ) : (
-            <>
-              <RerouteIcon />
-              Reajustar
-            </>
-          )}
-        </Button>
-      </div>
+            <div className="flex items-center justify-between gap-3">
+              <span className="data-label text-ink-faint">
+                {request.length}/{MAX_LENGTH}
+              </span>
+              <Button type="submit" disabled={!canSubmit}>
+                {adjust.isPending ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    Recalculando…
+                  </>
+                ) : (
+                  <>
+                    <RerouteIcon />
+                    Reajustar
+                  </>
+                )}
+              </Button>
+            </div>
 
-      {adjust.isPending && (
-        <p className="text-muted-foreground text-sm" aria-live="polite">
-          Recalculando o que falta da sua rota. Isso leva alguns segundos.
-        </p>
-      )}
+            {adjust.isPending && (
+              <p className="text-muted-foreground text-sm" aria-live="polite">
+                Recalculando o que falta da sua rota. Isso leva alguns segundos.
+              </p>
+            )}
+          </form>
+        </SheetContent>
+      </Sheet>
+      <span className="text-muted-foreground text-sm">
+        A rotina mudou? Recalcule o que falta.
+      </span>
     </div>
   );
 }
