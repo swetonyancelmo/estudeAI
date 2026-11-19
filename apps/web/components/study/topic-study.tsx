@@ -1,49 +1,87 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   AlertCircle,
   ArrowLeft,
-  ArrowRight,
-  BookOpen,
   Check,
-  CircleDashed,
   ExternalLink,
-  FileText,
-  ListVideo,
-  Play,
+  ListOrdered,
+  Maximize2,
+  Minimize2,
+  PanelRightClose,
 } from "lucide-react";
-import type {
-  ResourceDto,
-  ResourceStatus,
-  RoadmapDetailDto,
+import { toast } from "sonner";
+import {
+  QUIZ_PASS_RATIO,
+  type ResourceDto,
+  type RoadmapDetailDto,
+  type UpdateResourceProgressRequestDto,
 } from "@estudeai/shared-types";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Kbd } from "@/components/ui/kbd";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import {
   useRoadmap,
   useToggleTopic,
+  useTopicChallenges,
+  useTopicQuiz,
   useUpdateResourceProgress,
 } from "@/lib/roadmaps/api";
 import { docSiteName, isMdnDocUrl } from "@/lib/docs/sites";
-import { locateTopic, readerHref, studyHref } from "@/lib/roadmaps/study";
+import { AREA_LABELS } from "@/lib/roadmaps/labels";
+import {
+  locateTopic,
+  readerHref,
+  studyHref,
+  type TopicLocation,
+} from "@/lib/roadmaps/study";
 import { TRACK_CLASS } from "@/lib/roadmaps/track";
 import {
   VIDEO_COMPLETION_RATIO,
   parseYoutubeUrl,
 } from "@/lib/roadmaps/youtube";
+import {
+  PREFERENCE_KEYS,
+  usePreference,
+  useStudyChrome,
+} from "@/lib/study/preferences";
+import { ProjectBrief } from "./project-brief";
+import { StationList, StationRail } from "./station-list";
+import { BOTTOM_BAR_PADDING, StudyBottomBar } from "./study-bottom-bar";
+import { StudyBreadcrumb } from "./study-breadcrumb";
+import { ReadingItem, ResourceGroup, VideoItem } from "./study-resources";
+import { TopicChallenges } from "./topic-challenges";
 import { TopicNoteEditor } from "./topic-note-editor";
 import { TopicQuiz } from "./topic-quiz";
+import { useStudyShortcuts } from "./use-study-shortcuts";
 import { useStudyTime } from "./use-study-time";
-import { TopicChallenges } from "./topic-challenges";
 import { YoutubePlayer } from "./youtube-player";
 
 /** Intervalo mínimo entre dois registros de "em andamento" do mesmo vídeo. */
 const PROGRESS_REPORT_MS = 15_000;
+
+/** Abas do tópico (D9). O valor vai para a URL em `?aba=`. */
+const TABS = ["materiais", "exercicios", "desafios", "anotacoes"] as const;
+type Tab = (typeof TABS)[number];
+const DEFAULT_TAB: Tab = "materiais";
+
+/** A partir daqui a lista lateral vira coluna; abaixo, vai para um Sheet. */
+const DESKTOP_QUERY = "(min-width: 1024px)";
 
 /**
  * Sala de estudo de um tópico (Fase 1 da plataforma de estudos): assistir às
@@ -51,6 +89,11 @@ const PROGRESS_REPORT_MS = 15_000;
  *
  * Lê o MESMO cache do detalhe do roadmap: chegar aqui pelo mapa não faz nova
  * requisição, e concluir o tópico aqui já aparece marcado ao voltar.
+ *
+ * Redesign v2 (Fase 2): o objetivo é estudar uma estação inteira sem sair da
+ * página. Palco do vídeo no topo, conteúdo do tópico em abas, a estação numa
+ * lista lateral (Sheet no celular) e uma barra fixa com Anterior, Concluir e
+ * Próximo.
  */
 export function TopicStudy({
   roadmapId,
@@ -64,7 +107,12 @@ export function TopicStudy({
   if (isPending) return <StudySkeleton />;
   if (isError) return <StudyError roadmapId={roadmapId} />;
 
-  return <StudyRoom key={topicId} roadmap={roadmap} topicId={topicId} />;
+  // `useSearchParams` (a aba na URL) pede um Suspense em volta.
+  return (
+    <Suspense fallback={<StudySkeleton />}>
+      <StudyRoom key={topicId} roadmap={roadmap} topicId={topicId} />
+    </Suspense>
+  );
 }
 
 function StudyRoom({
@@ -75,12 +123,39 @@ function StudyRoom({
   topicId: string;
 }) {
   const location = locateTopic(roadmap.modules, topicId);
+  if (!location) return <StudyError roadmapId={roadmap.id} />;
+  return <StudyLayout roadmap={roadmap} location={location} />;
+}
+
+function StudyLayout({
+  roadmap,
+  location,
+}: {
+  roadmap: RoadmapDetailDto;
+  location: TopicLocation;
+}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { topic, module, moduleIndex, moduleTopics, previous, next } = location;
   const toggle = useToggleTopic(roadmap.id);
-  const progress = useUpdateResourceProgress(roadmap.id, topicId);
+  const progress = useUpdateResourceProgress(roadmap.id, topic.id);
+  const quiz = useTopicQuiz(roadmap.id, topic.id);
+  const challenges = useTopicChallenges(roadmap.id, topic.id);
   // Fase 5: o tempo aqui conta como estudo; vídeo tocando também é atividade.
   const { markActive } = useStudyTime(roadmap.id);
 
-  const resources = location?.topic.resources ?? [];
+  const [collapsed, setCollapsed] = usePreference(PREFERENCE_KEYS.listCollapsed);
+  const [focus, setFocus] = usePreference(PREFERENCE_KEYS.focusMode);
+  const setHideNav = useStudyChrome((state) => state.setHideNav);
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  // Modo foco (D8) esconde a barra global, que mora no layout.
+  useEffect(() => {
+    setHideNav(focus);
+    return () => setHideNav(false);
+  }, [focus, setHideNav]);
+
+  const resources = topic.resources;
   const playable = resources.filter(
     (resource) =>
       resource.source === "youtube" && parseYoutubeUrl(resource.url) !== null,
@@ -89,6 +164,7 @@ function StudyRoom({
   const readings = resources.filter(
     (resource) => !playable.includes(resource) && resource.source !== "docs",
   );
+  const seen = resources.filter((resource) => resource.status === "completed").length;
 
   const [selectedId, setSelectedId] = useState<string | null>(
     () =>
@@ -101,15 +177,82 @@ function StudyRoom({
   /** Último envio por recurso, para não chamar a API a cada leitura do player. */
   const lastReport = useRef(new Map<string, number>());
 
-  if (!location) return <StudyError roadmapId={roadmap.id} />;
-
-  const { topic, module, moduleIndex, previous, next } = location;
   const selected = playable.find((resource) => resource.id === selectedId);
   const isProject = topic.kind === "project";
 
+  // Estado de cada aba, para o indicador discreto no rótulo.
+  const hasQuiz = quiz.data ? quiz.data.questions.length > 0 : false;
+  const quizPassed =
+    hasQuiz &&
+    quiz.data?.summary != null &&
+    quiz.data.summary.correct / quiz.data.questions.length >= QUIZ_PASS_RATIO;
+  const challengeList = challenges.data?.challenges ?? [];
+  const hasChallenges = challengeList.length > 0;
+  const challengesPassed = hasChallenges && challengeList.every((c) => c.passed);
+  const materialsSeen = resources.length > 0 && seen === resources.length;
+
+  const visibleTabs = TABS.filter(
+    (tab) =>
+      (tab !== "exercicios" || hasQuiz) && (tab !== "desafios" || hasChallenges),
+  );
+  const requested = searchParams.get("aba") as Tab | null;
+  const activeTab: Tab =
+    requested && visibleTabs.includes(requested) ? requested : DEFAULT_TAB;
+
+  /**
+   * A aba vai para a URL com `pushState`: o Next sincroniza o
+   * `useSearchParams`, o link fica compartilhável e o botão voltar volta de
+   * aba, sem buscar a página de novo.
+   */
+  function changeTab(tab: Tab) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (tab === DEFAULT_TAB) params.delete("aba");
+    else params.set("aba", tab);
+    const query = params.toString();
+    window.history.pushState(null, "", query ? `?${query}` : window.location.pathname);
+  }
+
+  /**
+   * Sugestão de conclusão (D11): tudo visto e o quiz passou (ou não há quiz).
+   * Só convida; quem conclui é a pessoa, no botão.
+   */
+  const quizSettled = quiz.isSuccess && (!hasQuiz || quizPassed);
+  const suggest = !topic.isCompleted && materialsSeen && quizSettled;
+  const suggestion = suggest
+    ? next
+      ? `Tudo visto por aqui. Concluir e seguir para ${next.title}?`
+      : "Tudo visto por aqui. Concluir esta parada?"
+    : null;
+
+  function toggleTopic() {
+    toggle.mutate(topic.id, {
+      onError: () =>
+        toast.error("Não foi possível salvar seu progresso.", {
+          id: "toggle-error",
+          action: { label: "Tentar de novo", onClick: toggleTopic },
+        }),
+    });
+  }
+
+  /** Concluir com a sugestão na tela responde a ela: conclui e segue. */
+  function handleBarComplete() {
+    toggleTopic();
+    if (suggest && next) router.push(studyHref(roadmap.id, next.id));
+  }
+
+  function report(body: UpdateResourceProgressRequestDto & { resourceId: string }) {
+    progress.mutate(body, {
+      onError: () =>
+        toast.error("Não foi possível salvar seu progresso.", {
+          id: "progress-error",
+          action: { label: "Tentar de novo", onClick: () => report(body) },
+        }),
+    });
+  }
+
   function markCompleted(resource: ResourceDto, watchedSeconds?: number) {
     if (resource.status === "completed") return;
-    progress.mutate({
+    report({
       resourceId: resource.id,
       status: "completed",
       ...(watchedSeconds !== undefined
@@ -134,7 +277,7 @@ function StudyRoom({
     if (now - last < PROGRESS_REPORT_MS || current <= resource.watchedSeconds)
       return;
     lastReport.current.set(resource.id, now);
-    progress.mutate({
+    report({
       resourceId: resource.id,
       status: "in_progress",
       watchedSeconds: Math.floor(current),
@@ -143,68 +286,175 @@ function StudyRoom({
 
   function openReading(resource: ResourceDto) {
     if (resource.status === "not_started") {
-      progress.mutate({ resourceId: resource.id, status: "in_progress" });
+      report({ resourceId: resource.id, status: "in_progress" });
     }
   }
+
+  function selectVideo(resourceId: string, fromSheet = false) {
+    setSelectedId(resourceId);
+    if (fromSheet) {
+      setSheetOpen(false);
+      window.scrollTo({ top: 0 });
+    }
+  }
+
+  function toggleList() {
+    if (window.matchMedia(DESKTOP_QUERY).matches && !focus) {
+      setCollapsed(!collapsed);
+    } else {
+      setSheetOpen((open) => !open);
+    }
+  }
+
+  useStudyShortcuts({
+    onPrevious: previous
+      ? () => router.push(studyHref(roadmap.id, previous.id))
+      : undefined,
+    onNext: next ? () => router.push(studyHref(roadmap.id, next.id)) : undefined,
+    onToggleFocus: () => setFocus(!focus),
+    onToggleList: toggleList,
+    onEscape: focus ? () => setFocus(false) : undefined,
+  });
+
+  const docItems = docs.map((resource) => (
+    <ReadingItem
+      key={resource.id}
+      resource={resource}
+      caption={docSiteName(resource.url)}
+      // MDN abre no leitor do estudeAI; o resto, no site oficial.
+      readerHref={
+        isMdnDocUrl(resource.url)
+          ? readerHref(roadmap.id, topic.id, resource.id)
+          : undefined
+      }
+      onOpen={() => openReading(resource)}
+      onMarkRead={() => markCompleted(resource)}
+    />
+  ));
+  const readingItems = readings.map((resource) => (
+    <ReadingItem
+      key={resource.id}
+      resource={resource}
+      onOpen={() => openReading(resource)}
+      onMarkRead={() => markCompleted(resource)}
+    />
+  ));
+
+  /** Materiais da parada atual dentro da lista lateral (o que antes era a aside). */
+  function currentDetail(fromSheet: boolean) {
+    if (resources.length === 0) return null;
+    return (
+      <div className="flex flex-col gap-3">
+        {playable.length > 0 && (
+          <ResourceGroup title="Aulas">
+            {playable.map((resource) => (
+              <VideoItem
+                key={resource.id}
+                resource={resource}
+                active={resource.id === selectedId}
+                onSelect={() => selectVideo(resource.id, fromSheet)}
+              />
+            ))}
+          </ResourceGroup>
+        )}
+        {docs.length > 0 && (
+          <ResourceGroup title="Documentação oficial">{docItems}</ResourceGroup>
+        )}
+        {readings.length > 0 && (
+          <ResourceGroup title="Leituras">{readingItems}</ResourceGroup>
+        )}
+      </div>
+    );
+  }
+
+  const done = moduleTopics.filter((item) => item.isCompleted).length;
+  const stationLabel = `Estação ${moduleIndex + 1} · ${done}/${moduleTopics.length}`;
+  const showAside = !focus;
 
   return (
     <div
       className={cn(
         TRACK_CLASS[roadmap.targetArea],
-        "flex flex-col gap-8 duration-300 animate-in fade-in-0",
+        "flex flex-1 flex-col gap-4 pt-2 duration-300 animate-in fade-in-0 lg:pt-4",
+        BOTTOM_BAR_PADDING,
       )}
     >
-      <Link
-        href={`/roadmaps/${roadmap.id}`}
-        className="text-muted-foreground hover:text-foreground -my-2 flex min-h-11 w-fit items-center gap-1.5 rounded-md text-sm font-medium transition-colors"
-      >
-        <ArrowLeft className="size-4" />
-        Voltar para a trilha
-      </Link>
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+        <StudyBreadcrumb
+          trackHref={`/roadmaps/${roadmap.id}`}
+          trackLabel={`Trilha ${AREA_LABELS[roadmap.targetArea]}`}
+          station={`Estação ${moduleIndex + 1}: ${module.title}`}
+          items={[{ label: topic.title }]}
+          actions={
+            <>
+              <Tooltip>
+                <TooltipTrigger
+                  render={
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-pressed={focus}
+                      aria-label={focus ? "Sair do modo foco" : "Modo foco"}
+                      onClick={() => setFocus(!focus)}
+                    />
+                  }
+                >
+                  {focus ? <Minimize2 className="size-4" /> : <Maximize2 className="size-4" />}
+                </TooltipTrigger>
+                <TooltipContent>
+                  {focus ? "Sair do modo foco" : "Modo foco"}
+                  <Kbd>{focus ? "Esc" : "F"}</Kbd>
+                </TooltipContent>
+              </Tooltip>
+              {showAside && !collapsed && (
+                <Tooltip>
+                  <TooltipTrigger
+                    render={
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        aria-label="Recolher lista de paradas"
+                        onClick={() => setCollapsed(true)}
+                        className="hidden lg:inline-flex"
+                      />
+                    }
+                  >
+                    <PanelRightClose className="size-4" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Recolher lista <Kbd>[</Kbd>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+            </>
+          }
+        />
+      </div>
 
-      <header className="flex flex-col gap-2">
-        <p className="data-label text-ink-faint">
-          Módulo {moduleIndex + 1} · {module.title}
-          {topic.estimatedHours !== undefined && ` · ~${topic.estimatedHours}h`}
-        </p>
-        <h1 className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          {isProject && (
-            <span className="border-line text-foreground rounded-sm border px-1.5 py-0.5 text-sm font-semibold">
-              Projeto
-            </span>
-          )}
-          {topic.title}
-        </h1>
-        {topic.isCompleted && (
-          <p className="text-muted-foreground flex items-center gap-1.5 text-sm">
-            <Check className="text-line size-4" strokeWidth={3} />
-            Tópico concluído
-          </p>
+      <div
+        className={cn(
+          "mx-auto grid w-full max-w-7xl gap-8 lg:px-6",
+          showAside &&
+            (collapsed
+              ? "lg:grid-cols-[minmax(0,1fr)_3.5rem]"
+              : "lg:grid-cols-[minmax(0,1fr)_20rem]"),
         )}
-      </header>
-
-      {isProject && topic.description && (
-        <section className="border-border bg-card rounded-lg border p-5 sm:p-6">
-          <h2 className="text-lg">O que construir</h2>
-          <p className="text-muted-foreground mt-2">{topic.description}</p>
-        </section>
-      )}
-
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        <div className="flex min-w-0 flex-col gap-8">
+      >
+        <div className="flex min-w-0 flex-col gap-6">
           {selected ? (
-            <section className="flex flex-col gap-3" aria-label="Aula">
+            <section
+              aria-label="Aula"
+              className="bg-stage text-stage-foreground overflow-hidden lg:rounded-lg"
+            >
               {unavailable.has(selected.id) ? (
-                <div className="border-border bg-card flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-lg border p-6 text-center">
-                  <p className="text-muted-foreground">
-                    Este vídeo não pode ser exibido aqui.
-                  </p>
+                <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 p-6 text-center">
+                  <p>Este vídeo não pode ser exibido aqui.</p>
                   <a
                     href={selected.url}
                     target="_blank"
                     rel="noreferrer noopener"
                     onClick={() => openReading(selected)}
-                    className={buttonVariants({ variant: "outline" })}
+                    className={cn(buttonVariants({ variant: "outline" }), "text-foreground")}
                   >
                     Assistir no YouTube
                     <ExternalLink className="size-4" />
@@ -227,306 +477,266 @@ function StudyRoom({
                   }
                 />
               )}
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <p className="font-medium">{selected.title}</p>
-                {selected.status !== "completed" && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => markCompleted(selected)}
-                  >
-                    <Check className="size-4" />
-                    Marcar aula como vista
-                  </Button>
-                )}
-              </div>
             </section>
           ) : (
             !isProject && (
-              <p className="border-border text-muted-foreground rounded-lg border border-dashed p-6 text-sm">
+              <p className="border-border bg-card text-muted-foreground mx-4 rounded-lg border border-dashed p-6 text-sm sm:mx-6 lg:mx-0">
                 Ainda não há aulas em vídeo para este tópico. Os materiais são
                 buscados aos poucos e aparecem aqui assim que estiverem prontos.
               </p>
             )
           )}
 
-          <TopicQuiz
-            roadmapId={roadmap.id}
-            topicId={topic.id}
-            topicCompleted={topic.isCompleted}
-            onCompleteTopic={() => {
-              if (!topic.isCompleted) toggle.mutate(topic.id);
-            }}
-          />
+          <div className="flex flex-col gap-6 px-4 sm:px-6 lg:px-0">
+            {selected && (
+              <div className="-mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+                <p className="text-muted-foreground text-sm">
+                  <span className="sr-only">Aula em exibição: </span>
+                  {selected.title}
+                </p>
+                {selected.status === "completed" ? (
+                  <p className="text-muted-foreground flex min-h-9 items-center gap-1.5 text-sm">
+                    <Check className="text-line size-4" strokeWidth={3} />
+                    Aula vista
+                  </p>
+                ) : (
+                  <Button variant="ghost" size="sm" onClick={() => markCompleted(selected)}>
+                    <Check className="size-4" />
+                    Marcar aula como vista
+                  </Button>
+                )}
+              </div>
+            )}
 
-          <TopicChallenges roadmapId={roadmap.id} topicId={topic.id} />
+            <header className="flex flex-col gap-2">
+              {isProject && (
+                <span className="border-line text-foreground w-fit rounded-sm border px-1.5 py-0.5 text-sm font-semibold">
+                  Projeto
+                </span>
+              )}
+              <h1>{topic.title}</h1>
+              <p className="data-label text-ink-faint">
+                {/* No checkpoint, as horas ficam no bloco "O que construir". */}
+                {[
+                  !isProject && topic.estimatedHours !== undefined && `~${topic.estimatedHours}h`,
+                  resources.length > 0 &&
+                    `${seen} de ${resources.length} ${resources.length === 1 ? "material" : "materiais"}`,
+                  isProject ? "checkpoint da estação" : null,
+                  topic.isCompleted && (isProject ? "concluído" : "parada concluída"),
+                ]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSheetOpen(true)}
+                className={cn("mt-1 w-fit", !focus && "lg:hidden")}
+                aria-label={`${stationLabel}: ver as paradas da estação`}
+              >
+                <ListOrdered className="size-4" />
+                {stationLabel}
+              </Button>
+            </header>
 
-          <TopicNoteEditor roadmapId={roadmap.id} topicId={topic.id} />
+            <Tabs value={activeTab} onValueChange={(value) => changeTab(value as Tab)}>
+              <TabsList className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0">
+                <TabsTrigger value="materiais">
+                  Materiais
+                  {materialsSeen && <TabCheck label="tudo visto" />}
+                </TabsTrigger>
+                {hasQuiz && (
+                  <TabsTrigger value="exercicios">
+                    Exercícios
+                    {quizPassed && <TabCheck label="aprovado" />}
+                  </TabsTrigger>
+                )}
+                {hasChallenges && (
+                  <TabsTrigger value="desafios">
+                    Desafios
+                    {challengesPassed && <TabCheck label="resolvidos" />}
+                  </TabsTrigger>
+                )}
+                <TabsTrigger value="anotacoes">Anotações</TabsTrigger>
+              </TabsList>
+
+              {/* Painéis fora da aba ativa não montam (padrão do Base UI):
+                  o Sandpack só é baixado quando a aba Desafios abre. */}
+              <TabsContent value="materiais" className="flex flex-col gap-6">
+                {isProject && (
+                  <ProjectBrief
+                    description={topic.description}
+                    estimatedHours={topic.estimatedHours}
+                  />
+                )}
+                {/* Sem a lista lateral (celular ou foco), as aulas ficam aqui. */}
+                {playable.length > 1 && (
+                  <ResourceGroup title="Aulas" className={cn(!focus && "lg:hidden")}>
+                    {playable.map((resource) => (
+                      <VideoItem
+                        key={resource.id}
+                        resource={resource}
+                        active={resource.id === selectedId}
+                        onSelect={() => {
+                          selectVideo(resource.id);
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                      />
+                    ))}
+                  </ResourceGroup>
+                )}
+                {docs.length > 0 && (
+                  <ResourceGroup title="Documentação oficial">{docItems}</ResourceGroup>
+                )}
+                {readings.length > 0 && (
+                  <ResourceGroup title="Leituras">{readingItems}</ResourceGroup>
+                )}
+                {docs.length === 0 && readings.length === 0 && !isProject && (
+                  <p className="text-muted-foreground text-sm">
+                    Esta parada ainda não tem leituras. As aulas ficam no vídeo acima.
+                  </p>
+                )}
+              </TabsContent>
+
+              <TabsContent value="exercicios">
+                <TopicQuiz
+                  roadmapId={roadmap.id}
+                  topicId={topic.id}
+                  topicCompleted={topic.isCompleted}
+                  onCompleteTopic={() => {
+                    if (!topic.isCompleted) toggleTopic();
+                  }}
+                />
+              </TabsContent>
+
+              <TabsContent value="desafios">
+                <TopicChallenges roadmapId={roadmap.id} topicId={topic.id} />
+              </TabsContent>
+
+              <TabsContent value="anotacoes">
+                <TopicNoteEditor roadmapId={roadmap.id} topicId={topic.id} />
+              </TabsContent>
+            </Tabs>
+          </div>
         </div>
 
-        <aside className="flex flex-col gap-6">
-          {playable.length > 0 && (
-            <ResourceGroup title="Aulas">
-              {playable.map((resource) => (
-                <li key={resource.id}>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedId(resource.id)}
-                    aria-current={resource.id === selectedId || undefined}
-                    className={cn(
-                      "hover:bg-muted flex min-h-11 w-full items-center gap-3 rounded-md px-2 py-1.5 text-left transition-colors",
-                      resource.id === selectedId && "bg-muted",
-                    )}
-                  >
-                    <ResourceIcon resource={resource} />
-                    <span className="min-w-0 flex-1 truncate text-sm">
-                      {resource.title}
-                    </span>
-                    <StatusMark status={resource.status} />
-                  </button>
-                </li>
-              ))}
-            </ResourceGroup>
-          )}
-
-          {docs.length > 0 && (
-            <ResourceGroup title="Documentação oficial">
-              {docs.map((resource) => (
-                <ReadingItem
-                  key={resource.id}
-                  resource={resource}
-                  caption={docSiteName(resource.url)}
-                  // MDN abre no leitor do estudeAI; o resto, no site oficial.
-                  readerHref={
-                    isMdnDocUrl(resource.url)
-                      ? readerHref(roadmap.id, topic.id, resource.id)
-                      : undefined
-                  }
-                  onOpen={() => openReading(resource)}
-                  onMarkRead={() => markCompleted(resource)}
+        {showAside && (
+          <aside className="hidden lg:block">
+            <div className="sticky top-4">
+              {collapsed ? (
+                <StationRail
+                  roadmapId={roadmap.id}
+                  location={location}
+                  onExpand={() => setCollapsed(false)}
                 />
-              ))}
-            </ResourceGroup>
-          )}
-
-          {readings.length > 0 && (
-            <ResourceGroup title="Leituras">
-              {readings.map((resource) => (
-                <ReadingItem
-                  key={resource.id}
-                  resource={resource}
-                  onOpen={() => openReading(resource)}
-                  onMarkRead={() => markCompleted(resource)}
-                />
-              ))}
-            </ResourceGroup>
-          )}
-        </aside>
+              ) : (
+                <ScrollArea className="h-[calc(100dvh-4rem-env(safe-area-inset-bottom)-2rem)]">
+                  <div className="pr-3 pb-4">
+                    <StationList
+                      roadmapId={roadmap.id}
+                      location={location}
+                      currentDetail={currentDetail(false)}
+                    />
+                  </div>
+                </ScrollArea>
+              )}
+            </div>
+          </aside>
+        )}
       </div>
 
-      {(toggle.isError || progress.isError) && (
-        <Alert variant="destructive">
-          <AlertCircle />
-          <AlertDescription>
-            Não foi possível salvar seu progresso. Tente de novo.
-          </AlertDescription>
-        </Alert>
-      )}
+      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+        <SheetContent side="bottom" className={TRACK_CLASS[roadmap.targetArea]}>
+          <SheetHeader className="pb-0">
+            <SheetTitle>Paradas da estação</SheetTitle>
+            <SheetDescription className="sr-only">
+              Todas as paradas da estação {moduleIndex + 1}, com o estado de cada uma.
+            </SheetDescription>
+          </SheetHeader>
+          <div className="min-h-0 flex-1 overflow-y-auto px-2 pb-4">
+            <StationList
+              roadmapId={roadmap.id}
+              location={location}
+              currentDetail={currentDetail(true)}
+              onNavigate={() => setSheetOpen(false)}
+            />
+          </div>
+        </SheetContent>
+      </Sheet>
 
-      <footer className="border-border flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
-        <Button
-          variant={topic.isCompleted ? "outline" : "default"}
-          onClick={() => toggle.mutate(topic.id)}
-        >
-          <Check className="size-4" />
-          {topic.isCompleted ? "Marcar como não concluído" : "Concluir tópico"}
-        </Button>
+      <StudyBottomBar
+        previous={
+          previous && {
+            href: studyHref(roadmap.id, previous.id),
+            label: "Anterior",
+            title: previous.title,
+            shortcut: true,
+          }
+        }
+        next={
+          next && {
+            href: studyHref(roadmap.id, next.id),
+            label: "Próximo",
+            title: next.title,
+            shortcut: true,
+          }
+        }
+        completed={topic.isCompleted}
+        onToggleComplete={handleBarComplete}
+        suggestion={suggestion}
+      />
 
-        <nav className="flex gap-2" aria-label="Navegação entre tópicos">
-          {previous && (
-            <Link
-              href={studyHref(roadmap.id, previous.id)}
-              className={buttonVariants({ variant: "ghost" })}
-            >
-              <ArrowLeft className="size-4" />
-              Anterior
-            </Link>
-          )}
-          {next && (
-            <Link
-              href={studyHref(roadmap.id, next.id)}
-              className={buttonVariants({ variant: "outline" })}
-            >
-              Próximo
-              <ArrowRight className="size-4" />
-            </Link>
-          )}
-        </nav>
-      </footer>
     </div>
   );
 }
 
-function ResourceGroup({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
+/** Check pequeno na cor da linha no rótulo da aba, com o estado em texto. */
+function TabCheck({ label }: { label: string }) {
   return (
-    <section className="flex flex-col gap-2">
-      <h2 className="data-label text-ink-faint">{title}</h2>
-      <ul className="-mx-2 flex flex-col gap-0.5">{children}</ul>
-    </section>
-  );
-}
-
-/**
- * Linha de leitura: abre no leitor interno (`readerHref`) ou numa nova aba, e
- * tem o botão de "marcar como lido" ao lado — fora do link, para o clique no
- * botão não abrir a página.
- */
-function ReadingItem({
-  resource,
-  caption,
-  readerHref: internalHref,
-  onOpen,
-  onMarkRead,
-}: {
-  resource: ResourceDto;
-  caption?: string;
-  readerHref?: string;
-  onOpen: () => void;
-  onMarkRead: () => void;
-}) {
-  const content = (
     <>
-      <ResourceIcon resource={resource} />
-      <span className="min-w-0 flex-1">
-        <span className="block truncate text-sm">{resource.title}</span>
-        {caption && (
-          <span className="text-ink-faint block truncate font-mono text-xs">
-            {caption}
-          </span>
-        )}
-      </span>
-      {internalHref ? (
-        <ArrowRight className="text-ink-faint size-3.5 shrink-0" />
-      ) : (
-        <ExternalLink className="text-ink-faint size-3.5 shrink-0" />
-      )}
+      <Check className="text-line size-3.5" strokeWidth={3} aria-hidden="true" />
+      <span className="sr-only">({label})</span>
     </>
-  );
-  const rowClass =
-    "hover:bg-muted flex min-h-11 min-w-0 flex-1 items-center gap-3 rounded-md px-2 py-1.5 transition-colors";
-
-  return (
-    <li className="flex items-center gap-1">
-      {internalHref ? (
-        <Link href={internalHref} className={rowClass}>
-          {content}
-        </Link>
-      ) : (
-        <a
-          href={resource.url}
-          target="_blank"
-          rel="noreferrer noopener"
-          onClick={onOpen}
-          className={rowClass}
-        >
-          {content}
-        </a>
-      )}
-      {resource.status === "completed" ? (
-        <span className="flex size-9 shrink-0 items-center justify-center">
-          <StatusMark status="completed" />
-        </span>
-      ) : (
-        <Tooltip>
-          <TooltipTrigger
-            render={
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                aria-label={`Marcar "${resource.title}" como lido`}
-                onClick={onMarkRead}
-              />
-            }
-          >
-            <Check className="size-4" />
-          </TooltipTrigger>
-          <TooltipContent>Marcar como lido</TooltipContent>
-        </Tooltip>
-      )}
-    </li>
-  );
-}
-
-function ResourceIcon({ resource }: { resource: ResourceDto }) {
-  const Icon =
-    resource.source === "docs"
-      ? BookOpen
-      : resource.type === "playlist"
-        ? ListVideo
-        : resource.type === "video"
-          ? Play
-          : FileText;
-  return (
-    <span className="bg-muted text-muted-foreground flex size-8 shrink-0 items-center justify-center rounded-sm">
-      <Icon className="size-4" />
-    </span>
-  );
-}
-
-const STATUS_LABELS: Record<ResourceStatus, string> = {
-  not_started: "Não iniciado",
-  in_progress: "Em andamento",
-  completed: "Concluído",
-};
-
-/**
- * Estado do recurso. O `aria-label` é o que o leitor de tela anuncia; o
- * `Tooltip` (antes um `title`) é a mesma informação para quem passa o mouse.
- * O gatilho é um `<span>` porque o marcador fica dentro do link do recurso.
- */
-function StatusMark({ status }: { status: ResourceStatus }) {
-  if (status === "not_started") return null;
-  const label = STATUS_LABELS[status];
-  return (
-    <Tooltip>
-      <TooltipTrigger
-        render={<span className="flex shrink-0" role="img" aria-label={label} />}
-      >
-        {status === "completed" ? (
-          <Check className="text-line size-4" strokeWidth={3} aria-hidden="true" />
-        ) : (
-          <CircleDashed className="text-ink-faint size-4" aria-hidden="true" />
-        )}
-      </TooltipTrigger>
-      <TooltipContent>{label}</TooltipContent>
-    </Tooltip>
   );
 }
 
 function StudySkeleton() {
   return (
-    <div className="flex flex-col gap-8" aria-busy="true">
-      <Skeleton className="h-5 w-32 rounded-md" />
-      <Skeleton className="h-10 w-2/3 rounded-md" />
-      <Skeleton className="aspect-video w-full rounded-lg lg:w-2/3" />
+    <div
+      className="mx-auto grid w-full max-w-7xl gap-8 py-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-6"
+      aria-busy="true"
+    >
+      <div className="flex flex-col gap-6">
+        <Skeleton className="mx-4 h-5 w-64 rounded-md sm:mx-6 lg:mx-0" />
+        <Skeleton className="aspect-video w-full rounded-none lg:rounded-lg" />
+        <div className="flex flex-col gap-3 px-4 sm:px-6 lg:px-0">
+          <Skeleton className="h-10 w-2/3 rounded-md" />
+          <Skeleton className="h-4 w-40 rounded-md" />
+          <Skeleton className="mt-4 h-11 w-full rounded-md" />
+        </div>
+      </div>
+      <div className="hidden flex-col gap-3 lg:flex">
+        <Skeleton className="h-4 w-32 rounded-md" />
+        <Skeleton className="h-6 w-48 rounded-md" />
+        {[0, 1, 2, 3, 4].map((index) => (
+          <Skeleton key={index} className="h-11 w-full rounded-md" />
+        ))}
+      </div>
     </div>
   );
 }
 
 function StudyError({ roadmapId }: { roadmapId: string }) {
   return (
-    <div className="flex flex-col items-start gap-5">
+    <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-5 px-5 py-10 sm:px-10 sm:py-14">
       <h1 className="text-2xl">Tópico não encontrado</h1>
-      <p className="text-muted-foreground">
-        Este tópico não está disponível. Ele pode ter mudado num reajuste da
-        trilha.
-      </p>
+      <Alert className="max-w-md">
+        <AlertCircle />
+        <AlertDescription>
+          Este tópico não está disponível. Ele pode ter mudado num reajuste da
+          trilha.
+        </AlertDescription>
+      </Alert>
       <Link
         href={`/roadmaps/${roadmapId}`}
         className={buttonVariants({ variant: "outline" })}

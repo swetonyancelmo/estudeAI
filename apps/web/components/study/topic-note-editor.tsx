@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSaveTopicNote, useTopicNote } from "@/lib/roadmaps/api";
+import { timeAgo } from "@/lib/study/time";
 
 /** Pausa na digitação antes de salvar. */
 const AUTOSAVE_MS = 1_000;
@@ -44,6 +45,7 @@ export function TopicNoteEditor({
           roadmapId={roadmapId}
           topicId={topicId}
           initial={note.data.content}
+          savedAt={note.data.updatedAt}
         />
       )}
     </section>
@@ -54,10 +56,13 @@ function NoteField({
   roadmapId,
   topicId,
   initial,
+  savedAt,
 }: {
   roadmapId: string;
   topicId: string;
   initial: string;
+  /** Último salvamento no servidor (atualizado pelo cache a cada PUT). */
+  savedAt: string | null;
 }) {
   const save = useSaveTopicNote(roadmapId, topicId);
   const [content, setContent] = useState(initial);
@@ -84,6 +89,13 @@ function NoteField({
 
   const dirty = content !== savedContent;
 
+  // Relógio do "salvo há 2 min": avança a cada 30s, sem depender de digitação.
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const tick = setInterval(() => setNow(Date.now()), 30_000);
+    return () => clearInterval(tick);
+  }, []);
+
   return (
     <>
       <Textarea
@@ -99,12 +111,14 @@ function NoteField({
         }}
         onBlur={flush}
       />
-      <p className="text-ink-faint text-xs" aria-live="polite">
+      <p className="data-label text-ink-faint" aria-live="polite">
         {save.isError
           ? "Não foi possível salvar. Continue escrevendo que tentamos de novo."
           : save.isPending || dirty
             ? "Salvando…"
-            : "Salvo"}
+            : savedAt
+              ? `Salvo ${timeAgo(savedAt, now)}`
+              : "Nada salvo ainda"}
       </p>
     </>
   );

@@ -178,7 +178,7 @@ export function YoutubePlayer({
     <div
       ref={containerRef}
       title={title}
-      className="bg-muted aspect-video w-full overflow-hidden rounded-lg [&_iframe]:size-full"
+      className="bg-stage aspect-video w-full overflow-hidden [&_iframe]:size-full"
     />
   );
 }
