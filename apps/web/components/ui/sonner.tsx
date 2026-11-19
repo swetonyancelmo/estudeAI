@@ -20,7 +20,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
     <Sonner
       theme={(resolvedTheme as ToasterProps["theme"]) ?? "system"}
       position="bottom-right"
-      mobileOffset={16}
+      // Na sala de estudo a barra fixa (`--bottom-bar`) ocupa o rodapé.
+      offset={{ bottom: "calc(var(--bottom-bar, 0px) + 24px)" }}
+      mobileOffset={{ bottom: "calc(var(--bottom-bar, 0px) + 16px)" }}
       className="toaster group"
       icons={{
         success: <CheckIcon className="size-4 text-line" strokeWidth={3} />,

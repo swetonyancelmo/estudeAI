@@ -22,3 +22,13 @@ export function shortDate(day: string): string {
   const [, month, dayOfMonth] = day.split("-");
   return `${dayOfMonth}/${month}`;
 }
+
+/** "agora", "há 2 min", "há 3 h" ou a data: quanto tempo desde um salvamento. */
+export function timeAgo(iso: string, now: number = Date.now()): string {
+  const minutes = Math.floor((now - new Date(iso).getTime()) / 60_000);
+  if (minutes < 1) return "agora";
+  if (minutes < 60) return `há ${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `há ${hours} h`;
+  return `em ${new Date(iso).toLocaleDateString("pt-BR", { day: "numeric", month: "short" })}`;
+}

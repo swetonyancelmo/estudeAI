@@ -7,7 +7,7 @@ export default async function DocReaderPage({
   const { id, topicId, resourceId } = await params;
 
   return (
-    <div className="mx-auto w-full max-w-3xl flex-1 px-5 py-10 sm:px-10 sm:py-14">
+    <div className="flex w-full flex-1 flex-col">
       <DocReader roadmapId={id} topicId={topicId} resourceId={resourceId} />
     </div>
   );

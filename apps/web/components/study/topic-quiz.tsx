@@ -12,14 +12,16 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useAnswerTopicQuiz, useTopicQuiz } from "@/lib/roadmaps/api";
-import { AnswerOptions } from "./answer-options";
+import { AnswerOptions, AnswerRadioGroup } from "./answer-options";
 import { InlineText } from "./study-text";
-
-
 
 /**
  * Quiz do tópico na sala de estudo (Fase 3): uma pergunta por vez, correção
  * na hora com explicação e placar no fim.
+ *
+ * Redesign v2: as alternativas são um `RadioGroup`. As setas do teclado só
+ * mudam a escolha; a resposta vai quando a pessoa confirma (Enter ou
+ * "Responder"), para uma seta sem querer não gastar a pergunta.
  *
  * O cliente não conhece o gabarito: cada resposta vai para a API, que corrige,
  * grava a tentativa e devolve a alternativa certa. Tópico sem quiz não mostra
@@ -165,12 +167,21 @@ function QuizRunner({
             <InlineText text={question.question} />
           </p>
 
-          <AnswerOptions
-            options={question.options}
-            result={result ?? null}
-            disabled={answer.isPending}
-            onChoose={choose}
-          />
+          {result ? (
+            <AnswerOptions
+              options={question.options}
+              result={result}
+              disabled
+              onChoose={() => {}}
+            />
+          ) : (
+            <AnswerRadioGroup
+              key={question.id}
+              options={question.options}
+              pending={answer.isPending}
+              onAnswer={choose}
+            />
+          )}
 
           {answer.isError && !result && (
             <Alert variant="destructive">

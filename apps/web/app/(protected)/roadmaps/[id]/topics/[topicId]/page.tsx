@@ -3,7 +3,8 @@ import { TopicStudy } from "@/components/study/topic-study";
 /**
  * Sala de estudo de um tópico. Mesmo padrão do detalhe do roadmap: o server
  * component só resolve os params e o client component faz as queries
- * autenticadas (o access token vive em memória no browser).
+ * autenticadas (o access token vive em memória no browser). A largura e as
+ * margens ficam com a sala: o palco do vídeo vai de borda a borda no celular.
  */
 export default async function TopicStudyPage({
   params,
@@ -11,7 +12,7 @@ export default async function TopicStudyPage({
   const { id, topicId } = await params;
 
   return (
-    <div className="mx-auto w-full max-w-6xl flex-1 px-5 py-10 sm:px-10 sm:py-14">
+    <div className="flex w-full flex-1 flex-col">
       <TopicStudy roadmapId={id} topicId={topicId} />
     </div>
   );

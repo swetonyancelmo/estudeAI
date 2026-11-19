@@ -18,16 +18,21 @@ import {
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/lib/auth/store";
 import { logout } from "@/lib/auth/actions";
+import { useStudyChrome } from "@/lib/study/preferences";
 
 /**
  * Barra das rotas autenticadas. A conta fica num avatar com a inicial: o
  * e-mail completo só aparece dentro do menu, em vez de ocupar o topo de todas
  * as telas.
+ *
+ * No modo foco da sala de estudo (D8) a barra some: a sala pede isso pela
+ * store `useStudyChrome` e devolve ao sair.
  */
 export function AppNav() {
   const router = useRouter();
   const pathname = usePathname();
   const user = useAuthStore((s) => s.user);
+  const hideNav = useStudyChrome((s) => s.hideNav);
   const initial = user?.email?.[0]?.toUpperCase() ?? "?";
   const onRoadmaps =
     pathname === "/dashboard" || pathname.startsWith("/roadmaps");
@@ -36,6 +41,8 @@ export function AppNav() {
     await logout();
     router.replace("/login");
   }
+
+  if (hideNav) return null;
 
   return (
     <header className="border-border bg-card flex items-center justify-between border-b px-5 py-2 sm:px-10">
