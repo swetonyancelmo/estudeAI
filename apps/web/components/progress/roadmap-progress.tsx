@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { AlertCircle, ArrowLeft } from "lucide-react";
+import { AlertCircle, ArrowLeft, ChevronDown } from "lucide-react";
 import type { RoadmapDetailDto, RoadmapStatsDto } from "@estudeai/shared-types";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { buttonVariants } from "@/components/ui/button";
@@ -153,8 +153,9 @@ function ProgressView({
       >
         <WeeklyChart weeks={stats.weeks} goalMinutes={stats.weeklyGoalMinutes} />
         <Collapsible className="text-sm">
-          <CollapsibleTrigger className="text-muted-foreground hover:text-foreground flex min-h-11 w-fit cursor-pointer items-center rounded-md">
+          <CollapsibleTrigger className="group/table text-muted-foreground hover:text-foreground flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-md">
             Ver como tabela
+            <ChevronDown className="size-4 transition-transform group-data-[panel-open]/table:rotate-180" />
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-1 overflow-x-auto">
             <table className="w-full text-left text-sm [font-variant-numeric:tabular-nums]">
