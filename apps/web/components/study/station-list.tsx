@@ -85,7 +85,13 @@ export function StationList({
           return (
             <li key={topic.id}>
               {isCurrent ? (
-                <div aria-current="step" className="bg-line-soft rounded-md">
+                // Sobre `line-soft` no escuro, `ink-faint` fica abaixo de AA
+                // (globals.css): os metadados da parada atual sobem para
+                // `muted-foreground`.
+                <div
+                  aria-current="step"
+                  className="bg-line-soft [&_.text-ink-faint]:text-muted-foreground rounded-md"
+                >
                   <div className="flex min-h-11 items-start gap-3 px-2 py-2.5">
                     {row}
                   </div>

@@ -126,7 +126,7 @@ export function AnswerRadioGroup({
               )}
             >
               <RadioGroupItem value={value} className="mt-0.5" />
-              <span className="text-ink-faint font-mono text-xs leading-6" aria-hidden="true">
+              <span className="text-muted-foreground font-mono text-xs leading-6" aria-hidden="true">
                 {LETTERS[optionIndex]}
               </span>
               <span className="min-w-0 flex-1">
