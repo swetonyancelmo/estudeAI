@@ -2,10 +2,19 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu } from "@base-ui/react/menu";
 import { LogOut } from "lucide-react";
 import { Wordmark } from "@/components/brand/wordmark";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLinkItem,
+  DropdownMenuLabel,
+  DropdownMenuGroup,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/lib/auth/store";
 import { logout } from "@/lib/auth/actions";
@@ -48,40 +57,37 @@ export function AppNav() {
 
       <div className="flex items-center gap-1">
         <ThemeToggle />
-        <Menu.Root>
-          <Menu.Trigger
+        <DropdownMenu>
+          <DropdownMenuTrigger
             aria-label="Conta"
             className="flex size-11 items-center justify-center rounded-full"
           >
-            <span className="bg-foreground text-background font-heading flex size-9 items-center justify-center rounded-full text-base font-bold">
-              {initial}
-            </span>
-          </Menu.Trigger>
-          <Menu.Portal>
-            <Menu.Positioner align="end" sideOffset={6} className="z-50">
-              <Menu.Popup className="border-border bg-popover text-popover-foreground min-w-56 rounded-lg border p-1.5 shadow-[0_3px_0_var(--border)] outline-none">
-                {user?.email && (
-                  <p className="data-label text-ink-faint truncate px-3 py-2">
-                    {user.email}
-                  </p>
-                )}
-                <Menu.LinkItem
-                  render={<Link href="/dashboard" />}
-                  className="data-[highlighted]:bg-muted flex min-h-11 cursor-pointer items-center rounded-md px-3 text-sm font-medium outline-none sm:hidden"
-                >
-                  Meus roadmaps
-                </Menu.LinkItem>
-                <Menu.Item
-                  onClick={handleLogout}
-                  className="data-[highlighted]:bg-muted flex min-h-11 cursor-pointer items-center gap-2 rounded-md px-3 text-sm font-medium outline-none"
-                >
-                  <LogOut className="size-4" />
-                  Sair
-                </Menu.Item>
-              </Menu.Popup>
-            </Menu.Positioner>
-          </Menu.Portal>
-        </Menu.Root>
+            <Avatar className="size-9 after:hidden">
+              <AvatarFallback className="bg-foreground text-background font-heading text-base font-bold">
+                {initial}
+              </AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" sideOffset={6} className="w-auto min-w-56">
+            {user?.email && (
+              <DropdownMenuGroup>
+                <DropdownMenuLabel className="truncate">
+                  {user.email}
+                </DropdownMenuLabel>
+              </DropdownMenuGroup>
+            )}
+            <DropdownMenuLinkItem
+              render={<Link href="/dashboard" />}
+              className="sm:hidden"
+            >
+              Meus roadmaps
+            </DropdownMenuLinkItem>
+            <DropdownMenuItem onClick={handleLogout}>
+              <LogOut aria-hidden="true" />
+              Sair
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );

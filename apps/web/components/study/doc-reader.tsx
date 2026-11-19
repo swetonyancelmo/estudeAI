@@ -8,7 +8,9 @@ import type {
   ResourceDto,
   RoadmapDetailDto,
 } from "@estudeai/shared-types";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useMdnArticle } from "@/lib/docs/api";
 import { isMdnDocUrl } from "@/lib/docs/sites";
@@ -115,10 +117,12 @@ function Reader({
       )}
 
       {progress.isError && (
-        <p className="text-destructive flex items-center gap-2 text-sm" role="alert">
-          <AlertCircle className="size-4" />
-          Não foi possível salvar seu progresso. Tente de novo.
-        </p>
+        <Alert variant="destructive">
+          <AlertCircle />
+          <AlertDescription>
+            Não foi possível salvar seu progresso. Tente de novo.
+          </AlertDescription>
+        </Alert>
       )}
 
       <footer className="border-border flex flex-col gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
@@ -271,10 +275,10 @@ function ArticleError({ error, url }: { error: unknown; url: string }) {
 function ReaderSkeleton() {
   return (
     <div className="flex flex-col gap-4" aria-busy="true">
-      <div className="bg-muted h-4 w-40 animate-pulse rounded-md" />
-      <div className="bg-muted h-10 w-3/4 animate-pulse rounded-md" />
+      <Skeleton className="h-4 w-40 rounded-md" />
+      <Skeleton className="h-10 w-3/4 rounded-md" />
       {[0, 1, 2, 3].map((index) => (
-        <div key={index} className="bg-muted h-4 w-full animate-pulse rounded-md" />
+        <Skeleton key={index} className="h-4 w-full rounded-md" />
       ))}
     </div>
   );

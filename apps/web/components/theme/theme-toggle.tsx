@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { Monitor, Moon, Sun } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 /** Nunca emite mudança: só serve para diferenciar servidor de cliente. */
@@ -22,7 +23,7 @@ export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
 
   // O servidor não conhece o tema escolhido. Antes da hidratação o botão sai
-  // genérico — ícone, rótulo e title dependem todos do tema, e o React NÃO
+  // genérico — ícone, rótulo e dica dependem todos do tema, e o React NÃO
   // corrige atributos divergentes: anunciar o estado errado ficaria permanente.
   const hydrated = useSyncExternalStore(
     neverChanges,
@@ -35,21 +36,23 @@ export function ThemeToggle({ className }: { className?: string }) {
   const Icon = MODES[current].icon;
 
   return (
-    <button
-      type="button"
-      onClick={() => setTheme(next)}
-      aria-label={
-        hydrated
-          ? `Tema ${MODES[current].label}. Mudar para tema ${MODES[next].label}.`
-          : "Alternar tema"
-      }
-      title={hydrated ? `Tema ${MODES[current].label}` : undefined}
-      className={cn(
-        "text-muted-foreground hover:text-foreground hover:bg-muted flex size-11 items-center justify-center rounded-lg transition-colors",
-        className,
-      )}
-    >
-      {hydrated && <Icon className="size-4" aria-hidden="true" />}
-    </button>
+    <Tooltip disabled={!hydrated}>
+      <TooltipTrigger
+        type="button"
+        onClick={() => setTheme(next)}
+        aria-label={
+          hydrated
+            ? `Tema ${MODES[current].label}. Mudar para tema ${MODES[next].label}.`
+            : "Alternar tema"
+        }
+        className={cn(
+          "text-muted-foreground hover:text-foreground hover:bg-muted flex size-11 items-center justify-center rounded-lg transition-colors",
+          className,
+        )}
+      >
+        {hydrated && <Icon className="size-4" aria-hidden="true" />}
+      </TooltipTrigger>
+      <TooltipContent>Tema {MODES[current].label}</TooltipContent>
+    </Tooltip>
   );
 }

@@ -1,5 +1,6 @@
 import { AuthGuard } from "@/components/auth/auth-guard";
 import { AppNav } from "@/components/app-nav";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function ProtectedLayout({
   children,
@@ -10,6 +11,7 @@ export default function ProtectedLayout({
     <AuthGuard>
       <AppNav />
       <div className="flex flex-1 flex-col">{children}</div>
+      <Toaster />
     </AuthGuard>
   );
 }

@@ -8,7 +8,9 @@ import type {
   ReviewItemDto,
   ReviewQueueDto,
 } from "@estudeai/shared-types";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import {
   relativeDays,
@@ -33,14 +35,16 @@ export function ReviewSession() {
   useEffect(() => () => void refresh(), [refresh]);
 
   if (queue.isPending) {
-    return <div className="bg-muted h-64 w-full animate-pulse rounded-lg" aria-busy="true" />;
+    return <Skeleton className="h-64 w-full rounded-lg" aria-busy="true" />;
   }
   if (queue.isError) {
     return (
-      <p className="text-destructive flex items-center gap-2" role="alert">
-        <AlertCircle className="size-4" />
-        Não foi possível carregar sua revisão. Recarregue a página.
-      </p>
+      <Alert variant="destructive">
+        <AlertCircle />
+        <AlertDescription>
+          Não foi possível carregar sua revisão. Recarregue a página.
+        </AlertDescription>
+      </Alert>
     );
   }
   if (queue.data.items.length === 0) return <NothingDue queue={queue.data} />;
@@ -129,10 +133,12 @@ function Session({ items, remaining }: { items: ReviewItemDto[]; remaining: numb
       />
 
       {answer.isError && !result && (
-        <p className="text-destructive flex items-center gap-2 text-sm" role="alert">
-          <AlertCircle className="size-4" />
-          Não foi possível enviar sua resposta. Tente de novo.
-        </p>
+        <Alert variant="destructive">
+          <AlertCircle />
+          <AlertDescription>
+            Não foi possível enviar sua resposta. Tente de novo.
+          </AlertDescription>
+        </Alert>
       )}
 
       {result && (

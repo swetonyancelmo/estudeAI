@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AlertTriangle, Loader2, ShieldCheck, X } from "lucide-react";
 import type { AdjustmentChangesDto } from "@estudeai/shared-types";
 import { RerouteIcon } from "@/components/brand/icons";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { extractApiError } from "@/lib/auth/actions";
@@ -147,13 +148,15 @@ export function RoadmapAdjustPanel({
       </div>
 
       {adjust.isError && (
-        <p className="text-destructive flex items-start gap-2 text-sm" role="alert">
-          <AlertTriangle className="mt-0.5 size-4 shrink-0" />
-          {extractApiError(
-            adjust.error,
-            "Não foi possível reajustar seu roadmap. Tente novamente.",
-          )}
-        </p>
+        <Alert variant="destructive">
+          <AlertTriangle />
+          <AlertDescription>
+            {extractApiError(
+              adjust.error,
+              "Não foi possível reajustar seu roadmap. Tente novamente.",
+            )}
+          </AlertDescription>
+        </Alert>
       )}
 
       <div className="flex items-center justify-between gap-3">

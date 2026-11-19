@@ -90,6 +90,8 @@
   --color-line-back: var(--line-back);
   --color-line-full: var(--line-full);
   --color-line-ops: var(--line-ops);
+  --color-stage: var(--stage);
+  --color-stage-foreground: var(--stage-foreground);
 }
 
 /**
@@ -140,7 +142,6 @@
   --brand-soft: #fce9e1;
   --brand-line: #f6c3af;
   --ink-faint: #6b655e;
-  --line-soft: #f1ece4;
   --success: #1f9d64;
   --success-ink: #157a4c;
   --success-soft: #e1f5ea;
@@ -152,6 +153,19 @@
   --line-ops: #0f8f8c;
   /* Linha "corrente": quem estiver dentro de `.track-*` herda a cor da trilha. */
   --line: var(--brand);
+  /* Fundo da parada atual e do item ativo na lista lateral. Calculado a partir
+     da linha corrente; por isso é redefinido em cada `.track-*` (abaixo), senão
+     herdaria o valor já resolvido com a cor da marca.
+     Mistura em OKLAB, não OKLCH: em OKLCH o matiz é interpolado, e como o card
+     escuro tem um matiz quente, as quatro trilhas viravam o mesmo marrom.
+     Contraste sobre ele, nas quatro trilhas: `foreground` ≥ 15:1,
+     `muted-foreground` ≥ 6.1:1, `ink-faint` ≥ 4.8:1. */
+  --line-soft: color-mix(in oklab, var(--line) 12%, var(--card));
+
+  /* Palco do vídeo (letterbox e modo foco): escuro nos dois temas, como todo
+     player. `stage-foreground` sobre `stage`: 15.7:1. */
+  --stage: #1a1714;
+  --stage-foreground: #f4f0ea;
 
   --sidebar: #ffffff;
   --sidebar-foreground: #1a1714;
@@ -195,7 +209,13 @@
   --brand-soft: #2b1911;
   --brand-line: #5a3120;
   --ink-faint: #968e85;
-  --line-soft: #24211e;
+  /* 18% no escuro: com 12% o fundo some contra o card. Contraste sobre ele:
+     `foreground` ≥ 11:1, `muted-foreground` ≥ 4.9:1. `ink-faint` NÃO passa
+     (3.9 a 4.3:1): sobre `line-soft`, metadado usa `muted-foreground`. */
+  --line-soft: color-mix(in oklab, var(--line) 18%, var(--card));
+  /* `stage-foreground` sobre `stage`: 17.4:1. */
+  --stage: #0b0a09;
+  --stage-foreground: #f4f0ea;
   --success: #34c77e;
   --success-ink: #34c77e;
   --success-soft: #12281d;
@@ -263,15 +283,29 @@
   /* Cor da linha por trilha: tudo que usa `var(--line)` dentro herda. */
   .track-frontend {
     --line: var(--line-front);
+    --line-soft: color-mix(in oklab, var(--line) 12%, var(--card));
   }
   .track-backend {
     --line: var(--line-back);
+    --line-soft: color-mix(in oklab, var(--line) 12%, var(--card));
   }
   .track-fullstack {
     --line: var(--line-full);
+    --line-soft: color-mix(in oklab, var(--line) 12%, var(--card));
   }
   .track-devops {
     --line: var(--line-ops);
+    --line-soft: color-mix(in oklab, var(--line) 12%, var(--card));
+  }
+  .dark .track-frontend,
+  .dark .track-backend,
+  .dark .track-fullstack,
+  .dark .track-devops,
+  .dark.track-frontend,
+  .dark.track-backend,
+  .dark.track-fullstack,
+  .dark.track-devops {
+    --line-soft: color-mix(in oklab, var(--line) 18%, var(--card));
   }
 
   /* Traçado SVG que se desenha: o path precisa de `pathLength="1"`. */

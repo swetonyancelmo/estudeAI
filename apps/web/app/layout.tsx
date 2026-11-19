@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/goo
 import "./globals.css";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 /** Display — títulos. Personalidade sem virar decoração. */
 const bricolage = Bricolage_Grotesque({
@@ -40,7 +41,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          <AuthProvider>{children}</AuthProvider>
+          {/* Um provider só: tooltips vizinhos abrem sem atraso depois do primeiro. */}
+          <TooltipProvider delay={400}>
+            <AuthProvider>{children}</AuthProvider>
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

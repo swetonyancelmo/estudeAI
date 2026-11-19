@@ -1,23 +1,35 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AlertTriangle, Loader2, Trash2 } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { extractApiError } from "@/lib/auth/actions";
 import { useDeleteRoadmap } from "@/lib/roadmaps/api";
 
 /**
- * Exclusão do roadmap, em dois passos: o primeiro clique só arma a confirmação,
- * o segundo apaga. Confirmação inline em vez de modal porque o projeto não tem
- * componente de diálogo — e um passo a mais no mesmo lugar resolve o problema
- * real (evitar o clique acidental) sem introduzir uma camada de UI nova.
+ * Exclusão do roadmap, com confirmação num `AlertDialog`. Antes era inline em
+ * dois cliques porque o projeto não tinha componente de diálogo; com o
+ * shadcn (redesign v2, Fase 1) o diálogo passa a ser o lugar certo: prende o
+ * foco, fecha com Esc e não empurra o layout da página.
  *
  * Some tudo: roadmap, módulos, tópicos e o progresso marcado. Por isso o texto
  * de confirmação diz isso explicitamente, em vez de um "tem certeza?" genérico.
+ * O diálogo continua aberto enquanto exclui (e se der erro, para mostrar o
+ * erro); só sai da tela quando a exclusão termina e a navegação acontece.
  */
 export function DeleteRoadmapButton({ roadmapId }: { roadmapId: string }) {
-  const [isConfirming, setIsConfirming] = useState(false);
   const router = useRouter();
   const remove = useDeleteRoadmap(roadmapId);
 
@@ -27,71 +39,68 @@ export function DeleteRoadmapButton({ roadmapId }: { roadmapId: string }) {
     });
   }
 
-  if (!isConfirming) {
-    return (
-      <Button
-        variant="ghost"
-        size="sm"
-        className="text-muted-foreground hover:text-destructive w-fit"
-        onClick={() => setIsConfirming(true)}
+  return (
+    <AlertDialog
+      onOpenChange={(open) => {
+        if (!open) remove.reset();
+      }}
+    >
+      <AlertDialogTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-muted-foreground hover:text-destructive w-fit"
+          />
+        }
       >
         <Trash2 className="size-3.5" />
         Excluir roadmap
-      </Button>
-    );
-  }
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Excluir este roadmap?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Excluir este roadmap apaga também todos os módulos, tópicos e o
+            progresso que você já marcou. Não dá para desfazer.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
 
-  return (
-    <div className="border-destructive/30 bg-destructive/5 flex flex-col gap-3 rounded-lg border p-4 duration-200 animate-in fade-in-0">
-      <p className="text-muted-foreground text-sm">
-        Excluir este roadmap apaga também todos os módulos, tópicos e o
-        progresso que você já marcou. Não dá para desfazer.
-      </p>
+        {remove.isError && (
+          <Alert variant="destructive">
+            <AlertTriangle />
+            <AlertDescription>
+              {extractApiError(
+                remove.error,
+                "Não foi possível excluir este roadmap. Tente novamente.",
+              )}
+            </AlertDescription>
+          </Alert>
+        )}
 
-      {remove.isError && (
-        <p
-          className="text-destructive flex items-start gap-2 text-sm"
-          role="alert"
-        >
-          <AlertTriangle className="mt-0.5 size-4 shrink-0" />
-          {extractApiError(
-            remove.error,
-            "Não foi possível excluir este roadmap. Tente novamente.",
-          )}
-        </p>
-      )}
-
-      <div className="flex items-center gap-2">
-        <Button
-          variant="destructive"
-          size="sm"
-          onClick={handleDelete}
-          disabled={remove.isPending}
-        >
-          {remove.isPending ? (
-            <>
-              <Loader2 className="size-3.5 animate-spin" />
-              Excluindo…
-            </>
-          ) : (
-            <>
-              <Trash2 className="size-3.5" />
-              Excluir definitivamente
-            </>
-          )}
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            setIsConfirming(false);
-            remove.reset();
-          }}
-          disabled={remove.isPending}
-        >
-          Cancelar
-        </Button>
-      </div>
-    </div>
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={remove.isPending}>
+            Cancelar
+          </AlertDialogCancel>
+          <AlertDialogAction
+            variant="destructive"
+            onClick={handleDelete}
+            disabled={remove.isPending}
+          >
+            {remove.isPending ? (
+              <>
+                <Loader2 className="size-3.5 animate-spin" />
+                Excluindo…
+              </>
+            ) : (
+              <>
+                <Trash2 className="size-3.5" />
+                Excluir definitivamente
+              </>
+            )}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

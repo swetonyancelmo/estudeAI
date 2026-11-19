@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AlertCircle } from "lucide-react";
 import { TOPIC_NOTE_MAX_LENGTH } from "@estudeai/shared-types";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Textarea } from "@/components/ui/textarea";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useSaveTopicNote, useTopicNote } from "@/lib/roadmaps/api";
 
 /** Pausa na digitação antes de salvar. */
@@ -28,11 +31,14 @@ export function TopicNoteEditor({
         Suas anotações
       </label>
       {note.isPending ? (
-        <div className="bg-muted h-32 w-full animate-pulse rounded-lg" />
+        <Skeleton className="h-32 w-full rounded-lg" />
       ) : note.isError ? (
-        <p className="text-destructive text-sm" role="alert">
-          Não foi possível carregar suas anotações.
-        </p>
+        <Alert variant="destructive">
+          <AlertCircle />
+          <AlertDescription>
+            Não foi possível carregar suas anotações.
+          </AlertDescription>
+        </Alert>
       ) : (
         <NoteField
           roadmapId={roadmapId}

@@ -7,7 +7,9 @@ import {
   type QuizAnswerResultDto,
   type QuizDto,
 } from "@estudeai/shared-types";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useAnswerTopicQuiz, useTopicQuiz } from "@/lib/roadmaps/api";
 import { AnswerOptions } from "./answer-options";
@@ -37,14 +39,16 @@ export function TopicQuiz({
   const quiz = useTopicQuiz(roadmapId, topicId);
 
   if (quiz.isPending) {
-    return <div className="bg-muted h-28 w-full animate-pulse rounded-lg" />;
+    return <Skeleton className="h-28 w-full rounded-lg" />;
   }
   if (quiz.isError) {
     return (
-      <p className="text-destructive flex items-center gap-2 text-sm" role="alert">
-        <AlertCircle className="size-4" />
-        Não foi possível carregar os exercícios.
-      </p>
+      <Alert variant="destructive">
+        <AlertCircle />
+        <AlertDescription>
+          Não foi possível carregar os exercícios.
+        </AlertDescription>
+      </Alert>
     );
   }
   if (quiz.data.questions.length === 0) return null;
@@ -169,10 +173,12 @@ function QuizRunner({
           />
 
           {answer.isError && !result && (
-            <p className="text-destructive flex items-center gap-2 text-sm" role="alert">
-              <AlertCircle className="size-4" />
-              Não foi possível enviar sua resposta. Tente de novo.
-            </p>
+            <Alert variant="destructive">
+              <AlertCircle />
+              <AlertDescription>
+                Não foi possível enviar sua resposta. Tente de novo.
+              </AlertDescription>
+            </Alert>
           )}
 
           {result && (
