@@ -57,7 +57,10 @@ function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
   return (
     <TabsPrimitive.Panel
       data-slot="tabs-content"
-      className={cn("outline-none", className)}
+      className={cn(
+        "focus-visible:ring-ring/50 rounded-md outline-none focus-visible:ring-3",
+        className
+      )}
       {...props}
     />
   )
