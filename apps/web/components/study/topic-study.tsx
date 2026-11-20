@@ -70,6 +70,7 @@ import { ReadingItem, ResourceGroup, VideoItem } from "./study-resources";
 import { TopicChallenges } from "./topic-challenges";
 import { TopicNoteEditor } from "./topic-note-editor";
 import { TopicQuiz } from "./topic-quiz";
+import { useFitToViewport } from "./use-fit-to-viewport";
 import { useStudyShortcuts } from "./use-study-shortcuts";
 import { useStudyTime } from "./use-study-time";
 import { YoutubePlayer } from "./youtube-player";
@@ -153,6 +154,14 @@ function StudyLayout({
   const [focus, setFocus] = usePreference(PREFERENCE_KEYS.focusMode);
   const setHideNav = useStudyChrome((state) => state.setHideNav);
   const [sheetOpen, setSheetOpen] = useState(false);
+  // A lista lateral cabe entre o topo visível e a barra inferior (4rem + 1rem de
+  // respiro): sem isso o fim dela ficava debaixo da barra até a página rolar.
+  const asideRef = useRef<HTMLDivElement>(null);
+  const asideHeight = useFitToViewport(
+    asideRef,
+    { stickyTop: 16, reserve: 80 },
+    !focus && !collapsed,
+  );
 
   // Modo foco (D8) esconde a barra global, que mora no layout.
   useEffect(() => {
@@ -661,7 +670,7 @@ function StudyLayout({
 
         {showAside && (
           <aside className="hidden lg:block">
-            <div className="sticky top-4">
+            <div ref={asideRef} className="sticky top-4">
               {collapsed ? (
                 <StationRail
                   roadmapId={roadmap.id}
@@ -669,7 +678,14 @@ function StudyLayout({
                   onExpand={() => setCollapsed(false)}
                 />
               ) : (
-                <ScrollArea className="h-[calc(100dvh-4rem-env(safe-area-inset-bottom)-2rem)]">
+                <ScrollArea
+                  className="h-[calc(100dvh-4rem-env(safe-area-inset-bottom)-2rem)]"
+                  style={
+                    asideHeight
+                      ? { height: `calc(${asideHeight}px - env(safe-area-inset-bottom))` }
+                      : undefined
+                  }
+                >
                   <div className="pr-3 pb-4">
                     <StationList
                       roadmapId={roadmap.id}
