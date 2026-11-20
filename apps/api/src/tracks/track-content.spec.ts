@@ -3,6 +3,7 @@ import {
   MAX_QUIZ_QUESTIONS,
   MAX_TOPIC_CHALLENGES,
   MAX_TOPIC_DOCS,
+  MAX_TOPIC_VIDEOS,
   TRACK_SLUGS,
   isOfficialDocUrl,
   loadTrack,
@@ -219,6 +220,76 @@ describe('docs — documentação oficial por tópico (Fase 2)', () => {
     ['javascript:alert(1)', false],
   ])('isOfficialDocUrl(%s) = %s', (url, expected) => {
     expect(isOfficialDocUrl(url)).toBe(expected);
+  });
+});
+
+describe('videos — videoaulas do YouTube por tópico', () => {
+  const video = (id: string) => ({
+    title: `Aula ${id}`,
+    url: `https://www.youtube.com/watch?v=${id}`,
+    channel: 'Canal',
+  });
+
+  it('aceita vídeos na forma canônica, com ou sem canal, e tópico sem vídeos', () => {
+    expect(
+      problemsOf(
+        track([
+          topic('a', {
+            videos: [
+              video('dQw4w9WgXcQ'),
+              {
+                title: 'Outra',
+                url: 'https://www.youtube.com/watch?v=abcdefghijk',
+              },
+            ],
+          }),
+          topic('b'),
+        ]),
+      ),
+    ).toEqual([]);
+  });
+
+  it('recusa URL fora do formato canônico, repetida, lista grande e tipo errado', () => {
+    const many = Array.from({ length: MAX_TOPIC_VIDEOS + 1 }, (_, index) =>
+      video(`aaaaaaaaaa${index}`),
+    );
+    const problems = problemsOf(
+      track([
+        topic('a', {
+          videos: [
+            { title: 'Curto', url: 'https://youtu.be/dQw4w9WgXcQ' },
+            {
+              title: 'Com tempo',
+              url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=5',
+            },
+            {
+              title: 'Playlist',
+              url: 'https://www.youtube.com/playlist?list=PLabcdefghijkl',
+            },
+            { title: '', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
+          ],
+        }),
+        topic('b', { videos: many }),
+        topic('c', { videos: [video('dQw4w9WgXcQ'), video('dQw4w9WgXcQ')] }),
+        topic('d', { videos: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }),
+      ]),
+    );
+
+    expect(problems).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining(
+          '"https://youtu.be/dQw4w9WgXcQ" não está no formato',
+        ),
+        expect.stringContaining('&t=5" não está no formato'),
+        expect.stringContaining(
+          'playlist?list=PLabcdefghijkl" não está no formato',
+        ),
+        expect.stringContaining('vídeo sem title'),
+        expect.stringContaining(`no máximo ${MAX_TOPIC_VIDEOS} vídeos`),
+        expect.stringContaining('vídeo repetido'),
+        expect.stringContaining('videos deve ser uma lista'),
+      ]),
+    );
   });
 });
 

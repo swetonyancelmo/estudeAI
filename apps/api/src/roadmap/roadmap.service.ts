@@ -13,6 +13,10 @@ import {
 import { Track } from '../tracks/entities/track.entity';
 import { personalizeTrack } from '../tracks/track-personalization';
 import { chooseTrack } from '../tracks/track-selection';
+import {
+  parseYoutubeVideoId,
+  youtubeThumbnailUrl,
+} from '../tracks/youtube-video-url';
 import { TrackJustificationService } from './track-justification.service';
 import { UserRoadmapService } from './user-roadmap.service';
 
@@ -109,13 +113,29 @@ export class RoadmapService {
                 type: 'article' as const,
                 source: 'docs' as const,
               })),
+              // Videoaulas curadas (`pnpm videos import`): também vêm do JSON.
+              ...(topic.videos ?? []).map((video) => {
+                const id = parseYoutubeVideoId(video.url);
+                return {
+                  title: video.title,
+                  url: video.url,
+                  type: 'video' as const,
+                  source: 'youtube' as const,
+                  ...(id ? { thumbnailUrl: youtubeThumbnailUrl(id) } : {}),
+                };
+              }),
               ...[...topic.resources]
                 .sort((a, b) => a.order - b.order)
                 // A mesma URL achada pela fila e curada no JSON vira uma linha
                 // só (há UNIQUE por tópico + URL em topic_resources).
                 .filter(
                   (resource) =>
-                    !(topic.docs ?? []).some((doc) => doc.url === resource.url),
+                    !(topic.docs ?? []).some(
+                      (doc) => doc.url === resource.url,
+                    ) &&
+                    !(topic.videos ?? []).some(
+                      (video) => video.url === resource.url,
+                    ),
                 )
                 .map((resource) => ({
                   title: resource.title,

@@ -34,6 +34,25 @@ const COPY_DOCS_TO_USER_TOPICS_SQL = `
     WHERE "topic_resources"."source" = 'docs'
 `;
 
+/**
+ * Idem para as videoaulas curadas (`videos`). Mesma regra das docs: só
+ * acrescenta e atualiza a ordem; vídeo tirado do JSON continua com quem já
+ * tinha. A miniatura é derivada do id do vídeo (host liberado no web).
+ */
+const COPY_VIDEOS_TO_USER_TOPICS_SQL = `
+  INSERT INTO "topic_resources" ("topic_id", "title", "url", "type", "thumbnail_url", "source", "order_index")
+  SELECT t."id", v.video->>'title', v.video->>'url', 'video',
+    'https://i.ytimg.com/vi/' || substring(v.video->>'url' from 'v=([A-Za-z0-9_-]{11})$') || '/hqdefault.jpg',
+    'youtube', v.position - 1
+  FROM "roadmap_topics" t
+  JOIN "track_topics" tt ON tt."id" = t."track_topic_id"
+  CROSS JOIN LATERAL jsonb_array_elements(tt."videos") WITH ORDINALITY AS v(video, position)
+  WHERE tt."track_id" = $1
+  ON CONFLICT ("topic_id", "url") DO UPDATE
+    SET "order_index" = EXCLUDED."order_index"
+    WHERE "topic_resources"."source" = 'youtube'
+`;
+
 /** Chave do advisory lock: duas instâncias subindo juntas não sincronizam em paralelo. */
 const SYNC_LOCK_KEY = 'estudeai:track-sync';
 
@@ -166,6 +185,7 @@ export class TrackSyncService implements OnApplicationBootstrap {
             prerequisites: topicContent.prerequisites,
             searchQuery: topicContent.searchQuery,
             docs: topicContent.docs ?? [],
+            videos: topicContent.videos ?? [],
             order: topicIndex,
             resourcesFetchedAt:
               oldTopic && !requeue ? oldTopic.resourcesFetchedAt : null,
@@ -207,6 +227,7 @@ export class TrackSyncService implements OnApplicationBootstrap {
     }
 
     await manager.query(COPY_DOCS_TO_USER_TOPICS_SQL, [track.id]);
+    await manager.query(COPY_VIDEOS_TO_USER_TOPICS_SQL, [track.id]);
 
     return existing ? 'updated' : 'created';
   }

@@ -34,10 +34,19 @@ const COPY_TO_USER_TOPICS_SQL = `
     AND NOT EXISTS (
       SELECT 1 FROM "topic_resources" existing
       WHERE existing."topic_id" = t."id"
-        -- Documentação oficial chega pelo JSON, não pela fila: não conta como
-        -- "já tem recursos", senão o tópico nunca receberia os vídeos.
+        -- Documentação oficial e videoaulas curadas chegam pelo JSON, não pela
+        -- fila: não contam como "já tem recursos", senão o tópico nunca
+        -- receberia os links buscados.
         AND existing."source" <> 'docs'
+        AND NOT EXISTS (
+          SELECT 1 FROM "track_topics" curated,
+            jsonb_array_elements(curated."videos") AS video
+          WHERE curated."id" = t."track_topic_id"
+            AND video->>'url' = existing."url"
+        )
     )
+  -- Se a fila achou o mesmo vídeo que o JSON já curou, fica o do JSON.
+  ON CONFLICT ("topic_id", "url") DO NOTHING
 `;
 
 export interface TrackResourceRunResult {
