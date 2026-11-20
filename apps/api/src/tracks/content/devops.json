@@ -76,6 +76,23 @@
               "answerIndex": 1,
               "explanation": "O interpretador de comandos (shell) apenas avisa que o comando não foi encontrado ou é inválido, sem danificar o sistema."
             }
+          ],
+          "videos": [
+            {
+              "title": "Instalar o WSL2 e aprender Linux pelo Windows",
+              "url": "https://www.youtube.com/watch?v=-obiA39qMbQ",
+              "channel": "Prof. Juliano Ramos – Linux do Zero ao Hacker!"
+            },
+            {
+              "title": "Instalação WSL2 - 2024",
+              "url": "https://www.youtube.com/watch?v=oEdIf6mB_p4",
+              "channel": "Sandro Ramos"
+            },
+            {
+              "title": "2022 - Instalar Linux no Windows Sem Máquina Virtual e Nem Dual Boot - Usando WSL 2 - Sem Gambiarra",
+              "url": "https://www.youtube.com/watch?v=-zaWleYuZAM",
+              "channel": "ALL.ternate ˡᵃᵇ"
+            }
           ]
         },
         {
@@ -145,6 +162,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O operador `>` envia a saída de um comando para um arquivo. O símbolo `|` é usado para pipes."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Curso de terminal linux - Aula 7: Redirecionamento de entrada e saída",
+              "url": "https://www.youtube.com/watch?v=Ofg2WlrSLfs",
+              "channel": "Daniel Bergholz [EN]"
+            },
+            {
+              "title": "Redirecionamento e Pipes no Linux 01 - stdin, stdout, stderr",
+              "url": "https://www.youtube.com/watch?v=H9J_JG9oxl4",
+              "channel": "Bóson Treinamentos"
+            },
+            {
+              "title": "Aprendendo de verdade a usar o GREP no Linux",
+              "url": "https://www.youtube.com/watch?v=MDADbtNLLnI",
+              "channel": "Vagner Fonseca"
             }
           ]
         },
@@ -220,6 +254,23 @@
               "answerIndex": 3,
               "explanation": "A flag -aG adiciona o usuário ao grupo especificado mantendo os grupos anteriores. A flag -g altera apenas o grupo principal."
             }
+          ],
+          "videos": [
+            {
+              "title": "Linux - Gerência de Permissões no Linux",
+              "url": "https://www.youtube.com/watch?v=w4zoJy3zWSI",
+              "channel": "Arnaldo Junior"
+            },
+            {
+              "title": "#7 Linux do Zero para DevOps: Permissões Linux - chmod Explicado na Prática",
+              "url": "https://www.youtube.com/watch?v=GdZYI1VQRBo",
+              "channel": "Maria Lazara"
+            },
+            {
+              "title": "Aula Sobre o Comando CHMOD #LINUX",
+              "url": "https://www.youtube.com/watch?v=deY9Z7n4vzM",
+              "channel": "Certificação Linux"
+            }
           ]
         },
         {
@@ -285,6 +336,23 @@
               ],
               "answerIndex": 1,
               "explanation": "O systemd atua como o sistema de inicialização inicial (PID 1) e gerenciador de serviços do sistema. As outras tarefas pertencem a gerenciadores de pacotes ou firewalls."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Gerenciamento de Processos de Linux- ps, top, htop, kill",
+              "url": "https://www.youtube.com/watch?v=-bEVlQv_O-8",
+              "channel": "LINUXtips"
+            },
+            {
+              "title": "🐧 Curso Linux Server - SystemD Essencial: Guia Completo de Gerenciamento de Serviços no Debian",
+              "url": "https://www.youtube.com/watch?v=iiL9XNIJiZo",
+              "channel": "Professor José de Assis"
+            },
+            {
+              "title": "Comandos Essenciais para Administração de Servidores Linux: systemctl",
+              "url": "https://www.youtube.com/watch?v=qwfpFa7AeGI",
+              "channel": "Eduardo Maroñas Monks"
             }
           ]
         },
@@ -356,6 +424,23 @@
               "answerIndex": 3,
               "explanation": "A flag `-u` (ou `--unit`) filtra os registros especificando a unidade do systemd correspondente ao serviço desejado."
             }
+          ],
+          "videos": [
+            {
+              "title": "Comandos APT e DPKG - Gerenciando Pacotes no Linux (Debian / Ubuntu)",
+              "url": "https://www.youtube.com/watch?v=ZXau5YexYvA",
+              "channel": "Vagner Fonseca"
+            },
+            {
+              "title": "DOMINANDO OS LOGS NO LINUX COM O JOURNALCTL (completo e super fácil)",
+              "url": "https://www.youtube.com/watch?v=jT9yjpUYB-Y",
+              "channel": "LINUXtips"
+            },
+            {
+              "title": "Shell Script profissional Mod.3 #38 - Gerenciamento de pacotes debian no Linux Ubuntu com apt",
+              "url": "https://www.youtube.com/watch?v=sthgK1LgPBo",
+              "channel": "Geofisicando"
+            }
           ]
         },
         {
@@ -421,6 +506,18 @@
               ],
               "answerIndex": 2,
               "explanation": "O atalho Ctrl + W (Where Is) aciona a função de busca no Nano. O Ctrl + F é usado apenas para mover o cursor para a frente caractere por caractere."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Curso de terminal linux - Aula 5: Editando arquivos no terminal (VIM e NANO)",
+              "url": "https://www.youtube.com/watch?v=Oqui8e0OJ2w",
+              "channel": "Daniel Bergholz [EN]"
+            },
+            {
+              "title": "Editando textos no Linux pelo terminal | Curso: Linux e Comandos Essenciais | Aula #04",
+              "url": "https://www.youtube.com/watch?v=MHFlrR27u7I",
+              "channel": "Hello Codes"
             }
           ]
         }
@@ -500,6 +597,23 @@
               "answerIndex": 2,
               "explanation": "O endereço IP atua como um número de endereço postal, permitindo que os roteadores saibam para onde enviar os pacotes."
             }
+          ],
+          "videos": [
+            {
+              "title": "OSI x TCP/IP: o que todo aluno de redes precisa saber",
+              "url": "https://www.youtube.com/watch?v=c5vfwNBbl4g",
+              "channel": "Professora Nattane"
+            },
+            {
+              "title": "Modelo OSI e TCP/IP",
+              "url": "https://www.youtube.com/watch?v=KOrWZnGbx7s",
+              "channel": "Léo Matos"
+            },
+            {
+              "title": "Modelo OSI: Como Funciona Cada Camada da Comunicação",
+              "url": "https://www.youtube.com/watch?v=CgaHyZO6Prw",
+              "channel": "Videoaulas Monitor"
+            }
           ]
         },
         {
@@ -565,6 +679,23 @@
               ],
               "answerIndex": 3,
               "explanation": "A rota padrão usa a notação CIDR /0 para abranger qualquer destino externo, encaminhando o tráfego para o gateway."
+            }
+          ],
+          "videos": [
+            {
+              "title": "O que são a máscara de rede e sub-rede e como afetam o endereço IP!?",
+              "url": "https://www.youtube.com/watch?v=Tox1UY29sJU",
+              "channel": "DicionarioTec"
+            },
+            {
+              "title": "Fundamentos do Endereço IP - Classes de Endereço, Gateway Padrão, Máscara de Sub-Rede",
+              "url": "https://www.youtube.com/watch?v=LKMpNEDVNyc",
+              "channel": "Prof. Adriano Martins Antonio"
+            },
+            {
+              "title": "Máscara de Rede e Sub-rede - Aula 1",
+              "url": "https://www.youtube.com/watch?v=WwkVIoMorTQ",
+              "channel": "Wagner Homem Barros"
             }
           ]
         },
@@ -640,6 +771,23 @@
               "answerIndex": 3,
               "explanation": "O primeiro passo técnico antes de abrir uma página é sempre resolver o nome do domínio para um endereço IP através do DNS."
             }
+          ],
+          "videos": [
+            {
+              "title": "Como funcionam certificados SSL/TLS? Como funciona o mTLS? Veja aqui na prática.",
+              "url": "https://www.youtube.com/watch?v=fpQ_nPlkmDc",
+              "channel": "Marcus Rodrigues"
+            },
+            {
+              "title": "Entenda como o HTTP e o HTTPS funcionam",
+              "url": "https://www.youtube.com/watch?v=z9zdf63NV1I",
+              "channel": "Bits Conceituais"
+            },
+            {
+              "title": "O que é DNS e como funciona 🤔 Apontamento DNS 🗺️",
+              "url": "https://www.youtube.com/watch?v=XoLQHCPZS9s",
+              "channel": "HostGator Brasil"
+            }
           ]
         },
         {
@@ -714,6 +862,18 @@
               "answerIndex": 3,
               "explanation": "O SSH exige que a chave privada e a pasta `.ssh` tenham permissões restritas (apenas o dono pode ler/escrever), falhando caso estejam muito abertas."
             }
+          ],
+          "videos": [
+            {
+              "title": "COMO GERAR PAR DE CHAVES SSH PARA ACESSO LINUX SEM SENHA | mREMOTE",
+              "url": "https://www.youtube.com/watch?v=DI6PTFQpPDA",
+              "channel": "SIERTI"
+            },
+            {
+              "title": "ACESSO SSH COM CHAVE - SEM USAR SENHA",
+              "url": "https://www.youtube.com/watch?v=Gq-NWeK4weY",
+              "channel": "Vandeilson Nolasco"
+            }
           ]
         },
         {
@@ -783,6 +943,23 @@
               ],
               "answerIndex": 1,
               "explanation": "O iptables avalia as regras de cima para baixo de forma sequencial. Assim que um pacote atende a uma condição, a ação é executada e as regras seguintes são ignoradas."
+            }
+          ],
+          "videos": [
+            {
+              "title": "21 - Configurar Firewall UFW no Linux Ubuntu - parte 2 - configurações intermediárias",
+              "url": "https://www.youtube.com/watch?v=dWqu9HYvtXc",
+              "channel": "Bóson Treinamentos"
+            },
+            {
+              "title": "🐧 Curso Linux Server | Configuração Básica de Firewall com iptables (Netfilter) #firewall #iptables",
+              "url": "https://www.youtube.com/watch?v=CY6M-fXQpTM",
+              "channel": "Professor José de Assis"
+            },
+            {
+              "title": "Firewall no Linux - iptables",
+              "url": "https://www.youtube.com/watch?v=-ah0_yTLPwc",
+              "channel": "Professor Paulo Soares da Costa"
             }
           ]
         },
@@ -857,6 +1034,13 @@
               ],
               "answerIndex": 1,
               "explanation": "Muitos roteadores corporativos ignoram intencionalmente pacotes de tempo excedido para evitar sobrecarga ou ocultar topologia. O tráfego ainda pode passar por eles normalmente."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Ferramentas Básicas de Rede: Ping, Traceroute e ARP",
+              "url": "https://www.youtube.com/watch?v=Fiz2iUJ7YAA",
+              "channel": "Eduardo Maroñas Monks"
             }
           ]
         }
@@ -944,6 +1128,18 @@
               "answerIndex": 0,
               "explanation": "A opção `-b` combinada com o checkout cria a ramificação e já realiza a troca para ela em um único comando. Sem a flag, o Git tentaria apenas mudar para um branch existente."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de Git e Github Para Iniciantes",
+              "url": "https://www.youtube.com/watch?v=Kyw91mqCHD0",
+              "channel": "Programação Web"
+            },
+            {
+              "title": "Curso de Git & GitHub Para Completos Iniciantes",
+              "url": "https://www.youtube.com/watch?v=Yp0RRTdtkqY",
+              "channel": "Felipe Rocha • Full Stack Club"
+            }
           ]
         },
         {
@@ -1014,6 +1210,23 @@
               "answerIndex": 1,
               "explanation": "O comando `git pull` busca e integra as novidades do repositório remoto para a sua máquina. Quem está começando costuma confundir o sentido do fluxo com o push."
             }
+          ],
+          "videos": [
+            {
+              "title": "🚀#7 Como criar um PR (Pull Request) - Curso de Git e GitHub",
+              "url": "https://www.youtube.com/watch?v=glUSV7MSDo4",
+              "channel": "Yuri Marcon"
+            },
+            {
+              "title": "🌎 Curso GIT e GITHUB - Fork e Pull Request - Exemplo simples e prático - #11",
+              "url": "https://www.youtube.com/watch?v=l1rwvDvD1og",
+              "channel": "Professor José de Assis"
+            },
+            {
+              "title": "Como Fazer um Pull-Request no GitHub (E Como Aceitar)",
+              "url": "https://www.youtube.com/watch?v=xM-bZSDGjzA",
+              "channel": "SD Inovações"
+            }
           ]
         },
         {
@@ -1079,6 +1292,23 @@
               ],
               "answerIndex": 3,
               "explanation": "A sintaxe padrão do Bash exige o nome seguido de parênteses vazios e chaves. A palavra-chave `function` é opcional e sem parênteses."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Curso Shell Script - aula04 - Variáveis e Constantes em bash",
+              "url": "https://www.youtube.com/watch?v=1D3Ba5gXr6s",
+              "channel": "Cavalcante Treinamentos"
+            },
+            {
+              "title": "[Shell Script] Trabalhando com Variáveis | AULA SHELL SCRIPT #2",
+              "url": "https://www.youtube.com/watch?v=T4KWiL-L4QQ",
+              "channel": "Hack a News"
+            },
+            {
+              "title": "Aprenda a fazer scripts BASH",
+              "url": "https://www.youtube.com/watch?v=tzAb1Zi_MCE",
+              "channel": "Garcia Explica"
             }
           ]
         },
@@ -1150,6 +1380,13 @@
               "answerIndex": 1,
               "explanation": "A especificação YAML proíbe estritamente o uso de caracteres de tabulação para indentação, exigindo apenas espaços."
             }
+          ],
+          "videos": [
+            {
+              "title": "YAML - Para iniciantes",
+              "url": "https://www.youtube.com/watch?v=sZ3c3RvxrwY",
+              "channel": "Sobrinho de TI"
+            }
           ]
         },
         {
@@ -1219,6 +1456,18 @@
               ],
               "answerIndex": 0,
               "explanation": "Redes instáveis exigem tentativas controladas (retry) capturando exceções de conexão. O erro comum é usar blocos genéricos ou ignorar os erros, mascarando problemas reais."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Aprenda Automação de Tarefas com Python em 20min (para Iniciantes)",
+              "url": "https://www.youtube.com/watch?v=d6k0JDKfF-0",
+              "channel": "Hashtag Programação"
+            },
+            {
+              "title": "SCRIPTS EM PYTHON para automatizar tarefas? Sim, é possível | Locaweb",
+              "url": "https://www.youtube.com/watch?v=bKFsd3uXT44",
+              "channel": "Locaweb"
             }
           ]
         }
@@ -1298,6 +1547,23 @@
               "answerIndex": 0,
               "explanation": "Por padrão, o ciclo de vida do container dita que alterações no seu disco interno somem ao removê-lo. Para persistir dados, usamos volumes."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso INICIANTE DevOps - Aula #1: DOCKER, Conceitos e Prática de IMAGEM e CONTAINER",
+              "url": "https://www.youtube.com/watch?v=bZT78rGsgjk",
+              "channel": "Engenharia de Software - Luciana"
+            },
+            {
+              "title": "Curso de docker para iniciantes - Manipulando imagens e containers.",
+              "url": "https://www.youtube.com/watch?v=Z_DvHu7OoSM",
+              "channel": "Sistema Inseguro"
+            },
+            {
+              "title": "Docker SUPER AULA com TUDO que você precisa saber HOJE!",
+              "url": "https://www.youtube.com/watch?v=obtKdOW1pWQ",
+              "channel": "Ayrton Teshima - Programador a Bordo"
+            }
           ]
         },
         {
@@ -1368,6 +1634,23 @@
               "answerIndex": 2,
               "explanation": "O padrão para imagens públicas exige o seu nome de usuário do Docker Hub seguido de barra, o nome do repositório e a tag da versão."
             }
+          ],
+          "videos": [
+            {
+              "title": "Dockerfile (Criando imagens docker)",
+              "url": "https://www.youtube.com/watch?v=0tBwTB7GSRQ",
+              "channel": "Caindo na Rede"
+            },
+            {
+              "title": "CRIANDO UMA IMAGEM DOCKER",
+              "url": "https://www.youtube.com/watch?v=qIGxp9k3b1w",
+              "channel": "UpperStack"
+            },
+            {
+              "title": "Docker 3/3 - Publicando imagem Customizada no Docker Hub e Criando Atalhos Utilizando $(MAKEFILE)",
+              "url": "https://www.youtube.com/watch?v=nhmL7r_kQ14",
+              "channel": "Rodrigo Rahman"
+            }
           ]
         },
         {
@@ -1437,6 +1720,23 @@
               ],
               "answerIndex": 2,
               "explanation": "A rede bridge é ideal para comunicação local entre containers no mesmo host. Redes overlay são usadas para múltiplos hosts."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Sequência Docker : Entenda Volumes e Storage (Bind Mounts e Volumes) | Coffops",
+              "url": "https://www.youtube.com/watch?v=o-G6mRanLCc",
+              "channel": "Coffops"
+            },
+            {
+              "title": "#05. Comunicação entre containers - Curso de Introdução ao Docker",
+              "url": "https://www.youtube.com/watch?v=YCRPBokYG2o",
+              "channel": "Insight Lab"
+            },
+            {
+              "title": "O que são Bind Mounts em Docker?",
+              "url": "https://www.youtube.com/watch?v=JiJ0mrqkvhk",
+              "channel": "AlgaWorks"
             }
           ]
         },
@@ -1512,6 +1812,23 @@
               "answerIndex": 2,
               "explanation": "O comando `docker compose down` para e remove os recursos. Adicionando a flag `-v` (ou `--volumes`), os volumes nomeados declarados na seção de volumes também são apagados."
             }
+          ],
+          "videos": [
+            {
+              "title": "Aprenda a criar múltiplos containers com o Docker Compose !",
+              "url": "https://www.youtube.com/watch?v=U6Pb11Q_8ks",
+              "channel": "Iago Ferreira TI - Aprenda Cloud e DevOps do ZERO"
+            },
+            {
+              "title": "Aprenda Orquestração de Contêineres com Docker Compose 2025: Minicurso Gratuito Completo",
+              "url": "https://www.youtube.com/watch?v=9YvgXpESeuk",
+              "channel": "Erudio"
+            },
+            {
+              "title": "Docker Compose na prática (Fácil)",
+              "url": "https://www.youtube.com/watch?v=HxPz3eLnXZk",
+              "channel": "Ayrton Teshima - Programador a Bordo"
+            }
           ]
         },
         {
@@ -1578,6 +1895,13 @@
               "answerIndex": 3,
               "explanation": "Somente os artefatos explicitamente copiados para o estágio final persistem na imagem gerada pelo build."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de Docker - 08 Dockerfile com multi-stage builds",
+              "url": "https://www.youtube.com/watch?v=naG60Ni1cD4",
+              "channel": "Marcelo Gomes de Paula"
+            }
           ]
         },
         {
@@ -1643,6 +1967,23 @@
               ],
               "answerIndex": 0,
               "explanation": "O erro 502 Bad Gateway indica que o Nginx está funcionando, mas não conseguiu se comunicar com o servidor upstream (a aplicação)."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Configuração do NGINX como Proxy Reverso: Guia Prático",
+              "url": "https://www.youtube.com/watch?v=9aUVg9nX-Gc",
+              "channel": "ligeiro"
+            },
+            {
+              "title": "Como configurar Nginx: Proxy Reverso para Aplicações Web (Frontend + APIs)",
+              "url": "https://www.youtube.com/watch?v=B9iqLZ4I4kU",
+              "channel": "Nem TI Conto"
+            },
+            {
+              "title": "Configurar NGINX como proxy reverso",
+              "url": "https://www.youtube.com/watch?v=z1_YebQfVeI",
+              "channel": "LibreByte"
             }
           ]
         }
@@ -1726,6 +2067,18 @@
               "answerIndex": 1,
               "explanation": "A falha em qualquer etapa crítica interrompe o fluxo para evitar que código quebrado contamine os ambientes de homologação ou produção."
             }
+          ],
+          "videos": [
+            {
+              "title": "Qual a diferença entre CI e CD?",
+              "url": "https://www.youtube.com/watch?v=GHjK9ABZeR8",
+              "channel": "Fabricio Veronez"
+            },
+            {
+              "title": "160 - Integração e Entrega Contínua (CI/CD) | theWiseDev CI/CD",
+              "url": "https://www.youtube.com/watch?v=lJ8cEoIZFls",
+              "channel": "Otavio Lemos"
+            }
           ]
         },
         {
@@ -1800,6 +2153,23 @@
               "answerIndex": 2,
               "explanation": "A propriedade 'runs-on' especifica o tipo de máquina virtual (runner) fornecida pelo GitHub ou auto-hospedada onde o job rodará."
             }
+          ],
+          "videos": [
+            {
+              "title": "Como Configurar GitHub Actions Passo a Passo (Guia Completo)",
+              "url": "https://www.youtube.com/watch?v=sPXNK25vU6o",
+              "channel": "CodandoTV"
+            },
+            {
+              "title": "Aula 3: Como definir e configurar fluxos de trabalho​ no GitHub Actions​​ | Curso GitHub Actions",
+              "url": "https://www.youtube.com/watch?v=7lucyvNafCA",
+              "channel": "Microsoft AI Skills"
+            },
+            {
+              "title": "Aula 5: Explorando os Jobs no GitHub Actions​​ | Curso GitHub Actions",
+              "url": "https://www.youtube.com/watch?v=dYR4uYoZkBQ",
+              "channel": "Microsoft AI Skills"
+            }
           ]
         },
         {
@@ -1869,6 +2239,18 @@
               ],
               "answerIndex": 2,
               "explanation": "Usar o hash do commit na tag da imagem permite identificar imediatamente qual versão exata do código originou aquele container em produção."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Descubra como Integrar Docker Build e GitHub Actions para uma Implantação Ágil!",
+              "url": "https://www.youtube.com/watch?v=rDWmNZTJPRA",
+              "channel": "Vitor Hugo Dev - DigitalBrickLayer"
+            },
+            {
+              "title": "Criando um Workflow AUTOMATIZADO de CI com o Github Actions",
+              "url": "https://www.youtube.com/watch?v=F51HlrEeedw",
+              "channel": "Fernanda Kipper"
             }
           ]
         },
@@ -2010,6 +2392,13 @@
               "answerIndex": 1,
               "explanation": "Como duas versões rodam simultaneamente, o banco deve aceitar alterações que funcionem tanto para o código antigo quanto para o novo."
             }
+          ],
+          "videos": [
+            {
+              "title": "Como fazer Blue-Green e Canary Deployment usando Kubernetes puro",
+              "url": "https://www.youtube.com/watch?v=I3Qlc7vMnbA",
+              "channel": "Danilo Ferreira"
+            }
           ]
         },
         {
@@ -2079,6 +2468,13 @@
               ],
               "answerIndex": 2,
               "explanation": "Artifacts permitem reter arquivos gerados por um job (como um binário compilado) para uso posterior em stages seguintes ou download."
+            }
+          ],
+          "videos": [
+            {
+              "title": "05 - COMO CRIAR PIPELINE NO GITLAB",
+              "url": "https://www.youtube.com/watch?v=nkOC7saeGJk",
+              "channel": "Feltex"
             }
           ]
         }
@@ -2162,6 +2558,23 @@
               "answerIndex": 1,
               "explanation": "Grupos do IAM facilitam o gerenciamento ao permitir atribuir permissões a um conjunto de usuários simultaneamente, em vez de configurar um por um."
             }
+          ],
+          "videos": [
+            {
+              "title": "AWS Free Tier Atualizado: Como Criar Sua Conta Gratuita com 6 Meses de Acesso",
+              "url": "https://www.youtube.com/watch?v=18v_WONyAGA",
+              "channel": "Você Certificado"
+            },
+            {
+              "title": "Conheça o Novo Free Tier da AWS",
+              "url": "https://www.youtube.com/watch?v=lpjfJmvADko",
+              "channel": "Enoque Leal"
+            },
+            {
+              "title": "AWS em 10 minutos - Conhecendo o nível gratuito de utilização (Free Tier)",
+              "url": "https://www.youtube.com/watch?v=Mzht3ETPr64",
+              "channel": "Enoque Leal"
+            }
           ]
         },
         {
@@ -2235,6 +2648,23 @@
               ],
               "answerIndex": 0,
               "explanation": "Security Groups funcionam no nível da instância, filtrando pacotes com base em portas e protocolos permitidos."
+            }
+          ],
+          "videos": [
+            {
+              "title": "AWS - Criando uma maquina EC2 e conectando via SSH",
+              "url": "https://www.youtube.com/watch?v=EhofDU-I7dg",
+              "channel": "Code For All"
+            },
+            {
+              "title": "Como criar e se conectar a uma instância EC2 Linux, do tipo Ubuntu na AWS gratuitamente.",
+              "url": "https://www.youtube.com/watch?v=mHbeEi8wkKY",
+              "channel": "Domine AWS com Henrylle Maia"
+            },
+            {
+              "title": "Criando e acessando uma instância EC2 na AWS",
+              "url": "https://www.youtube.com/watch?v=sp90RLzUgoU",
+              "channel": "Arthur Souza (Chyri)"
             }
           ]
         },
@@ -2310,6 +2740,23 @@
               "answerIndex": 3,
               "explanation": "Por padrão, novos Security Groups bloqueiam todo o tráfego de entrada. Sem liberar a porta 22 explicitamente, o acesso SSH é negado, mesmo estando em sub-rede pública."
             }
+          ],
+          "videos": [
+            {
+              "title": "Como criar VPCs e Subnets na AWS",
+              "url": "https://www.youtube.com/watch?v=HtHuPAz3B7I",
+              "channel": "Fabricio Veronez"
+            },
+            {
+              "title": "Como Criar uma VPC com Sub-rede Pública, Tabela de Rotas e Internet Gateway na AWS",
+              "url": "https://www.youtube.com/watch?v=DB0owIFOVIc",
+              "channel": "clube da eletrônica"
+            },
+            {
+              "title": "Configuração da rede privada (VPC) na AWS - Curso Prático Amazon Web Services - Aula 06 - #42",
+              "url": "https://www.youtube.com/watch?v=WMsADIgy4ms",
+              "channel": "Garagem do Inventor"
+            }
           ]
         },
         {
@@ -2384,6 +2831,18 @@
               "answerIndex": 3,
               "explanation": "As politicas de controle de acesso do IAM e do S3 são estruturadas exclusivamente utilizando JSON."
             }
+          ],
+          "videos": [
+            {
+              "title": "Configurando um site estático no AWS S3",
+              "url": "https://www.youtube.com/watch?v=cj2em9FxD3E",
+              "channel": "DevCloud"
+            },
+            {
+              "title": "Amazon S3 - Bucket Policy and Static WebSite",
+              "url": "https://www.youtube.com/watch?v=XpIuJP1z_Z4",
+              "channel": "Analogies Cloud"
+            }
           ]
         },
         {
@@ -2454,6 +2913,18 @@
               "answerIndex": 2,
               "explanation": "A janela de manutenção é o período em que a AWS aplica patches e atualizações, o que pode causar uma breve indisponibilidade se houver reinicialização."
             }
+          ],
+          "videos": [
+            {
+              "title": "Como Criar um Banco de Dados PostgreSQL no AWS RDS Passo a Passo para Iniciantes",
+              "url": "https://www.youtube.com/watch?v=3YRP_YK8x2k",
+              "channel": "Techt4lks"
+            },
+            {
+              "title": "COMO CRIAR UM BANCO DE DADOS MYSQL NA AWS EM 5 MINUTOS",
+              "url": "https://www.youtube.com/watch?v=sBu_MZ6KFFE",
+              "channel": "Nerd Autodidata"
+            }
           ]
         },
         {
@@ -2523,6 +2994,23 @@
               ],
               "answerIndex": 0,
               "explanation": "O Fargate exige que você escolha combinações específicas de vCPU e memória que constam na tabela oficial de suporte da AWS."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Contêineres na AWS: Amazon ECS, Fargate, EKS e ECR Explicados | Curso AWS SAA-C03 (Aula 15)",
+              "url": "https://www.youtube.com/watch?v=UHQVBUtVFB8",
+              "channel": "Adriano Torres"
+            },
+            {
+              "title": "Containers na Nuvem Sem Kubernetes: Como Usar ECS e Fargate | ECS na Prática",
+              "url": "https://www.youtube.com/watch?v=y8WG4sEIhMQ",
+              "channel": "Fabricio Veronez"
+            },
+            {
+              "title": "Módulo 13 ECS, ECR e Fargate na AWS: Containers na Nuvem sem Complicação – Guia Developer Associate",
+              "url": "https://www.youtube.com/watch?v=0WQmPICDYuc",
+              "channel": "Jean Diogo"
             }
           ]
         }
@@ -2610,6 +3098,23 @@
               "answerIndex": 1,
               "explanation": "Como o atributo é imutável, a única forma de aplicar a mudança é recriar o recurso, o que o Terraform faz automaticamente quando necessário."
             }
+          ],
+          "videos": [
+            {
+              "title": "O que Infra como Código na (IaC): Aprenda na prática com Terraform",
+              "url": "https://www.youtube.com/watch?v=b-esh0w7eIs",
+              "channel": "Fabricio Veronez"
+            },
+            {
+              "title": "Terraform: infraestrutura como código | #devAdev com Hugo Posca",
+              "url": "https://www.youtube.com/watch?v=tE1WZg9ib8k",
+              "channel": "Pagarme Talks"
+            },
+            {
+              "title": "Terraform para iniciantes: Aprenda a provisionar recursos na AWS",
+              "url": "https://www.youtube.com/watch?v=A4vsZIX6UKs",
+              "channel": "Cleber Gasparoto"
+            }
           ]
         },
         {
@@ -2683,6 +3188,18 @@
               ],
               "answerIndex": 3,
               "explanation": "O state remoto centraliza o controle da infraestrutura, permitindo lock e compartilhamento seguro entre vários desenvolvedores."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Terraform - Utilizando Módulos Remotos (Registry e Git)",
+              "url": "https://www.youtube.com/watch?v=_OCzdHtRn28",
+              "channel": "Caio Delgado"
+            },
+            {
+              "title": "Utilizando validação, variáveis opcionais e atributos de objeto dentro de módulos com Terraform",
+              "url": "https://www.youtube.com/watch?v=7YJhmfrpFhY",
+              "channel": "Cleber Gasparoto"
             }
           ]
         },
@@ -2758,6 +3275,18 @@
               "answerIndex": 2,
               "explanation": "A sub-rede precisa de uma rota padrão (0.0.0.0/0) apontando para um Internet Gateway para conseguir se comunicar com a internet pública."
             }
+          ],
+          "videos": [
+            {
+              "title": "Terraform: Criando uma VPC na AWS",
+              "url": "https://www.youtube.com/watch?v=NkdesnydTFo",
+              "channel": "Denis Citadin"
+            },
+            {
+              "title": "Criando um Modulo de VPC na AWS com Terraform",
+              "url": "https://www.youtube.com/watch?v=eTPNULQL8Jo",
+              "channel": "Journey Cloud Tech"
+            }
           ]
         },
         {
@@ -2823,6 +3352,18 @@
               ],
               "answerIndex": 0,
               "explanation": "Como runners de CI/CD costumam ser efêmeros, configurar o backend dinamicamente via CLI garante que o ambiente localize o estado remoto corretamente a cada build."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Pipelines IaC Terraform com GitHub Actions | GitHub Presente¡",
+              "url": "https://www.youtube.com/watch?v=SPk4pUYAdV0",
+              "channel": "Osanam Giordane"
+            },
+            {
+              "title": "PIPELINE COMPLETA com Terraform, Github Actions e AWS",
+              "url": "https://www.youtube.com/watch?v=1TNAUW7_bC0",
+              "channel": "Build & Run"
             }
           ]
         },
@@ -2893,6 +3434,23 @@
               ],
               "answerIndex": 1,
               "explanation": "O Ansible Galaxy é um repositório público onde desenvolvedores compartilham estruturas prontas de roles."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como configurar e utilizar o Ansible? Playbook  - Parte II",
+              "url": "https://www.youtube.com/watch?v=QEXrW7jX_Ec",
+              "channel": "Prof. Talles Quintão"
+            },
+            {
+              "title": "Ansible: Como criar Playbook",
+              "url": "https://www.youtube.com/watch?v=fxyyA1tuJlM",
+              "channel": "Cristiane França"
+            },
+            {
+              "title": "08 - Treinamento Ansible | O que são playbooks",
+              "url": "https://www.youtube.com/watch?v=_Rw7l6Z4wSc",
+              "channel": "CORE DUMP"
             }
           ]
         }
@@ -2980,6 +3538,23 @@
               "answerIndex": 1,
               "explanation": "O kube-proxy gerencia o roteamento de rede e regras de iptables ou IPVS, permitindo que serviços alcancem os Pods corretamente."
             }
+          ],
+          "videos": [
+            {
+              "title": "Kubernetes para Iniciantes | Minikube, kubectl, Pods e Deployments | Aula 006 - Parte 1",
+              "url": "https://www.youtube.com/watch?v=qCGkq03o-No",
+              "channel": "5StarCloud Academy"
+            },
+            {
+              "title": "Como criar seu primeiro Cluster Kubernetes na prática com KinD  - Kubernetes para Iniciantes",
+              "url": "https://www.youtube.com/watch?v=dL19dSGKZoc",
+              "channel": "Erick Wendel"
+            },
+            {
+              "title": "Docker e Kubernetes local com Minikube",
+              "url": "https://www.youtube.com/watch?v=Mzs579ug52k",
+              "channel": "Full Cycle"
+            }
           ]
         },
         {
@@ -3053,6 +3628,23 @@
               ],
               "answerIndex": 1,
               "explanation": "O Service usa labels e selectors para descobrir dinamicamente quais Pods pertencem a ele, mesmo quando os IPs mudam."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Primeiros passos com Kubernetes na prática! Pods, Deployments e Services.",
+              "url": "https://www.youtube.com/watch?v=xXUhepb5Ccc",
+              "channel": "Prof. Gustavo Leitão"
+            },
+            {
+              "title": "Aprenda Kubernetes do Zero: Como Começar e Evoluir do Docker pra K8s com Pods Services e Deployments",
+              "url": "https://www.youtube.com/watch?v=DKpqGcPbqRY",
+              "channel": "Erudio"
+            },
+            {
+              "title": "#08 Deployment - Curso de Introdução ao Kubernetes",
+              "url": "https://www.youtube.com/watch?v=2JbQkTF6TzU",
+              "channel": "Insight Lab"
             }
           ]
         },
@@ -3128,6 +3720,23 @@
               "answerIndex": 0,
               "explanation": "Com a política 'Retain', o PV não é excluído automaticamente após a exclusão do PVC, permitindo a recuperação manual dos dados pelo administrador."
             }
+          ],
+          "videos": [
+            {
+              "title": "Kubernetes - Volumes Persistentes",
+              "url": "https://www.youtube.com/watch?v=7ImUf_qWW2Y",
+              "channel": "Jose Carlos Macoratti"
+            },
+            {
+              "title": "Entendendo Persistência no Kubernetes com PVs e PVCs",
+              "url": "https://www.youtube.com/watch?v=RoY6Jy_Hl7Y",
+              "channel": "Prof. Gustavo Leitão"
+            },
+            {
+              "title": "Como usar corretamente namespace, configmap e secret no Kubernetes | #DevOpsNaVeia 005",
+              "url": "https://www.youtube.com/watch?v=_gJqsiGlCDI",
+              "channel": "Fabricio Veronez"
+            }
           ]
         },
         {
@@ -3197,6 +3806,13 @@
               ],
               "answerIndex": 3,
               "explanation": "É possível rotear `/app/v1` para um serviço e `/app/v2` para outro usando a mesma regra de host, dependendo da ordem e do tipo de pathType configurados."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como trabalhar com Ingress Controller e Cert-Manager",
+              "url": "https://www.youtube.com/watch?v=xWOEdO4tyHQ",
+              "channel": "Fabricio Veronez"
             }
           ]
         },
@@ -3268,6 +3884,13 @@
               "answerIndex": 2,
               "explanation": "O `.Capabilities` fornece informações sobre a API do Kubernetes, permitindo que o chart se adapte a diferentes versões do cluster."
             }
+          ],
+          "videos": [
+            {
+              "title": "Aprenda como Criar e Configurar Helm Charts Personalizados no Kubernetes",
+              "url": "https://www.youtube.com/watch?v=NLz027OCkIU",
+              "channel": "Prof. Gustavo Leitão"
+            }
           ]
         },
         {
@@ -3337,6 +3960,23 @@
               ],
               "answerIndex": 0,
               "explanation": "Managed Node Groups simplificam o ciclo de vida dos nós, automatizando patches, atualizações de versão e substituições."
+            }
+          ],
+          "videos": [
+            {
+              "title": "A forma mais fácil de criar seu Kubernetes na AWS | Introdução ao eksctl",
+              "url": "https://www.youtube.com/watch?v=QkbHtISOE9c",
+              "channel": "Fabricio Veronez"
+            },
+            {
+              "title": "Como criar um cluster Kubernetes na AWS com EKS",
+              "url": "https://www.youtube.com/watch?v=JrT5YV1KMeY",
+              "channel": "Fabricio Veronez"
+            },
+            {
+              "title": "Criando o seu primeiro cluster de EKS na AWS",
+              "url": "https://www.youtube.com/watch?v=aFgfvPKzzxk",
+              "channel": "Cloud Café & DevOps"
             }
           ]
         }
@@ -3420,6 +4060,18 @@
               "answerIndex": 0,
               "explanation": "Cada pilar traz uma perspectiva única: métricas mostram tendências, logs mostram eventos e traces mostram o fluxo."
             }
+          ],
+          "videos": [
+            {
+              "title": "Observabilidade - Log, trace e métricas - OpenTelemetry (Loki, Tempo, Prometheus e Grafana)",
+              "url": "https://www.youtube.com/watch?v=WHJmahuQ3Sw",
+              "channel": "Wallace Camargo"
+            },
+            {
+              "title": "Monitoramento e Observabilidade (Logs, Métricas e Traces)",
+              "url": "https://www.youtube.com/watch?v=qffRr6b908w",
+              "channel": "O Back Dev"
+            }
           ]
         },
         {
@@ -3489,6 +4141,18 @@
               ],
               "answerIndex": 3,
               "explanation": "O modelo pull permite que o próprio servidor controle a taxa de scraping, saiba imediatamente se um alvo caiu e evite ser soterrado por dados enviados por clientes."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Introdução ao Prometheus e Grafana: Monitoramento inteligente de aplicações",
+              "url": "https://www.youtube.com/watch?v=GPptIhzPBro",
+              "channel": "Full Cycle"
+            },
+            {
+              "title": "Prometheus + Grafana: Monitore sua aplicação de forma profissional",
+              "url": "https://www.youtube.com/watch?v=qvwI3OHDovE",
+              "channel": "Full Cycle"
             }
           ]
         },
@@ -3564,6 +4228,23 @@
               "answerIndex": 3,
               "explanation": "Cada painel executa suas próprias queries na fonte de dados a cada atualização, gerando alto volume de requisições se houver muitos gráficos."
             }
+          ],
+          "videos": [
+            {
+              "title": "Alertmanager na Prática: Como Gerenciar Alertas com Prometheus",
+              "url": "https://www.youtube.com/watch?v=fB2-EDcjWnc",
+              "channel": "Fabricio Veronez"
+            },
+            {
+              "title": "Kubernetes + Grafana + Prometheus: dashboards úteis para monitoramento de clusters e aplicações",
+              "url": "https://www.youtube.com/watch?v=5dpgLL2-8YI",
+              "channel": "Canal dotNET"
+            },
+            {
+              "title": "Instalando e integrando o GRAFANA! | Série Monitoração #7",
+              "url": "https://www.youtube.com/watch?v=3K_FkcMwzAk",
+              "channel": "LINUXtips"
+            }
           ]
         },
         {
@@ -3633,6 +4314,13 @@
               ],
               "answerIndex": 3,
               "explanation": "O operador `|=` realiza uma busca de texto dentro do conteúdo bruto do log, filtrando as linhas que contêm a string especificada após o seletor de labels."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Centralização de Logs com Loki",
+              "url": "https://www.youtube.com/watch?v=U_pLbS82iuA",
+              "channel": "Fabricio Veronez"
             }
           ]
         },
@@ -3704,6 +4392,13 @@
               "answerIndex": 2,
               "explanation": "O tempo de execução do span depende do momento em que o método end é chamado. Sem ele, o span permanece aberto e não é exportado."
             }
+          ],
+          "videos": [
+            {
+              "title": "Monitoramento e Tracing Distribuído com Jaeger e OpenTelemetry: um exemplo com .NET, Java e Node.js",
+              "url": "https://www.youtube.com/watch?v=ow0GZiAdJI4",
+              "channel": "Canal dotNET"
+            }
           ]
         },
         {
@@ -3773,6 +4468,23 @@
               ],
               "answerIndex": 2,
               "explanation": "Pós-mortems eficazes evitam o jogo da culpa e analisam falhas de processos e sistemas para criar barreiras melhores."
+            }
+          ],
+          "videos": [
+            {
+              "title": "SRETalks #1 - Descomplicando SLI, SLO, SLA e Error Budget [Nível: Básico]",
+              "url": "https://www.youtube.com/watch?v=7qvCv1PW_iw",
+              "channel": "SREBrasil"
+            },
+            {
+              "title": "Aprenda de vez SLI, SLO e SLA",
+              "url": "https://www.youtube.com/watch?v=JQTaWPEE80w",
+              "channel": "Fabricio Veronez"
+            },
+            {
+              "title": "Error Budget explicado: como equilibrar inovação e confiabilidade ⚖🚀",
+              "url": "https://www.youtube.com/watch?v=uKlpcHPD_78",
+              "channel": "Luís Felipe Macegosa"
             }
           ]
         }
