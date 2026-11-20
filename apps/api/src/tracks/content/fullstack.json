@@ -80,6 +80,23 @@
               "answerIndex": 2,
               "explanation": "Os arquivos que compõem uma página web ficam guardados em computadores remotos chamados servidores, que respondem aos pedidos dos clientes."
             }
+          ],
+          "videos": [
+            {
+              "title": "Entenda como o HTTP e o HTTPS funcionam",
+              "url": "https://www.youtube.com/watch?v=z9zdf63NV1I",
+              "channel": "Bits Conceituais"
+            },
+            {
+              "title": "🌎 Como funciona a Internet? O que é Servidor Web? (Explicação Simples e Prática) #webserver",
+              "url": "https://www.youtube.com/watch?v=fqR5SymRgLQ",
+              "channel": "Professor José de Assis"
+            },
+            {
+              "title": "Protocolo HTTP - Aprenda na Prática como o Navegador e o Servidor se comunicam",
+              "url": "https://www.youtube.com/watch?v=4v3w1Huc48Q",
+              "channel": "TrilhaCoder"
+            }
           ]
         },
         {
@@ -150,6 +167,18 @@
               "answerIndex": 1,
               "explanation": "O recurso Auto Save grava as mudanças do arquivo no disco após alguns segundos de inatividade ou perda de foco, evitando perda de dados."
             }
+          ],
+          "videos": [
+            {
+              "title": "Instalação e Configuração do Visual Studio Code para Web com extensões e temas em 6 minutos",
+              "url": "https://www.youtube.com/watch?v=vsAH0h8b_kM",
+              "channel": "bit loop"
+            },
+            {
+              "title": "CURSO DE HTML - AULA 1 - INSTALAÇÃO DO VSCODE E EXTENSÕES",
+              "url": "https://www.youtube.com/watch?v=sOVMmyPVVhE",
+              "channel": "Classe Final"
+            }
           ]
         },
         {
@@ -215,6 +244,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O comando 'mkdir' (make directory) é usado para criar novas pastas. O comando 'touch' cria arquivos vazios."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Aprenda os comandos básicos do Linux - Terminal Ubuntu",
+              "url": "https://www.youtube.com/watch?v=JEhVB4VHsTI",
+              "channel": "Diolinux"
+            },
+            {
+              "title": "Como Usar o Terminal: Comandos Básicos no Windows, Linux e Mac | Tutorial para Iniciantes",
+              "url": "https://www.youtube.com/watch?v=KGsXL1subjw",
+              "channel": "Seu Nicolau"
+            },
+            {
+              "title": "Comandos Básicos do Linux | Guia para Iniciantes - Terminal Linux",
+              "url": "https://www.youtube.com/watch?v=CnYraL0J_hM",
+              "channel": "Vagner Fonseca"
             }
           ]
         },
@@ -290,6 +336,18 @@
               "answerIndex": 0,
               "explanation": "No Git, branches são apenas referências leves para commits, permitindo desenvolver funcionalidades isoladamente sem alterar a linha principal."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de Git e Github Para Iniciantes",
+              "url": "https://www.youtube.com/watch?v=Kyw91mqCHD0",
+              "channel": "Programação Web"
+            },
+            {
+              "title": "Curso de Git & GitHub Para Completos Iniciantes",
+              "url": "https://www.youtube.com/watch?v=Yp0RRTdtkqY",
+              "channel": "Felipe Rocha • Full Stack Club"
+            }
           ]
         },
         {
@@ -355,6 +413,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O clone baixa um projeto inteiro do GitHub para o seu computador, já configurando a conexão remota original."
+            }
+          ],
+          "videos": [
+            {
+              "title": "🚀#7 Como criar um PR (Pull Request) - Curso de Git e GitHub",
+              "url": "https://www.youtube.com/watch?v=glUSV7MSDo4",
+              "channel": "Yuri Marcon"
+            },
+            {
+              "title": "🌎 Curso GIT e GITHUB - Fork e Pull Request - Exemplo simples e prático - #11",
+              "url": "https://www.youtube.com/watch?v=l1rwvDvD1og",
+              "channel": "Professor José de Assis"
+            },
+            {
+              "title": "Como Fazer um Pull-Request no GitHub (E Como Aceitar)",
+              "url": "https://www.youtube.com/watch?v=xM-bZSDGjzA",
+              "channel": "SD Inovações"
             }
           ]
         },
@@ -425,6 +500,23 @@
               ],
               "answerIndex": 0,
               "explanation": "Computadores conversam via IP, mas usamos domínios porque nomes fáceis de memorizar são mais práticos para pessoas."
+            }
+          ],
+          "videos": [
+            {
+              "title": "O que é domínio, DNS, hospedagem e qual a diferença entre .com e .com.br",
+              "url": "https://www.youtube.com/watch?v=jZiqYQYwnfU",
+              "channel": "Davide Almeida"
+            },
+            {
+              "title": "O que é DNS e como funciona 🤔 Apontamento DNS 🗺️",
+              "url": "https://www.youtube.com/watch?v=XoLQHCPZS9s",
+              "channel": "HostGator Brasil"
+            },
+            {
+              "title": "O que é DNS?",
+              "url": "https://www.youtube.com/watch?v=YdoLa_ONO6c",
+              "channel": "Gnew"
             }
           ]
         }
@@ -508,6 +600,23 @@
               "answerIndex": 0,
               "explanation": "O DOCTYPE é uma instrução para o navegador entender que o documento utiliza o padrão HTML5 moderno."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso HTML Completo (4 Horas)",
+              "url": "https://www.youtube.com/watch?v=nPEpaft1y1k",
+              "channel": "Programação Web"
+            },
+            {
+              "title": "Curso de HTML5 e CSS3 - Tags article e section - Conceitos e Diferenças #06",
+              "url": "https://www.youtube.com/watch?v=7-ZmUBvqn74",
+              "channel": "Emerson Carvalho - PontoCanal"
+            },
+            {
+              "title": "#6 – Estruturação da página utilizando tags Semânticas do HTML5",
+              "url": "https://www.youtube.com/watch?v=6V3msF_YBQk",
+              "channel": "Prof. Tiago Segato"
+            }
           ]
         },
         {
@@ -577,6 +686,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O atributo 'required' ativa a validação nativa do navegador, exigindo preenchimento antes que o evento de envio seja disparado."
+            }
+          ],
+          "videos": [
+            {
+              "title": "HTML5 Tutorial: COMO VALIDAR um formulário WEB usando input e CSS",
+              "url": "https://www.youtube.com/watch?v=kF52i1U8iiQ",
+              "channel": "Mauro de Boni | Engenharia de Software"
+            },
+            {
+              "title": "Curso de HTML e CSS   Elemento Label em Formulários",
+              "url": "https://www.youtube.com/watch?v=XOGaBMM3O10",
+              "channel": "Bóson Treinamentos"
+            },
+            {
+              "title": "HTML Acessibilidade: Aula #01 - Introdução ao atributo role e aria",
+              "url": "https://www.youtube.com/watch?v=sCHO4A-EIkc",
+              "channel": "Programador Cego"
             }
           ]
         },
@@ -652,6 +778,23 @@
               "answerIndex": 2,
               "explanation": "Pelo princípio da cascata, quando a especificidade empata, a regra declarada mais abaixo no código sobrescreve as anteriores."
             }
+          ],
+          "videos": [
+            {
+              "title": "Cascata, Especificidade e Herança em CSS: A Chave para Estilos Eficientes - Aprenda HTML5 & CSS3 #15",
+              "url": "https://www.youtube.com/watch?v=QtxI8bdwjJg",
+              "channel": "Crônicas de Código"
+            },
+            {
+              "title": "Aprenda todos os seletores css do básico ao avançado",
+              "url": "https://www.youtube.com/watch?v=Gu-IPxZux-w",
+              "channel": "CssDescomplicado"
+            },
+            {
+              "title": "Unidades de medida no CSS (px, em, rem, vw, vh, vmax, vmin e %) - Curso de HTML e CSS - Aula 26",
+              "url": "https://www.youtube.com/watch?v=xCvXXIOQtwI",
+              "channel": "Otávio Miranda"
+            }
           ]
         },
         {
@@ -722,6 +865,23 @@
               "answerIndex": 2,
               "explanation": "A propriedade align-self é aplicada diretamente ao item filho para definir seu alinhamento individual."
             }
+          ],
+          "videos": [
+            {
+              "title": "CSS Flexbox - Tudo o que você precisa saber",
+              "url": "https://www.youtube.com/watch?v=3C7v3S-tnFw",
+              "channel": "Otávio Miranda"
+            },
+            {
+              "title": "DESCOMPLICANDO o CSS Flexbox 🤯  [curso gratuito no final]",
+              "url": "https://www.youtube.com/watch?v=gOMK_xruAqc",
+              "channel": "Mayk Brito"
+            },
+            {
+              "title": "CSS Flexbox - Entendendo suas propriedades",
+              "url": "https://www.youtube.com/watch?v=CVJekim0HIg",
+              "channel": "TreinaWeb"
+            }
           ]
         },
         {
@@ -791,6 +951,23 @@
               ],
               "answerIndex": 2,
               "explanation": "A propriedade `gap` (ou `grid-gap`) define o espaço entre as linhas e colunas do grid de forma limpa. Margens individuais exigem muito mais código repetitivo."
+            }
+          ],
+          "videos": [
+            {
+              "title": "CSS Grid Layout na prática (parte 1) - @CursoemVideo HTML5 + CSS3",
+              "url": "https://www.youtube.com/watch?v=1FKUfMWBcLM",
+              "channel": "Curso em Vídeo"
+            },
+            {
+              "title": "O que é Grid Layout? - @CursoemVideo HTML5 + CSS3",
+              "url": "https://www.youtube.com/watch?v=p8q2_VIk-2Y",
+              "channel": "Curso em Vídeo"
+            },
+            {
+              "title": "Media queries para design responsivo - Curso de HTML e CSS - Aula 29",
+              "url": "https://www.youtube.com/watch?v=mYipHGv5adU",
+              "channel": "Otávio Miranda"
             }
           ]
         },
@@ -865,6 +1042,23 @@
               ],
               "answerIndex": 0,
               "explanation": "A função var() é a forma padrão da especificação para resgatar e aplicar o valor armazenado na variável personalizada."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Aprenda a fazer animações com CSS (Transition e Transform)",
+              "url": "https://www.youtube.com/watch?v=mNLDrNBp7DU",
+              "channel": "Larissa Kich"
+            },
+            {
+              "title": "HTML5 E CSS3 AVANÇADO - ANIMAÇÃO #4 - COMO USAR KEYFRAMES NO CSS?",
+              "url": "https://www.youtube.com/watch?v=x432AZJ1hgA",
+              "channel": "Desenvolvedor Web"
+            },
+            {
+              "title": "AULA de TRANSITION - ENTENDA TODAS as PROPRIEDADES do CSS TRANSITION e COMO UTILIZAR no seu SITE",
+              "url": "https://www.youtube.com/watch?v=LUX2qkodA0c",
+              "channel": "Oi Pedim"
             }
           ]
         }
@@ -952,6 +1146,23 @@
               "answerIndex": 1,
               "explanation": "Isso ocorre devido a um bug histórico na primeira versão do JavaScript que foi mantido por compatibilidade."
             }
+          ],
+          "videos": [
+            {
+              "title": "Fundamentos de Programação com JavaScript Curso Completo (+8 horas de vídeo)",
+              "url": "https://www.youtube.com/watch?v=aA31cVca_hI",
+              "channel": "freeCodeCamp em Português"
+            },
+            {
+              "title": "BÁSICOS DO JAVASCRIPT, Variáveis, Tipos, Condições, Operadores, Switch  | Curso JS  - 01 | 2022",
+              "url": "https://www.youtube.com/watch?v=07JumUI3zPg",
+              "channel": "João Pster"
+            },
+            {
+              "title": "Curso de JAVASCRIPT #Aula2 [Tudo sobre VARIÁVEIS JAVASCRIPT]",
+              "url": "https://www.youtube.com/watch?v=LiNYvhZ1u5c",
+              "channel": "Alexandre Leutz"
+            }
           ]
         },
         {
@@ -1025,6 +1236,18 @@
               ],
               "answerIndex": 2,
               "explanation": "O 'if' é uma tomada de decisão pontual. Já o 'while' é um laço de repetição que continua checando a condição enquanto ela for verdadeira."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Laços de repetição em Javascript - do-while, while e for | Aprendendo a Programar com JS #4",
+              "url": "https://www.youtube.com/watch?v=tqwRRVOh3ME",
+              "channel": "Angelo Luz"
+            },
+            {
+              "title": "Laços de repetição - for, while, do while e forEach no JavaScript",
+              "url": "https://www.youtube.com/watch?v=SYMxV4HM224",
+              "channel": "Douglas Dev"
             }
           ]
         },
@@ -1100,6 +1323,23 @@
               "answerIndex": 0,
               "explanation": "A sintaxe padrão atribui a estrutura de parâmetros e a seta `=>` a uma variável, dispensando a palavra `function`."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de JavaScript #10 - Funções & Arrow Functions",
+              "url": "https://www.youtube.com/watch?v=y-KOA4BcqUk",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "CURSO DE JAVASCRIPT #07 - Escopo, hoisting e outros assuntos",
+              "url": "https://www.youtube.com/watch?v=Sx3Kh6UVCOI",
+              "channel": "Matheus Battisti - Hora de Codar"
+            },
+            {
+              "title": "Curso de JavaScript #8 - Closures (2020)",
+              "url": "https://www.youtube.com/watch?v=MR8IyuhrDK8",
+              "channel": "Ayrton Teshima - Programador a Bordo"
+            }
           ]
         },
         {
@@ -1173,6 +1413,23 @@
               ],
               "answerIndex": 0,
               "explanation": "O `reduce` foi feito justamente para acumular os valores de um array em um único resultado final, seja ele um número, uma string ou um objeto."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Arrays em JavaScript Para Iniciantes [GUIA DEFINITIVO]",
+              "url": "https://www.youtube.com/watch?v=oAqloSDtdrM",
+              "channel": "Brazilian Dev"
+            },
+            {
+              "title": "Como Trabalhar com Arrays em Javascript? Aula para Iniciantes 🔥",
+              "url": "https://www.youtube.com/watch?v=Y0bHvvOncmo",
+              "channel": "Serliv | Daniel Tapias Morales"
+            },
+            {
+              "title": "Curso de JavaScript #11 - map, filter e reduce (2020)",
+              "url": "https://www.youtube.com/watch?v=D_MExaVe95w",
+              "channel": "Ayrton Teshima - Programador a Bordo"
             }
           ]
         },
@@ -1248,6 +1505,23 @@
               "answerIndex": 3,
               "explanation": "Exportações padrão são importadas sem o uso de chaves `{}`. O uso de chaves é exclusivo para exportações nomeadas."
             }
+          ],
+          "videos": [
+            {
+              "title": "Import e export em JavaScript",
+              "url": "https://www.youtube.com/watch?v=I8cDieBWXQc",
+              "channel": "runCode"
+            },
+            {
+              "title": "Destructuring + rest/spread operator - Manipular objetos e arrays como um mestre",
+              "url": "https://www.youtube.com/watch?v=S1_THoiTBvU",
+              "channel": "Kevin Beltrão"
+            },
+            {
+              "title": "Spread Operator (JS): Tudo que você precisa saber!",
+              "url": "https://www.youtube.com/watch?v=W7xDTAxyDN0",
+              "channel": "LuizTools"
+            }
           ]
         },
         {
@@ -1317,6 +1591,23 @@
               ],
               "answerIndex": 1,
               "explanation": "Com `async/await`, o tratamento de erros se torna similar ao código síncrono, utilizando estruturas `try/catch`."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Curso de JavaScript Assíncrono - Callbacks, Promises & Async/Await",
+              "url": "https://www.youtube.com/watch?v=WUmAAxH9n-A",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "Por Que Seu JavaScript Executa Fora de Ordem (Callbacks, Promises e Async/Await)",
+              "url": "https://www.youtube.com/watch?v=7Bs4-rqbCQc",
+              "channel": "DevPleno"
+            },
+            {
+              "title": "Promise e Callback no JavaScript - Aprenda usar o async e await e o then e catch  (Tutorial)",
+              "url": "https://www.youtube.com/watch?v=dUSLm948F7c",
+              "channel": "Coffstack"
             }
           ]
         }
@@ -1396,6 +1687,23 @@
               "answerIndex": 0,
               "explanation": "Tentar chamar `addEventListener` em um elemento `null` gera um erro no console, por isso o script deve rodar após o DOM estar pronto."
             }
+          ],
+          "videos": [
+            {
+              "title": "querySelector e querySelectorAll. Manipulando DOM #P4 - Curso de Javascript Moderno - Aula 33",
+              "url": "https://www.youtube.com/watch?v=2V7rfcVg5UQ",
+              "channel": "CFBCursos"
+            },
+            {
+              "title": "JavaScript DOM: Aula #08 - document.querySelector e document.querySelectorAll",
+              "url": "https://www.youtube.com/watch?v=lCtlEPV1vxk",
+              "channel": "Programador Cego"
+            },
+            {
+              "title": "Curso de Javascript #33 - addEventListener (Eventos)",
+              "url": "https://www.youtube.com/watch?v=rKjEHhudwvU",
+              "channel": "CFBCursos"
+            }
           ]
         },
         {
@@ -1466,6 +1774,23 @@
               "answerIndex": 3,
               "explanation": "A API fetch nativa utiliza o AbortController para permitir o cancelamento de requisições assíncronas emandamento."
             }
+          ],
+          "videos": [
+            {
+              "title": "Usando a Fetch API no JavaScript",
+              "url": "https://www.youtube.com/watch?v=1d5jNmKdwlY",
+              "channel": "Otávio Miranda"
+            },
+            {
+              "title": "Como CONSUMIR uma API com JAVASCRIPT PURO e colocar no HTML",
+              "url": "https://www.youtube.com/watch?v=YVf7iy2sIOw",
+              "channel": "Programando Com Roger"
+            },
+            {
+              "title": "FETCH API na Prática: Consumindo API com JavaScript",
+              "url": "https://www.youtube.com/watch?v=1O5GyaGcpos",
+              "channel": "DevZito"
+            }
           ]
         },
         {
@@ -1531,6 +1856,23 @@
               ],
               "answerIndex": 3,
               "explanation": "A Call Stack mostra o caminho percorrido pelo código, revelando de onde veio a chamada que gerou o estado atual."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Debugger JavaScript no Google Chrome DevTools - Aprenda a Debugar",
+              "url": "https://www.youtube.com/watch?v=ReL1M9m2wqc",
+              "channel": "hcode"
+            },
+            {
+              "title": "Curso de Javascript #22 - Tratamento de erros / try catch finally",
+              "url": "https://www.youtube.com/watch?v=AWroMPi9PXU",
+              "channel": "CFBCursos"
+            },
+            {
+              "title": "Tratamento de Exceções em JavaScript: TRY CATCH e THROW NEW ERROR na Prática",
+              "url": "https://www.youtube.com/watch?v=ClrQtlh22MU",
+              "channel": "Desvendando o Código"
             }
           ]
         },
@@ -1601,6 +1943,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O comando `vite` (ou `npm run dev` se configurado no script) inicia o servidor de desenvolvimento do bundler."
+            }
+          ],
+          "videos": [
+            {
+              "title": "AULÃO: APRENDA A GERENCIAR SEU PROJETO NODE COM O PACKAGE.JSON",
+              "url": "https://www.youtube.com/watch?v=GnXkpTW0bF8",
+              "channel": "Código Fonte TV"
+            },
+            {
+              "title": "Como criar projetos com Vite",
+              "url": "https://www.youtube.com/watch?v=RO-G9zb8SHw",
+              "channel": "Fellyph Cintra"
+            },
+            {
+              "title": "Como criar sua aplicação com Vite JS (rápido e do zero)",
+              "url": "https://www.youtube.com/watch?v=dRqZyiwuz38",
+              "channel": "laiza do conecta elas ⚡"
             }
           ]
         },
@@ -1676,6 +2035,23 @@
               "answerIndex": 1,
               "explanation": "Literal types restringe o valor exatamente aos literais informados na união, gerando erro em caso de valor divergente."
             }
+          ],
+          "videos": [
+            {
+              "title": "CURSO DE TYPESCRIPT para INICIANTES | Aprenda Typescript na Prática",
+              "url": "https://www.youtube.com/watch?v=QoqDr4H2G8U",
+              "channel": "Fernanda Kipper"
+            },
+            {
+              "title": "Tutorial Typescript Iniciantes: Aprenda o Básico do Typescript",
+              "url": "https://www.youtube.com/watch?v=k7JFBZ2nHhI",
+              "channel": "Mago Acadêmico"
+            },
+            {
+              "title": "União e Interseção de Tipos no TypeScript - Aula 07 - Curso de TypeScript 💙",
+              "url": "https://www.youtube.com/watch?v=xE2gXp6PS5s",
+              "channel": "Dev Victor Navarro"
+            }
           ]
         },
         {
@@ -1749,6 +2125,23 @@
               ],
               "answerIndex": 3,
               "explanation": "Para modificar o comportamento de uma classe via decorator, retorna-se uma nova classe herdeira."
+            }
+          ],
+          "videos": [
+            {
+              "title": "União e Interseção de Tipos no TypeScript - Aula 07 - Curso de TypeScript 💙",
+              "url": "https://www.youtube.com/watch?v=xE2gXp6PS5s",
+              "channel": "Dev Victor Navarro"
+            },
+            {
+              "title": "Aprenda Generics com Typescript do jeito certo!",
+              "url": "https://www.youtube.com/watch?v=Gf9vS0yu7zc",
+              "channel": "Mago Acadêmico"
+            },
+            {
+              "title": "5 Utility Types para melhorar o seu código",
+              "url": "https://www.youtube.com/watch?v=V2D8IghrsgQ",
+              "channel": "WoMakersCode"
             }
           ]
         }
@@ -1836,6 +2229,23 @@
               "answerIndex": 2,
               "explanation": "O JSX trata tags com letras minúsculas como elementos DOM nativos (como `<div>`) e letras maiúsculas como componentes definidos pelo usuário."
             }
+          ],
+          "videos": [
+            {
+              "title": "React do zero e do jeito certo utilizando TypeScript",
+              "url": "https://www.youtube.com/watch?v=3CoBJmolf84",
+              "channel": "Full Cycle"
+            },
+            {
+              "title": "Como Usar TypeScript no React | Guia Completo",
+              "url": "https://www.youtube.com/watch?v=2-I3x3voXL8",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "#14 React do ZERO na Prática | Componentes, Props e Estado (Live para Iniciantes)",
+              "url": "https://www.youtube.com/watch?v=bFRr3sF0Wss",
+              "channel": "Desvendando o Código"
+            }
           ]
         },
         {
@@ -1910,6 +2320,23 @@
               "answerIndex": 2,
               "explanation": "O React só detecta mudanças e agenda re-renderizações quando a função setter oficial é acionada. Modificação direta quebra o ciclo de vida reativo."
             }
+          ],
+          "videos": [
+            {
+              "title": "useState: aprenda o React Hook neste TUTORIAL | #AluraMais",
+              "url": "https://www.youtube.com/watch?v=KdQa4Rd6K1A",
+              "channel": "Alura"
+            },
+            {
+              "title": "React na Prática | Estado e Eventos com useState",
+              "url": "https://www.youtube.com/watch?v=hE2wbDwChms",
+              "channel": "Desvendando o Código"
+            },
+            {
+              "title": "Renderização Condicional com React.JS (React.JS 2020 #04)",
+              "url": "https://www.youtube.com/watch?v=wncdpOBi4Ag",
+              "channel": "Universo Discreto"
+            }
           ]
         },
         {
@@ -1979,6 +2406,23 @@
               ],
               "answerIndex": 2,
               "explanation": "Criar uma interface específica garante segurança de tipos e autocompletar adequado para cada campo do formulário."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Renderização Condicional com React.JS (React.JS 2020 #04)",
+              "url": "https://www.youtube.com/watch?v=wncdpOBi4Ag",
+              "channel": "Universo Discreto"
+            },
+            {
+              "title": "ReactJS - Manipulando valores de um formulário com useState e onChange",
+              "url": "https://www.youtube.com/watch?v=o59EnbaSQ14",
+              "channel": "Vinicius Dacal"
+            },
+            {
+              "title": "O jeito certo de renderizar listas (arrays) no React JS #cortes",
+              "url": "https://www.youtube.com/watch?v=bP61ICOgQzY",
+              "channel": "Roger Melo | JavaScript"
             }
           ]
         },
@@ -2054,6 +2498,23 @@
               "answerIndex": 3,
               "explanation": "A função `.then()` ou o resultado do `await fetch()` deve ser associado ao tipo esperado para que o TypeScript valide o uso das propriedades dos dados recebidos."
             }
+          ],
+          "videos": [
+            {
+              "title": "React básico:  o useEffect p/ chamada de API",
+              "url": "https://www.youtube.com/watch?v=L6raE_UfweY",
+              "channel": "Rocketseat"
+            },
+            {
+              "title": "APRENDA USEEFFECT - SIMPLIFICANDO OS HOOKS DO REACT",
+              "url": "https://www.youtube.com/watch?v=ojzuilNld1s",
+              "channel": "Matheus Battisti - Hora de Codar"
+            },
+            {
+              "title": "Consumindo APIs no React com SWR | Code/Drops #38",
+              "url": "https://www.youtube.com/watch?v=Pbs1VIwPoRA",
+              "channel": "Rocketseat"
+            }
           ]
         },
         {
@@ -2124,6 +2585,23 @@
               "answerIndex": 3,
               "explanation": "Retornar um objeto estruturado com dados, loading e erro é o padrão mais flexível e idiomático para hooks assíncronos no React."
             }
+          ],
+          "videos": [
+            {
+              "title": "CONTEXT API do REACTJS de uma vez por todas (com HOOKS)",
+              "url": "https://www.youtube.com/watch?v=TLX5k-TlAoE",
+              "channel": "cookingcode"
+            },
+            {
+              "title": "CaquiCoders #41 - Usando a Context API em aplicações React",
+              "url": "https://www.youtube.com/watch?v=kSQP3x80IOk",
+              "channel": "CaquiCoders"
+            },
+            {
+              "title": "Curso de React JS Aula 17 API Context do React e Hook Personalizado",
+              "url": "https://www.youtube.com/watch?v=GQRzGgmYyzA",
+              "channel": "Professor Edson Maia"
+            }
           ]
         },
         {
@@ -2193,6 +2671,23 @@
               ],
               "answerIndex": 0,
               "explanation": "No Tailwind, `p-` refere-se ao padding (espaçamento interno) e `m-` ao margin (externo), seguindo uma escala baseada em rem."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Tailwind CSS - Curso Novo - Origamid",
+              "url": "https://www.youtube.com/watch?v=JwEz-9CmeBg",
+              "channel": "Origamid"
+            },
+            {
+              "title": "Tailwind CSS para Iniciantes | Aprenda na Prática do Zero",
+              "url": "https://www.youtube.com/watch?v=SLa18pVJ09s",
+              "channel": "Formare"
+            },
+            {
+              "title": "Tutorial Tailwind CSS para Iniciantes: Crie Seu Primeiro Site do Zero! 🚀",
+              "url": "https://www.youtube.com/watch?v=om_wwhAOBBE",
+              "channel": "Quinn Software | Português"
             }
           ]
         }
@@ -2276,6 +2771,23 @@
               "answerIndex": 2,
               "explanation": "O Event Loop possui fases distintas, sendo a fase de Timers a responsável por executar os callbacks agendados por `setTimeout` e `setInterval`. Confundir a fase de Timers com a fila de microtasks (`promises`) é um erro comum."
             }
+          ],
+          "videos": [
+            {
+              "title": "Event Loop do Node.js: por que ele é tão rápido em I/O (libuv)",
+              "url": "https://www.youtube.com/watch?v=nLuImi68Kx4",
+              "channel": "CodeStack"
+            },
+            {
+              "title": "Aula 02 - Event loop",
+              "url": "https://www.youtube.com/watch?v=IgFjjY1M2cE",
+              "channel": "Code For All"
+            },
+            {
+              "title": "Módulo FS para manipular arquivos em Node #P1 [NodeJS] - Curso de Node - Aula 05",
+              "url": "https://www.youtube.com/watch?v=NPrHoZEKkYk",
+              "channel": "CFBCursos"
+            }
           ]
         },
         {
@@ -2346,6 +2858,23 @@
               "answerIndex": 2,
               "explanation": "O design RESTful valoriza a hierarquia dos recursos para indicar relações de pertencimento, colocando o recurso pai antes do recurso filho."
             }
+          ],
+          "videos": [
+            {
+              "title": "API REST explicada: recursos, verbos HTTP e JSON na prática",
+              "url": "https://www.youtube.com/watch?v=i6Vkl8VPjhM",
+              "channel": "Leandro Hirt | Academify"
+            },
+            {
+              "title": "RESTFUL - BOAS PRÁTICAS - ENDPOINTS",
+              "url": "https://www.youtube.com/watch?v=y6f37c3huIE",
+              "channel": "desenvolvedor.io"
+            },
+            {
+              "title": "#1 Introdução aos Verbos HTTP: GET, POST, PATCH, PUT, DELETE | Rest API",
+              "url": "https://www.youtube.com/watch?v=EJDCvW1AsIw",
+              "channel": "Refúgio Code"
+            }
           ]
         },
         {
@@ -2415,6 +2944,23 @@
               ],
               "answerIndex": 0,
               "explanation": "A restrição UNIQUE garante que não haja valores repetidos na coluna, embora diferentemente da Primary Key, ela possa aceitar valores nulos dependendo do SGBD."
+            }
+          ],
+          "videos": [
+            {
+              "title": "[INICIANTE ]  Aprenda Relacionamento de Tabelas com Chave Estrangeira Sem Complicações",
+              "url": "https://www.youtube.com/watch?v=-SjSYcPvSa0",
+              "channel": "Nexus Master Treinamentos"
+            },
+            {
+              "title": "Chave Primária, Estrangeira e Cardinalidade",
+              "url": "https://www.youtube.com/watch?v=rfR3dUumo0U",
+              "channel": "Prof. Marcel Rios | Informática"
+            },
+            {
+              "title": "BD: Aula 15 - Chaves: primária, estrangeira e candidata",
+              "url": "https://www.youtube.com/watch?v=bvjWvaMMB6c",
+              "channel": "Procópio na Rede"
             }
           ]
         },
@@ -2490,6 +3036,23 @@
               "answerIndex": 1,
               "explanation": "Volumes permitem armazenar dados fora do ciclo de vida efêmero do container, garantindo persistência."
             }
+          ],
+          "videos": [
+            {
+              "title": "[TUTORIAL] Como rodar um banco de dados Postgres no Docker",
+              "url": "https://www.youtube.com/watch?v=WzMpOnyLAU4",
+              "channel": "Felix Gilioli"
+            },
+            {
+              "title": "Executando o PostgreSQL via Docker: Tutorial Passo a Passo",
+              "url": "https://www.youtube.com/watch?v=mOkaWETrk-k",
+              "channel": "Wendel Segadilha"
+            },
+            {
+              "title": "PostgreSQL no Docker: Instalação Passo a Passo (Ambiente Profissional)",
+              "url": "https://www.youtube.com/watch?v=L9oWv7xU4Ck",
+              "channel": "DATA DT"
+            }
           ]
         },
         {
@@ -2564,6 +3127,23 @@
               "answerIndex": 2,
               "explanation": "O comando UPDATE é usado para alterar dados já existentes, geralmente combinado com a cláusula WHERE."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso Completo de SQL com PostgreSQL - Do Zero ao Avançado",
+              "url": "https://www.youtube.com/watch?v=9cAKQWodpvM",
+              "channel": "Stack Mobile"
+            },
+            {
+              "title": "Curso Básico de SQL com PostgreSQL - Aula 1 - Criando o banco de dados",
+              "url": "https://www.youtube.com/watch?v=o8ATzYcVp08",
+              "channel": "Codando Simples"
+            },
+            {
+              "title": "Como Usar JOIN para Relacionar Tabelas (INNER, LEFT, RIGHT, FULL)",
+              "url": "https://www.youtube.com/watch?v=D_qz5yK2-_8",
+              "channel": "Programação para iniciantes"
+            }
           ]
         },
         {
@@ -2637,6 +3217,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O comando COMMIT consolida de forma definitiva todas as operações realizadas na transação atual."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Transações em Banco de Dados - Conceito ACID e Comandos em PostgreSQL - COMMIT, ROLLBACK e SAVEPOINT",
+              "url": "https://www.youtube.com/watch?v=iFmL8Ys46Z0",
+              "channel": "DesCOMPlica, Oliba!"
+            },
+            {
+              "title": "PostgreSQL - Transações (na prática)",
+              "url": "https://www.youtube.com/watch?v=r_pfalIKV-w",
+              "channel": "Dhiancarlo Macedo"
+            },
+            {
+              "title": "B-tree, Hash, GIN, GiST: O Guia Completo de Índices no PostgreSQL",
+              "url": "https://www.youtube.com/watch?v=S9EFegGpQ8E",
+              "channel": "Techt4lks"
             }
           ]
         }
@@ -2724,6 +3321,18 @@
               "answerIndex": 2,
               "explanation": "O NestJS precisa conhecer a classe para resolver suas dependências. Sem isso, a injeção falha em tempo de execução."
             }
+          ],
+          "videos": [
+            {
+              "title": "Aula 05 - Criando Task Controller, Service e Module [Tutorial NestJS 2024]",
+              "url": "https://www.youtube.com/watch?v=gIBm4YfI3JE",
+              "channel": "Breno Veras"
+            },
+            {
+              "title": "O que você ainda NÃO SABE sobre Dependency Injection no NestJS #javascript #typescript #nodejs",
+              "url": "https://www.youtube.com/watch?v=r1MuVpj70yM",
+              "channel": "PhillCode"
+            }
           ]
         },
         {
@@ -2797,6 +3406,23 @@
               ],
               "answerIndex": 0,
               "explanation": "O atributo @@map renomeia a tabela no banco físico sem alterar o nome do model que você usa no código TypeScript."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Prisma Crash Course - Parte 06 - Relacionamento one-to-one",
+              "url": "https://www.youtube.com/watch?v=S-wBCiYNJ2I",
+              "channel": "Robson Dev"
+            },
+            {
+              "title": "Criando App com Banco de dados SQLITE + Prisma ORM do zero! 🔥",
+              "url": "https://www.youtube.com/watch?v=yLvKuljeP_Y",
+              "channel": "Sujeito programador"
+            },
+            {
+              "title": "Node #10 | Criando migrations com o Prisma",
+              "url": "https://www.youtube.com/watch?v=0JmFFBxGKkM",
+              "channel": "Do zero ao Dev"
             }
           ]
         },
@@ -2872,6 +3498,23 @@
               "answerIndex": 0,
               "explanation": "A opção whitelist remove propriedades que não possuem decorators de validação no DTO, impedindo a inserção de dados indesejados."
             }
+          ],
+          "videos": [
+            {
+              "title": "CRUD Completo com Nest.JS, Prisma e MySQL: Guia Passo a Passo",
+              "url": "https://www.youtube.com/watch?v=P-bUX8XQHwc",
+              "channel": "Antônio Rocha"
+            },
+            {
+              "title": "#Aula 11 [NestJS] - Inclusão de validação na requisição POST do Nest.js",
+              "url": "https://www.youtube.com/watch?v=rIHe5QQ0L0U",
+              "channel": "Desenvolvendo do básico"
+            },
+            {
+              "title": "NestJS #05 - Bem-vindo aos Pipes: transformação e validação de schema",
+              "url": "https://www.youtube.com/watch?v=vdcOVAHTUyg",
+              "channel": "Trilha Sênior"
+            }
           ]
         },
         {
@@ -2946,6 +3589,23 @@
               "answerIndex": 2,
               "explanation": "O Guard intercepta a requisição HTTP, valida o token JWT usando a estratégia configurada e protege o endpoint. Ele não faz renovação automática por padrão."
             }
+          ],
+          "videos": [
+            {
+              "title": "NestJS Auth JWT e Controle de Acesso Rotas Privadas",
+              "url": "https://www.youtube.com/watch?v=p6cMSu56fVw",
+              "channel": "PhillCode"
+            },
+            {
+              "title": "Implementando Autenticação JWT no Nest.js",
+              "url": "https://www.youtube.com/watch?v=7Y0R_4uNd7s",
+              "channel": "Victor Almeida de Freitas"
+            },
+            {
+              "title": "Como criptografar senha no Nodejs com Bcrypt",
+              "url": "https://www.youtube.com/watch?v=eFERQi2-eus",
+              "channel": "João Alves"
+            }
           ]
         },
         {
@@ -3016,6 +3676,18 @@
               "answerIndex": 3,
               "explanation": "Estratégias como Passport injetam os dados decodificados do token diretamente em request.user para uso posterior."
             }
+          ],
+          "videos": [
+            {
+              "title": "NestJS Auth Roles Permissões Controle de Acesso",
+              "url": "https://www.youtube.com/watch?v=mPmQBLAdG5s",
+              "channel": "PhillCode"
+            },
+            {
+              "title": "Aula 30 - Como proteger sua API com JWT em NestJS?",
+              "url": "https://www.youtube.com/watch?v=qMunVcEzhmo",
+              "channel": "leguarino"
+            }
           ]
         },
         {
@@ -3085,6 +3757,18 @@
               ],
               "answerIndex": 1,
               "explanation": "@ApiBearerAuth sinaliza para o Swagger que o endpoint precisa do esquema de segurança baseado em token Bearer."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Documentação de API com Swagger no NestJS",
+              "url": "https://www.youtube.com/watch?v=oM3H_nhgRI4",
+              "channel": "Ediano The Dev"
+            },
+            {
+              "title": "NESTJS - Documentando endpoints com Swagger",
+              "url": "https://www.youtube.com/watch?v=86auJJLCneo",
+              "channel": "tate"
             }
           ]
         }
@@ -3168,6 +3852,23 @@
               "answerIndex": 3,
               "explanation": "O componente `<Link>` permite o client-side navigation (transição suave) e pré-carregamento de rotas (prefetching), melhorando a performance."
             }
+          ],
+          "videos": [
+            {
+              "title": "Roteamento no Next.js 16 (File-system Routing) | Curso Completo #02",
+              "url": "https://www.youtube.com/watch?v=IW-3rCMV_eU",
+              "channel": "Kewa Code"
+            },
+            {
+              "title": "Next.js 16: Rotas Dinâmicas (Server Props vs useParams Hook) | Curso Completo #03",
+              "url": "https://www.youtube.com/watch?v=7Ef7LdKQcpE",
+              "channel": "Kewa Code"
+            },
+            {
+              "title": "Dominando o App Router do Next.js",
+              "url": "https://www.youtube.com/watch?v=FKRP05KQkW0",
+              "channel": "LuizTools"
+            }
           ]
         },
         {
@@ -3237,6 +3938,18 @@
               ],
               "answerIndex": 3,
               "explanation": "revalidatePath marca o cache da rota especificada como obsoleto para que os dados sejam atualizados na próxima requisição."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Next.js 16: O Novo Modelo Mental (Server vs Client Components) | Curso Completo #01",
+              "url": "https://www.youtube.com/watch?v=hvaQ2ccfITo",
+              "channel": "Kewa Code"
+            },
+            {
+              "title": "Cache no Next.js 15 - Aula Completa",
+              "url": "https://www.youtube.com/watch?v=7HMe6kEigtQ",
+              "channel": "Codante - Evolua no front-end"
             }
           ]
         },
@@ -3308,6 +4021,13 @@
               "answerIndex": 3,
               "explanation": "Navegadores enviam requisições OPTIONS antes de requests cross-origin complexas, exigindo uma resposta com os headers CORS permitidos."
             }
+          ],
+          "videos": [
+            {
+              "title": "Next.js + NestJS | Secure Cookie Authentication",
+              "url": "https://www.youtube.com/watch?v=2ZEFTpchGZo",
+              "channel": "Michael Guay"
+            }
           ]
         },
         {
@@ -3373,6 +4093,23 @@
               ],
               "answerIndex": 0,
               "explanation": "O método bind do JavaScript permite criar uma nova função com argumentos pré-definidos, ideal para passar IDs junto ao FormData."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Next.js Forms com Server Actions",
+              "url": "https://www.youtube.com/watch?v=231I8iUXm9I",
+              "channel": "DeveloperDeck101"
+            },
+            {
+              "title": "👉 Vem ver como funcionam as Server Actions no #nextjs!",
+              "url": "https://www.youtube.com/watch?v=hP3BCuSuLP4",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "Eu tentei Next.JS 14 por 30 dias e descobri o poder do CRUD",
+              "url": "https://www.youtube.com/watch?v=wKlKS6LlwlA",
+              "channel": "Lucas Nhimi"
             }
           ]
         },
@@ -3447,6 +4184,18 @@
               ],
               "answerIndex": 1,
               "explanation": "O refetchOnWindowFocus é um comportamento padrão que garante que os dados estejam atualizados caso o usuário retorne para a aba após algum tempo."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como Utilizar React Query nos Seus Projetos Next.js com useQuery/useMutation/Optimistic Update",
+              "url": "https://www.youtube.com/watch?v=n3Aj575jnpI",
+              "channel": "Gus Quem Fala"
+            },
+            {
+              "title": "Quando é necessário usar React Query (TanStack Query) em uma aplicação React JS #cortes",
+              "url": "https://www.youtube.com/watch?v=_6ampVU6l6s",
+              "channel": "Roger Melo | JavaScript"
             }
           ]
         }
@@ -3530,6 +4279,23 @@
               "answerIndex": 2,
               "explanation": "Em testes E2E, simular o fluxo real inclui enviar o token de autenticação nos headers, tal como um cliente faria."
             }
+          ],
+          "videos": [
+            {
+              "title": "Testes unitários, mocks e cobertura de testes com Jest | NestJS com GraphQL #4",
+              "url": "https://www.youtube.com/watch?v=T47Djfzd9bU",
+              "channel": "Angelo Luz"
+            },
+            {
+              "title": "Testes unitários automatizados com NestJS - Parte 01",
+              "url": "https://www.youtube.com/watch?v=1ZiKyCDdiTE",
+              "channel": "Ediano The Dev"
+            },
+            {
+              "title": "Já usou SuperTest junto com o NestJS?",
+              "url": "https://www.youtube.com/watch?v=oacEXTg5c-Y",
+              "channel": "hcode"
+            }
           ]
         },
         {
@@ -3599,6 +4365,23 @@
               ],
               "answerIndex": 3,
               "explanation": "Testes unitários devem ser isolados e determinísticos, logo a rede deve ser simulada (mockada) para evitar falhas por instabilidade externa."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Testes no React com Jest & Testing Library | Guia Completo",
+              "url": "https://www.youtube.com/watch?v=0hVXjqHwvI0",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "Testando aplicações React com Jest & Testing Library - Decode #012",
+              "url": "https://www.youtube.com/watch?v=edXudaVB0Bg",
+              "channel": "Rocketseat"
+            },
+            {
+              "title": "Como iniciar nos testes de componentes ReactJS: Jest e React Testing Library para iniciantes",
+              "url": "https://www.youtube.com/watch?v=pLfdbpkl3iM",
+              "channel": "quero ser dev"
             }
           ]
         },
@@ -3674,6 +4457,23 @@
               "answerIndex": 3,
               "explanation": "A flag '-d' roda em background (detached) e '--build' força a reconstrução das imagens antes de subir os containers, ideal para refletir alterações recentes."
             }
+          ],
+          "videos": [
+            {
+              "title": "Dockerizando aplicações Node.js 📦🚀",
+              "url": "https://www.youtube.com/watch?v=7rqavBlLFbg",
+              "channel": "Waldemar Neto - Dev Lab"
+            },
+            {
+              "title": "Docker Compose na prática (Fácil)",
+              "url": "https://www.youtube.com/watch?v=HxPz3eLnXZk",
+              "channel": "Ayrton Teshima - Programador a Bordo"
+            },
+            {
+              "title": "Subindo API NodeJS e Banco MySQL com Docker Compose",
+              "url": "https://www.youtube.com/watch?v=BSyyd13Ky9o",
+              "channel": "Daniel Lopes"
+            }
           ]
         },
         {
@@ -3740,6 +4540,23 @@
               "answerIndex": 1,
               "explanation": "A Vercel utiliza uma CDN global (Edge Network) para armazenar e servir assets estáticos o mais próximo possível geograficamente do usuário final."
             }
+          ],
+          "videos": [
+            {
+              "title": "Deploy 100% GRÁTIS com Vercel + Next.js – rápido, fácil e profissional! 🔥#vercel #nextjs #deploy",
+              "url": "https://www.youtube.com/watch?v=8CMW3URmXUo",
+              "channel": "DevFast"
+            },
+            {
+              "title": "Deploy Next.js Quebrando? Faça na Vercel do Jeito Certo",
+              "url": "https://www.youtube.com/watch?v=ysSLwPkjzj4",
+              "channel": "Gotas de Tecnologia"
+            },
+            {
+              "title": "Deploy Grátis de API Node.js na Railway: Guia Completo 🚀",
+              "url": "https://www.youtube.com/watch?v=3MqCa9tTHL4",
+              "channel": "Mario Augusto"
+            }
           ]
         },
         {
@@ -3805,6 +4622,18 @@
               ],
               "answerIndex": 0,
               "explanation": "Por padrão, o runner começa vazio. A action de checkout é necessária para clonar o seu código no ambiente de execução."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como Configurar GitHub Actions Passo a Passo (Guia Completo)",
+              "url": "https://www.youtube.com/watch?v=sPXNK25vU6o",
+              "channel": "CodandoTV"
+            },
+            {
+              "title": "Criando um Workflow AUTOMATIZADO de CI com o Github Actions",
+              "url": "https://www.youtube.com/watch?v=F51HlrEeedw",
+              "channel": "Fernanda Kipper"
             }
           ]
         },
@@ -3879,6 +4708,13 @@
               ],
               "answerIndex": 0,
               "explanation": "Escrever logs em stdout e stderr permite que o Docker capture e gerencie os logs usando drivers nativos, facilitando o encaminhamento para ferramentas externas."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como salvar log em arquivo das requisições NodeJS com Morgan",
+              "url": "https://www.youtube.com/watch?v=XzpOf6CzGlQ",
+              "channel": "Programando Soluções"
             }
           ]
         }
