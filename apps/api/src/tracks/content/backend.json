@@ -80,6 +80,23 @@
               "answerIndex": 2,
               "explanation": "O método GET é seguro e idempotente, ideal para solicitar a visualização de recursos. Ele não deve modificar o estado no servidor."
             }
+          ],
+          "videos": [
+            {
+              "title": "Entenda como o HTTP e o HTTPS funcionam",
+              "url": "https://www.youtube.com/watch?v=z9zdf63NV1I",
+              "channel": "Bits Conceituais"
+            },
+            {
+              "title": "🌎 Como funciona a Internet? O que é Servidor Web? (Explicação Simples e Prática) #webserver",
+              "url": "https://www.youtube.com/watch?v=fqR5SymRgLQ",
+              "channel": "Professor José de Assis"
+            },
+            {
+              "title": "Protocolo HTTP - Aprenda na Prática como o Navegador e o Servidor se comunicam",
+              "url": "https://www.youtube.com/watch?v=4v3w1Huc48Q",
+              "channel": "TrilhaCoder"
+            }
           ]
         },
         {
@@ -150,6 +167,18 @@
               "answerIndex": 1,
               "explanation": "O comando aciona o interpretador do Node.js para rodar o script especificado diretamente no ambiente local."
             }
+          ],
+          "videos": [
+            {
+              "title": "Instalação e Configuração do Visual Studio Code para Web com extensões e temas em 6 minutos",
+              "url": "https://www.youtube.com/watch?v=vsAH0h8b_kM",
+              "channel": "bit loop"
+            },
+            {
+              "title": "CURSO DE HTML - AULA 1 - INSTALAÇÃO DO VSCODE E EXTENSÕES",
+              "url": "https://www.youtube.com/watch?v=sOVMmyPVVhE",
+              "channel": "Classe Final"
+            }
           ]
         },
         {
@@ -219,6 +248,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O comando mkdir (make directory) cria pastas. O comando touch é usado tipicamente para criar arquivos vazios."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Aprenda os comandos básicos do Linux - Terminal Ubuntu",
+              "url": "https://www.youtube.com/watch?v=JEhVB4VHsTI",
+              "channel": "Diolinux"
+            },
+            {
+              "title": "Como Usar o Terminal: Comandos Básicos no Windows, Linux e Mac | Tutorial para Iniciantes",
+              "url": "https://www.youtube.com/watch?v=KGsXL1subjw",
+              "channel": "Seu Nicolau"
+            },
+            {
+              "title": "Comandos Básicos do Linux | Guia para Iniciantes - Terminal Linux",
+              "url": "https://www.youtube.com/watch?v=CnYraL0J_hM",
+              "channel": "Vagner Fonseca"
             }
           ]
         },
@@ -294,6 +340,18 @@
               "answerIndex": 0,
               "explanation": "A flag -b combinada com o checkout cria a ramificação informada e já faz a troca (switch) para ela em um único comando."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de Git e Github Para Iniciantes",
+              "url": "https://www.youtube.com/watch?v=Kyw91mqCHD0",
+              "channel": "Programação Web"
+            },
+            {
+              "title": "Curso de Git & GitHub Para Completos Iniciantes",
+              "url": "https://www.youtube.com/watch?v=Yp0RRTdtkqY",
+              "channel": "Felipe Rocha • Full Stack Club"
+            }
           ]
         },
         {
@@ -364,6 +422,23 @@
               "answerIndex": 3,
               "explanation": "O repositório remoto centraliza o trabalho de todos, permitindo que a equipe colabore de forma organizada."
             }
+          ],
+          "videos": [
+            {
+              "title": "🚀#7 Como criar um PR (Pull Request) - Curso de Git e GitHub",
+              "url": "https://www.youtube.com/watch?v=glUSV7MSDo4",
+              "channel": "Yuri Marcon"
+            },
+            {
+              "title": "🌎 Curso GIT e GITHUB - Fork e Pull Request - Exemplo simples e prático - #11",
+              "url": "https://www.youtube.com/watch?v=l1rwvDvD1og",
+              "channel": "Professor José de Assis"
+            },
+            {
+              "title": "Como Fazer um Pull-Request no GitHub (E Como Aceitar)",
+              "url": "https://www.youtube.com/watch?v=xM-bZSDGjzA",
+              "channel": "SD Inovações"
+            }
           ]
         },
         {
@@ -429,6 +504,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O comando top atualiza a lista de processos em tempo real. O ps -ef mostra uma foto estática e o free resume o total."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Linux - Gerência de Permissões no Linux",
+              "url": "https://www.youtube.com/watch?v=w4zoJy3zWSI",
+              "channel": "Arnaldo Junior"
+            },
+            {
+              "title": "#7 Linux do Zero para DevOps: Permissões Linux - chmod Explicado na Prática",
+              "url": "https://www.youtube.com/watch?v=GdZYI1VQRBo",
+              "channel": "Maria Lazara"
+            },
+            {
+              "title": "Variáveis de Ambiente no Linux e comandos echo, env e export",
+              "url": "https://www.youtube.com/watch?v=UOzTXvm8698",
+              "channel": "Bóson Treinamentos"
             }
           ]
         }
@@ -512,6 +604,23 @@
               "answerIndex": 1,
               "explanation": "A palavra-chave `let` é a forma moderna recomendada para declarar variáveis cujos valores podem mudar. A ausência de palavra-chave pode gerar variáveis globais acidentais."
             }
+          ],
+          "videos": [
+            {
+              "title": "Fundamentos de Programação com JavaScript Curso Completo (+8 horas de vídeo)",
+              "url": "https://www.youtube.com/watch?v=aA31cVca_hI",
+              "channel": "freeCodeCamp em Português"
+            },
+            {
+              "title": "BÁSICOS DO JAVASCRIPT, Variáveis, Tipos, Condições, Operadores, Switch  | Curso JS  - 01 | 2022",
+              "url": "https://www.youtube.com/watch?v=07JumUI3zPg",
+              "channel": "João Pster"
+            },
+            {
+              "title": "Curso de JAVASCRIPT #Aula2 [Tudo sobre VARIÁVEIS JAVASCRIPT]",
+              "url": "https://www.youtube.com/watch?v=LiNYvhZ1u5c",
+              "channel": "Alexandre Leutz"
+            }
           ]
         },
         {
@@ -585,6 +694,18 @@
               ],
               "answerIndex": 2,
               "explanation": "A instrução `break` força a saída imediata do loop atual, encerrando as iterações restantes."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Laços de repetição em Javascript - do-while, while e for | Aprendendo a Programar com JS #4",
+              "url": "https://www.youtube.com/watch?v=tqwRRVOh3ME",
+              "channel": "Angelo Luz"
+            },
+            {
+              "title": "Laços de repetição - for, while, do while e forEach no JavaScript",
+              "url": "https://www.youtube.com/watch?v=SYMxV4HM224",
+              "channel": "Douglas Dev"
             }
           ]
         },
@@ -660,6 +781,23 @@
               "answerIndex": 0,
               "explanation": "Variáveis criadas com `let` possuem escopo de bloco (`block scope`), existindo apenas dentro das chaves onde foram definidas. O erro comum é achar que o escopo é sempre a função inteira."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de JavaScript #10 - Funções & Arrow Functions",
+              "url": "https://www.youtube.com/watch?v=y-KOA4BcqUk",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "CURSO DE JAVASCRIPT #07 - Escopo, hoisting e outros assuntos",
+              "url": "https://www.youtube.com/watch?v=Sx3Kh6UVCOI",
+              "channel": "Matheus Battisti - Hora de Codar"
+            },
+            {
+              "title": "Curso de JavaScript #8 - Closures (2020)",
+              "url": "https://www.youtube.com/watch?v=MR8IyuhrDK8",
+              "channel": "Ayrton Teshima - Programador a Bordo"
+            }
           ]
         },
         {
@@ -733,6 +871,23 @@
               ],
               "answerIndex": 1,
               "explanation": "O operador 'in' verifica se uma chave específica existe em um objeto. Os outros métodos são inválidos para objetos literais simples."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Arrays em JavaScript Para Iniciantes [GUIA DEFINITIVO]",
+              "url": "https://www.youtube.com/watch?v=oAqloSDtdrM",
+              "channel": "Brazilian Dev"
+            },
+            {
+              "title": "Como Trabalhar com Arrays em Javascript? Aula para Iniciantes 🔥",
+              "url": "https://www.youtube.com/watch?v=Y0bHvvOncmo",
+              "channel": "Serliv | Daniel Tapias Morales"
+            },
+            {
+              "title": "Introdução a Arrays e Objects no JavaScript.",
+              "url": "https://www.youtube.com/watch?v=JKSOQ8OlKXI",
+              "channel": "Vinicius Dacal"
             }
           ]
         },
@@ -808,6 +963,23 @@
               "answerIndex": 3,
               "explanation": "Sem o return explícito, a função retorna undefined para cada iteração, preenchendo o novo array com esses valores."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de JavaScript #11 - map, filter e reduce (2020)",
+              "url": "https://www.youtube.com/watch?v=D_MExaVe95w",
+              "channel": "Ayrton Teshima - Programador a Bordo"
+            },
+            {
+              "title": "Curso de JavaScript #04 - Map, Filter & Reduce",
+              "url": "https://www.youtube.com/watch?v=mgnSSwgTiFU",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "ARRAYS no JAVASCRIPT para INICIANTES (forEach, map, find, filter e reduce)",
+              "url": "https://www.youtube.com/watch?v=k3Yj7iEiCuU",
+              "channel": "Coffstack"
+            }
           ]
         },
         {
@@ -881,6 +1053,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O operador rest (`...`) no final da desestruturação agrupa todos os elementos restantes em um novo array. O erro comum é tentar usar a sintaxe em formato de objeto."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Import e export em JavaScript",
+              "url": "https://www.youtube.com/watch?v=I8cDieBWXQc",
+              "channel": "runCode"
+            },
+            {
+              "title": "Destructuring + rest/spread operator - Manipular objetos e arrays como um mestre",
+              "url": "https://www.youtube.com/watch?v=S1_THoiTBvU",
+              "channel": "Kevin Beltrão"
+            },
+            {
+              "title": "Spread Operator (JS): Tudo que você precisa saber!",
+              "url": "https://www.youtube.com/watch?v=W7xDTAxyDN0",
+              "channel": "LuizTools"
             }
           ]
         }
@@ -964,6 +1153,23 @@
               "answerIndex": 1,
               "explanation": "Sem o await, a expressão avalia diretamente para a Promise retornada pela função, e não para o seu valor resolvido."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de JavaScript Assíncrono - Callbacks, Promises & Async/Await",
+              "url": "https://www.youtube.com/watch?v=WUmAAxH9n-A",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "Por Que Seu JavaScript Executa Fora de Ordem (Callbacks, Promises e Async/Await)",
+              "url": "https://www.youtube.com/watch?v=7Bs4-rqbCQc",
+              "channel": "DevPleno"
+            },
+            {
+              "title": "Promise e Callback no JavaScript - Aprenda usar o async e await e o then e catch  (Tutorial)",
+              "url": "https://www.youtube.com/watch?v=dUSLm948F7c",
+              "channel": "Coffstack"
+            }
           ]
         },
         {
@@ -1033,6 +1239,23 @@
               ],
               "answerIndex": 2,
               "explanation": "A API baseada em promises facilita o tratamento de fluxo assíncrono usando estruturas modernas do JavaScript como async/await."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Event Loop do Node.js: por que ele é tão rápido em I/O (libuv)",
+              "url": "https://www.youtube.com/watch?v=nLuImi68Kx4",
+              "channel": "CodeStack"
+            },
+            {
+              "title": "Aula 02 - Event loop",
+              "url": "https://www.youtube.com/watch?v=IgFjjY1M2cE",
+              "channel": "Code For All"
+            },
+            {
+              "title": "Módulo FS para manipular arquivos em Node #P1 [NodeJS] - Curso de Node - Aula 05",
+              "url": "https://www.youtube.com/watch?v=NPrHoZEKkYk",
+              "channel": "CFBCursos"
             }
           ]
         },
@@ -1108,6 +1331,13 @@
               "answerIndex": 2,
               "explanation": "O comando correto para rodar scripts customizados é 'npm run nome-do-script', embora para o script 'start' exista o atalho 'npm start'."
             }
+          ],
+          "videos": [
+            {
+              "title": "AULA3 - Entendendo o NPM – Pacotes, Dependências e package.json",
+              "url": "https://www.youtube.com/watch?v=T5Ot1BvdUWk",
+              "channel": "ACS CURSOS ONLINE"
+            }
           ]
         },
         {
@@ -1181,6 +1411,23 @@
               ],
               "answerIndex": 1,
               "explanation": "O tipo `void` é utilizado especificamente para indicar a ausência de valor de retorno em funções."
+            }
+          ],
+          "videos": [
+            {
+              "title": "CURSO DE TYPESCRIPT para INICIANTES | Aprenda Typescript na Prática",
+              "url": "https://www.youtube.com/watch?v=QoqDr4H2G8U",
+              "channel": "Fernanda Kipper"
+            },
+            {
+              "title": "Tutorial Typescript Iniciantes: Aprenda o Básico do Typescript",
+              "url": "https://www.youtube.com/watch?v=k7JFBZ2nHhI",
+              "channel": "Mago Acadêmico"
+            },
+            {
+              "title": "Introdução ao TypeScript para iniciantes",
+              "url": "https://www.youtube.com/watch?v=HMjXHypKF0o",
+              "channel": "Manual do Dev"
             }
           ]
         },
@@ -1256,6 +1503,23 @@
               "answerIndex": 2,
               "explanation": "A cláusula `extends` em generics limita quais tipos podem ser passados, garantindo que tenham a estrutura mínima necessária. A palavra `implements` não é usada em parâmetros genéricos."
             }
+          ],
+          "videos": [
+            {
+              "title": "União e Interseção de Tipos no TypeScript - Aula 07 - Curso de TypeScript 💙",
+              "url": "https://www.youtube.com/watch?v=xE2gXp6PS5s",
+              "channel": "Dev Victor Navarro"
+            },
+            {
+              "title": "Aprenda Generics com Typescript do jeito certo!",
+              "url": "https://www.youtube.com/watch?v=Gf9vS0yu7zc",
+              "channel": "Mago Acadêmico"
+            },
+            {
+              "title": "Ninguém te explica o que são GENERICS no TypeScript (até agora!)",
+              "url": "https://www.youtube.com/watch?v=5h0vKVTbSGc",
+              "channel": "Desvendando o Código"
+            }
           ]
         },
         {
@@ -1329,6 +1593,18 @@
               ],
               "answerIndex": 3,
               "explanation": "O Omit constrói um tipo pegando todas as propriedades de T e removendo a união de chaves K especificada."
+            }
+          ],
+          "videos": [
+            {
+              "title": "5 Utility Types para melhorar o seu código",
+              "url": "https://www.youtube.com/watch?v=V2D8IghrsgQ",
+              "channel": "WoMakersCode"
+            },
+            {
+              "title": "Curso de TypeScript: 12.Types: Utility",
+              "url": "https://www.youtube.com/watch?v=QgwKI5pF8cY",
+              "channel": "UB Social"
             }
           ]
         }
@@ -1416,6 +1692,18 @@
               "answerIndex": 3,
               "explanation": "O método GET é seguro e idempotente, servindo apenas para leitura. O código 201 é para criação via POST."
             }
+          ],
+          "videos": [
+            {
+              "title": "#1 Introdução aos Verbos HTTP: GET, POST, PATCH, PUT, DELETE | Rest API",
+              "url": "https://www.youtube.com/watch?v=EJDCvW1AsIw",
+              "channel": "Refúgio Code"
+            },
+            {
+              "title": "Métodos HTTP Explicados",
+              "url": "https://www.youtube.com/watch?v=8JLu2FQpXLY",
+              "channel": "Bits Conceituais"
+            }
           ]
         },
         {
@@ -1490,6 +1778,23 @@
               "answerIndex": 2,
               "explanation": "O método PATCH é indicado para modificações parciais, enquanto o PUT costuma substituir o recurso inteiro."
             }
+          ],
+          "videos": [
+            {
+              "title": "API REST explicada: recursos, verbos HTTP e JSON na prática",
+              "url": "https://www.youtube.com/watch?v=i6Vkl8VPjhM",
+              "channel": "Leandro Hirt | Academify"
+            },
+            {
+              "title": "RESTFUL - BOAS PRÁTICAS - ENDPOINTS",
+              "url": "https://www.youtube.com/watch?v=y6f37c3huIE",
+              "channel": "desenvolvedor.io"
+            },
+            {
+              "title": "RESTFUL - BOAS PRÁTICAS - VERBOS HTTP",
+              "url": "https://www.youtube.com/watch?v=IEdgikorO5Q",
+              "channel": "desenvolvedor.io"
+            }
           ]
         },
         {
@@ -1555,6 +1860,23 @@
               ],
               "answerIndex": 2,
               "explanation": "Quando um recurso específico não é encontrado pelo identificador, o padrão HTTP adequado é o 404 Not Found."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Criando uma API com Express e TypeScript de forma DESCOMPLICADA!",
+              "url": "https://www.youtube.com/watch?v=mfrz_kDRPNk",
+              "channel": "Sidney Sousa"
+            },
+            {
+              "title": "CRUD com Typescript - Criando uma API Rest simples",
+              "url": "https://www.youtube.com/watch?v=_lDXeKuw-ys",
+              "channel": "Rafael Fischer - Dev & Design"
+            },
+            {
+              "title": "Entenda como funcionam as rotas no Express (Node.js na prática)",
+              "url": "https://www.youtube.com/watch?v=am27wpm5QRY",
+              "channel": "VirandoDev"
             }
           ]
         },
@@ -1630,6 +1952,23 @@
               "answerIndex": 2,
               "explanation": "Em blocos síncronos, o Express captura exceções apenas se repassadas explicitamente via `next(err)` ou lançadas em rotas sem async."
             }
+          ],
+          "videos": [
+            {
+              "title": "Error Handling profissional em Node.js com Express",
+              "url": "https://www.youtube.com/watch?v=GR9thD85iLQ",
+              "channel": "LuizTools"
+            },
+            {
+              "title": "Tratamento de erros no express em rotas com async/await",
+              "url": "https://www.youtube.com/watch?v=qHfZxpRqxYw",
+              "channel": "Otávio Miranda"
+            },
+            {
+              "title": "Typescript e Node.js para iniciantes 8 - Middleware - Error handler",
+              "url": "https://www.youtube.com/watch?v=TSos8xTnItc",
+              "channel": "Drumond DEV"
+            }
           ]
         },
         {
@@ -1704,6 +2043,18 @@
               "answerIndex": 3,
               "explanation": "Validadores específicos do Zod como `.email()` aceitam um objeto de configuração contendo a propriedade `message`."
             }
+          ],
+          "videos": [
+            {
+              "title": "Validação de Schema com Zod e TypeScript",
+              "url": "https://www.youtube.com/watch?v=DajHFL9BFZQ",
+              "channel": "DevPleno"
+            },
+            {
+              "title": "Introdução ao Zod, lib de validação TS (alternativa ao Yup, joi, io-ts, runtypes)",
+              "url": "https://www.youtube.com/watch?v=RCXa_Ofus1Q",
+              "channel": "Pablo Dinella"
+            }
           ]
         },
         {
@@ -1773,6 +2124,23 @@
               ],
               "answerIndex": 3,
               "explanation": "A propriedade booleana 'required' é utilizada para indicar se um parâmetro de rota, query ou header é obrigatório."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Tutorial Swagger Editor: Como Criar Schemas de API com OAS 3",
+              "url": "https://www.youtube.com/watch?v=DF4fjWsNiV4",
+              "channel": "Mauro de Boni | Engenharia de Software"
+            },
+            {
+              "title": "Documentação de API não precisa ser difícil! Swagger na Prática",
+              "url": "https://www.youtube.com/watch?v=JvTW9y8qaus",
+              "channel": "Prof. Samuel Matos"
+            },
+            {
+              "title": "Documentando APIs com Swagger e OpenAPI: Guia Prático | Jornada BackEnd",
+              "url": "https://www.youtube.com/watch?v=pp8dus2Jw_g",
+              "channel": "WebTech Network"
             }
           ]
         }
@@ -1856,6 +2224,23 @@
               "answerIndex": 0,
               "explanation": "No modelo relacional, o lado 'muitos' armazena a chave estrangeira apontando para o registro único do lado 'um'."
             }
+          ],
+          "videos": [
+            {
+              "title": "[INICIANTE ]  Aprenda Relacionamento de Tabelas com Chave Estrangeira Sem Complicações",
+              "url": "https://www.youtube.com/watch?v=-SjSYcPvSa0",
+              "channel": "Nexus Master Treinamentos"
+            },
+            {
+              "title": "Chave Primária, Estrangeira e Cardinalidade",
+              "url": "https://www.youtube.com/watch?v=rfR3dUumo0U",
+              "channel": "Prof. Marcel Rios | Informática"
+            },
+            {
+              "title": "BD: Aula 15 - Chaves: primária, estrangeira e candidata",
+              "url": "https://www.youtube.com/watch?v=bvjWvaMMB6c",
+              "channel": "Procópio na Rede"
+            }
           ]
         },
         {
@@ -1921,6 +2306,23 @@
               ],
               "answerIndex": 1,
               "explanation": "Containers Docker são efêmeros. O armazenamento interno é perdido ao remover o container, a menos que um volume seja usado."
+            }
+          ],
+          "videos": [
+            {
+              "title": "[TUTORIAL] Como rodar um banco de dados Postgres no Docker",
+              "url": "https://www.youtube.com/watch?v=WzMpOnyLAU4",
+              "channel": "Felix Gilioli"
+            },
+            {
+              "title": "Executando o PostgreSQL via Docker: Tutorial Passo a Passo",
+              "url": "https://www.youtube.com/watch?v=mOkaWETrk-k",
+              "channel": "Wendel Segadilha"
+            },
+            {
+              "title": "PostgreSQL no Docker: Instalação Passo a Passo (Ambiente Profissional)",
+              "url": "https://www.youtube.com/watch?v=L9oWv7xU4Ck",
+              "channel": "DATA DT"
             }
           ]
         },
@@ -1996,6 +2398,23 @@
               "answerIndex": 0,
               "explanation": "Listamos os nomes das colunas separados por vírgula após o SELECT. O asterisco (*) traz todas as colunas."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso Completo de SQL com PostgreSQL - Do Zero ao Avançado",
+              "url": "https://www.youtube.com/watch?v=9cAKQWodpvM",
+              "channel": "Stack Mobile"
+            },
+            {
+              "title": "Curso Básico de SQL com PostgreSQL - Aula 1 - Criando o banco de dados",
+              "url": "https://www.youtube.com/watch?v=o8ATzYcVp08",
+              "channel": "Codando Simples"
+            },
+            {
+              "title": "Aprendendo SQL do Zero com PostgreSQL  (Aula 3) | Curso Java Quest",
+              "url": "https://www.youtube.com/watch?v=yq3HkCbS494",
+              "channel": "Academia dos Devs"
+            }
           ]
         },
         {
@@ -2069,6 +2488,23 @@
               ],
               "answerIndex": 0,
               "explanation": "A função AVG() soma os valores válidos e divide pela quantidade de linhas não nulas. Valores NULL são ignorados no cálculo."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como Usar JOIN para Relacionar Tabelas (INNER, LEFT, RIGHT, FULL)",
+              "url": "https://www.youtube.com/watch?v=D_qz5yK2-_8",
+              "channel": "Programação para iniciantes"
+            },
+            {
+              "title": "Banco de Dados - Como fazer Inner Join, Left Join e Right Join",
+              "url": "https://www.youtube.com/watch?v=haqW0eg-0tc",
+              "channel": "Fala Fera"
+            },
+            {
+              "title": "Agrupando valores usando GROUP BY e Funções de Agregação | Linguagem SQL",
+              "url": "https://www.youtube.com/watch?v=XSgVc3aiLTc",
+              "channel": "Xperiun | Data Analytics"
             }
           ]
         },
@@ -2144,6 +2580,23 @@
               "answerIndex": 3,
               "explanation": "Foreign keys garantem integridade referencial. Se o valor informado não existir na tabela de origem, a operação viola a regra e o PostgreSQL impede a gravação."
             }
+          ],
+          "videos": [
+            {
+              "title": "Transações em Banco de Dados - Conceito ACID e Comandos em PostgreSQL - COMMIT, ROLLBACK e SAVEPOINT",
+              "url": "https://www.youtube.com/watch?v=iFmL8Ys46Z0",
+              "channel": "DesCOMPlica, Oliba!"
+            },
+            {
+              "title": "PostgreSQL - Transações (na prática)",
+              "url": "https://www.youtube.com/watch?v=r_pfalIKV-w",
+              "channel": "Dhiancarlo Macedo"
+            },
+            {
+              "title": "B-tree, Hash, GIN, GiST: O Guia Completo de Índices no PostgreSQL",
+              "url": "https://www.youtube.com/watch?v=S9EFegGpQ8E",
+              "channel": "Techt4lks"
+            }
           ]
         },
         {
@@ -2213,6 +2666,23 @@
               ],
               "answerIndex": 2,
               "explanation": "Na subconsulta correlacionada, a query interna faz referência a colunas da tabela externa, sendo avaliada repetidamente para cada linha processada."
+            }
+          ],
+          "videos": [
+            {
+              "title": "SQL - ROW_NUMBER e Window Functions (Funções de Janela) - Curso Introdução ao SQL Pt.8",
+              "url": "https://www.youtube.com/watch?v=uxR7xyHMR0A",
+              "channel": "Aprendiz Moderno"
+            },
+            {
+              "title": "[SQL] Ep #06 - O que são WINDOW FUNCTIONS??",
+              "url": "https://www.youtube.com/watch?v=v3U5ViG-rkc",
+              "channel": "Téo Me Why"
+            },
+            {
+              "title": "O que são Subconsultas SQL (Subqueries) em Bancos de Dados",
+              "url": "https://www.youtube.com/watch?v=2qCLpE1NZ8c",
+              "channel": "Bóson Treinamentos"
             }
           ]
         }
@@ -2300,6 +2770,18 @@
               "answerIndex": 2,
               "explanation": "Para compartilhar providers, o módulo original deve incluí-los no array 'exports' e o módulo consumidor deve importar o módulo de origem."
             }
+          ],
+          "videos": [
+            {
+              "title": "Aula 05 - Criando Task Controller, Service e Module [Tutorial NestJS 2024]",
+              "url": "https://www.youtube.com/watch?v=gIBm4YfI3JE",
+              "channel": "Breno Veras"
+            },
+            {
+              "title": "O que você ainda NÃO SABE sobre Dependency Injection no NestJS #javascript #typescript #nodejs",
+              "url": "https://www.youtube.com/watch?v=r1MuVpj70yM",
+              "channel": "PhillCode"
+            }
           ]
         },
         {
@@ -2369,6 +2851,18 @@
               ],
               "answerIndex": 0,
               "explanation": "A opção whitelist descarta qualquer propriedade que não possua decoradores de validação no DTO, aumentando a segurança."
+            }
+          ],
+          "videos": [
+            {
+              "title": "#Aula 11 [NestJS] - Inclusão de validação na requisição POST do Nest.js",
+              "url": "https://www.youtube.com/watch?v=rIHe5QQ0L0U",
+              "channel": "Desenvolvendo do básico"
+            },
+            {
+              "title": "NestJS #05 - Bem-vindo aos Pipes: transformação e validação de schema",
+              "url": "https://www.youtube.com/watch?v=vdcOVAHTUyg",
+              "channel": "Trilha Sênior"
             }
           ]
         },
@@ -2444,6 +2938,23 @@
               "answerIndex": 0,
               "explanation": "O Prisma permite definir relações N:M usando listas nos dois lados, gerenciando a tabela de junção oculta nos bastidores de forma automática."
             }
+          ],
+          "videos": [
+            {
+              "title": "Prisma Crash Course - Parte 06 - Relacionamento one-to-one",
+              "url": "https://www.youtube.com/watch?v=S-wBCiYNJ2I",
+              "channel": "Robson Dev"
+            },
+            {
+              "title": "Criando App com Banco de dados SQLITE + Prisma ORM do zero! 🔥",
+              "url": "https://www.youtube.com/watch?v=yLvKuljeP_Y",
+              "channel": "Sujeito programador"
+            },
+            {
+              "title": "Node #10 | Criando migrations com o Prisma",
+              "url": "https://www.youtube.com/watch?v=0JmFFBxGKkM",
+              "channel": "Do zero ao Dev"
+            }
           ]
         },
         {
@@ -2514,6 +3025,13 @@
               "answerIndex": 2,
               "explanation": "O Prisma não possui um `findAndCount` nativo, logo a prática recomendada é usar `prisma.$transaction` combinando `findMany` e `count`."
             }
+          ],
+          "videos": [
+            {
+              "title": "CRUD Completo com Nest.JS, Prisma e MySQL: Guia Passo a Passo",
+              "url": "https://www.youtube.com/watch?v=P-bUX8XQHwc",
+              "channel": "Antônio Rocha"
+            }
           ]
         },
         {
@@ -2579,6 +3097,13 @@
               ],
               "answerIndex": 1,
               "explanation": "Por padrão, se nenhuma configuração de caminho for passada, o módulo procura por um arquivo `.env` na raiz do diretório de trabalho do projeto."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Configurações e Variáveis de Ambiente .env com NestJS #nodejs #javascript #typescript #backend",
+              "url": "https://www.youtube.com/watch?v=U0F4_NEkZ3k",
+              "channel": "PhillCode"
             }
           ]
         },
@@ -2653,6 +3178,23 @@
               ],
               "answerIndex": 3,
               "explanation": "Se `next.handle()` não for chamado, o fluxo do NestJS para na interceptação e o Observable retornado (com dados em cache) é enviado diretamente ao cliente."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Documentação de API com Swagger no NestJS",
+              "url": "https://www.youtube.com/watch?v=oM3H_nhgRI4",
+              "channel": "Ediano The Dev"
+            },
+            {
+              "title": "NESTJS - Documentando endpoints com Swagger",
+              "url": "https://www.youtube.com/watch?v=86auJJLCneo",
+              "channel": "tate"
+            },
+            {
+              "title": "Como Alterar no NestJS o TIMEOUT Usando Interceptors",
+              "url": "https://www.youtube.com/watch?v=VGGWIQ0TlhY",
+              "channel": "hcode"
             }
           ]
         }
@@ -2736,6 +3278,23 @@
               "answerIndex": 0,
               "explanation": "O algoritmo bcrypt possui um limite rígido de 72 bytes devido ao seu design interno. Senhas maiores que isso são truncadas, o que pode ser contornado aplicando um pré-hash (como SHA-256) se necessário."
             }
+          ],
+          "videos": [
+            {
+              "title": "Como criptografar senha no Nodejs com Bcrypt",
+              "url": "https://www.youtube.com/watch?v=eFERQi2-eus",
+              "channel": "João Alves"
+            },
+            {
+              "title": "Autenticação JWT no Node.js: Login, bcrypt e Rotas Protegidas",
+              "url": "https://www.youtube.com/watch?v=4TLSlavzy84",
+              "channel": "Desvendando o Código"
+            },
+            {
+              "title": "Node #14 | Criptografia de senha com bcrypt",
+              "url": "https://www.youtube.com/watch?v=D_f7rGBMuPI",
+              "channel": "Do zero ao Dev"
+            }
           ]
         },
         {
@@ -2801,6 +3360,23 @@
               ],
               "answerIndex": 1,
               "explanation": "Como o payload do JWT é apenas assinado e não cifrado (qualquer um pode ler), nunca devemos incluir dados sensíveis como senhas."
+            }
+          ],
+          "videos": [
+            {
+              "title": "NestJS Auth JWT e Controle de Acesso Rotas Privadas",
+              "url": "https://www.youtube.com/watch?v=p6cMSu56fVw",
+              "channel": "PhillCode"
+            },
+            {
+              "title": "Implementando Autenticação JWT no Nest.js",
+              "url": "https://www.youtube.com/watch?v=7Y0R_4uNd7s",
+              "channel": "Victor Almeida de Freitas"
+            },
+            {
+              "title": "Aula 09 - Criando Autenticação com token JWT [Tutorial NestJS 2024]",
+              "url": "https://www.youtube.com/watch?v=XM9IWkcPhjw",
+              "channel": "Breno Veras"
             }
           ]
         },
@@ -2871,6 +3447,18 @@
               ],
               "answerIndex": 3,
               "explanation": "O ciclo de vida do NestJS garante que a autenticação e autorização (Guards) ocorram antes da validação de payloads (Pipes)."
+            }
+          ],
+          "videos": [
+            {
+              "title": "NestJS Auth Roles Permissões Controle de Acesso",
+              "url": "https://www.youtube.com/watch?v=mPmQBLAdG5s",
+              "channel": "PhillCode"
+            },
+            {
+              "title": "Aula 30 - Como proteger sua API com JWT em NestJS?",
+              "url": "https://www.youtube.com/watch?v=qMunVcEzhmo",
+              "channel": "leguarino"
             }
           ]
         },
@@ -2946,6 +3534,23 @@
               "answerIndex": 0,
               "explanation": "Na rotação, cada troca gera um par novo. Se um token antigo for reutilizado, o sistema percebe a fraude e bloqueia o acesso imediatamente."
             }
+          ],
+          "videos": [
+            {
+              "title": "Aula 31 - Como fazer refresh de token JWT em uma API com NestJS e TypeORM?",
+              "url": "https://www.youtube.com/watch?v=YLp2qZUxs_Q",
+              "channel": "leguarino"
+            },
+            {
+              "title": "Como implementar Refresh Token em uma aplicação com Node? - Code/drops #88",
+              "url": "https://www.youtube.com/watch?v=RaweREhpBX8",
+              "channel": "Rocketseat"
+            },
+            {
+              "title": "Autenticação Segura com JWT no Node.js e React (Access Token + Expiration)",
+              "url": "https://www.youtube.com/watch?v=QOGnkj3T_q0",
+              "channel": "Hashtag Dev"
+            }
           ]
         },
         {
@@ -3015,6 +3620,23 @@
               ],
               "answerIndex": 0,
               "explanation": "Por segurança, requisições CORS com credenciais exigem uma origem específica explícita, não sendo compatíveis com o caractere curinga."
+            }
+          ],
+          "videos": [
+            {
+              "title": "OWASP API Security Top 10: recomendações importantes para tornar suas APIs mais seguras | Março 24",
+              "url": "https://www.youtube.com/watch?v=VdVAfHa2Di8",
+              "channel": "DevOps Heroes"
+            },
+            {
+              "title": "OWASP LATAM@Home 2020 (PT-BR) - Raphael Hagi - OWASP Top 10 API",
+              "url": "https://www.youtube.com/watch?v=vq1nR4CbdwE",
+              "channel": "OWASP LATAM"
+            },
+            {
+              "title": "Segurança em APIs REST: alguns projetos e iniciativas úteis para implementar Back-Ends mais seguros!",
+              "url": "https://www.youtube.com/watch?v=aG5lEI57x_w",
+              "channel": "Canal dotNET"
             }
           ]
         },
@@ -3089,6 +3711,18 @@
               ],
               "answerIndex": 3,
               "explanation": "Os escopos informam claramente ao usuario o que a aplicacao podera acessar, como ler o email ou repositorios."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Login com Google: OAuth 2.0 e OIDC na prática",
+              "url": "https://www.youtube.com/watch?v=cr8MBdK1_RM",
+              "channel": "CodeStack"
+            },
+            {
+              "title": "OAuth 2.0 em arquiteturas modernas: redirects, code, token e SEGURANÇA",
+              "url": "https://www.youtube.com/watch?v=3JPrEyOzvpU",
+              "channel": "Bernardo Lobato | bernas_dev"
             }
           ]
         }
@@ -3176,6 +3810,23 @@
               "answerIndex": 1,
               "explanation": "O matcher toHaveBeenCalledTimes é o padrão do Jest para validar a quantidade exata de chamadas de um mock."
             }
+          ],
+          "videos": [
+            {
+              "title": "Testes unitários, mocks e cobertura de testes com Jest | NestJS com GraphQL #4",
+              "url": "https://www.youtube.com/watch?v=T47Djfzd9bU",
+              "channel": "Angelo Luz"
+            },
+            {
+              "title": "Testes unitários automatizados com NestJS - Parte 01",
+              "url": "https://www.youtube.com/watch?v=1ZiKyCDdiTE",
+              "channel": "Ediano The Dev"
+            },
+            {
+              "title": "#Aula 21 [NestJs] - Criação de testes unitários",
+              "url": "https://www.youtube.com/watch?v=ZtRk2-Siwtg",
+              "channel": "Desenvolvendo do básico"
+            }
           ]
         },
         {
@@ -3241,6 +3892,13 @@
               ],
               "answerIndex": 2,
               "explanation": "O `app.close()` é essencial para liberar portas, fechar conexões com banco de dados e evitar vazamentos de recursos entre os testes."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Já usou SuperTest junto com o NestJS?",
+              "url": "https://www.youtube.com/watch?v=oacEXTg5c-Y",
+              "channel": "hcode"
             }
           ]
         },
@@ -3316,6 +3974,18 @@
               "answerIndex": 2,
               "explanation": "O método $connect() do Prisma é assíncrono e deve ser aguardado no beforeAll para evitar erros de banco fechado."
             }
+          ],
+          "videos": [
+            {
+              "title": "Testes de Integração com NestJS e Prisma - Cláudio Rapôso | MCT",
+              "url": "https://www.youtube.com/watch?v=DgdSMJcOHj8",
+              "channel": "O sertão será Cloud"
+            },
+            {
+              "title": "Teste de Integração com Banco de Dados em Memória - TEST08",
+              "url": "https://www.youtube.com/watch?v=-nUlKqTFk_4",
+              "channel": "Marcos Dósea"
+            }
           ]
         },
         {
@@ -3386,6 +4056,23 @@
               "answerIndex": 3,
               "explanation": "A flag `--write` instrui o Prettier a sobrescrever os arquivos com a formatação correta aplicada."
             }
+          ],
+          "videos": [
+            {
+              "title": "Configurando o EsLint e Prettier - Parte 01 - Primeiros Passos no Javascript",
+              "url": "https://www.youtube.com/watch?v=3RABbi7A4tA",
+              "channel": "Mestres da Web"
+            },
+            {
+              "title": "Saiba como configurar ESlint e Prettier em projeto React",
+              "url": "https://www.youtube.com/watch?v=XSq4lGZvw7U",
+              "channel": "Marco Bruno"
+            },
+            {
+              "title": "Como configurar o Prettier + Eslint no pre-commit do seu projeto React",
+              "url": "https://www.youtube.com/watch?v=vTI6pPZMhBU",
+              "channel": "Vinicius Dacal"
+            }
           ]
         },
         {
@@ -3455,6 +4142,18 @@
               ],
               "answerIndex": 0,
               "explanation": "Por padrão, múltiplos jobs rodam em paralelo. A chave 'needs' é que deve ser usada explicitamente quando você deseja criar uma ordem sequencial de execução."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como Configurar GitHub Actions Passo a Passo (Guia Completo)",
+              "url": "https://www.youtube.com/watch?v=sPXNK25vU6o",
+              "channel": "CodandoTV"
+            },
+            {
+              "title": "Criando um Workflow AUTOMATIZADO de CI com o Github Actions",
+              "url": "https://www.youtube.com/watch?v=F51HlrEeedw",
+              "channel": "Fernanda Kipper"
             }
           ]
         }
@@ -3534,6 +4233,23 @@
               "answerIndex": 3,
               "explanation": "A flag --build força o Docker Compose a reconstruir as imagens caso tenha havido mudanças no Dockerfile ou contexto, antes de subir os serviços."
             }
+          ],
+          "videos": [
+            {
+              "title": "Dockerizando aplicações Node.js 📦🚀",
+              "url": "https://www.youtube.com/watch?v=7rqavBlLFbg",
+              "channel": "Waldemar Neto - Dev Lab"
+            },
+            {
+              "title": "Docker Compose na prática (Fácil)",
+              "url": "https://www.youtube.com/watch?v=HxPz3eLnXZk",
+              "channel": "Ayrton Teshima - Programador a Bordo"
+            },
+            {
+              "title": "Subindo API NodeJS e Banco MySQL com Docker Compose",
+              "url": "https://www.youtube.com/watch?v=BSyyd13Ky9o",
+              "channel": "Daniel Lopes"
+            }
           ]
         },
         {
@@ -3608,6 +4324,13 @@
               "answerIndex": 2,
               "explanation": "A string de conexão precisa conter as credenciais de rede e autenticação corretas para que o driver da aplicação localize e acesse o banco remoto."
             }
+          ],
+          "videos": [
+            {
+              "title": "Deploy Grátis de API Node.js na Railway: Guia Completo 🚀",
+              "url": "https://www.youtube.com/watch?v=3MqCa9tTHL4",
+              "channel": "Mario Augusto"
+            }
           ]
         },
         {
@@ -3678,6 +4401,13 @@
               "answerIndex": 0,
               "explanation": "O OpenTelemetry padroniza a coleta de telemetria, evitando que a aplicação fique presa a um único fornecedor de monitoramento."
             }
+          ],
+          "videos": [
+            {
+              "title": "Como salvar log em arquivo das requisições NodeJS com Morgan",
+              "url": "https://www.youtube.com/watch?v=XzpOf6CzGlQ",
+              "channel": "Programando Soluções"
+            }
           ]
         },
         {
@@ -3747,6 +4477,18 @@
               ],
               "answerIndex": 2,
               "explanation": "Pipelines reduzem o tempo de ida e volta (RTT) da rede enviando vários comandos em lote e lendo as respostas juntas, embora não garantam atomicidade."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como usar Redis para cache de aplicações Node.js",
+              "url": "https://www.youtube.com/watch?v=JOS_4JKE1n0",
+              "channel": "LuizTools"
+            },
+            {
+              "title": "CACHE com NodeJS e Redis NA PRÁTICA",
+              "url": "https://www.youtube.com/watch?v=wVHBQILmd_8",
+              "channel": "DevPleno"
             }
           ]
         },
@@ -3822,6 +4564,23 @@
               "answerIndex": 2,
               "explanation": "Essa opção evita o acúmulo excessivo de dados na memória do Redis, removendo o registro do job logo após a conclusão."
             }
+          ],
+          "videos": [
+            {
+              "title": "Filas e Processamento em Segundo Plano com Bull e NestJS #nodejs #javascript #typescript  #rabbitmq",
+              "url": "https://www.youtube.com/watch?v=lEI_rwfVn4M",
+              "channel": "PhillCode"
+            },
+            {
+              "title": "Criando um sistema de filas com BullMQ, by Matheus Hahn",
+              "url": "https://www.youtube.com/watch?v=QiqE_oUqL8o",
+              "channel": "Codeminer42"
+            },
+            {
+              "title": "[▶️LIVE NODEBR] - Mensageria e tarefas assíncronas com Node.js e BullMQ",
+              "url": "https://www.youtube.com/watch?v=CxTTt0zuXuU",
+              "channel": "NodeBR"
+            }
           ]
         },
         {
@@ -3891,6 +4650,23 @@
               ],
               "answerIndex": 0,
               "explanation": "Isso evita que alterações no esquema do banco de dados quebrem a lógica de negócio pura, garantindo flexibilidade e manutenibilidade."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Princípios SOLID em uma API REST com Node.js e TypeScript | Code/Drops #44",
+              "url": "https://www.youtube.com/watch?v=vAV4Vy4jfkc",
+              "channel": "Rocketseat"
+            },
+            {
+              "title": "SOLID com TypeScript // Live #37",
+              "url": "https://www.youtube.com/watch?v=899Qa6sQcRc",
+              "channel": "Rodrigo Branas"
+            },
+            {
+              "title": "Aplicações em camadas com TypeScript",
+              "url": "https://www.youtube.com/watch?v=OoTJkhRPxGg",
+              "channel": "Lucas Santos"
             }
           ]
         }
