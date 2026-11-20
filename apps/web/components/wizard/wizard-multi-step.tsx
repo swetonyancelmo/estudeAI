@@ -61,7 +61,7 @@ export function WizardMultiStep({
               <li key={option.value}>
                 <label
                   className={cn(
-                    "bg-card flex min-h-12 w-full cursor-pointer items-start gap-3 rounded-lg border px-3.5 py-3 transition-[border-color,box-shadow,background-color] duration-150",
+                    "bg-card flex h-full min-h-12 w-full cursor-pointer items-start gap-3 rounded-lg border px-3.5 py-3 transition-[border-color,box-shadow,background-color] duration-150",
                     isSelected
                       ? "border-brand bg-brand-soft shadow-[0_2px_0_var(--brand)]"
                       : "border-input hover:border-foreground/40 shadow-[0_2px_0_var(--border)]",
