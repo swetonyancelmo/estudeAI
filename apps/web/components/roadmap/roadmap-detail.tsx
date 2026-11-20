@@ -5,35 +5,51 @@ import Link from "next/link";
 import {
   AlertCircle,
   ArrowLeft,
+  ArrowRight,
   ChartColumn,
   Check,
   ChevronDown,
+  ShieldCheck,
 } from "lucide-react";
 import type {
   AdjustmentChangesDto,
   PersistedModuleDto,
   RoadmapDetailDto,
 } from "@estudeai/shared-types";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { RerouteIcon } from "@/components/brand/icons";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useRoadmap, useToggleTopic } from "@/lib/roadmaps/api";
 import { AREA_LABELS } from "@/lib/roadmaps/labels";
-import { studyHref } from "@/lib/roadmaps/study";
+import { firstPendingTopic, studyHref } from "@/lib/roadmaps/study";
 import {
   TRACK_CLASS,
+  estimatedWeeks,
+  moduleHours,
   moduleStates,
   remainingHours,
+  roadmapFacts,
   type ModuleState,
-  estimatedWeeks,
 } from "@/lib/roadmaps/track";
 import { DeleteRoadmapButton } from "./delete-roadmap-button";
+import { LineLegend } from "./line-legend";
+import { OriginStation, RailSegment, TerminalStation } from "./line-stations";
 import { RouteProgress } from "./progress-bar";
 import { RoadmapAdjustPanel } from "./roadmap-adjust-panel";
 import { TopicCheckbox, type TopicHighlight } from "./topic-checkbox";
@@ -49,6 +65,13 @@ import { TopicCheckbox, type TopicHighlight } from "./topic-checkbox";
  * FR-04: o painel de reajuste devolve o que mudou; guardamos isso em estado
  * local (some ao sair da tela, como convém a um destaque) para diferenciar
  * visualmente o que a IA reorganizou do que continua concluído e intacto.
+ *
+ * Redesign v2 (Fase 3): a tela responde "onde estou, quanto falta, o que faço
+ * agora". Ficha com os números da rota, botão "Continuar" para a próxima
+ * parada, legenda dos marcadores, estação de origem e terminal, e cada
+ * estação com a própria contagem e um `Collapsible`. Os cards ficam sempre do
+ * mesmo lado do trilho, e o clique numa parada leva à sala de estudo (não
+ * abre painel lateral).
  */
 export function RoadmapDetail({ roadmapId }: { roadmapId: string }) {
   const { data: roadmap, isPending, isError, error } = useRoadmap(roadmapId);
@@ -64,17 +87,26 @@ export function RoadmapDetail({ roadmapId }: { roadmapId: string }) {
   return <RoadmapLine roadmap={roadmap} />;
 }
 
+interface Adjustment {
+  changes: AdjustmentChangesDto;
+  summary: string;
+}
+
 function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
   const toggle = useToggleTopic(roadmap.id);
-  const [changes, setChanges] = useState<AdjustmentChangesDto | null>(null);
+  const [adjustment, setAdjustment] = useState<Adjustment | null>(null);
+  const changes = adjustment?.changes ?? null;
   /** Só o que o usuário abriu/fechou na mão; o resto segue o padrão por estado. */
   const [openOverrides, setOpenOverrides] = useState<Record<string, boolean>>({});
 
   const states = moduleStates(roadmap.modules);
-  const doneModules = states.filter((state) => state === "done").length;
+  const facts = roadmapFacts(roadmap.modules);
   const hoursLeft = remainingHours(roadmap.modules);
   const weeksLeft = estimatedWeeks(hoursLeft, roadmap.weeklyHours);
   const isFinished = roadmap.progress.percent === 100;
+  const nextTopic = firstPendingTopic(roadmap.modules);
+  const started = roadmap.progress.completedTopics > 0;
+  const area = AREA_LABELS[roadmap.targetArea];
 
   function highlightOf(topicId: string): TopicHighlight | undefined {
     if (!changes) return undefined;
@@ -93,6 +125,16 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
     );
   }
 
+  const factsLine = [
+    `${facts.stations} ${facts.stations === 1 ? "estação" : "estações"}`,
+    `${facts.stops} ${facts.stops === 1 ? "parada" : "paradas"}`,
+    facts.checkpoints > 0 &&
+      `${facts.checkpoints} ${facts.checkpoints === 1 ? "checkpoint" : "checkpoints"}`,
+    hoursLeft > 0 && `~${hoursLeft}h pela frente`,
+    weeksLeft !== null &&
+      `≈ ${weeksLeft} ${weeksLeft === 1 ? "semana" : "semanas"} no seu ritmo`,
+  ].filter(Boolean) as string[];
+
   return (
     <div
       className={cn(
@@ -100,21 +142,30 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
         "flex flex-col gap-8 duration-300 animate-in fade-in-0",
       )}
     >
-      <Link
-        href="/dashboard"
-        className="text-muted-foreground hover:text-foreground -my-2 flex min-h-11 w-fit items-center gap-1.5 rounded-md text-sm font-medium transition-colors"
-      >
-        <ArrowLeft className="size-4" />
-        Meus roadmaps
-      </Link>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink
+              render={<Link href="/dashboard" />}
+              className="flex min-h-11 items-center font-medium"
+            >
+              Meus roadmaps
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage className="font-medium">Trilha {area}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       {/* Cabeçalho: a faixa superior carrega a cor da trilha. */}
-      <header className="border-border bg-card overflow-hidden rounded-lg border">
+      <header className="border-border bg-card -mt-4 overflow-hidden rounded-lg border">
         <div className="bg-line h-2" aria-hidden="true" />
-        <div className="flex flex-col gap-6 p-6 sm:p-8">
+        <div className="flex flex-col gap-6 p-5 sm:p-8">
           <div className="flex flex-col gap-2">
             <div className="flex flex-wrap items-start justify-between gap-3">
-              <h1>Trilha {AREA_LABELS[roadmap.targetArea]}</h1>
+              <h1>Trilha {area}</h1>
               <Link
                 href={`/roadmaps/${roadmap.id}/evolucao`}
                 className={buttonVariants({ variant: "outline", size: "sm" })}
@@ -123,20 +174,52 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
                 Sua evolução
               </Link>
             </div>
-            <p className="data-label text-ink-faint">
-              {doneModules}/{roadmap.modules.length} módulos
-              {hoursLeft > 0 && ` · ~${hoursLeft}h pela frente`}
-              {weeksLeft !== null &&
-                ` · ≈ ${weeksLeft} ${weeksLeft === 1 ? "semana" : "semanas"} no seu ritmo`}
-              {isFinished && " · rota concluída"}
+            {/* Ficha (D1): quebra em mais linhas no celular, item a item. */}
+            <p className="data-label text-ink-faint flex flex-wrap gap-x-2 gap-y-0.5">
+              {factsLine.map((fact, index) => (
+                <span key={fact} className="whitespace-nowrap">
+                  {fact}
+                  {index < factsLine.length - 1 && <span aria-hidden="true"> ·</span>}
+                </span>
+              ))}
             </p>
           </div>
 
           <RouteProgress
             progress={roadmap.progress}
             stops={roadmap.modules.length + 1}
-            reached={doneModules}
+            reached={states.filter((state) => state === "done").length}
           />
+
+          {/* O que fazer agora (D2): a próxima parada, a um clique. */}
+          {nextTopic ? (
+            <Link
+              href={studyHref(roadmap.id, nextTopic.id)}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "h-auto min-h-12 w-full min-w-0 justify-between py-2.5 text-left whitespace-normal sm:w-fit sm:max-w-full sm:justify-start sm:whitespace-nowrap",
+              )}
+            >
+              <span className="line-clamp-2 sm:truncate">
+                {started ? "Continuar" : "Começar por"}: {nextTopic.title}
+              </span>
+              <ArrowRight className="size-5 shrink-0" />
+            </Link>
+          ) : (
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <p className="flex items-center gap-2 font-semibold">
+                <Check className="text-line size-5" strokeWidth={3} />
+                Rota concluída
+              </p>
+              <Link
+                href={`/roadmaps/${roadmap.id}/evolucao`}
+                className="text-brand-ink hover:bg-muted -mx-2 flex min-h-11 items-center gap-1.5 rounded-md px-2 text-sm font-semibold"
+              >
+                Ver sua evolução
+                <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          )}
 
           <Collapsible className="border-border border-t pt-4">
             <CollapsibleTrigger className="group/why text-muted-foreground hover:text-foreground flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-md text-sm font-medium transition-colors">
@@ -154,30 +237,55 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
 
       <RoadmapAdjustPanel
         roadmapId={roadmap.id}
-        onAdjusted={(next) => {
-          setChanges(next);
+        onAdjusted={(next, summary) => {
+          setAdjustment({ changes: next, summary });
           setOpenOverrides({});
         }}
-        preservedCount={changes?.preservedTopicIds.length ?? 0}
       />
 
-      {toggle.isError && (
-        <Alert variant="destructive">
-          <AlertCircle />
-          <AlertDescription>
-            Não foi possível salvar essa alteração. Tente novamente.
-          </AlertDescription>
-        </Alert>
-      )}
+      <div className="flex flex-col gap-5">
+        {adjustment && (
+          <Alert role="status" className="border-brand-line bg-brand-soft">
+            <RerouteIcon className="text-brand-ink" />
+            <AlertTitle>Rota reajustada</AlertTitle>
+            <AlertDescription className="flex flex-col gap-1">
+              <span>{adjustment.summary}</span>
+              {adjustment.changes.preservedTopicIds.length > 0 && (
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck className="text-success-ink size-4 shrink-0" />
+                  {adjustment.changes.preservedTopicIds.length}{" "}
+                  {adjustment.changes.preservedTopicIds.length === 1
+                    ? "tópico concluído foi preservado."
+                    : "tópicos concluídos foram preservados."}
+                </span>
+              )}
+            </AlertDescription>
+          </Alert>
+        )}
 
-      {/* A linha: um <ol> em que cada item desenha sua estação e o trecho até a próxima. */}
-      <ol className="flex flex-col">
+        {toggle.isError && (
+          <Alert variant="destructive">
+            <AlertCircle />
+            <AlertDescription>
+              Não foi possível salvar essa alteração. Tente novamente.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        <LineLegend />
+      </div>
+
+      {/* A linha: um <ol> em que cada item desenha sua estação e o trecho até a
+          próxima. Começa na origem e termina na estação terminal (D17). */}
+      <ol className="flex flex-col" aria-label={`Linha ${area}`}>
+        <OriginStation createdAt={roadmap.createdAt} started={started} />
+
         {roadmap.modules.map((module, index) => {
           const state = states[index];
           const open = isOpen(module, state);
           const completed = module.topics.filter((topic) => topic.isCompleted).length;
-          const isLast = index === roadmap.modules.length - 1;
-          const panelId = `module-${module.id}`;
+          const total = module.topics.length;
+          const hours = moduleHours(module);
 
           return (
             <li key={module.id} className="relative flex gap-4 sm:gap-6">
@@ -186,7 +294,7 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
                 <span
                   className={cn(
                     "data-label flex size-8 shrink-0 items-center justify-center rounded-full transition-colors duration-300",
-                    state === "done" && "bg-line text-white",
+                    state === "done" && "bg-line text-white dark:text-primary-foreground",
                     state === "current" &&
                       "border-line bg-background text-foreground border-[3px]",
                     state === "upcoming" &&
@@ -199,81 +307,64 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
                     String(index + 1).padStart(2, "0")
                   )}
                 </span>
-                {!isLast && (
-                  <span
-                    className={cn(
-                      "my-1 w-0 flex-1 border-l-[3px]",
-                      state === "done"
-                        ? "border-line"
-                        : "border-input border-dashed",
-                    )}
-                  />
-                )}
+                <RailSegment travelled={state === "done"} />
               </div>
 
-              {/* conteúdo da estação */}
-              <div className={cn("min-w-0 flex-1", !isLast && "pb-6")}>
-                <div
+              {/* conteúdo da estação, sempre do mesmo lado do trilho */}
+              <div className="min-w-0 flex-1 pb-6">
+                <Collapsible
+                  open={open}
+                  onOpenChange={(next) =>
+                    setOpenOverrides((current) => ({ ...current, [module.id]: next }))
+                  }
                   className={cn(
                     "rounded-lg border transition-colors",
                     state === "current"
                       ? "border-foreground/25 bg-card shadow-[0_3px_0_var(--border)]"
-                      : "border-border bg-card",
+                      : state === "upcoming"
+                        ? "border-border bg-card/60 border-dashed"
+                        : "border-border bg-card",
                   )}
                 >
                   <h2 className="text-xl">
-                    <button
-                      type="button"
-                      aria-expanded={open}
-                      aria-controls={panelId}
-                      onClick={() =>
-                        setOpenOverrides((current) => ({
-                          ...current,
-                          [module.id]: !open,
-                        }))
-                      }
-                      className="flex min-h-14 w-full items-center justify-between gap-3 rounded-lg px-5 py-3 text-left"
-                    >
-                      <span
-                        className={cn(
-                          "flex flex-col gap-0.5",
-                          state === "upcoming" && !open && "text-muted-foreground",
-                        )}
-                      >
+                    <CollapsibleTrigger className="group/station flex min-h-14 w-full cursor-pointer items-center justify-between gap-3 rounded-lg px-4 py-3 text-left sm:px-5">
+                      <span className="flex min-w-0 flex-col gap-1">
                         {state === "current" && (
                           <span className="text-brand-ink font-sans text-xs font-semibold tracking-normal">
                             Você está aqui
                           </span>
                         )}
-                        {module.title}
+                        <span className={cn(state === "upcoming" && "text-muted-foreground")}>
+                          <span className="sr-only">Estação {index + 1}: </span>
+                          {module.title}
+                        </span>
+                        {/* D3: contagem e horas da própria estação. */}
+                        <span className="data-label text-ink-faint font-sans tracking-normal">
+                          {completed}/{total} {total === 1 ? "parada" : "paradas"}
+                          {hours > 0 && ` · ~${hours}h`}
+                          {state === "done" && <span className="sr-only"> (concluída)</span>}
+                        </span>
                       </span>
                       <span className="flex shrink-0 items-center gap-2">
-                        <span
-                          className={cn(
-                            "data-label tracking-normal",
-                            state === "done" ? "text-success-ink" : "text-ink-faint",
-                          )}
-                        >
-                          {completed}/{module.topics.length}
-                        </span>
-                        <ChevronDown
-                          className={cn(
-                            "text-ink-faint size-4 transition-transform",
-                            open && "rotate-180",
-                          )}
-                        />
+                        {state === "done" && (
+                          <span className="data-label text-success-ink flex items-center gap-1 tracking-normal">
+                            <Check className="size-3.5" strokeWidth={3} aria-hidden="true" />
+                            {completed}/{total}
+                          </span>
+                        )}
+                        <ChevronDown className="text-ink-faint size-4 transition-transform group-data-[panel-open]/station:rotate-180" />
                       </span>
-                    </button>
+                    </CollapsibleTrigger>
                   </h2>
+                  <Progress
+                    value={total > 0 ? Math.round((completed / total) * 100) : 0}
+                    aria-label={`Estação ${index + 1}: ${completed} de ${total} paradas`}
+                    className="px-4 pb-3 sm:px-5 [&_[data-slot=progress-track]]:h-1"
+                  />
 
-                  {open && (
-                    <div
-                      id={panelId}
-                      className="border-border flex flex-col gap-3 border-t px-5 pt-4 pb-3 duration-200 animate-in fade-in-0"
-                    >
-                      <p className="text-muted-foreground text-sm">
-                        {module.description}
-                      </p>
+                  <CollapsibleContent>
+                    <div className="border-border flex flex-col gap-3 border-t px-4 pt-4 pb-3 sm:px-5">
+                      <p className="text-muted-foreground text-sm">{module.description}</p>
                       <div className="flex flex-col">
                         {module.topics.map((topic) => (
                           <TopicCheckbox
@@ -282,16 +373,24 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
                             onToggle={toggle.mutate}
                             highlight={highlightOf(topic.id)}
                             studyHref={studyHref(roadmap.id, topic.id)}
+                            current={topic.id === nextTopic?.id}
                           />
                         ))}
                       </div>
                     </div>
-                  )}
-                </div>
+                  </CollapsibleContent>
+                </Collapsible>
               </div>
             </li>
           );
         })}
+
+        <TerminalStation
+          roadmapId={roadmap.id}
+          stations={facts.stations}
+          totalHours={facts.totalHours}
+          reached={isFinished}
+        />
       </ol>
 
       {/* Ação destrutiva no fim da página: fora do caminho de quem só veio

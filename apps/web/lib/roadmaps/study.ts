@@ -53,6 +53,20 @@ export function locateTopic(
 }
 
 /**
+ * Próxima parada da rota: a primeira não concluída na ordem de estudo (o
+ * botão "Continuar" do detalhe). Nula quando tudo está concluído.
+ */
+export function firstPendingTopic(
+  modules: PersistedModuleDto[],
+): PersistedTopicDto | null {
+  for (const station of byOrder(modules)) {
+    const pending = byOrder(station.topics).find((topic) => !topic.isCompleted);
+    if (pending) return pending;
+  }
+  return null;
+}
+
+/**
  * Estado de uma parada para o marcador (BASE §3.4). "Em andamento" não é um
  * estado salvo: vem dos recursos, quando algum já foi aberto ou assistido.
  */
