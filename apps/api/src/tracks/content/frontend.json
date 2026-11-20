@@ -80,6 +80,23 @@
               "answerIndex": 2,
               "explanation": "O código 404 indica que o recurso não foi localizado. Erros internos usam a faixa 500 e permissões usam a faixa 403."
             }
+          ],
+          "videos": [
+            {
+              "title": "Entenda como o HTTP e o HTTPS funcionam",
+              "url": "https://www.youtube.com/watch?v=z9zdf63NV1I",
+              "channel": "Bits Conceituais"
+            },
+            {
+              "title": "🌎 Como funciona a Internet? O que é Servidor Web? (Explicação Simples e Prática) #webserver",
+              "url": "https://www.youtube.com/watch?v=fqR5SymRgLQ",
+              "channel": "Professor José de Assis"
+            },
+            {
+              "title": "Protocolo HTTP - Aprenda na Prática como o Navegador e o Servidor se comunicam",
+              "url": "https://www.youtube.com/watch?v=4v3w1Huc48Q",
+              "channel": "TrilhaCoder"
+            }
           ]
         },
         {
@@ -149,6 +166,18 @@
               ],
               "answerIndex": 1,
               "explanation": "O `settings.json` centraliza as preferências do usuário, como tamanho de fonte, tema e comportamento do editor."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Instalação e Configuração do Visual Studio Code para Web com extensões e temas em 6 minutos",
+              "url": "https://www.youtube.com/watch?v=vsAH0h8b_kM",
+              "channel": "bit loop"
+            },
+            {
+              "title": "CURSO DE HTML - AULA 1 - INSTALAÇÃO DO VSCODE E EXTENSÕES",
+              "url": "https://www.youtube.com/watch?v=sOVMmyPVVhE",
+              "channel": "Classe Final"
             }
           ]
         },
@@ -224,6 +253,23 @@
               "answerIndex": 3,
               "explanation": "O comando pwd exibe o diretório de trabalho atual. Em alguns sistemas Windows o equivalente pode variar, mas pwd é o padrão."
             }
+          ],
+          "videos": [
+            {
+              "title": "Aprenda os comandos básicos do Linux - Terminal Ubuntu",
+              "url": "https://www.youtube.com/watch?v=JEhVB4VHsTI",
+              "channel": "Diolinux"
+            },
+            {
+              "title": "Como Usar o Terminal: Comandos Básicos no Windows, Linux e Mac | Tutorial para Iniciantes",
+              "url": "https://www.youtube.com/watch?v=KGsXL1subjw",
+              "channel": "Seu Nicolau"
+            },
+            {
+              "title": "Comandos Básicos do Linux | Guia para Iniciantes - Terminal Linux",
+              "url": "https://www.youtube.com/watch?v=CnYraL0J_hM",
+              "channel": "Vagner Fonseca"
+            }
           ]
         },
         {
@@ -298,6 +344,18 @@
               "answerIndex": 0,
               "explanation": "O comando checkout (ou switch) altera os arquivos do seu diretório para refletir o estado da branch selecionada."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de Git e Github Para Iniciantes",
+              "url": "https://www.youtube.com/watch?v=Kyw91mqCHD0",
+              "channel": "Programação Web"
+            },
+            {
+              "title": "Curso de Git & GitHub Para Completos Iniciantes",
+              "url": "https://www.youtube.com/watch?v=Yp0RRTdtkqY",
+              "channel": "Felipe Rocha • Full Stack Club"
+            }
           ]
         },
         {
@@ -368,6 +426,23 @@
               "answerIndex": 3,
               "explanation": "Se você fez commits locais, o remoto fica desatualizado até que você use o `git push` para sincronizá-los."
             }
+          ],
+          "videos": [
+            {
+              "title": "🚀#7 Como criar um PR (Pull Request) - Curso de Git e GitHub",
+              "url": "https://www.youtube.com/watch?v=glUSV7MSDo4",
+              "channel": "Yuri Marcon"
+            },
+            {
+              "title": "🌎 Curso GIT e GITHUB - Fork e Pull Request - Exemplo simples e prático - #11",
+              "url": "https://www.youtube.com/watch?v=l1rwvDvD1og",
+              "channel": "Professor José de Assis"
+            },
+            {
+              "title": "Como Fazer um Pull-Request no GitHub (E Como Aceitar)",
+              "url": "https://www.youtube.com/watch?v=xM-bZSDGjzA",
+              "channel": "SD Inovações"
+            }
           ]
         },
         {
@@ -433,6 +508,23 @@
               ],
               "answerIndex": 0,
               "explanation": "O navegador é o cliente que inicia o ciclo requisitando a página, enquanto o servidor remoto processa e devolve a resposta."
+            }
+          ],
+          "videos": [
+            {
+              "title": "O que é domínio, DNS, hospedagem e qual a diferença entre .com e .com.br",
+              "url": "https://www.youtube.com/watch?v=jZiqYQYwnfU",
+              "channel": "Davide Almeida"
+            },
+            {
+              "title": "O que é DNS e como funciona 🤔 Apontamento DNS 🗺️",
+              "url": "https://www.youtube.com/watch?v=XoLQHCPZS9s",
+              "channel": "HostGator Brasil"
+            },
+            {
+              "title": "O que é DNS?",
+              "url": "https://www.youtube.com/watch?v=YdoLa_ONO6c",
+              "channel": "Gnew"
             }
           ]
         }
@@ -516,6 +608,23 @@
               "answerIndex": 0,
               "explanation": "O elemento <footer> representa o rodapé de seu ancestral mais próximo, contendo informações sobre autor, links legais ou dados de contato."
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso HTML Completo (4 Horas)",
+              "url": "https://www.youtube.com/watch?v=nPEpaft1y1k",
+              "channel": "Programação Web"
+            },
+            {
+              "title": "Curso de HTML5 e CSS3 - Tags article e section - Conceitos e Diferenças #06",
+              "url": "https://www.youtube.com/watch?v=7-ZmUBvqn74",
+              "channel": "Emerson Carvalho - PontoCanal"
+            },
+            {
+              "title": "#6 – Estruturação da página utilizando tags Semânticas do HTML5",
+              "url": "https://www.youtube.com/watch?v=6V3msF_YBQk",
+              "channel": "Prof. Tiago Segato"
+            }
           ]
         },
         {
@@ -589,6 +698,23 @@
               ],
               "answerIndex": 2,
               "explanation": "O placeholder serve como dica visual rápida do formato esperado, mas nunca deve substituir o label, pois some ao digitar e pode sumir em leitores de tela."
+            }
+          ],
+          "videos": [
+            {
+              "title": "HTML5 Tutorial: COMO VALIDAR um formulário WEB usando input e CSS",
+              "url": "https://www.youtube.com/watch?v=kF52i1U8iiQ",
+              "channel": "Mauro de Boni | Engenharia de Software"
+            },
+            {
+              "title": "Curso de HTML e CSS   Elemento Label em Formulários",
+              "url": "https://www.youtube.com/watch?v=XOGaBMM3O10",
+              "channel": "Bóson Treinamentos"
+            },
+            {
+              "title": "Crie Um FORMULÁRIO COMPLETO com HTML, CSS & JavaScript",
+              "url": "https://www.youtube.com/watch?v=3Ec9zY1C2og",
+              "channel": "Felipe Rocha • Full Stack Club"
             }
           ]
         },
@@ -664,6 +790,23 @@
               "answerIndex": 2,
               "explanation": "O elemento footer possui semântica própria para rodapés, enquanto bottom não existe no HTML padrão e div não transmite significado de acessibilidade."
             }
+          ],
+          "videos": [
+            {
+              "title": "HTML Acessibilidade: Aula #01 - Introdução ao atributo role e aria",
+              "url": "https://www.youtube.com/watch?v=sCHO4A-EIkc",
+              "channel": "Programador Cego"
+            },
+            {
+              "title": "Acessibilidade em páginas web",
+              "url": "https://www.youtube.com/watch?v=pOmdL9LzDJg",
+              "channel": "Matheus Castiglioni"
+            },
+            {
+              "title": "Teste e corrija o contraste de cores do seu site (WCAG)",
+              "url": "https://www.youtube.com/watch?v=bjn60fJRsI4",
+              "channel": "Aylton Inacio"
+            }
           ]
         },
         {
@@ -730,6 +873,23 @@
               "answerIndex": 0,
               "explanation": "O uso de <source> permite oferecer diferentes formatos e resoluções, dando flexibilidade para o navegador escolher a melhor opção."
             }
+          ],
+          "videos": [
+            {
+              "title": "Imagens Responsivas em HTML: tutorial usando srcset e sizes",
+              "url": "https://www.youtube.com/watch?v=0voi7aYqYZo",
+              "channel": "Mauro de Boni | Engenharia de Software"
+            },
+            {
+              "title": "Curso de HTML5 - 31 - Áudio e Vídeo em HTML5 - by Gustavo Guanabara",
+              "url": "https://www.youtube.com/watch?v=SDAr3NIbIVM",
+              "channel": "Curso em Vídeo"
+            },
+            {
+              "title": "Como inserir vídeo e áudio no site com HTML5",
+              "url": "https://www.youtube.com/watch?v=YQ9SPWTmr9M",
+              "channel": "Estudar TI"
+            }
           ]
         },
         {
@@ -795,6 +955,23 @@
               ],
               "answerIndex": 1,
               "explanation": "A descrição deve ser única, clara e relevante para o usuário. Textos repetidos ou cheios de palavras-chave artificiais são desvalorizados."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como utilizar a meta tag Title e Description para melhorar o SEO do seu site!",
+              "url": "https://www.youtube.com/watch?v=uObsi0FhuPc",
+              "channel": "Prof Roberto Oliveira"
+            },
+            {
+              "title": "Cadê a prévia de compartilhamento do meu site nas redes socias?",
+              "url": "https://www.youtube.com/watch?v=WLzL5UnSTM8",
+              "channel": "Aylton Inacio"
+            },
+            {
+              "title": "Open Graph Facebook: Controle como seu site é compartilhado",
+              "url": "https://www.youtube.com/watch?v=DFMB8P2kb1I",
+              "channel": "Aylton Inacio"
             }
           ]
         }
@@ -882,6 +1059,28 @@
               "answerIndex": 0,
               "explanation": "O caractere cerquilha (#) denota um seletor de ID no CSS. O ponto (.) é usado para classes."
             }
+          ],
+          "videos": [
+            {
+              "title": "Cascata, Especificidade e Herança em CSS: A Chave para Estilos Eficientes - Aprenda HTML5 & CSS3 #15",
+              "url": "https://www.youtube.com/watch?v=QtxI8bdwjJg",
+              "channel": "Crônicas de Código"
+            },
+            {
+              "title": "Aprenda todos os seletores css do básico ao avançado",
+              "url": "https://www.youtube.com/watch?v=Gu-IPxZux-w",
+              "channel": "CssDescomplicado"
+            },
+            {
+              "title": "Curso de CSS: Especificidade - Aula 4",
+              "url": "https://www.youtube.com/watch?v=7LeufwIL08w",
+              "channel": "Fellyph Cintra"
+            },
+            {
+              "title": "Como Usar Seletores no CSS: Tags, Class e ID",
+              "url": "https://www.youtube.com/watch?v=FdI5FG9yBOA",
+              "channel": "Programação para iniciantes"
+            }
           ]
         },
         {
@@ -956,6 +1155,23 @@
               "answerIndex": 2,
               "explanation": "O border-box altera o cálculo padrão, fazendo com que padding e border fiquem contidos dentro do width informado, facilitando o layout."
             }
+          ],
+          "videos": [
+            {
+              "title": "Unidades de medida no CSS (px, em, rem, vw, vh, vmax, vmin e %) - Curso de HTML e CSS - Aula 26",
+              "url": "https://www.youtube.com/watch?v=xCvXXIOQtwI",
+              "channel": "Otávio Miranda"
+            },
+            {
+              "title": "Dominando as Unidades de Medidas CSS px, em, rem, vh, vw e ch (CSS Units) - Aprenda HTML5 & CSS3 #16",
+              "url": "https://www.youtube.com/watch?v=RFgVJdG8trw",
+              "channel": "Crônicas de Código"
+            },
+            {
+              "title": "Em e Rem em CSS de uma vez por todas",
+              "url": "https://www.youtube.com/watch?v=qUSg2OwgJ88",
+              "channel": "3DSNC"
+            }
           ]
         },
         {
@@ -1025,6 +1241,23 @@
               ],
               "answerIndex": 2,
               "explanation": "O space-around coloca espaços iguais nas duas extremidades de cada item, fazendo com que o espaço entre itens seja o dobro do espaço nas pontas."
+            }
+          ],
+          "videos": [
+            {
+              "title": "CSS Flexbox - Tudo o que você precisa saber",
+              "url": "https://www.youtube.com/watch?v=3C7v3S-tnFw",
+              "channel": "Otávio Miranda"
+            },
+            {
+              "title": "DESCOMPLICANDO o CSS Flexbox 🤯  [curso gratuito no final]",
+              "url": "https://www.youtube.com/watch?v=gOMK_xruAqc",
+              "channel": "Mayk Brito"
+            },
+            {
+              "title": "CSS Flexbox - Entendendo suas propriedades",
+              "url": "https://www.youtube.com/watch?v=CVJekim0HIg",
+              "channel": "TreinaWeb"
             }
           ]
         },
@@ -1096,6 +1329,23 @@
               "answerIndex": 2,
               "explanation": "A unidade fr calcula o tamanho com base no espaço livre restante do container, adaptando-se a diferentes telas."
             }
+          ],
+          "videos": [
+            {
+              "title": "CSS Grid Layout na prática (parte 1) - @CursoemVideo HTML5 + CSS3",
+              "url": "https://www.youtube.com/watch?v=1FKUfMWBcLM",
+              "channel": "Curso em Vídeo"
+            },
+            {
+              "title": "O que é Grid Layout? - @CursoemVideo HTML5 + CSS3",
+              "url": "https://www.youtube.com/watch?v=p8q2_VIk-2Y",
+              "channel": "Curso em Vídeo"
+            },
+            {
+              "title": "CSS Grid - Entendendo seus conceitos",
+              "url": "https://www.youtube.com/watch?v=xsg2nCNvkr0",
+              "channel": "TreinaWeb"
+            }
           ]
         },
         {
@@ -1161,6 +1411,18 @@
               ],
               "answerIndex": 2,
               "explanation": "A propriedade min-width indica que a regra vale para 768px ou mais."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Media queries para design responsivo - Curso de HTML e CSS - Aula 29",
+              "url": "https://www.youtube.com/watch?v=mYipHGv5adU",
+              "channel": "Otávio Miranda"
+            },
+            {
+              "title": "Media Queries na prática - Web Design Responsivo",
+              "url": "https://www.youtube.com/watch?v=LjNZjqFnlDM",
+              "channel": "Arnaldo Junior"
             }
           ]
         },
@@ -1235,6 +1497,23 @@
               ],
               "answerIndex": 0,
               "explanation": "Variáveis CSS são manipuladas em JavaScript através do método setProperty no objeto style do elemento. Acesso direto por ponto não funciona."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Aprenda a fazer animações com CSS (Transition e Transform)",
+              "url": "https://www.youtube.com/watch?v=mNLDrNBp7DU",
+              "channel": "Larissa Kich"
+            },
+            {
+              "title": "HTML5 E CSS3 AVANÇADO - ANIMAÇÃO #4 - COMO USAR KEYFRAMES NO CSS?",
+              "url": "https://www.youtube.com/watch?v=x432AZJ1hgA",
+              "channel": "Desenvolvedor Web"
+            },
+            {
+              "title": "AULA de TRANSITION - ENTENDA TODAS as PROPRIEDADES do CSS TRANSITION e COMO UTILIZAR no seu SITE",
+              "url": "https://www.youtube.com/watch?v=LUX2qkodA0c",
+              "channel": "Oi Pedim"
             }
           ]
         }
@@ -1337,6 +1616,23 @@
                 "/exercicio.js": "export function celsiusParaFahrenheit(celsius) {\n  return (Number(celsius) * 9) / 5 + 32;\n}\n"
               }
             }
+          ],
+          "videos": [
+            {
+              "title": "Fundamentos de Programação com JavaScript Curso Completo (+8 horas de vídeo)",
+              "url": "https://www.youtube.com/watch?v=aA31cVca_hI",
+              "channel": "freeCodeCamp em Português"
+            },
+            {
+              "title": "BÁSICOS DO JAVASCRIPT, Variáveis, Tipos, Condições, Operadores, Switch  | Curso JS  - 01 | 2022",
+              "url": "https://www.youtube.com/watch?v=07JumUI3zPg",
+              "channel": "João Pster"
+            },
+            {
+              "title": "Curso de JAVASCRIPT #Aula2 [Tudo sobre VARIÁVEIS JAVASCRIPT]",
+              "url": "https://www.youtube.com/watch?v=LiNYvhZ1u5c",
+              "channel": "Alexandre Leutz"
+            }
           ]
         },
         {
@@ -1425,6 +1721,23 @@
               "solution": {
                 "/exercicio.js": "export function fizzBuzz(n) {\n  const resultado = [];\n  for (let i = 1; i <= n; i++) {\n    if (i % 15 === 0) resultado.push(\"FizzBuzz\");\n    else if (i % 3 === 0) resultado.push(\"Fizz\");\n    else if (i % 5 === 0) resultado.push(\"Buzz\");\n    else resultado.push(String(i));\n  }\n  return resultado;\n}\n"
               }
+            }
+          ],
+          "videos": [
+            {
+              "title": "Laços de repetição em Javascript - do-while, while e for | Aprendendo a Programar com JS #4",
+              "url": "https://www.youtube.com/watch?v=tqwRRVOh3ME",
+              "channel": "Angelo Luz"
+            },
+            {
+              "title": "Laços de repetição - for, while, do while e forEach no JavaScript",
+              "url": "https://www.youtube.com/watch?v=SYMxV4HM224",
+              "channel": "Douglas Dev"
+            },
+            {
+              "title": "Estruturas Condicionais em JavaScript (if, else e else if) #aprenderprogramar",
+              "url": "https://www.youtube.com/watch?v=3jvMfNS7XE8",
+              "channel": "Bora Programar Kids"
             }
           ]
         },
@@ -1515,6 +1828,23 @@
                 "/exercicio.js": "export function criarContador(inicio = 0) {\n  let atual = inicio;\n  return {\n    incrementar: () => ++atual,\n    decrementar: () => --atual,\n    valor: () => atual,\n  };\n}\n"
               }
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de JavaScript #10 - Funções & Arrow Functions",
+              "url": "https://www.youtube.com/watch?v=y-KOA4BcqUk",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "CURSO DE JAVASCRIPT #07 - Escopo, hoisting e outros assuntos",
+              "url": "https://www.youtube.com/watch?v=Sx3Kh6UVCOI",
+              "channel": "Matheus Battisti - Hora de Codar"
+            },
+            {
+              "title": "Curso de JavaScript #8 - Closures (2020)",
+              "url": "https://www.youtube.com/watch?v=MR8IyuhrDK8",
+              "channel": "Ayrton Teshima - Programador a Bordo"
+            }
           ]
         },
         {
@@ -1599,6 +1929,23 @@
               "solution": {
                 "/exercicio.js": "export function contarPalavras(texto) {\n  const contagem = {};\n  const palavras = texto.toLowerCase().split(\" \").filter((palavra) => palavra !== \"\");\n  for (const palavra of palavras) {\n    contagem[palavra] = (contagem[palavra] || 0) + 1;\n  }\n  return contagem;\n}\n"
               }
+            }
+          ],
+          "videos": [
+            {
+              "title": "Arrays em JavaScript Para Iniciantes [GUIA DEFINITIVO]",
+              "url": "https://www.youtube.com/watch?v=oAqloSDtdrM",
+              "channel": "Brazilian Dev"
+            },
+            {
+              "title": "Como Trabalhar com Arrays em Javascript? Aula para Iniciantes 🔥",
+              "url": "https://www.youtube.com/watch?v=Y0bHvvOncmo",
+              "channel": "Serliv | Daniel Tapias Morales"
+            },
+            {
+              "title": "Introdução a Arrays e Objects no JavaScript.",
+              "url": "https://www.youtube.com/watch?v=JKSOQ8OlKXI",
+              "channel": "Vinicius Dacal"
             }
           ]
         },
@@ -1689,6 +2036,23 @@
                 "/exercicio.js": "export function resumoDoCarrinho(itens) {\n  const totalItens = itens.reduce((soma, item) => soma + item.quantidade, 0);\n  const valorTotal = itens.reduce((soma, item) => soma + item.preco * item.quantidade, 0);\n  const maisCaro = itens.reduce(\n    (maior, item) => (maior === null || item.preco > maior.preco ? item : maior),\n    null,\n  );\n  return {\n    totalItens,\n    valorTotal: Math.round(valorTotal * 100) / 100,\n    maisCaro: maisCaro ? maisCaro.nome : null,\n  };\n}\n"
               }
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de JavaScript #11 - map, filter e reduce (2020)",
+              "url": "https://www.youtube.com/watch?v=D_MExaVe95w",
+              "channel": "Ayrton Teshima - Programador a Bordo"
+            },
+            {
+              "title": "Curso de JavaScript #04 - Map, Filter & Reduce",
+              "url": "https://www.youtube.com/watch?v=mgnSSwgTiFU",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "ARRAYS no JAVASCRIPT para INICIANTES (forEach, map, find, filter e reduce)",
+              "url": "https://www.youtube.com/watch?v=k3Yj7iEiCuU",
+              "channel": "Coffstack"
+            }
           ]
         },
         {
@@ -1777,6 +2141,23 @@
               "solution": {
                 "/exercicio.js": "export function mesclarConfig(padrao, personalizada = {}) {\n  const { tema = {}, ...resto } = personalizada;\n  return { ...padrao, ...resto, tema: { ...padrao.tema, ...tema } };\n}\n"
               }
+            }
+          ],
+          "videos": [
+            {
+              "title": "Import e export em JavaScript",
+              "url": "https://www.youtube.com/watch?v=I8cDieBWXQc",
+              "channel": "runCode"
+            },
+            {
+              "title": "Destructuring + rest/spread operator - Manipular objetos e arrays como um mestre",
+              "url": "https://www.youtube.com/watch?v=S1_THoiTBvU",
+              "channel": "Kevin Beltrão"
+            },
+            {
+              "title": "Spread Operator (JS): Tudo que você precisa saber!",
+              "url": "https://www.youtube.com/watch?v=W7xDTAxyDN0",
+              "channel": "LuizTools"
             }
           ]
         }
@@ -1875,6 +2256,23 @@
                 "/exercicio.js": "export function renderizarLista(container, itens) {\n  container.textContent = \"\";\n  if (itens.length === 0) {\n    const vazio = document.createElement(\"p\");\n    vazio.textContent = \"Nenhum item\";\n    container.append(vazio);\n    return;\n  }\n  const lista = document.createElement(\"ul\");\n  for (const item of itens) {\n    const li = document.createElement(\"li\");\n    li.textContent = item;\n    lista.append(li);\n  }\n  container.append(lista);\n}\n"
               }
             }
+          ],
+          "videos": [
+            {
+              "title": "querySelector e querySelectorAll. Manipulando DOM #P4 - Curso de Javascript Moderno - Aula 33",
+              "url": "https://www.youtube.com/watch?v=2V7rfcVg5UQ",
+              "channel": "CFBCursos"
+            },
+            {
+              "title": "JavaScript DOM: Aula #08 - document.querySelector e document.querySelectorAll",
+              "url": "https://www.youtube.com/watch?v=lCtlEPV1vxk",
+              "channel": "Programador Cego"
+            },
+            {
+              "title": "Curso de JavaScript #13 - Manipulando Elementos do DOM",
+              "url": "https://www.youtube.com/watch?v=yDWLxaRQl5Q",
+              "channel": "Felipe Rocha • Full Stack Club"
+            }
           ]
         },
         {
@@ -1959,6 +2357,23 @@
               "solution": {
                 "/exercicio.js": "export function criarBotaoContador(container) {\n  let cliques = 0;\n  const botao = document.createElement(\"button\");\n  botao.type = \"button\";\n  botao.textContent = \"Cliques: 0\";\n  botao.addEventListener(\"click\", () => {\n    cliques += 1;\n    botao.textContent = `Cliques: ${cliques}`;\n  });\n  container.append(botao);\n  return botao;\n}\n"
               }
+            }
+          ],
+          "videos": [
+            {
+              "title": "Curso de Javascript #33 - addEventListener (Eventos)",
+              "url": "https://www.youtube.com/watch?v=rKjEHhudwvU",
+              "channel": "CFBCursos"
+            },
+            {
+              "title": "Introdução a Eventos no Javascript - Usando o addEventListener",
+              "url": "https://www.youtube.com/watch?v=pQheR_EeUjM",
+              "channel": "Professor Miltin"
+            },
+            {
+              "title": "Aprenda EVENTOS no JAVASCRIPT em 6 Minutos",
+              "url": "https://www.youtube.com/watch?v=Cq0UFeEY6mM",
+              "channel": "DevZito"
             }
           ]
         },
@@ -2049,6 +2464,23 @@
                 "/exercicio.js": "export async function executarEmSequencia(tarefas) {\n  const resultados = [];\n  for (const tarefa of tarefas) {\n    resultados.push(await tarefa());\n  }\n  return resultados;\n}\n"
               }
             }
+          ],
+          "videos": [
+            {
+              "title": "Curso de JavaScript Assíncrono - Callbacks, Promises & Async/Await",
+              "url": "https://www.youtube.com/watch?v=WUmAAxH9n-A",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "Por Que Seu JavaScript Executa Fora de Ordem (Callbacks, Promises e Async/Await)",
+              "url": "https://www.youtube.com/watch?v=7Bs4-rqbCQc",
+              "channel": "DevPleno"
+            },
+            {
+              "title": "Promise e Callback no JavaScript - Aprenda usar o async e await e o then e catch  (Tutorial)",
+              "url": "https://www.youtube.com/watch?v=dUSLm948F7c",
+              "channel": "Coffstack"
+            }
           ]
         },
         {
@@ -2119,6 +2551,23 @@
               "answerIndex": 3,
               "explanation": "Problemas de rede impedem que a requisição seja concluída, resultando na rejeição da Promise capturada pelo `catch`."
             }
+          ],
+          "videos": [
+            {
+              "title": "Usando a Fetch API no JavaScript",
+              "url": "https://www.youtube.com/watch?v=1d5jNmKdwlY",
+              "channel": "Otávio Miranda"
+            },
+            {
+              "title": "Como CONSUMIR uma API com JAVASCRIPT PURO e colocar no HTML",
+              "url": "https://www.youtube.com/watch?v=YVf7iy2sIOw",
+              "channel": "Programando Com Roger"
+            },
+            {
+              "title": "FETCH API na Prática: Consumindo API com JavaScript",
+              "url": "https://www.youtube.com/watch?v=1O5GyaGcpos",
+              "channel": "DevZito"
+            }
           ]
         },
         {
@@ -2188,6 +2637,23 @@
               ],
               "answerIndex": 0,
               "explanation": "Quando a chave buscada não é encontrada no armazenamento, a API retorna o valor null. Um erro comum é achar que o retorno será undefined."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Aprenda a usar o Local Storage e salve dados no navegador como um PRO! 🚀🔥  - Aula #51",
+              "url": "https://www.youtube.com/watch?v=KyeCvq7QqSw",
+              "channel": "Devox"
+            },
+            {
+              "title": "Aprenda como usar localStorage com JavaScript",
+              "url": "https://www.youtube.com/watch?v=rCnC-yfZprM",
+              "channel": "Instrutor Feijó"
+            },
+            {
+              "title": "Como usar o localStorage para Armazenamento Local no Navegador",
+              "url": "https://www.youtube.com/watch?v=ewnyMjQjda0",
+              "channel": "Everton Dev"
             }
           ]
         },
@@ -2262,6 +2728,23 @@
               ],
               "answerIndex": 0,
               "explanation": "Quando um erro ocorre no bloco try, a execução pula imediatamente para o bloco catch, evitando que o script pare totalmente de funcionar."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Debugger JavaScript no Google Chrome DevTools - Aprenda a Debugar",
+              "url": "https://www.youtube.com/watch?v=ReL1M9m2wqc",
+              "channel": "hcode"
+            },
+            {
+              "title": "Curso de Javascript #22 - Tratamento de erros / try catch finally",
+              "url": "https://www.youtube.com/watch?v=AWroMPi9PXU",
+              "channel": "CFBCursos"
+            },
+            {
+              "title": "Tratamento de Exceções em JavaScript: TRY CATCH e THROW NEW ERROR na Prática",
+              "url": "https://www.youtube.com/watch?v=ClrQtlh22MU",
+              "channel": "Desvendando o Código"
             }
           ]
         }
@@ -2341,6 +2824,23 @@
               "answerIndex": 3,
               "explanation": "O script de desenvolvimento padrão gerado pelo Vite no package.json é chamado via `npm run dev`. O build serve para gerar a versão de produção."
             }
+          ],
+          "videos": [
+            {
+              "title": "AULÃO: APRENDA A GERENCIAR SEU PROJETO NODE COM O PACKAGE.JSON",
+              "url": "https://www.youtube.com/watch?v=GnXkpTW0bF8",
+              "channel": "Código Fonte TV"
+            },
+            {
+              "title": "Como criar projetos com Vite",
+              "url": "https://www.youtube.com/watch?v=RO-G9zb8SHw",
+              "channel": "Fellyph Cintra"
+            },
+            {
+              "title": "Como criar sua aplicação com Vite JS (rápido e do zero)",
+              "url": "https://www.youtube.com/watch?v=dRqZyiwuz38",
+              "channel": "laiza do conecta elas ⚡"
+            }
           ]
         },
         {
@@ -2414,6 +2914,23 @@
               ],
               "answerIndex": 1,
               "explanation": "O tipo void é utilizado especificamente para indicar que uma função não possui valor de retorno."
+            }
+          ],
+          "videos": [
+            {
+              "title": "CURSO DE TYPESCRIPT para INICIANTES | Aprenda Typescript na Prática",
+              "url": "https://www.youtube.com/watch?v=QoqDr4H2G8U",
+              "channel": "Fernanda Kipper"
+            },
+            {
+              "title": "Tutorial Typescript Iniciantes: Aprenda o Básico do Typescript",
+              "url": "https://www.youtube.com/watch?v=k7JFBZ2nHhI",
+              "channel": "Mago Acadêmico"
+            },
+            {
+              "title": "Introdução ao TypeScript para iniciantes",
+              "url": "https://www.youtube.com/watch?v=HMjXHypKF0o",
+              "channel": "Manual do Dev"
             }
           ]
         },
@@ -2489,6 +3006,23 @@
               "answerIndex": 2,
               "explanation": "O operador pipe (`|`) cria um union type permitindo múltiplos tipos válidos para a mesma variável, neste caso o objeto ou null."
             }
+          ],
+          "videos": [
+            {
+              "title": "União e Interseção de Tipos no TypeScript - Aula 07 - Curso de TypeScript 💙",
+              "url": "https://www.youtube.com/watch?v=xE2gXp6PS5s",
+              "channel": "Dev Victor Navarro"
+            },
+            {
+              "title": "Aprenda Generics com Typescript do jeito certo!",
+              "url": "https://www.youtube.com/watch?v=Gf9vS0yu7zc",
+              "channel": "Mago Acadêmico"
+            },
+            {
+              "title": "Ninguém te explica o que são GENERICS no TypeScript (até agora!)",
+              "url": "https://www.youtube.com/watch?v=5h0vKVTbSGc",
+              "channel": "Desvendando o Código"
+            }
           ]
         },
         {
@@ -2563,6 +3097,13 @@
               "answerIndex": 1,
               "explanation": "O operador typeof possui limitações em tempo de execução no JS, retornando 'object' para null e arrays, exigindo outras checagens."
             }
+          ],
+          "videos": [
+            {
+              "title": "TypeScript: Type Narrowing e Validação com Invariant",
+              "url": "https://www.youtube.com/watch?v=SXVx99SNnag",
+              "channel": "DevPleno"
+            }
           ]
         },
         {
@@ -2632,6 +3173,23 @@
               ],
               "answerIndex": 3,
               "explanation": "O Prettier utiliza arquivos de configuração dedicados, sendo o `.prettierrc` um dos mais comuns."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Configurando o EsLint e Prettier - Parte 01 - Primeiros Passos no Javascript",
+              "url": "https://www.youtube.com/watch?v=3RABbi7A4tA",
+              "channel": "Mestres da Web"
+            },
+            {
+              "title": "Saiba como configurar ESlint e Prettier em projeto React",
+              "url": "https://www.youtube.com/watch?v=XSq4lGZvw7U",
+              "channel": "Marco Bruno"
+            },
+            {
+              "title": "Como configurar o Prettier + Eslint no pre-commit do seu projeto React",
+              "url": "https://www.youtube.com/watch?v=vTI6pPZMhBU",
+              "channel": "Vinicius Dacal"
             }
           ]
         },
@@ -2706,6 +3264,23 @@
               ],
               "answerIndex": 0,
               "explanation": "O principal ponto de discussão é a poluição visual do HTML (conhecida como 'HTML soup'), o que muitas vezes leva desenvolvedores a extraírem componentes."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Tailwind CSS - Curso Novo - Origamid",
+              "url": "https://www.youtube.com/watch?v=JwEz-9CmeBg",
+              "channel": "Origamid"
+            },
+            {
+              "title": "Tailwind CSS para Iniciantes | Aprenda na Prática do Zero",
+              "url": "https://www.youtube.com/watch?v=SLa18pVJ09s",
+              "channel": "Formare"
+            },
+            {
+              "title": "Tutorial Tailwind CSS para Iniciantes: Crie Seu Primeiro Site do Zero! 🚀",
+              "url": "https://www.youtube.com/watch?v=om_wwhAOBBE",
+              "channel": "Quinn Software | Português"
             }
           ]
         }
@@ -2809,6 +3384,23 @@
                 "/Cartao.js": "export default function Cartao({ titulo, descricao, destaque }) {\n  return (\n    <article>\n      <h2>{titulo}</h2>\n      {descricao && <p>{descricao}</p>}\n      {destaque && <span>Destaque</span>}\n    </article>\n  );\n}\n"
               }
             }
+          ],
+          "videos": [
+            {
+              "title": "React do zero e do jeito certo utilizando TypeScript",
+              "url": "https://www.youtube.com/watch?v=3CoBJmolf84",
+              "channel": "Full Cycle"
+            },
+            {
+              "title": "Como Usar TypeScript no React | Guia Completo",
+              "url": "https://www.youtube.com/watch?v=2-I3x3voXL8",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "#14 React do ZERO na Prática | Componentes, Props e Estado (Live para Iniciantes)",
+              "url": "https://www.youtube.com/watch?v=bFRr3sF0Wss",
+              "channel": "Desvendando o Código"
+            }
           ]
         },
         {
@@ -2899,6 +3491,23 @@
                 "/Contador.js": "import { useState } from \"react\";\n\nexport default function Contador({ maximo }) {\n  const [valor, setValor] = useState(0);\n\n  function somar() {\n    setValor((atual) => (maximo !== undefined && atual >= maximo ? atual : atual + 1));\n  }\n\n  return (\n    <div>\n      <p>Valor: {valor}</p>\n      <button type=\"button\" onClick={somar}>\n        +1\n      </button>\n      <button type=\"button\" onClick={() => setValor((atual) => atual - 1)}>\n        -1\n      </button>\n      <button type=\"button\" onClick={() => setValor(0)}>\n        Zerar\n      </button>\n    </div>\n  );\n}\n"
               }
             }
+          ],
+          "videos": [
+            {
+              "title": "useState: aprenda o React Hook neste TUTORIAL | #AluraMais",
+              "url": "https://www.youtube.com/watch?v=KdQa4Rd6K1A",
+              "channel": "Alura"
+            },
+            {
+              "title": "React na Prática | Estado e Eventos com useState",
+              "url": "https://www.youtube.com/watch?v=hE2wbDwChms",
+              "channel": "Desvendando o Código"
+            },
+            {
+              "title": "React useState: Como Atualizar Estado do Jeito Certo (e o que NÃO fazer)",
+              "url": "https://www.youtube.com/watch?v=Dk3SbgiHJ1o",
+              "channel": "Jean Júnior Dev"
+            }
           ]
         },
         {
@@ -2973,6 +3582,28 @@
               "answerIndex": 1,
               "explanation": "Usar índices como key em listas dinâmicas causa bugs visuais e de estado. IDs únicos garantem a estabilidade da árvore de componentes."
             }
+          ],
+          "videos": [
+            {
+              "title": "Renderização Condicional com React.JS (React.JS 2020 #04)",
+              "url": "https://www.youtube.com/watch?v=wncdpOBi4Ag",
+              "channel": "Universo Discreto"
+            },
+            {
+              "title": "ReactJS - Manipulando valores de um formulário com useState e onChange",
+              "url": "https://www.youtube.com/watch?v=o59EnbaSQ14",
+              "channel": "Vinicius Dacal"
+            },
+            {
+              "title": "O jeito certo de renderizar listas (arrays) no React JS #cortes",
+              "url": "https://www.youtube.com/watch?v=bP61ICOgQzY",
+              "channel": "Roger Melo | JavaScript"
+            },
+            {
+              "title": "ReactJS Básico 13 - Evento onChange",
+              "url": "https://www.youtube.com/watch?v=vWc2J4zSnyw",
+              "channel": "Ralf Lima"
+            }
           ]
         },
         {
@@ -3042,6 +3673,23 @@
               ],
               "answerIndex": 3,
               "explanation": "Como o callback do useEffect não pode ser async, criamos uma função interna async dentro dele e usamos `try...catch` para capturar falhas de rede."
+            }
+          ],
+          "videos": [
+            {
+              "title": "React básico:  o useEffect p/ chamada de API",
+              "url": "https://www.youtube.com/watch?v=L6raE_UfweY",
+              "channel": "Rocketseat"
+            },
+            {
+              "title": "APRENDA USEEFFECT - SIMPLIFICANDO OS HOOKS DO REACT",
+              "url": "https://www.youtube.com/watch?v=ojzuilNld1s",
+              "channel": "Matheus Battisti - Hora de Codar"
+            },
+            {
+              "title": "Consumindo APIs no React com SWR | Code/Drops #38",
+              "url": "https://www.youtube.com/watch?v=Pbs1VIwPoRA",
+              "channel": "Rocketseat"
             }
           ]
         },
@@ -3117,6 +3765,23 @@
               "answerIndex": 3,
               "explanation": "Hooks customizados encapsulam comportamento e lógica reutilizável, enquanto o Context resolve compartilhamento global."
             }
+          ],
+          "videos": [
+            {
+              "title": "CONTEXT API do REACTJS de uma vez por todas (com HOOKS)",
+              "url": "https://www.youtube.com/watch?v=TLX5k-TlAoE",
+              "channel": "cookingcode"
+            },
+            {
+              "title": "CaquiCoders #41 - Usando a Context API em aplicações React",
+              "url": "https://www.youtube.com/watch?v=kSQP3x80IOk",
+              "channel": "CaquiCoders"
+            },
+            {
+              "title": "Curso de React JS Aula 17 API Context do React e Hook Personalizado",
+              "url": "https://www.youtube.com/watch?v=GQRzGgmYyzA",
+              "channel": "Professor Edson Maia"
+            }
           ]
         },
         {
@@ -3186,6 +3851,23 @@
               ],
               "answerIndex": 1,
               "explanation": "O useNavigate retorna uma função que permite navegar programaticamente para frente, para trás ou para caminhos específicos na aplicação."
+            }
+          ],
+          "videos": [
+            {
+              "title": "React Router: O guia completo para navegação em aplicativos React",
+              "url": "https://www.youtube.com/watch?v=7b42lVMdEjE",
+              "channel": "Matheus Battisti - Hora de Codar"
+            },
+            {
+              "title": "Criando rotas com React Router Dom v6",
+              "url": "https://www.youtube.com/watch?v=hQak2OogSa8",
+              "channel": "TecEdu4All"
+            },
+            {
+              "title": "React Router DOM: criando rotas e navegando entre páginas",
+              "url": "https://www.youtube.com/watch?v=rKsevEpvCck",
+              "channel": "WebTech Network"
             }
           ]
         }
@@ -3269,6 +3951,23 @@
               "answerIndex": 3,
               "explanation": "Templates são parecidos com layouts, mas recriam uma nova instância e reiniciam estados a cada navegação do usuário, enquanto layouts preservam o estado."
             }
+          ],
+          "videos": [
+            {
+              "title": "Roteamento no Next.js 16 (File-system Routing) | Curso Completo #02",
+              "url": "https://www.youtube.com/watch?v=IW-3rCMV_eU",
+              "channel": "Kewa Code"
+            },
+            {
+              "title": "Next.js 16: Rotas Dinâmicas (Server Props vs useParams Hook) | Curso Completo #03",
+              "url": "https://www.youtube.com/watch?v=7Ef7LdKQcpE",
+              "channel": "Kewa Code"
+            },
+            {
+              "title": "Dominando o App Router do Next.js",
+              "url": "https://www.youtube.com/watch?v=FKRP05KQkW0",
+              "channel": "LuizTools"
+            }
           ]
         },
         {
@@ -3334,6 +4033,13 @@
               ],
               "answerIndex": 3,
               "explanation": "Server Components podem buscar dados e passá-los diretamente como props para Client Components, contanto que possam ser serializados em JSON."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Next.js 16: O Novo Modelo Mental (Server vs Client Components) | Curso Completo #01",
+              "url": "https://www.youtube.com/watch?v=hvaQ2ccfITo",
+              "channel": "Kewa Code"
             }
           ]
         },
@@ -3409,6 +4115,13 @@
               "answerIndex": 3,
               "explanation": "Ambas as abordagens instruem o Next.js a buscar os dados frescos do servidor a cada requisição, desativando completamente o cache para aquela chamada."
             }
+          ],
+          "videos": [
+            {
+              "title": "Cache no Next.js 15 - Aula Completa",
+              "url": "https://www.youtube.com/watch?v=7HMe6kEigtQ",
+              "channel": "Codante - Evolua no front-end"
+            }
           ]
         },
         {
@@ -3474,6 +4187,23 @@
               ],
               "answerIndex": 0,
               "explanation": "Nunca se deve confiar apenas no cliente. A validação robusta deve ocorrer na Server Action (ex: com Zod), retornando erros estruturados para que a UI os exiba adequadamente."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Next.js Forms com Server Actions",
+              "url": "https://www.youtube.com/watch?v=231I8iUXm9I",
+              "channel": "DeveloperDeck101"
+            },
+            {
+              "title": "👉 Vem ver como funcionam as Server Actions no #nextjs!",
+              "url": "https://www.youtube.com/watch?v=hP3BCuSuLP4",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "Eu tentei Next.JS 14 por 30 dias e descobri o poder do CRUD",
+              "url": "https://www.youtube.com/watch?v=wKlKS6LlwlA",
+              "channel": "Lucas Nhimi"
             }
           ]
         },
@@ -3544,6 +4274,23 @@
               ],
               "answerIndex": 0,
               "explanation": "A função `generateMetadata` roda no servidor antes da renderização da página, permitindo buscar dados dinâmicos e injetar tags corretas para SEO."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Nextjs SEO Metadata",
+              "url": "https://www.youtube.com/watch?v=IS0VWhSTMC8",
+              "channel": "DeveloperDeck101"
+            },
+            {
+              "title": "Como medir e melhorar o CLS das páginas do seu site com o Dev Tools do Chrome (Core Web Vitals)",
+              "url": "https://www.youtube.com/watch?v=epZ4_xLROaE",
+              "channel": "Aylton Inacio"
+            },
+            {
+              "title": "Core Web Vitals: como entender a performance de carregamento do seu site?",
+              "url": "https://www.youtube.com/watch?v=scgpBUWPi1Q",
+              "channel": "Visie Padrões Web"
             }
           ]
         },
@@ -3618,6 +4365,28 @@
               ],
               "answerIndex": 1,
               "explanation": "O Next.js oculta propositalmente variáveis sem o prefixo público do lado cliente para evitar que chaves de API secretas fiquem expostas no navegador."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Deploy 100% GRÁTIS com Vercel + Next.js – rápido, fácil e profissional! 🔥#vercel #nextjs #deploy",
+              "url": "https://www.youtube.com/watch?v=8CMW3URmXUo",
+              "channel": "DevFast"
+            },
+            {
+              "title": "Deploy Next.js Quebrando? Faça na Vercel do Jeito Certo",
+              "url": "https://www.youtube.com/watch?v=ysSLwPkjzj4",
+              "channel": "Gotas de Tecnologia"
+            },
+            {
+              "title": "Variáveis de Ambiente no Vercel e Domínios Personalizados",
+              "url": "https://www.youtube.com/watch?v=ufwGhyyO158",
+              "channel": "INEMA TDS"
+            },
+            {
+              "title": "🎯Deploy PROFISSIONAL com GitHub e Vercel! Versionamento na Prática 🚀",
+              "url": "https://www.youtube.com/watch?v=ZINNNZSikP4",
+              "channel": "DevFast"
             }
           ]
         }
@@ -3701,6 +4470,23 @@
               "answerIndex": 1,
               "explanation": "O matcher `toContain` verifica se um valor específico está presente em um array ou iterável."
             }
+          ],
+          "videos": [
+            {
+              "title": "Vitest do Zero: Testes Unitários e Mocks na Prática (Guia Completo)",
+              "url": "https://www.youtube.com/watch?v=2A3ylIjy6qg",
+              "channel": "Clovin DEV"
+            },
+            {
+              "title": "Testes Unitários Frontend - @rodrigoodev Curso de Testes no Frontend",
+              "url": "https://www.youtube.com/watch?v=MfEcEjSaO_E",
+              "channel": "Rodrigo Gabriel Dev"
+            },
+            {
+              "title": "Como Escrever Testes Unitários Com Vitest Em 2024",
+              "url": "https://www.youtube.com/watch?v=KNcFTirghdY",
+              "channel": "DevClub PRO"
+            }
           ]
         },
         {
@@ -3771,6 +4557,23 @@
               "answerIndex": 3,
               "explanation": "Simular interações reais através de fireEvent ou userEvent garante que todos os manipuladores de eventos vinculados sejam disparados."
             }
+          ],
+          "videos": [
+            {
+              "title": "Testes no React com Jest & Testing Library | Guia Completo",
+              "url": "https://www.youtube.com/watch?v=0hVXjqHwvI0",
+              "channel": "Felipe Rocha • Full Stack Club"
+            },
+            {
+              "title": "Testando aplicações React com Jest & Testing Library - Decode #012",
+              "url": "https://www.youtube.com/watch?v=edXudaVB0Bg",
+              "channel": "Rocketseat"
+            },
+            {
+              "title": "Como iniciar nos testes de componentes ReactJS: Jest e React Testing Library para iniciantes",
+              "url": "https://www.youtube.com/watch?v=pLfdbpkl3iM",
+              "channel": "quero ser dev"
+            }
           ]
         },
         {
@@ -3836,6 +4639,28 @@
               ],
               "answerIndex": 2,
               "explanation": "Hooks como o criado pelo Zustand só rodam dentro de componentes React, mas o objeto store possui métodos como `getState` para uso externo."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Quando é necessário usar React Query (TanStack Query) em uma aplicação React JS #cortes",
+              "url": "https://www.youtube.com/watch?v=_6ampVU6l6s",
+              "channel": "Roger Melo | JavaScript"
+            },
+            {
+              "title": "Como Utilizar React Query nos Seus Projetos Next.js com useQuery/useMutation/Optimistic Update",
+              "url": "https://www.youtube.com/watch?v=n3Aj575jnpI",
+              "channel": "Gus Quem Fala"
+            },
+            {
+              "title": "Zustand: Gerenciamento de estado global no React",
+              "url": "https://www.youtube.com/watch?v=p3iFfb75QTI",
+              "channel": "Marcio dos Anjos Junior"
+            },
+            {
+              "title": "Zustand na prática | Do Prop Drilling ao Estado Global no React + Vite + TypeScript",
+              "url": "https://www.youtube.com/watch?v=ApUwqCsTkHQ",
+              "channel": "William Faria | Dev"
             }
           ]
         },
@@ -3911,6 +4736,23 @@
               "answerIndex": 3,
               "explanation": "O codegen abre um navegador que grava suas ações e gera o código correspondente do teste, servindo como ponto de partida rápido para novos cenários."
             }
+          ],
+          "videos": [
+            {
+              "title": "Tutorial de Testes E2E com Playwright",
+              "url": "https://www.youtube.com/watch?v=iXDkQPcYnso",
+              "channel": "Mago Acadêmico"
+            },
+            {
+              "title": "Curso de Automação de Testes com Playwright – Introdução",
+              "url": "https://www.youtube.com/watch?v=WYgDL106aVI",
+              "channel": "Willames Vital"
+            },
+            {
+              "title": "Conheça o Playwright 🚀 - #QATW1",
+              "url": "https://www.youtube.com/watch?v=Rp2y-uotumE",
+              "channel": "Papito | Roverstack"
+            }
           ]
         },
         {
@@ -3980,6 +4822,18 @@
               ],
               "answerIndex": 0,
               "explanation": "A action de checkout copia o código do seu repositório para o executor para que os passos seguintes possam usá-lo."
+            }
+          ],
+          "videos": [
+            {
+              "title": "Como Configurar GitHub Actions Passo a Passo (Guia Completo)",
+              "url": "https://www.youtube.com/watch?v=sPXNK25vU6o",
+              "channel": "CodandoTV"
+            },
+            {
+              "title": "Criando um Workflow AUTOMATIZADO de CI com o Github Actions",
+              "url": "https://www.youtube.com/watch?v=F51HlrEeedw",
+              "channel": "Fernanda Kipper"
             }
           ]
         }
