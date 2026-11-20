@@ -33,12 +33,15 @@ export function StudyBottomBar({
   previous,
   next,
   completed,
+  justCompleted = false,
   onToggleComplete,
   suggestion,
 }: {
   previous: BarLink | null;
   next: BarLink | null;
   completed: boolean;
+  /** Concluído agora: o botão "acende" com `station-pop` (D12). */
+  justCompleted?: boolean;
   onToggleComplete: () => void;
   /** Texto do convite para concluir; nulo quando não há o que sugerir. */
   suggestion?: string | null;
@@ -86,7 +89,7 @@ export function StudyBottomBar({
                 }
                 className={cn(
                   "shrink-0 px-4 sm:px-5",
-                  suggestion && "animate-[station-pop_0.3s_ease-out]",
+                  (suggestion || justCompleted) && "animate-[station-pop_0.3s_ease-out]",
                 )}
               />
             }

@@ -44,10 +44,13 @@ export function VideoItem({
   resource,
   active,
   onSelect,
+  freshlyDone = false,
 }: {
   resource: ResourceDto;
   active: boolean;
   onSelect: () => void;
+  /** Concluído agora há pouco: o check entra com `station-pop`. */
+  freshlyDone?: boolean;
 }) {
   return (
     <li>
@@ -62,7 +65,7 @@ export function VideoItem({
       >
         <ResourceIcon resource={resource} />
         <span className="min-w-0 flex-1 truncate text-sm">{resource.title}</span>
-        <StatusMark status={resource.status} />
+        <StatusMark status={resource.status} pop={freshlyDone} />
       </button>
     </li>
   );
@@ -79,12 +82,14 @@ export function ReadingItem({
   readerHref: internalHref,
   onOpen,
   onMarkRead,
+  freshlyDone = false,
 }: {
   resource: ResourceDto;
   caption?: string;
   readerHref?: string;
   onOpen: () => void;
   onMarkRead: () => void;
+  freshlyDone?: boolean;
 }) {
   const content = (
     <>
@@ -126,7 +131,7 @@ export function ReadingItem({
       )}
       {resource.status === "completed" ? (
         <span className="flex size-11 shrink-0 items-center justify-center">
-          <StatusMark status="completed" />
+          <StatusMark status="completed" pop={freshlyDone} />
         </span>
       ) : (
         <Tooltip>
@@ -176,7 +181,14 @@ const STATUS_LABELS: Record<ResourceStatus, string> = {
  * `Tooltip` (antes um `title`) é a mesma informação para quem passa o mouse.
  * O gatilho é um `<span>` porque o marcador fica dentro do link do recurso.
  */
-export function StatusMark({ status }: { status: ResourceStatus }) {
+export function StatusMark({
+  status,
+  pop = false,
+}: {
+  status: ResourceStatus;
+  /** Acabou de concluir: o check "acende" (D12). Nos já concluídos, nada. */
+  pop?: boolean;
+}) {
   if (status === "not_started") return null;
   const label = STATUS_LABELS[status];
   return (
@@ -185,7 +197,11 @@ export function StatusMark({ status }: { status: ResourceStatus }) {
         render={<span className="flex shrink-0" role="img" aria-label={label} />}
       >
         {status === "completed" ? (
-          <Check className="text-line size-4" strokeWidth={3} aria-hidden="true" />
+          <Check
+            className={cn("text-line size-4", pop && "station-pop")}
+            strokeWidth={3}
+            aria-hidden="true"
+          />
         ) : (
           <CircleDashed className="text-ink-faint size-4" aria-hidden="true" />
         )}

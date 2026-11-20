@@ -63,7 +63,9 @@ export function RouteLine({
               className={cn(
                 "relative flex shrink-0 items-center justify-center rounded-full transition-colors duration-300",
                 dot,
-                done && "bg-line station-pop text-white",
+                // Check branco no claro e tinta no escuro: branco sobre as cores
+                // claras das trilhas no escuro fica abaixo de 3:1.
+                done && "bg-line station-pop text-white dark:text-primary-foreground",
                 current && "border-line bg-background border-[3px]",
                 !done && !current && "border-input bg-background border-2",
               )}

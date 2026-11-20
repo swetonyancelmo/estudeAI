@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  AlertCircle,
   ArrowLeft,
   ArrowRight,
   ChartColumn,
@@ -35,7 +34,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { useRoadmap, useToggleTopic } from "@/lib/roadmaps/api";
+import { useRoadmap } from "@/lib/roadmaps/api";
 import { AREA_LABELS } from "@/lib/roadmaps/labels";
 import { firstPendingTopic, studyHref } from "@/lib/roadmaps/study";
 import {
@@ -47,12 +46,14 @@ import {
   roadmapFacts,
   type ModuleState,
 } from "@/lib/roadmaps/track";
+import { CompletionDialog } from "./completion-dialog";
 import { DeleteRoadmapButton } from "./delete-roadmap-button";
 import { LineLegend } from "./line-legend";
 import { OriginStation, RailSegment, TerminalStation } from "./line-stations";
 import { RouteProgress } from "./progress-bar";
 import { RoadmapAdjustPanel } from "./roadmap-adjust-panel";
 import { TopicCheckbox, type TopicHighlight } from "./topic-checkbox";
+import { useCompleteTopic } from "./use-complete-topic";
 
 /**
  * Detalhe do roadmap persistido (FR-03.2 + FR-03.3), desenhado como uma LINHA
@@ -93,7 +94,8 @@ interface Adjustment {
 }
 
 function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
-  const toggle = useToggleTopic(roadmap.id);
+  // Concluir pelo marcador da linha também fecha estação com o resumo (D12).
+  const completion = useCompleteTopic(roadmap);
   const [adjustment, setAdjustment] = useState<Adjustment | null>(null);
   const changes = adjustment?.changes ?? null;
   /** Só o que o usuário abriu/fechou na mão; o resto segue o padrão por estado. */
@@ -263,15 +265,6 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
           </Alert>
         )}
 
-        {toggle.isError && (
-          <Alert variant="destructive">
-            <AlertCircle />
-            <AlertDescription>
-              Não foi possível salvar essa alteração. Tente novamente.
-            </AlertDescription>
-          </Alert>
-        )}
-
         <LineLegend />
       </div>
 
@@ -370,7 +363,7 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
                           <TopicCheckbox
                             key={topic.id}
                             topic={topic}
-                            onToggle={toggle.mutate}
+                            onToggle={completion.toggleTopic}
                             highlight={highlightOf(topic.id)}
                             studyHref={studyHref(roadmap.id, topic.id)}
                             current={topic.id === nextTopic?.id}
@@ -392,6 +385,12 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
           reached={isFinished}
         />
       </ol>
+
+      <CompletionDialog
+        roadmap={roadmap}
+        milestone={completion.milestone}
+        onClose={completion.closeMilestone}
+      />
 
       {/* Ação destrutiva no fim da página: fora do caminho de quem só veio
           estudar, e sem competir com o reajuste lá em cima. */}
