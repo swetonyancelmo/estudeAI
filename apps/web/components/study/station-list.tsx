@@ -27,10 +27,16 @@ export function StationList({
   location,
   currentDetail,
   onNavigate,
+  justCompleted,
 }: {
   roadmapId: string;
   location: TopicLocation;
   currentDetail?: ReactNode;
+  /**
+   * Parada concluída agora há pouco (D12): o marcador acende com
+   * `station-pop` e o trecho até a próxima se desenha (`rail-grow`).
+   */
+  justCompleted?: string | null;
   /** Chamado ao seguir um link (no celular, fecha o Sheet). */
   onNavigate?: () => void;
 }) {
@@ -49,8 +55,10 @@ export function StationList({
       </header>
 
       <ol className="before:bg-border relative flex flex-col gap-0.5 before:absolute before:top-5 before:bottom-5 before:left-4.25 before:w-0.5">
-        {moduleTopics.map((topic) => {
+        {moduleTopics.map((topic, index) => {
           const state = stopState(topic);
+          const isLast = index === moduleTopics.length - 1;
+          const fresh = topic.id === justCompleted && topic.isCompleted;
           const isCurrent = topic.id === current.id;
           const isProject = topic.kind === "project";
           const row = (
@@ -59,7 +67,7 @@ export function StationList({
                 state={state}
                 current={isCurrent}
                 project={isProject}
-                className="relative mt-0.5"
+                className={cn("relative mt-0.5", fresh && "station-pop")}
               />
               <span className="min-w-0 flex-1">
                 <span
@@ -83,7 +91,17 @@ export function StationList({
           );
 
           return (
-            <li key={topic.id}>
+            <li key={topic.id} className="relative">
+              {/* Trecho percorrido até a próxima parada, sobre o trilho neutro. */}
+              {topic.isCompleted && !isLast && (
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "bg-line absolute top-5.5 -bottom-6 left-4.25 w-0.5",
+                    fresh && "rail-grow",
+                  )}
+                />
+              )}
               {isCurrent ? (
                 // Sobre `line-soft` no escuro, `ink-faint` fica abaixo de AA
                 // (globals.css): os metadados da parada atual sobem para

@@ -12,6 +12,7 @@ import {
   Maximize2,
   Minimize2,
   PanelRightClose,
+  Play,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -35,9 +36,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { CompletionDialog } from "@/components/roadmap/completion-dialog";
+import { useCompleteTopic } from "@/components/roadmap/use-complete-topic";
 import {
   useRoadmap,
-  useToggleTopic,
   useTopicChallenges,
   useTopicQuiz,
   useUpdateResourceProgress,
@@ -74,6 +76,9 @@ import { YoutubePlayer } from "./youtube-player";
 
 /** Intervalo mínimo entre dois registros de "em andamento" do mesmo vídeo. */
 const PROGRESS_REPORT_MS = 15_000;
+
+/** Relógio dos eventos do player (fora do componente: não roda no render). */
+const clock = () => Date.now();
 
 /** Abas do tópico (D9). O valor vai para a URL em `?aba=`. */
 const TABS = ["materiais", "exercicios", "desafios", "anotacoes"] as const;
@@ -137,7 +142,7 @@ function StudyLayout({
   const router = useRouter();
   const searchParams = useSearchParams();
   const { topic, module, moduleIndex, moduleTopics, previous, next } = location;
-  const toggle = useToggleTopic(roadmap.id);
+  const completion = useCompleteTopic(roadmap, { announce: true });
   const progress = useUpdateResourceProgress(roadmap.id, topic.id);
   const quiz = useTopicQuiz(roadmap.id, topic.id);
   const challenges = useTopicChallenges(roadmap.id, topic.id);
@@ -174,10 +179,22 @@ function StudyLayout({
       )?.id ?? null,
   );
   const [unavailable, setUnavailable] = useState<Set<string>>(new Set());
+  /** Vídeo que acabou de terminar: o palco oferece a próxima aula (sem autoplay). */
+  const [endedId, setEndedId] = useState<string | null>(null);
   /** Último envio por recurso, para não chamar a API a cada leitura do player. */
   const lastReport = useRef(new Map<string, number>());
 
   const selected = playable.find((resource) => resource.id === selectedId);
+  /** A aula seguinte na ordem; a primeira ainda não vista, se a seguinte já foi. */
+  const nextVideo = selected
+    ? (playable
+        .slice(playable.indexOf(selected) + 1)
+        .find((resource) => resource.status !== "completed") ??
+      playable.find(
+        (resource) => resource.id !== selected.id && resource.status !== "completed",
+      ) ??
+      playable[playable.indexOf(selected) + 1])
+    : undefined;
   const isProject = topic.kind === "project";
 
   // Estado de cada aba, para o indicador discreto no rótulo.
@@ -224,24 +241,31 @@ function StudyLayout({
       : "Tudo visto por aqui. Concluir esta parada?"
     : null;
 
+  /** Conclusão com o retorno da D12: toast, ou o resumo ao fechar uma estação. */
   function toggleTopic() {
-    toggle.mutate(topic.id, {
-      onError: () =>
-        toast.error("Não foi possível salvar seu progresso.", {
-          id: "toggle-error",
-          action: { label: "Tentar de novo", onClick: toggleTopic },
-        }),
-    });
+    return completion.toggleTopic(topic.id);
   }
 
-  /** Concluir com a sugestão na tela responde a ela: conclui e segue. */
+  /**
+   * Concluir com a sugestão na tela responde a ela: conclui e segue. Se a
+   * conclusão fecha a estação (ou a rota), fica aqui para o resumo abrir;
+   * a próxima estação é uma das ações dele.
+   */
   function handleBarComplete() {
-    toggleTopic();
-    if (suggest && next) router.push(studyHref(roadmap.id, next.id));
+    const reached = toggleTopic();
+    if (suggest && next && !reached) router.push(studyHref(roadmap.id, next.id));
   }
+
+  /** Recursos concluídos nesta visita: só eles ganham o `station-pop`. */
+  const [freshlyDone, setFreshlyDone] = useState<Set<string>>(new Set());
 
   function report(body: UpdateResourceProgressRequestDto & { resourceId: string }) {
     progress.mutate(body, {
+      onSuccess: (result) => {
+        if (result.status === "completed") {
+          setFreshlyDone((ids) => new Set(ids).add(result.resourceId));
+        }
+      },
       onError: () =>
         toast.error("Não foi possível salvar seu progresso.", {
           id: "progress-error",
@@ -272,7 +296,7 @@ function StudyLayout({
       markCompleted(resource, current);
       return;
     }
-    const now = Date.now();
+    const now = clock();
     const last = lastReport.current.get(resource.id) ?? 0;
     if (now - last < PROGRESS_REPORT_MS || current <= resource.watchedSeconds)
       return;
@@ -292,6 +316,7 @@ function StudyLayout({
 
   function selectVideo(resourceId: string, fromSheet = false) {
     setSelectedId(resourceId);
+    setEndedId(null);
     if (fromSheet) {
       setSheetOpen(false);
       window.scrollTo({ top: 0 });
@@ -329,6 +354,7 @@ function StudyLayout({
       }
       onOpen={() => openReading(resource)}
       onMarkRead={() => markCompleted(resource)}
+      freshlyDone={freshlyDone.has(resource.id)}
     />
   ));
   const readingItems = readings.map((resource) => (
@@ -337,6 +363,7 @@ function StudyLayout({
       resource={resource}
       onOpen={() => openReading(resource)}
       onMarkRead={() => markCompleted(resource)}
+      freshlyDone={freshlyDone.has(resource.id)}
     />
   ));
 
@@ -352,6 +379,7 @@ function StudyLayout({
                 key={resource.id}
                 resource={resource}
                 active={resource.id === selectedId}
+                freshlyDone={freshlyDone.has(resource.id)}
                 onSelect={() => selectVideo(resource.id, fromSheet)}
               />
             ))}
@@ -444,7 +472,7 @@ function StudyLayout({
           {selected ? (
             <section
               aria-label="Aula"
-              className="bg-stage text-stage-foreground overflow-hidden lg:rounded-lg"
+              className="bg-stage text-stage-foreground relative overflow-hidden lg:rounded-lg"
             >
               {unavailable.has(selected.id) ? (
                 <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 p-6 text-center">
@@ -471,10 +499,20 @@ function StudyLayout({
                   onProgress={(current, duration) =>
                     handleVideoProgress(selected, current, duration)
                   }
-                  onEnded={() => markCompleted(selected)}
+                  onEnded={() => {
+                    markCompleted(selected);
+                    setEndedId(selected.id);
+                  }}
                   onUnavailable={() =>
                     setUnavailable((ids) => new Set(ids).add(selected.id))
                   }
+                />
+              )}
+              {endedId === selected.id && nextVideo && (
+                <NextLessonCard
+                  title={nextVideo.title}
+                  onPlay={() => selectVideo(nextVideo.id)}
+                  onDismiss={() => setEndedId(null)}
                 />
               )}
             </section>
@@ -577,6 +615,7 @@ function StudyLayout({
                         key={resource.id}
                         resource={resource}
                         active={resource.id === selectedId}
+                        freshlyDone={freshlyDone.has(resource.id)}
                         onSelect={() => {
                           selectVideo(resource.id);
                           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -636,6 +675,7 @@ function StudyLayout({
                       roadmapId={roadmap.id}
                       location={location}
                       currentDetail={currentDetail(false)}
+                      justCompleted={completion.justCompleted}
                     />
                   </div>
                 </ScrollArea>
@@ -658,6 +698,7 @@ function StudyLayout({
               roadmapId={roadmap.id}
               location={location}
               currentDetail={currentDetail(true)}
+              justCompleted={completion.justCompleted}
               onNavigate={() => setSheetOpen(false)}
             />
           </div>
@@ -682,10 +723,52 @@ function StudyLayout({
           }
         }
         completed={topic.isCompleted}
+        justCompleted={completion.justCompleted === topic.id && topic.isCompleted}
         onToggleComplete={handleBarComplete}
         suggestion={suggestion}
       />
 
+      <CompletionDialog
+        roadmap={roadmap}
+        milestone={completion.milestone}
+        onClose={completion.closeMilestone}
+      />
+
+    </div>
+  );
+}
+
+/**
+ * Fim de um vídeo com outra aula no tópico (D12): um cartão no palco oferece a
+ * próxima. Sem autoplay: quem decide é a pessoa.
+ */
+function NextLessonCard({
+  title,
+  onPlay,
+  onDismiss,
+}: {
+  title: string;
+  onPlay: () => void;
+  onDismiss: () => void;
+}) {
+  return (
+    <div
+      role="status"
+      className="bg-stage/90 absolute inset-0 flex items-center justify-center p-4"
+    >
+      <div className="border-border bg-card text-card-foreground flex w-full max-w-sm flex-col gap-3 rounded-lg border p-4 shadow-[0_3px_0_var(--border)]">
+        <p className="data-label text-ink-faint">Próxima aula</p>
+        <p className="font-semibold">{title}</p>
+        <div className="flex flex-wrap gap-2">
+          <Button onClick={onPlay}>
+            <Play className="size-4" />
+            Assistir
+          </Button>
+          <Button variant="ghost" onClick={onDismiss}>
+            Agora não
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

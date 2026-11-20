@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { AlertCircle, Plus } from "lucide-react";
+import { AlertCircle, Plus, RotateCcw } from "lucide-react";
 import type { RoadmapListItemDto } from "@estudeai/shared-types";
+import { NextStopCard, WeekCard } from "@/components/dashboard/next-stop-card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { RouteLine } from "@/components/brand/route-line";
 import { RoadmapCard } from "@/components/roadmap/roadmap-card";
@@ -15,9 +16,12 @@ import { useRoadmaps } from "@/lib/roadmaps/api";
  * "Meus Roadmaps" (FR-03.2). Quem ainda não gerou nenhum continua vendo o
  * convite ao diagnóstico — a lista não substitui o onboarding, ela aparece
  * quando existe o que listar.
+ *
+ * Redesign v2 (Fase 4): um clique até voltar a estudar. No topo, a próxima
+ * parada do roadmap em destaque; depois a revisão do dia, a semana e a grade.
  */
 export default function DashboardPage() {
-  const { data: roadmaps, isPending, isError } = useRoadmaps();
+  const { data: roadmaps, isPending, isError, refetch, isRefetching } = useRoadmaps();
 
   return (
     <div className="flex flex-1 flex-col px-5 py-10 sm:px-10 sm:py-14">
@@ -26,8 +30,17 @@ export default function DashboardPage() {
         {isError && (
           <Alert variant="destructive">
             <AlertCircle />
-            <AlertDescription>
-              Não foi possível carregar seus roadmaps. Recarregue a página.
+            <AlertDescription className="flex flex-col items-start gap-3">
+              Não foi possível carregar seus roadmaps.
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void refetch()}
+                disabled={isRefetching}
+              >
+                <RotateCcw className="size-4" />
+                Tentar de novo
+              </Button>
             </AlertDescription>
           </Alert>
         )}
@@ -38,11 +51,18 @@ export default function DashboardPage() {
   );
 }
 
+const isInProgress = (roadmap: RoadmapListItemDto) =>
+  roadmap.status === "active" && roadmap.progress.percent < 100;
+
 function List({ roadmaps }: { roadmaps: RoadmapListItemDto[] }) {
   // Sem nenhum roadmap em andamento, criar um novo vira a ação principal.
-  const hasActive = roadmaps.some(
-    (roadmap) => roadmap.status === "active" && roadmap.progress.percent < 100,
-  );
+  const featured = roadmaps.find(isInProgress);
+  const hasActive = featured !== undefined;
+  // Em andamento primeiro; concluídos (e os demais) depois, na ordem da API.
+  const ordered = [
+    ...roadmaps.filter(isInProgress),
+    ...roadmaps.filter((roadmap) => !isInProgress(roadmap)),
+  ];
 
   return (
     <div className="flex flex-col gap-8 duration-300 animate-in fade-in-0">
@@ -64,13 +84,22 @@ function List({ roadmaps }: { roadmaps: RoadmapListItemDto[] }) {
         </Link>
       </div>
 
+      {featured && <NextStopCard roadmap={featured} />}
+
       <ReviewTodayCard />
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        {roadmaps.map((roadmap) => (
-          <RoadmapCard key={roadmap.id} roadmap={roadmap} />
-        ))}
-      </div>
+      {featured && <WeekCard roadmap={featured} />}
+
+      <section aria-labelledby="all-roadmaps" className="flex flex-col gap-4">
+        <h2 id="all-roadmaps" className="text-lg">
+          {roadmaps.length === 1 ? "Sua rota" : "Suas rotas"}
+        </h2>
+        <div className="grid gap-5 sm:grid-cols-2">
+          {ordered.map((roadmap) => (
+            <RoadmapCard key={roadmap.id} roadmap={roadmap} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
@@ -110,6 +139,7 @@ function ListSkeleton() {
   return (
     <div className="flex flex-col gap-8" aria-busy="true">
       <Skeleton className="h-10 w-64 rounded-lg" />
+      <Skeleton className="h-64 w-full rounded-lg" />
       <div className="grid gap-5 sm:grid-cols-2">
         {[0, 1].map((index) => (
           <Skeleton key={index} className="h-52 rounded-lg" />

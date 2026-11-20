@@ -29,7 +29,9 @@ export function RoadmapCard({ roadmap }: { roadmap: RoadmapListItemDto }) {
     <article
       className={cn(
         TRACK_CLASS[roadmap.targetArea],
-        "group border-border bg-card relative flex flex-col gap-6 rounded-lg border p-6 transition-[border-color,box-shadow,transform] duration-150",
+        // `min-w-0`: item de grid; sem isso o título longo da próxima parada
+        // (que trunca) alarga o card e a página rola de lado no celular.
+        "group border-border bg-card relative flex min-w-0 flex-col gap-6 rounded-lg border p-6 transition-[border-color,box-shadow,transform] duration-150",
         "hover:border-foreground/30 hover:-translate-y-0.5 hover:shadow-[0_3px_0_var(--border)]",
         "has-[a:focus-visible]:border-foreground/30",
       )}
