@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import type { KnownSkill, TrackTopicLevel } from '@estudeai/shared-types';
-import type { TrackDocContent } from '../track-content';
+import type { TrackDocContent, TrackVideoContent } from '../track-content';
 import { TrackModule } from './track-module.entity';
 import { TrackTopicResource } from './track-topic-resource.entity';
 
@@ -64,6 +64,14 @@ export class TrackTopic {
    */
   @Column({ type: 'jsonb', default: () => "'[]'" })
   docs: TrackDocContent[];
+
+  /**
+   * Videoaulas curadas no JSON (`pnpm videos import`). Mesmo regime de `docs`:
+   * vem do arquivo, é regravada a cada sync e vira linhas `topic_resources`
+   * (source 'youtube') no roadmap do usuário.
+   */
+  @Column({ type: 'jsonb', default: () => "'[]'" })
+  videos: TrackVideoContent[];
 
   @Column({ type: 'int', name: 'order_index' })
   order: number;

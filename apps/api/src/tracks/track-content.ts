@@ -12,6 +12,7 @@ import {
   type KnownSkill,
   type TrackTopicLevel,
 } from '@estudeai/shared-types';
+import { isCanonicalYoutubeUrl } from './youtube-video-url';
 
 /**
  * Conteúdo das trilhas curadas (docs/TRILHAS.md §2): tipos, leitura dos JSONs
@@ -36,6 +37,18 @@ export interface TrackDocContent {
   title: string;
   /** https, num domínio de `OFFICIAL_DOC_HOSTS`. */
   url: string;
+}
+
+/**
+ * Videoaula gratuita do YouTube de um tópico. Curada à mão (sugerida por IA,
+ * conferida por `pnpm videos import`): `url` é sempre a forma canônica
+ * `https://www.youtube.com/watch?v=<id>` e `title` é o título REAL do vídeo.
+ */
+export interface TrackVideoContent {
+  title: string;
+  url: string;
+  /** Nome do canal, quando o YouTube informou. */
+  channel?: string;
 }
 
 /**
@@ -81,6 +94,8 @@ export interface TrackTopicContent {
   searchQuery: string;
   /** Documentação oficial curada (0 a `MAX_TOPIC_DOCS` links). Opcional. */
   docs?: TrackDocContent[];
+  /** Videoaulas do YouTube (0 a `MAX_TOPIC_VIDEOS`), em ordem de preferência. Opcional. */
+  videos?: TrackVideoContent[];
   /** Quiz do tópico (`MIN_QUIZ_QUESTIONS` a `MAX_QUIZ_QUESTIONS`). Opcional. */
   quiz?: TrackQuizQuestionContent[];
   /** Desafios de código (até `MAX_TOPIC_CHALLENGES`). Opcional. */
@@ -129,6 +144,12 @@ const CHALLENGE_PATH =
 
 /** Teto de links de documentação por tópico: é leitura de apoio, não índice. */
 export const MAX_TOPIC_DOCS = 4;
+
+/**
+ * Teto de videoaulas por tópico. Mais de uma é de propósito: vídeo some ou
+ * bloqueia incorporação com o tempo, e as outras seguram o tópico.
+ */
+export const MAX_TOPIC_VIDEOS = 4;
 
 /**
  * Domínios aceitos como documentação OFICIAL (o projeto ou o mantenedor da
@@ -335,6 +356,9 @@ export function validateTrackContent(
       if (topic.docs !== undefined) {
         problems.push(...validateDocs(topic.docs, at));
       }
+      if (topic.videos !== undefined) {
+        problems.push(...validateVideos(topic.videos, at));
+      }
       if (topic.quiz !== undefined) {
         problems.push(...validateQuiz(topic.quiz, at, quizIds));
       }
@@ -409,6 +433,33 @@ function validateDocs(docs: unknown, at: string): string[] {
     }
     if (seen.has(doc.url)) problems.push(`${at}: doc repetido "${doc.url}"`);
     seen.add(doc.url);
+  }
+  return problems;
+}
+
+/** Regras do campo `videos` de um tópico. Devolve os problemas encontrados. */
+function validateVideos(videos: unknown, at: string): string[] {
+  if (!Array.isArray(videos)) return [`${at}: videos deve ser uma lista`];
+
+  const problems: string[] = [];
+  if (videos.length > MAX_TOPIC_VIDEOS) {
+    problems.push(`${at}: no máximo ${MAX_TOPIC_VIDEOS} vídeos`);
+  }
+  const seen = new Set<string>();
+  for (const video of videos as Partial<TrackVideoContent>[]) {
+    if (!isText(video?.title)) problems.push(`${at}: vídeo sem title`);
+    if (video?.channel !== undefined && !isText(video.channel)) {
+      problems.push(`${at}: vídeo com channel vazio`);
+    }
+    if (!isText(video?.url) || !isCanonicalYoutubeUrl(video.url)) {
+      problems.push(
+        `${at}: vídeo "${String(video?.url)}" não está no formato https://www.youtube.com/watch?v=<id>`,
+      );
+      continue;
+    }
+    if (seen.has(video.url))
+      problems.push(`${at}: vídeo repetido "${video.url}"`);
+    seen.add(video.url);
   }
   return problems;
 }

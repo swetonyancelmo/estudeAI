@@ -143,6 +143,15 @@ Tópicos de JavaScript, DOM e React podem ter um campo `challenges` (até 2): `{
 - **Confiança:** é o navegador que informa à API se os testes passaram. Para estudo individual isso basta; quem burlar só engana a si mesmo.
 - **Validação do conteúdo:** todo desafio novo precisa ser conferido no Sandpack real: o código inicial falha e a solução passa.
 
+
+### 8.4 Videoaulas curadas
+
+Cada tópico pode ter até 4 vídeos do YouTube no campo `videos` do JSON (`{ "title", "url", "channel" }`), com `url` sempre no formato `https://www.youtube.com/watch?v=<id>`. Eles não custam cota: valem desde o primeiro dia, e a fila da seção 8 vira só um complemento.
+
+- **Curadoria:** `pnpm --filter api videos list <trilha>` lista os tópicos para o prompt de [PROMPT-VIDEOS.md](PROMPT-VIDEOS.md), e `pnpm --filter api videos import <trilha> <arquivo.json>` valida cada link no oEmbed do YouTube e grava só o bloco `videos` de cada tópico. O título e o canal gravados são os reais do YouTube. **Revise o diff antes de commitar.**
+- **Banco:** `track_topics.videos` (jsonb), regravado a cada sync. No roadmap do usuário, cada vídeo vira uma linha de `topic_resources` (`type = 'video'`, `source = 'youtube'`).
+- **Por que mais de um por tópico:** vídeo some ou bloqueia incorporação com o tempo, e os outros seguram o tópico.
+
 ## 9. Contrato (shared-types)
 
 - `WizardAnswers`: ganha `area` e `knownSkills`; `affinity` vira opcional (obrigatória quando `area` = "ainda não sei", validado na API).

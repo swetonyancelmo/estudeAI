@@ -257,6 +257,45 @@ describe('TrackSyncService', () => {
     });
   });
 
+  describe('videoaulas curadas', () => {
+    const videos = [
+      {
+        title: 'Aula de HTML',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        channel: 'Canal',
+      },
+    ];
+    const withVideos = loaded('hash-videos', [
+      {
+        ...moduleOf('base', [{ slug: 'html' }]),
+        topics: [{ ...moduleOf('base', [{ slug: 'html' }]).topics[0], videos }],
+      },
+    ]);
+
+    it('grava os vídeos no tópico e os leva aos roadmaps existentes', async () => {
+      const db = fakeDatabase();
+      const service = new TrackSyncService(db.dataSource);
+
+      await service.syncTrack('frontend', withVideos);
+
+      expect(db.rows(TrackTopic)[0].videos).toEqual(videos);
+      const track = db.rows(Track)[0];
+      expect(db.manager.query).toHaveBeenCalledWith(
+        expect.stringContaining(`'video'`),
+        [track.id],
+      );
+    });
+
+    it('tópico sem vídeos no JSON fica com lista vazia', async () => {
+      const db = fakeDatabase();
+      const service = new TrackSyncService(db.dataSource);
+
+      await service.syncTrack('frontend', v1);
+
+      expect(db.rows(TrackTopic)[0].videos).toEqual([]);
+    });
+  });
+
   describe('quiz (Fase 3)', () => {
     const question = (id: string, text = `Pergunta ${id}?`) => ({
       id,

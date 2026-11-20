@@ -234,6 +234,41 @@ describe('RoadmapService (geração por trilha curada)', () => {
     ]);
   });
 
+  it('videoaulas curadas entram depois das docs e antes da fila, sem repetir URL', async () => {
+    const track = makeTrack();
+    const css = track.modules[1].topics[0];
+    css.videos = [
+      {
+        title: 'Aula curada',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        channel: 'Canal',
+      },
+      // Mesma URL que a fila já achou: deve virar uma linha só, a curada.
+      { title: 'Aula da fila', url: 'https://youtu.be/css' },
+    ];
+    tracks.findOne.mockResolvedValue(track);
+
+    await service.generate(userId, answers);
+
+    const resources = draft().modules[0].topics[1].resources;
+    expect(resources[0]).toEqual({
+      title: 'Aula curada',
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      type: 'video',
+      source: 'youtube',
+      thumbnailUrl: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
+    });
+    // A URL da fila é a mesma da curada ("https://youtu.be/css"): sai uma vez.
+    expect(
+      resources.filter((r) => r.url === 'https://youtu.be/css'),
+    ).toHaveLength(1);
+    expect(resources.map((r) => r.title)).toEqual([
+      'Aula curada',
+      'Aula da fila',
+      'Artigo',
+    ]);
+  });
+
   it('entrega à justificativa os números do recorte, não os da trilha inteira', async () => {
     await service.generate(userId, answers);
 

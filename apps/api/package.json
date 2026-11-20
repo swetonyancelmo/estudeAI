@@ -22,6 +22,7 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "docs:curate": "ts-node --transpile-only scripts/curate-docs.ts",
     "quiz:curate": "ts-node --transpile-only scripts/curate-quiz.ts",
+    "videos": "ts-node --transpile-only scripts/videos.ts",
     "migration:run": "pnpm typeorm migration:run -d src/config/data-source.ts",
     "migration:revert": "pnpm typeorm migration:revert -d src/config/data-source.ts",
     "migration:generate": "pnpm typeorm migration:generate src/migrations/Migration -d src/config/data-source.ts"
