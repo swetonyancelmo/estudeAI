@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { AlertCircle, ArrowLeft, Check } from "lucide-react";
+import { AlertCircle, ArrowLeft, ArrowRight, Check } from "lucide-react";
 import type {
   ReviewAnswerResultDto,
   ReviewItemDto,
@@ -10,6 +10,8 @@ import type {
 } from "@estudeai/shared-types";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Kbd } from "@/components/ui/kbd";
+import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import {
@@ -19,7 +21,7 @@ import {
   useReviewQueue,
 } from "@/lib/review/api";
 import { studyHref } from "@/lib/roadmaps/study";
-import { AnswerOptions } from "@/components/study/answer-options";
+import { AnswerOptions, AnswerRadioGroup } from "@/components/study/answer-options";
 import { InlineText } from "@/components/study/study-text";
 import { useStudyTime } from "@/components/study/use-study-time";
 
@@ -27,6 +29,10 @@ import { useStudyTime } from "@/components/study/use-study-time";
  * Sessão de revisão espaçada (Fase 6): as perguntas vencidas, uma por vez,
  * com correção e explicação. Trabalha sobre a fila carregada ao abrir; ao sair,
  * a fila do dashboard é recarregada.
+ *
+ * Redesign v2: contador com `Progress`, alternativas em `RadioGroup` com os
+ * atalhos 1 a 4 (Enter confirma e, depois da correção, avança), link para a
+ * sala de estudo do tópico e um resumo sóbrio no fim.
  */
 export function ReviewSession() {
   const queue = useReviewQueue();
@@ -61,8 +67,13 @@ function Session({ items, remaining }: { items: ReviewItemDto[]; remaining: numb
   // Revisar também conta como tempo de estudo, na trilha da pergunta.
   useStudyTime(item.topic.roadmapId);
 
-  const correctCount = Object.values(results).filter((r) => r.correct).length;
-  const wrongCount = Object.values(results).length - correctCount;
+  const answered = Object.values(results);
+  const correctCount = answered.filter((r) => r.correct).length;
+  const wrongCount = answered.length - correctCount;
+  /** A próxima vez que alguma destas perguntas volta. */
+  const nextReview = answered
+    .map((r) => r.nextReviewAt)
+    .sort()[0];
 
   function choose(chosenIndex: number) {
     if (result || answer.isPending) return;
@@ -78,9 +89,15 @@ function Session({ items, remaining }: { items: ReviewItemDto[]; remaining: numb
   if (done) {
     const left = remaining - items.length;
     return (
-      <section className="border-border bg-card flex flex-col items-start gap-4 rounded-lg border p-6">
-        <h2 className="text-xl">Revisão concluída</h2>
-        <p className="text-2xl font-semibold">
+      <section
+        aria-labelledby="review-done"
+        className="border-border bg-card flex flex-col items-start gap-4 rounded-lg border p-6"
+      >
+        <h2 id="review-done" className="text-xl">
+          {items.length} {items.length === 1 ? "revisada" : "revisadas"}
+          {nextReview && `, próxima revisão ${relativeDays(nextReview)}`}
+        </h2>
+        <p className="data-label text-muted-foreground">
           {correctCount} de {items.length} certas
         </p>
         <p className="text-muted-foreground">
@@ -109,28 +126,41 @@ function Session({ items, remaining }: { items: ReviewItemDto[]; remaining: numb
       aria-labelledby="review-question"
       className="border-border bg-card flex flex-col gap-5 rounded-lg border p-5 sm:p-6"
     >
-      <header className="flex flex-wrap items-baseline justify-between gap-2">
-        <Link
-          href={studyHref(item.topic.roadmapId, item.topic.id)}
-          className="text-ink-faint hover:text-foreground truncate text-sm underline-offset-4 hover:underline"
-        >
-          {item.topic.title}
-        </Link>
-        <p className="data-label text-ink-faint" aria-live="polite">
-          {index + 1} de {items.length}
-        </p>
+      <header className="flex flex-col gap-3">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <p className="text-muted-foreground min-w-0 truncate text-sm">
+            {item.topic.title}
+          </p>
+          <p className="data-label text-ink-faint" aria-live="polite">
+            {index + 1} de {items.length}
+          </p>
+        </div>
+        <Progress
+          value={Math.round(((index + (result ? 1 : 0)) / items.length) * 100)}
+          aria-label={`Revisão: pergunta ${index + 1} de ${items.length}`}
+        />
       </header>
 
       <p id="review-question" className="font-medium">
         <InlineText text={item.question.question} />
       </p>
 
-      <AnswerOptions
-        options={item.question.options}
-        result={result ?? null}
-        disabled={answer.isPending}
-        onChoose={choose}
-      />
+      {result ? (
+        <AnswerOptions
+          options={item.question.options}
+          result={result}
+          disabled
+          onChoose={() => {}}
+        />
+      ) : (
+        <AnswerRadioGroup
+          key={item.cardId}
+          options={item.question.options}
+          pending={answer.isPending}
+          onAnswer={choose}
+          shortcuts
+        />
+      )}
 
       {answer.isError && !result && (
         <Alert variant="destructive">
@@ -154,11 +184,25 @@ function Session({ items, remaining }: { items: ReviewItemDto[]; remaining: numb
               <InlineText text={result.explanation} />
             </p>
           </div>
-          <Button
-            onClick={() => (index + 1 < items.length ? setIndex(index + 1) : setDone(true))}
-          >
-            {index + 1 < items.length ? "Próxima pergunta" : "Ver resultado"}
-          </Button>
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Com o foco aqui, Enter avança: "Enter confirma e avança". */}
+            <Button
+              autoFocus
+              onClick={() => (index + 1 < items.length ? setIndex(index + 1) : setDone(true))}
+            >
+              {index + 1 < items.length ? "Próxima pergunta" : "Ver resultado"}
+              <Kbd className="bg-primary-foreground/10 text-primary-foreground hidden sm:inline-flex">
+                Enter
+              </Kbd>
+            </Button>
+            <Link
+              href={studyHref(item.topic.roadmapId, item.topic.id)}
+              className={buttonVariants({ variant: "ghost" })}
+            >
+              Ver tópico
+              <ArrowRight className="size-4" />
+            </Link>
+          </div>
         </div>
       )}
     </section>
@@ -170,7 +214,7 @@ function NothingDue({ queue }: { queue: ReviewQueueDto }) {
     <section className="border-border bg-card flex flex-col items-start gap-4 rounded-lg border p-6">
       <p className="text-success-ink flex items-center gap-2 font-medium">
         <Check className="size-4" strokeWidth={3} />
-        Nada para revisar agora
+        Nada para revisar hoje
       </p>
       <p className="text-muted-foreground">
         {queue.totalCards === 0

@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import type { StepDirection } from "@/lib/wizard/store";
 
@@ -6,7 +6,7 @@ interface WizardMultiStepProps {
   direction: StepDirection;
   title: string;
   subtitle: string;
-  options: ReadonlyArray<{ value: string; label: string }>;
+  options: ReadonlyArray<{ value: string; label: string; hint: string }>;
   none: { label: string; hint: string };
   /** `undefined` = pergunta ainda não respondida; `[]` = "nenhuma". */
   selected: ReadonlyArray<string> | undefined;
@@ -21,6 +21,10 @@ interface WizardMultiStepProps {
  * avança sozinho (a pessoa pode marcar várias) e há uma saída explícita para
  * quem não marca nenhuma — sem ela, "não sei nada ainda" e "ainda não respondi"
  * seriam a mesma tela, e o botão de avançar não teria como distinguir.
+ *
+ * Redesign v2 (Fase 5): cada habilidade é um `Checkbox` do shadcn num card, com
+ * o critério concreto de "já sei" embaixo (D22), para a pessoa não marcar o
+ * que só viu de passagem.
  */
 export function WizardMultiStep({
   direction,
@@ -49,36 +53,31 @@ export function WizardMultiStep({
       </div>
 
       <div role="group" aria-label={title} className="flex flex-col gap-4">
-        <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+        <ul className="grid gap-2.5 sm:grid-cols-2">
           {options.map((option) => {
             const isSelected = selected?.includes(option.value) ?? false;
 
             return (
               <li key={option.value}>
-                <button
-                  type="button"
-                  aria-pressed={isSelected}
-                  onClick={() => onToggle(option.value)}
+                <label
                   className={cn(
-                    "bg-card flex min-h-12 w-full items-center gap-2.5 rounded-lg border px-3 py-2.5 text-left font-medium transition-[border-color,box-shadow,background-color] duration-150",
+                    "bg-card flex h-full min-h-12 w-full cursor-pointer items-start gap-3 rounded-lg border px-3.5 py-3 transition-[border-color,box-shadow,background-color] duration-150",
                     isSelected
                       ? "border-brand bg-brand-soft shadow-[0_2px_0_var(--brand)]"
                       : "border-input hover:border-foreground/40 shadow-[0_2px_0_var(--border)]",
+                    "has-[:focus-visible]:ring-ring/50 has-[:focus-visible]:ring-3",
                   )}
                 >
-                  <span
-                    className={cn(
-                      "flex size-5 shrink-0 items-center justify-center rounded-sm border-2 transition-colors",
-                      isSelected
-                        ? "border-brand bg-brand text-brand-foreground"
-                        : "border-input",
-                    )}
-                    aria-hidden="true"
-                  >
-                    {isSelected && <Check className="size-3.5" strokeWidth={3.5} />}
+                  <Checkbox
+                    checked={isSelected}
+                    onCheckedChange={() => onToggle(option.value)}
+                    className="mt-0.5 after:hidden focus-visible:ring-0"
+                  />
+                  <span className="flex min-w-0 flex-col gap-0.5">
+                    <span className="font-medium">{option.label}</span>
+                    <span className="text-muted-foreground text-sm">{option.hint}</span>
                   </span>
-                  {option.label}
-                </button>
+                </label>
               </li>
             );
           })}

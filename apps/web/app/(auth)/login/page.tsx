@@ -12,6 +12,7 @@ export default function LoginPage() {
       title="Entrar"
       description="Sua rota está onde você deixou."
       submitLabel="Entrar"
+      pendingLabel="Entrando…"
       resolver={zodResolver(loginSchema)}
       onSubmit={login}
       footer={

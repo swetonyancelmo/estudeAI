@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ForkIcon } from "@/components/brand/icons";
 import { Button } from "@/components/ui/button";
+import { Kbd } from "@/components/ui/kbd";
 import { visibleSteps } from "@/lib/wizard/steps";
 import { toWizardAnswers, useWizardStore } from "@/lib/wizard/store";
 import { useGenerateRoadmap } from "@/lib/wizard/api";
@@ -87,6 +88,16 @@ export function WizardFlow() {
     [select, next, step, isLastStep],
   );
 
+  /** Setas do teclado: escolhem sem avançar (avançar a cada seta pularia a pergunta). */
+  const handlePick = useCallback(
+    (value: string) => {
+      if (step.kind !== "single") return;
+      if (advanceTimer.current) clearTimeout(advanceTimer.current);
+      select(step.field, value as never);
+    },
+    [select, step],
+  );
+
   // Enquanto a geração pende, a rota vai sendo traçada. Segue exibida depois do sucesso, durante a navegação para o detalhe. As
   // respostas vêm de `mutation.variables` porque o store já foi resetado.
   if ((mutation.isPending || mutation.isSuccess) && mutation.variables) {
@@ -120,6 +131,10 @@ export function WizardFlow() {
           options={step.options as StepOptions}
           selected={answers[step.field]}
           onSelect={handleSelect}
+          onPick={handlePick}
+          onConfirm={() => {
+            if (!isLastStep) next();
+          }}
         />
       ) : (
         <WizardMultiStep
@@ -170,13 +185,8 @@ export function WizardFlow() {
       {/* Os atalhos numéricos só existem nas perguntas de escolha única. */}
       {step.kind === "single" && (
         <p className="text-ink-faint hidden text-sm sm:block">
-          Dica: use as teclas de{" "}
-          <kbd className="data-label border-input rounded-sm border px-1.5 py-0.5">1</kbd>{" "}
-          a{" "}
-          <kbd className="data-label border-input rounded-sm border px-1.5 py-0.5">
-            {step.options.length}
-          </kbd>{" "}
-          para responder.
+          Dica: use as teclas de <Kbd>1</Kbd> a <Kbd>{step.options.length}</Kbd> para
+          responder, ou as setas e <Kbd>Enter</Kbd>.
         </p>
       )}
     </div>

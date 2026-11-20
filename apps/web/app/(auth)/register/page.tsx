@@ -12,6 +12,7 @@ export default function RegisterPage() {
       title="Criar conta"
       description="Leva um minuto. Depois são até 6 perguntas até o seu roadmap."
       submitLabel="Criar conta"
+      pendingLabel="Criando conta…"
       resolver={zodResolver(registerSchema)}
       onSubmit={register}
       passwordHint="Mínimo de 8 caracteres."

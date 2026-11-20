@@ -1,5 +1,6 @@
-import { useEffect } from "react";
-import { Check } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { Kbd } from "@/components/ui/kbd";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import type { StepDirection } from "@/lib/wizard/store";
 
@@ -9,15 +10,25 @@ interface WizardStepProps {
   subtitle: string;
   options: ReadonlyArray<{ value: string; label: string; hint: string }>;
   selected: string | undefined;
+  /** Escolha que avança sozinha (clique, toque ou tecla 1..n). */
   onSelect: (value: string) => void;
+  /** Escolha sem avançar (setas do teclado, que só percorrem as opções). */
+  onPick: (value: string) => void;
+  /** Enter com uma opção escolhida: segue para a próxima pergunta. */
+  onConfirm: () => void;
 }
 
 /**
  * Uma pergunta grande por tela (FR-01.1), com as opções como cards
  * selecionáveis. Cada opção tem um atalho numérico (1, 2, 3) mostrado na
- * própria tecla desenhada à esquerda. A transição suave (NFR-03) vem das
+ * própria tecla desenhada à direita. A transição suave (NFR-03) vem das
  * classes do tw-animate-css; o pai remonta este componente via `key` a cada
  * step, o que redispara a animação de entrada.
+ *
+ * Redesign v2 (Fase 5): as opções são um `RadioGroup` do shadcn. Clique e
+ * atalho numérico escolhem e avançam (os 250ms de sempre); as setas do
+ * teclado só percorrem as opções, porque avançar a cada seta pularia a
+ * pergunta. Com uma opção escolhida pelas setas, Enter avança.
  */
 export function WizardStep({
   direction,
@@ -26,7 +37,16 @@ export function WizardStep({
   options,
   selected,
   onSelect,
+  onPick,
+  onConfirm,
 }: WizardStepProps) {
+  /**
+   * A seleção que vem de uma seta não avança. O Base UI seleciona ao mover o
+   * foco e dispara um clique sintético, então o tipo do evento não distingue:
+   * a marca é a própria tecla, anotada no `keydown` do grupo.
+   */
+  const viaArrow = useRef(false);
+
   // Atalhos 1..n. Ignora quando há modificador ou foco em campo de texto.
   useEffect(() => {
     function handleKey(event: KeyboardEvent) {
@@ -56,52 +76,52 @@ export function WizardStep({
         <p className="text-muted-foreground text-lg">{subtitle}</p>
       </div>
 
-      <div role="radiogroup" aria-label={title} className="flex flex-col gap-3">
-        {options.map((option, index) => {
-          const isSelected = selected === option.value;
-
-          return (
-            <button
-              key={option.value}
-              type="button"
-              role="radio"
-              aria-checked={isSelected}
+      <RadioGroup
+        aria-label={title}
+        value={selected ?? null}
+        onValueChange={(value) => {
+          if (viaArrow.current) onPick(value as string);
+          else onSelect(value as string);
+        }}
+        onKeyDownCapture={(event) => {
+          viaArrow.current = event.key.startsWith("Arrow");
+        }}
+        onPointerDownCapture={() => {
+          viaArrow.current = false;
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" && selected !== undefined) {
+            event.preventDefault();
+            onConfirm();
+          }
+        }}
+        className="gap-3"
+      >
+        {options.map((option, index) => (
+          <label
+            key={option.value}
+            className={cn(
+              "group bg-card flex cursor-pointer items-center gap-4 rounded-lg border p-4 transition-[border-color,box-shadow,transform,background-color] duration-150 sm:p-5",
+              "border-input shadow-[0_3px_0_var(--border)] hover:border-foreground/40 hover:-translate-y-0.5",
+              "has-[[data-checked]]:border-brand has-[[data-checked]]:bg-brand-soft has-[[data-checked]]:translate-y-0 has-[[data-checked]]:shadow-[0_3px_0_var(--brand)]",
+              "has-[:focus-visible]:ring-ring/50 has-[:focus-visible]:ring-3",
+            )}
+          >
+            <RadioGroupItem
+              value={option.value}
               aria-keyshortcuts={String(index + 1)}
-              onClick={() => onSelect(option.value)}
-              className={cn(
-                "group bg-card flex items-center gap-4 rounded-lg border p-4 text-left transition-[border-color,box-shadow,transform,background-color] duration-150 sm:p-5",
-                isSelected
-                  ? "border-brand bg-brand-soft shadow-[0_3px_0_var(--brand)]"
-                  : "border-input shadow-[0_3px_0_var(--border)] hover:border-foreground/40 hover:-translate-y-0.5",
-              )}
-            >
-              <span
-                className={cn(
-                  "data-label flex size-9 shrink-0 items-center justify-center rounded-md border-2 transition-colors",
-                  isSelected
-                    ? "border-brand bg-brand text-brand-foreground"
-                    : "border-input text-ink-faint group-hover:border-foreground/40",
-                )}
-                aria-hidden="true"
-              >
-                {isSelected ? (
-                  <Check className="size-4" strokeWidth={3.5} />
-                ) : (
-                  index + 1
-                )}
-              </span>
-              <span className="flex flex-col gap-0.5">
-                <span className="font-heading text-xl font-bold">
-                  {option.label}
-                </span>
-                <span className="text-muted-foreground text-sm">
-                  {option.hint}
-                </span>
-              </span>
-            </button>
-          );
-        })}
-      </div>
+              className="focus-visible:ring-0"
+            />
+            <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+              <span className="font-heading text-xl font-bold">{option.label}</span>
+              <span className="text-muted-foreground text-sm">{option.hint}</span>
+            </span>
+            <Kbd className="hidden sm:inline-flex" aria-hidden="true">
+              {index + 1}
+            </Kbd>
+          </label>
+        ))}
+      </RadioGroup>
     </div>
   );
 }

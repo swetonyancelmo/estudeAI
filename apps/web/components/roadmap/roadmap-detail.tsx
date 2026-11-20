@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
@@ -85,7 +86,12 @@ export function RoadmapDetail({ roadmapId }: { roadmapId: string }) {
     return <DetailError error={error} />;
   }
 
-  return <RoadmapLine roadmap={roadmap} />;
+  // `useSearchParams` (a estação pedida na URL) pede um Suspense em volta.
+  return (
+    <Suspense fallback={<DetailSkeleton />}>
+      <RoadmapLine roadmap={roadmap} />
+    </Suspense>
+  );
 }
 
 interface Adjustment {
@@ -98,8 +104,20 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
   const completion = useCompleteTopic(roadmap);
   const [adjustment, setAdjustment] = useState<Adjustment | null>(null);
   const changes = adjustment?.changes ?? null;
-  /** Só o que o usuário abriu/fechou na mão; o resto segue o padrão por estado. */
-  const [openOverrides, setOpenOverrides] = useState<Record<string, boolean>>({});
+  /**
+   * Só o que o usuário abriu/fechou na mão; o resto segue o padrão por estado.
+   * `?estacao=<id>` (o "Rever estação" da evolução) já chega com ela aberta.
+   */
+  const requestedStation = useSearchParams().get("estacao");
+  const [openOverrides, setOpenOverrides] = useState<Record<string, boolean>>(() =>
+    requestedStation ? { [requestedStation]: true } : {},
+  );
+  useEffect(() => {
+    if (!requestedStation) return;
+    document
+      .getElementById(`estacao-${requestedStation}`)
+      ?.scrollIntoView({ block: "start" });
+  }, [requestedStation]);
 
   const states = moduleStates(roadmap.modules);
   const facts = roadmapFacts(roadmap.modules);
@@ -170,7 +188,7 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
               <h1>Trilha {area}</h1>
               <Link
                 href={`/roadmaps/${roadmap.id}/evolucao`}
-                className={buttonVariants({ variant: "outline", size: "sm" })}
+                className={cn(buttonVariants({ variant: "outline", size: "sm" }), "max-sm:h-11")}
               >
                 <ChartColumn className="size-4" />
                 Sua evolução
@@ -281,7 +299,11 @@ function RoadmapLine({ roadmap }: { roadmap: RoadmapDetailDto }) {
           const hours = moduleHours(module);
 
           return (
-            <li key={module.id} className="relative flex gap-4 sm:gap-6">
+            <li
+              key={module.id}
+              id={`estacao-${module.id}`}
+              className="relative flex scroll-mt-4 gap-4 sm:gap-6"
+            >
               {/* trilho + estação */}
               <div className="flex w-8 shrink-0 flex-col items-center" aria-hidden="true">
                 <span
