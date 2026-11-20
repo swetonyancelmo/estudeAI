@@ -33,7 +33,7 @@ export function RoadmapCard({ roadmap }: { roadmap: RoadmapListItemDto }) {
         // (que trunca) alarga o card e a página rola de lado no celular.
         "group border-border bg-card relative flex min-w-0 flex-col gap-6 rounded-lg border p-6 transition-[border-color,box-shadow,transform] duration-150",
         "hover:border-foreground/30 hover:-translate-y-0.5 hover:shadow-[0_3px_0_var(--border)]",
-        "has-[a:focus-visible]:border-foreground/30",
+        "has-[a:focus-visible]:border-foreground/30 has-[a:focus-visible]:ring-ring/50 has-[a:focus-visible]:ring-3",
       )}
     >
       <div className="flex items-start justify-between gap-3">

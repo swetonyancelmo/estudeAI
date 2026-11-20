@@ -6,6 +6,7 @@ import { ForkIcon } from "@/components/brand/icons";
 import { RouteLine } from "@/components/brand/route-line";
 import { Wordmark } from "@/components/brand/wordmark";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { trackFactsLine } from "@/lib/tracks/facts";
 import { STEP_SHORT_LABELS, WIZARD_STEPS } from "@/lib/wizard/steps";
 
 /**
@@ -20,24 +21,28 @@ import { STEP_SHORT_LABELS, WIZARD_STEPS } from "@/lib/wizard/steps";
 
 const TRACKS = [
   {
+    area: "frontend",
     className: "track-frontend",
     name: "Frontend",
     description: "A parte que as pessoas veem e usam: páginas, interação e interface.",
     stops: ["HTML semântico", "CSS e layout", "JavaScript", "React", "Projeto no ar"],
   },
   {
+    area: "backend",
     className: "track-backend",
     name: "Backend",
     description: "O que roda por trás: regras de negócio, dados e segurança.",
     stops: ["Lógica e Node.js", "APIs REST", "Banco de dados", "Autenticação", "Deploy"],
   },
   {
+    area: "fullstack",
     className: "track-fullstack",
     name: "Fullstack",
     description: "As duas pontas, para quem quer construir o produto inteiro.",
     stops: ["Fundamentos web", "React", "APIs e banco", "Autenticação", "Produto completo"],
   },
   {
+    area: "devops",
     className: "track-devops",
     name: "DevOps",
     description: "O caminho do código até a produção: servidores, automação e nuvem.",
@@ -140,7 +145,7 @@ export default function Home() {
           <a href="#trilhas" className="hover:text-foreground hidden min-h-11 items-center md:flex">
             Trilhas
           </a>
-          <Link href="/login" className="hover:text-foreground flex min-h-11 items-center px-2">
+          <Link href="/login" className="hover:text-foreground flex min-h-11 min-w-11 items-center justify-center px-2">
             Entrar
           </Link>
           <ThemeToggle className="-mr-2.5" />
@@ -246,7 +251,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="mt-10 grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="mt-10 grid grid-cols-1 items-start gap-10 lg:grid-cols-[1.1fr_0.9fr]">
               <ExampleModule />
 
               <dl className="flex flex-col gap-7">
@@ -284,6 +289,8 @@ export default function Home() {
                       {track.name}
                     </h3>
                     <p className="text-muted-foreground text-sm">{track.description}</p>
+                    {/* Ficha da trilha completa; o roadmap de cada um é um recorte dela. */}
+                    <p className="data-label text-ink-faint">{trackFactsLine(track.area)}</p>
                   </div>
 
                   <ol className="border-line ml-2 border-l-[3px] sm:mt-2.5 sm:ml-0 sm:grid sm:grid-cols-5 sm:border-l-0">
@@ -337,7 +344,7 @@ export default function Home() {
             </a>
           </span>
           <span className="flex gap-5">
-            <Link href="/login" className="hover:text-foreground flex min-h-11 items-center">
+            <Link href="/login" className="hover:text-foreground flex min-h-11 min-w-11 items-center">
               Entrar
             </Link>
             <Link href="/register" className="hover:text-foreground flex min-h-11 items-center">

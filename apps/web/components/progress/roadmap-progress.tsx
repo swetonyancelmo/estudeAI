@@ -2,10 +2,30 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { AlertCircle, ArrowLeft, ChevronDown } from "lucide-react";
-import type { RoadmapDetailDto, RoadmapStatsDto } from "@estudeai/shared-types";
+import {
+  AlertCircle,
+  ArrowLeft,
+  ArrowRight,
+  ChevronDown,
+  RotateCcw,
+} from "lucide-react";
+import {
+  QUIZ_PASS_RATIO,
+  type ModuleQuizStatsDto,
+  RoadmapDetailDto,
+  RoadmapStatsDto,
+} from "@estudeai/shared-types";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { buttonVariants } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
@@ -14,6 +34,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { useReviewQueue } from "@/lib/review/api";
 import { useRoadmap, useRoadmapStats } from "@/lib/roadmaps/api";
 import { AREA_LABELS } from "@/lib/roadmaps/labels";
 import { TRACK_CLASS } from "@/lib/roadmaps/track";
@@ -29,6 +50,10 @@ import { WeeklyChart } from "./weekly-chart";
 /**
  * Painel de evolução de um roadmap (Fase 5). O "hoje" e o fuso são os do
  * navegador: os dias da pessoa são os dias locais dela.
+ *
+ * Redesign v2: breadcrumb e a faixa de cor da trilha do detalhe, quatro
+ * números em `Card`, tooltips no heatmap e nas barras, e o "Vale revisar"
+ * com a estação de menor acerto (D14).
  */
 export function RoadmapProgress({ roadmapId }: { roadmapId: string }) {
   const [today] = useState(() => localToday());
@@ -77,28 +102,55 @@ function ProgressView({
         "flex flex-col gap-8 duration-300 animate-in fade-in-0",
       )}
     >
-      <Link
-        href={`/roadmaps/${roadmap.id}`}
-        className="text-muted-foreground hover:text-foreground -my-2 flex min-h-11 w-fit items-center gap-1.5 rounded-md text-sm font-medium transition-colors"
-      >
-        <ArrowLeft className="size-4" />
-        Trilha {AREA_LABELS[roadmap.targetArea]}
-      </Link>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink
+              render={<Link href="/dashboard" />}
+              className="flex min-h-11 items-center font-medium"
+            >
+              Meus roadmaps
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink
+              render={<Link href={`/roadmaps/${roadmap.id}`} />}
+              className="flex min-h-11 items-center font-medium"
+            >
+              Trilha {AREA_LABELS[roadmap.targetArea]}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage className="font-medium">Sua evolução</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
-      <header className="flex flex-col gap-2">
-        <h1>Sua evolução</h1>
-        <p className="text-muted-foreground max-w-2xl">
-          {hasAnyStudy
-            ? "Tempo de estudo, constância e o que você já domina nesta trilha."
-            : "O tempo de estudo começa a contar quando você estuda um tópico: aulas, leituras, exercícios e desafios."}
-        </p>
+      {/* Mesma faixa de cor do detalhe: deixa claro de qual linha é. */}
+      <header className="border-border bg-card -mt-4 overflow-hidden rounded-lg border">
+        <div className="bg-line h-2" aria-hidden="true" />
+        <div className="flex flex-col gap-2 p-5 sm:p-8">
+          <h1>Sua evolução</h1>
+          <p className="text-muted-foreground max-w-2xl">
+            {hasAnyStudy
+              ? `Tempo de estudo, constância e o que você já domina na Trilha ${AREA_LABELS[roadmap.targetArea]}.`
+              : "O tempo de estudo começa a contar quando você estuda um tópico: aulas, leituras, exercícios e desafios."}
+          </p>
+        </div>
       </header>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatTile
           label="Sequência"
           value={`${stats.currentStreak} ${stats.currentStreak === 1 ? "dia" : "dias"}`}
-          detail={`Recorde: ${stats.bestStreak} ${stats.bestStreak === 1 ? "dia" : "dias"}`}
+          detail="seguidos com estudo, em todas as trilhas"
+        />
+        <StatTile
+          label="Melhor sequência"
+          value={`${stats.bestStreak} ${stats.bestStreak === 1 ? "dia" : "dias"}`}
+          detail="o seu recorde até aqui"
         />
         <StatTile
           label="Esta semana"
@@ -118,15 +170,10 @@ function ProgressView({
           )}
         </StatTile>
         <StatTile
-          label="Ritmo recente"
-          value={formatMinutes(stats.recentWeeklyMinutes)}
-          detail="por semana, na média das últimas 4"
-        />
-        <StatTile
-          label="Previsão"
+          label="No seu ritmo"
           value={
             stats.weeksAtRecentPace === null
-              ? "—"
+              ? "Sem dados"
               : stats.weeksAtRecentPace === 0
                 ? "Concluída"
                 : `≈ ${stats.weeksAtRecentPace} ${stats.weeksAtRecentPace === 1 ? "semana" : "semanas"}`
@@ -134,10 +181,12 @@ function ProgressView({
           detail={
             stats.weeksAtRecentPace === null
               ? "Estude esta semana para ver quanto falta no seu ritmo real."
-              : `para os ~${stats.remainingHours} h que faltam, no seu ritmo real`
+              : `para os ~${stats.remainingHours} h que faltam, a ${formatMinutes(stats.recentWeeklyMinutes)} por semana (média das últimas 4)`
           }
         />
       </div>
+
+      <WorthReviewing roadmapId={roadmap.id} modules={stats.quizByModule} />
 
       <Panel title="Dias de estudo" description="Em todas as suas trilhas, nas últimas 26 semanas.">
         <StudyHeatmap days={stats.days} today={stats.today} />
@@ -234,12 +283,77 @@ function StatTile({
   children?: ReactNode;
 }) {
   return (
-    <div className="border-border bg-card flex flex-col gap-1 rounded-lg border p-4">
+    <Card size="sm" className="gap-1 px-4 py-4">
       <p className="data-label text-ink-faint">{label}</p>
-      <p className="text-xl font-semibold">{value}</p>
+      <p className="font-heading text-2xl leading-tight font-extrabold">{value}</p>
       <p className="text-muted-foreground text-sm">{detail}</p>
       {children}
-    </div>
+    </Card>
+  );
+}
+
+/** Respostas mínimas para uma taxa de acerto dizer alguma coisa. */
+const MIN_ANSWERS = 4;
+
+/**
+ * "Vale revisar" (D14): a estação com a menor taxa de acerto no quiz, entre as
+ * que têm pelo menos 4 respostas. O link abre o detalhe com ela aberta; com
+ * perguntas vencidas na revisão espaçada, também "Revisar agora". Some quando
+ * nenhuma estação tem respostas suficientes ou quando até a pior está acima
+ * da nota de aprovação do quiz (`QUIZ_PASS_RATIO`).
+ */
+function WorthReviewing({
+  roadmapId,
+  modules,
+}: {
+  roadmapId: string;
+  modules: ModuleQuizStatsDto[];
+}) {
+  const queue = useReviewQueue();
+  const candidates = modules
+    .map((station, index) => ({ station, index }))
+    .filter(({ station }) => station.answered >= MIN_ANSWERS);
+  if (candidates.length === 0) return null;
+  const rate = (item: (typeof candidates)[number]) =>
+    item.station.correct / item.station.answered;
+  const { station, index } = candidates.reduce((worst, item) =>
+    rate(item) < rate(worst) ? item : worst,
+  );
+  // Acima da nota de aprovação do quiz não há o que "valer revisar".
+  if (station.correct / station.answered >= QUIZ_PASS_RATIO) return null;
+  const share = Math.round((station.correct / station.answered) * 100);
+  const due = queue.data?.dueCount ?? 0;
+
+  return (
+    <section
+      aria-labelledby="worth-reviewing"
+      className="border-border bg-card flex flex-col gap-4 rounded-lg border p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6"
+    >
+      <div className="flex flex-col gap-1">
+        <h2 id="worth-reviewing" className="text-lg">
+          Vale revisar: Estação {index + 1}
+        </h2>
+        <p className="text-muted-foreground text-sm">
+          {station.title}: {station.correct} de {station.answered} certas ({share}%), o
+          menor acerto da trilha.
+        </p>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {due > 0 && (
+          <Link href="/revisao" className={buttonVariants()}>
+            <RotateCcw className="size-4" />
+            Revisar agora
+          </Link>
+        )}
+        <Link
+          href={`/roadmaps/${roadmapId}?estacao=${station.moduleId}`}
+          className={buttonVariants({ variant: due > 0 ? "outline" : "default" })}
+        >
+          Rever estação {index + 1}
+          <ArrowRight className="size-4" />
+        </Link>
+      </div>
+    </section>
   );
 }
 

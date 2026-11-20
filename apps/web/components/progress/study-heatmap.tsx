@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import type { StudyDayDto } from "@estudeai/shared-types";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { formatMinutes, shortDate } from "@/lib/study/time";
 
 /** Semanas mostradas no mapa (pouco mais de 6 meses). */
@@ -42,16 +43,13 @@ function mondayOf(day: string): string {
   return addDays(day, -((weekday + 6) % 7));
 }
 
-interface Tip {
-  x: number;
-  y: number;
-  day: string;
-  minutes: number;
-}
-
 /**
  * Mapa de dias estudados (Fase 5): uma coluna por semana, de segunda a
  * domingo, nas últimas 26 semanas, em todos os roadmaps da pessoa.
+ *
+ * Redesign v2: cada célula tem um `Tooltip` com a data e os minutos (antes
+ * uma dica desenhada à mão). As células seguem fora da árvore acessível: o
+ * resumo em texto fica no `role="img"` do mapa.
  */
 export function StudyHeatmap({
   days,
@@ -86,7 +84,6 @@ export function StudyHeatmap({
       monthLabels.push("");
     }
   });
-  const [tip, setTip] = useState<Tip | null>(null);
   // Em tela estreita o mapa rola; ele abre no fim, nas semanas recentes.
   const scroller = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -94,20 +91,16 @@ export function StudyHeatmap({
     if (element) element.scrollLeft = element.scrollWidth;
   }, []);
 
-  function showTip(event: PointerEvent<HTMLDivElement>, day: string) {
-    const box = event.currentTarget.parentElement!.parentElement!.getBoundingClientRect();
-    const cell = event.currentTarget.getBoundingClientRect();
-    setTip({
-      x: cell.left - box.left + cell.width / 2,
-      y: cell.top - box.top,
-      day,
-      minutes: minutesByDay.get(day) ?? 0,
-    });
-  }
-
   return (
     <div className="flex flex-col gap-3">
-      <div ref={scroller} className="overflow-x-auto pb-1">
+      {/* Focável: em tela estreita o mapa rola, e quem usa teclado também
+          precisa rolar (axe: scrollable-region-focusable). */}
+      <div
+        ref={scroller}
+        tabIndex={0}
+        aria-label="Mapa de dias de estudo, role para ver as semanas anteriores"
+        className="focus-visible:ring-ring/50 overflow-x-auto rounded-md pb-1 outline-none focus-visible:ring-3"
+      >
         <div className="relative w-max">
           {/* Meses: o rótulo aparece na primeira semana de cada mês. */}
           <div className="text-ink-faint mb-1 ml-8 flex gap-[3px] text-xs" aria-hidden="true">
@@ -121,7 +114,6 @@ export function StudyHeatmap({
             role="img"
             aria-label={`${studiedDays} ${studiedDays === 1 ? "dia" : "dias"} com estudo nas últimas ${WEEKS} semanas`}
             className="flex gap-[3px]"
-            onPointerLeave={() => setTip(null)}
           >
             {/* Fixa à esquerda: com o mapa rolado, os dias da semana continuam visíveis. */}
             <div
@@ -140,28 +132,30 @@ export function StudyHeatmap({
                   day > today ? (
                     <div key={day} className="size-3" />
                   ) : (
-                    <div
-                      key={day}
-                      className="size-3 rounded-[3px] transition-[filter] hover:brightness-110 hover:outline hover:outline-1 hover:outline-[var(--foreground)]"
-                      style={{ background: LEVEL_FILL[levelOf(minutesByDay.get(day) ?? 0)] }}
-                      onPointerEnter={(event) => showTip(event, day)}
-                    />
+                    <Tooltip key={day}>
+                      <TooltipTrigger
+                        delay={0}
+                        render={
+                          <div
+                            className="size-3 rounded-[3px] transition-[filter] hover:brightness-110 hover:outline hover:outline-1 hover:outline-[var(--foreground)]"
+                            style={{ background: LEVEL_FILL[levelOf(minutesByDay.get(day) ?? 0)] }}
+                          />
+                        }
+                      />
+                      <TooltipContent>
+                        <strong className="font-semibold">
+                          {(minutesByDay.get(day) ?? 0) > 0
+                            ? formatMinutes(minutesByDay.get(day)!)
+                            : "Sem estudo"}
+                        </strong>
+                        · {shortDate(day)}
+                      </TooltipContent>
+                    </Tooltip>
                   ),
                 )}
               </div>
             ))}
           </div>
-          {tip && (
-            <div
-              className="bg-foreground text-background pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-md px-2 py-1 text-xs whitespace-nowrap shadow"
-              style={{ left: tip.x, top: tip.y - 6 }}
-            >
-              <strong className="font-semibold">
-                {tip.minutes > 0 ? formatMinutes(tip.minutes) : "Sem estudo"}
-              </strong>{" "}
-              · {shortDate(tip.day)}
-            </div>
-          )}
         </div>
       </div>
 

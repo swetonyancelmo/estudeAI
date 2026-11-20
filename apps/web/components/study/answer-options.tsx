@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
@@ -78,22 +78,57 @@ export function AnswerOptions({
  * Alternativas ainda sem resposta, como `RadioGroup` (quiz do tópico). Setas e
  * clique só escolhem; Enter ou "Responder" confirmam. Depois da correção, o
  * quiz volta a mostrar `AnswerOptions`, com a certa e a errada marcadas.
+ *
+ * Com `shortcuts` (revisão espaçada), as teclas 1 a n escolhem a alternativa,
+ * com a tecla desenhada em `Kbd` ao lado de cada uma, e Enter confirma.
  */
 export function AnswerRadioGroup({
   options,
   pending,
   onAnswer,
+  shortcuts = false,
 }: {
   options: string[];
   pending: boolean;
   onAnswer: (index: number) => void;
+  shortcuts?: boolean;
 }) {
   const [chosen, setChosen] = useState<string | null>(null);
+  const group = useRef<HTMLDivElement>(null);
+
+  // Atalhos 1..n e Enter, fora de campos de texto e sem modificador.
+  const latest = useRef({ chosen, submit: () => {} });
+  useEffect(() => {
+    if (!shortcuts) return;
+    function onKey(event: KeyboardEvent) {
+      if (event.metaKey || event.ctrlKey || event.altKey || event.defaultPrevented) return;
+      const target = event.target as HTMLElement | null;
+      if (target?.closest("input, textarea, select, [contenteditable=true]")) return;
+      const index = Number(event.key) - 1;
+      if (Number.isInteger(index) && index >= 0 && index < options.length) {
+        event.preventDefault();
+        setChosen(String(index));
+        group.current
+          ?.querySelectorAll<HTMLElement>("[role=radio]")
+          [index]?.focus();
+      } else if (event.key === "Enter" && latest.current.chosen !== null) {
+        // Dentro do grupo o Enter já é tratado; aqui cobre o foco fora dele.
+        if (group.current?.contains(target)) return;
+        event.preventDefault();
+        latest.current.submit();
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [shortcuts, options.length]);
 
   function submit() {
     if (chosen === null || pending) return;
     onAnswer(Number(chosen));
   }
+  useEffect(() => {
+    latest.current = { chosen, submit };
+  });
 
   return (
     <form
@@ -104,6 +139,7 @@ export function AnswerRadioGroup({
       }}
     >
       <RadioGroup
+        ref={group}
         aria-label="Alternativas"
         value={chosen}
         onValueChange={(value) => setChosen(value as string)}
@@ -132,6 +168,11 @@ export function AnswerRadioGroup({
               <span className="min-w-0 flex-1">
                 <InlineText text={option} />
               </span>
+              {shortcuts && (
+                <Kbd className="mt-0.5 hidden sm:inline-flex" aria-hidden="true">
+                  {optionIndex + 1}
+                </Kbd>
+              )}
             </label>
           );
         })}

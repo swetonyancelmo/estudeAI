@@ -50,7 +50,7 @@ export function DeleteRoadmapButton({ roadmapId }: { roadmapId: string }) {
           <Button
             variant="ghost"
             size="sm"
-            className="text-muted-foreground hover:text-destructive w-fit"
+            className="text-muted-foreground hover:text-destructive w-fit max-sm:h-11"
           />
         }
       >

@@ -19,6 +19,8 @@ interface AuthFormProps {
   title: string;
   description: string;
   submitLabel: string;
+  /** Texto do botão enquanto envia ("Entrando…"). */
+  pendingLabel: string;
   resolver: Resolver<AuthFormValues>;
   onSubmit: (values: AuthFormValues) => Promise<void>;
   passwordHint?: string;
@@ -29,6 +31,7 @@ export function AuthForm({
   title,
   description,
   submitLabel,
+  pendingLabel,
   resolver,
   onSubmit,
   passwordHint,
@@ -109,7 +112,7 @@ export function AuthForm({
 
         <Button type="submit" className="mt-1 w-full" disabled={isSubmitting}>
           {isSubmitting && <Loader2 className="size-4 animate-spin" />}
-          {submitLabel}
+          {isSubmitting ? pendingLabel : submitLabel}
         </Button>
       </form>
 

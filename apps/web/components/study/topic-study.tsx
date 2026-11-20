@@ -472,7 +472,7 @@ function StudyLayout({
           {selected ? (
             <section
               aria-label="Aula"
-              className="bg-stage text-stage-foreground relative overflow-hidden lg:rounded-lg"
+              className="bg-stage text-stage-foreground focus-within:ring-ring/50 relative overflow-hidden focus-within:ring-3 lg:rounded-lg"
             >
               {unavailable.has(selected.id) ? (
                 <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 p-6 text-center">
@@ -569,7 +569,7 @@ function StudyLayout({
                 variant="outline"
                 size="sm"
                 onClick={() => setSheetOpen(true)}
-                className={cn("mt-1 w-fit", !focus && "lg:hidden")}
+                className={cn("mt-1 h-11 w-fit", !focus && "lg:hidden")}
                 aria-label={`${stationLabel}: ver as paradas da estação`}
               >
                 <ListOrdered className="size-4" />
